@@ -1,7 +1,13 @@
 <template>
   <div class="v-catalog">
     <h1>Catalog</h1>
-    <vCatalogItem/>
+
+    <vCatalogItem
+      v-for="product in products"
+      :key="product.article"
+      :product_data="product"
+      @sendArticle="showChildArticleInConsole"
+    />
   </div>
 </template>
 
@@ -67,6 +73,11 @@
                     }
                 ]
             }
+        },
+        methods: {
+            showChildArticleInConsole(data) {
+                console.log(data)
+            },
         }
     }
 </script>
