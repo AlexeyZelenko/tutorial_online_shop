@@ -30,7 +30,7 @@
             }
         },
         mounted() {
-            this.$set(this.cart_item_data, 'quantity', 1)
+
         }
     }
 </script>
