@@ -6,14 +6,21 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        products: []
+        products: [],
+        cart: []
     },
     mutations: {
+        SET_CART: (state, product) => {
+            state.cart.push(product)
+        },
         SET_PRODUCTS_TO_STATE: (state, products) => {
             state.products = products;
         }
     },
     actions: {
+       ADD_TO_CART({commit}, product) {
+            commit('SET_CART', product)
+       },
        GET_PRODUCTS_FROM_API({commit}) {
            return axios('http://localhost:3000/products', {
             method: "GET"
@@ -29,6 +36,9 @@ let store = new Vuex.Store({
        }
     },
     getters: {
+        CART(state) {
+            return state.cart
+        },
         PRODUCTS(state) {
             return state.products;
         }
