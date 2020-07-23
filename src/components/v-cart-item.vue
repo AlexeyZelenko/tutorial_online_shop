@@ -25,16 +25,17 @@
 </script>
 
 <style lang="scss">
-    .cart-item {
+    .v-cart-item {
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 0 8px 0 #0e0e0e;
+      padding: $padding*2;
+      margin-bottom: $margin*2;
       &__image {
         max-width: 50px;
-        box-shadow: 0 0 8px 0 #0e0e0e;
-        padding: $padding*2;
-        margin-bottom: $margin*2;
+
       }
     }
 </style>
