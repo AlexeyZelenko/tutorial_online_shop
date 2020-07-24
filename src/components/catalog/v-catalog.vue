@@ -57,7 +57,7 @@
                         console.log('Data arrived!')
                     }
                 })
-            // this.$set(this.cart_data, 'quantity', 1)
+            // this.$set(this.product_data, 'quantity', 1)
         }
     }
 </script>
