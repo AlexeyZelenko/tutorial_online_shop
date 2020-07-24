@@ -5,12 +5,12 @@
     </router-link>
     <h1>Catalog</h1>
     <div class="v-catalog__list">
-    <vCatalogItem
-      v-for="product in PRODUCTS"
-      :key="product.article"
-      :product_data="product"
-      @addToCart="addToCart"
-    />
+      <vCatalogItem
+          v-for="product in PRODUCTS"
+          :key="product.article"
+          :product_data="product"
+          @addToCart="addToCart"
+      />
     </div>
   </div>
 </template>
@@ -18,7 +18,6 @@
 <script>
     import vCatalogItem from './v-catalog-item'
     import {mapActions, mapGetters} from 'vuex'
-
 
     export default {
         name: "v-catalog",
@@ -28,9 +27,13 @@
         props: {},
         data() {
             return {
-
             }
         },
+        // firestore() {
+        //     return {
+        //         message: db.collection('/products'),
+        //     }
+        // },
         methods: {
             ...mapActions([
                 'GET_PRODUCTS_FROM_API',
@@ -43,17 +46,18 @@
         computed: {
             ...mapGetters([
                 'PRODUCTS',
-                'CART'
+                'CART',
             ]),
         },
+        watch: {},
         mounted() {
             this.GET_PRODUCTS_FROM_API()
-            .then((response) => {
-                if (response.data) {
-                    console.log('Data arrived!')
-                }
-            })
-            this.$set(this.cart_data, 'quantity', 1)
+                .then((response) => {
+                    if (response.data) {
+                        console.log('Data arrived!')
+                    }
+                })
+            // this.$set(this.cart_data, 'quantity', 1)
         }
     }
 </script>
@@ -66,12 +70,13 @@
       justify-content: space-between;
       align-items: center;
     }
+
     &__link_to_cart {
       position: absolute;
       top: 10px;
       right: 10px;
       padding: $padding*2;
       border: solid 1px #2c3e50;
-      }
+    }
   }
 </style>

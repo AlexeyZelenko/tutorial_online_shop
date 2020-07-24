@@ -7,11 +7,10 @@ import 'firebase/firestore'
 import 'firebase/database'
 import 'firebase/auth'
 import { firestorePlugin } from 'vuefire'
-// import './assets/styles/styles.scss'
 
 Vue.config.productionTip = false
 
-
+// export const db = firebase.initializeApp({ projectId: 'online-shop' }).firestore()
 
 export const db = firebase.initializeApp({
     apiKey: "AIzaSyBMnm2m-5DVxNkJYghP8Jo41V9m3fvf0Tc",
@@ -24,6 +23,8 @@ export const db = firebase.initializeApp({
     measurementId: "G-QSTP059LSZ"
 }).firestore()
 
+
+
 Vue.use(firestorePlugin)
 
 
@@ -32,3 +33,4 @@ new Vue({
     store,
     router
 }).$mount('#app')
+
