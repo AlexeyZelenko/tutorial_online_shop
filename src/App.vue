@@ -6,6 +6,7 @@
 
 <script>
     import vMainWrapper from './components/v-main-wrapper'
+    import 'firebase/firestore'
 
     export default {
         name: 'App',
