@@ -7,6 +7,7 @@ import 'firebase/firestore'
 import 'firebase/database'
 import 'firebase/auth'
 import { firestorePlugin } from 'vuefire'
+import 'material-design-icons-iconfont'
 
 Vue.config.productionTip = false
 
