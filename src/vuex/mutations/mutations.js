@@ -27,6 +27,12 @@ export default  {
     SET_PRODUCTS_TO_STATE: (state, products) => {
         state.products = products;
     },
+    CHANGE_LOCALE_RU: (state) => {
+        state.locale = 'ru-RU';
+    },
+    CHANGE_LOCALE_EN: (state) => {
+        state.locale = 'en-US';
+    }
 }
 
 

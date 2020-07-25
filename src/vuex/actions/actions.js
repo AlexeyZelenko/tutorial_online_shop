@@ -11,6 +11,12 @@ export default  {
     ADD_TO_CART({commit}, product) {
         commit('SET_CART', product)
     },
+    LOCALIZE_RU({commit}) {
+        commit('CHANGE_LOCALE_RU')
+    },
+    LOCALIZE_EN({commit}) {
+        commit('CHANGE_LOCALE_EN')
+    }
 }
 
 

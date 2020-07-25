@@ -1,14 +1,20 @@
 <template>
   <div class="v-main-wrapper">
-    <!-- Switch -->
-    <div class="switch">
-      <label>
-        English
-        <input type="checkbox">
-        <span class="lever"></span>
-        Русский
-      </label>
-    </div>
+
+
+    <button
+        class="localize"
+        @click="changeLocaleRu"
+    >
+      ru
+    </button>
+    <button
+        class="localize"
+        @click="changeLocaleEn"
+    >
+      eng
+    </button>
+
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -17,6 +23,7 @@
 
 <script>
     // import localizeFilter from '@/filters/localize.filter'
+    import {mapActions} from 'vuex'
 
     export default {
         name: 'v-main-wrapper',
@@ -27,7 +34,20 @@
             }
         },
         computed: {},
-        methods: {},
+        methods: {
+           ...mapActions([
+               'LOCALIZE_RU',
+               'LOCALIZE_EN'
+           ]) ,
+            changeLocaleRu() {
+               this.LOCALIZE_RU()
+            },
+            changeLocaleEn() {
+                this.LOCALIZE_EN()
+            },
+
+
+        },
         watch: {},
         mounted() {}
     }
