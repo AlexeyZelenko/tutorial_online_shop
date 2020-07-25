@@ -78,5 +78,15 @@
     &_image {
       width: 100px;
     }
+    &_show-info {
+      padding: 8px 16px;
+      margin-bottom: 5px;
+      background: darkseagreen;
+      color: whitesmoke;
+      border: 0;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
   }
 </style>

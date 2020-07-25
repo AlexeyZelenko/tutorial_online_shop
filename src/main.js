@@ -8,6 +8,8 @@ import 'firebase/database'
 import 'firebase/auth'
 import { firestorePlugin } from 'vuefire'
 import 'material-design-icons-iconfont'
+import 'materialize-css/dist/js/materialize.min'
+import localizeFilter from '@/filters/localize.filter'
 
 Vue.config.productionTip = false
 
@@ -27,7 +29,7 @@ export const db = firebase.initializeApp({
 
 
 Vue.use(firestorePlugin)
-
+Vue.filter('localize', localizeFilter)
 
 new Vue({
   render: h => h(App),

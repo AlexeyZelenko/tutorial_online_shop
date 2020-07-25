@@ -4,7 +4,8 @@ export default  {
     },
     PRODUCTS(state) {
         return state.products;
-    }
+    },
+    locale: s => s.locale
 }
 
 

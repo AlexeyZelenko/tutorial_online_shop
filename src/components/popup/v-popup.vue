@@ -7,6 +7,7 @@
       <i
           class="material-icons"
           @click="closePopup"
+          style="cursor: pointer"
       >
         close
       </i>
@@ -98,11 +99,13 @@
       padding: 8px;
       color: #ffffff;
       background: #26ae68;
+      border-radius: 4px;
     }
     .close_modal {
       padding: 8px;
       color: #ffffff;
       background: red;
+      border-radius: 4px;
     }
   }
 </style>

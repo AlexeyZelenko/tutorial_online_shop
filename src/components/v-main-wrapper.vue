@@ -1,5 +1,14 @@
 <template>
   <div class="v-main-wrapper">
+    <!-- Switch -->
+    <div class="switch">
+      <label>
+        English
+        <input type="checkbox">
+        <span class="lever"></span>
+        Русский
+      </label>
+    </div>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -7,6 +16,7 @@
 </template>
 
 <script>
+    // import localizeFilter from '@/filters/localize.filter'
 
     export default {
         name: 'v-main-wrapper',
