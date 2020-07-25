@@ -9,7 +9,7 @@
           @click="closePopup"
           style="cursor: pointer"
       >
-        close
+        {{'close' | localize}}
       </i>
       </span>
       </div>
@@ -21,7 +21,7 @@
             class="close_modal"
             @click="closePopup"
         >
-          Close
+          {{'Close' | localize}}
         </button>
         <button
             class="submit_btn"

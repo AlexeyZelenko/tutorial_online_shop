@@ -7,14 +7,14 @@
       <p>{{cart_item_data.article}}</p>
     </div>
     <div class="v-cart-item__quantity">
-      <p>Qty:</p>
+      <p>{{'Qty:' | localize}}</p>
       <span class="quantity__tools">
         <span class="quantity__btn" @click="decrementItem">-</span>
         {{cart_item_data.quantity}}
         <span class="quantity__btn" @click="incrementItem">+</span>
       </span>
     </div>
-    <button @click="deleteFromCart">Delete</button>
+    <button @click="deleteFromCart">{{'Delete' | localize}}</button>
   </div>
 </template>
 <script>

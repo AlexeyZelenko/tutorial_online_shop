@@ -1,7 +1,5 @@
 <template>
   <div class="v-main-wrapper">
-
-
     <button
         class="localize"
         @click="changeLocaleRu"
@@ -14,7 +12,6 @@
     >
       eng
     </button>
-
     <keep-alive>
       <router-view></router-view>
     </keep-alive>

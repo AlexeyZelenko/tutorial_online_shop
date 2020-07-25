@@ -1,10 +1,10 @@
 <template>
   <div class="v-cart">
     <router-link :to="{name: 'catalog'}">
-      <div class="v-catalog__link_to_cart">Back to catalog</div>
+      <div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
     </router-link>
-    <h1>Cart</h1>
-    <p v-if="!cart_data.length">There are no products in cart...</p>
+    <h1>{{'Cart' | localize }}</h1>
+    <p v-if="!cart_data.length">{{'There are no products in cart...' | localize }}</p>
     <v-cart-item
       v-for="(item, index) in cart_data"
       :key="item.article"
@@ -14,7 +14,7 @@
       @decrement="decrement(index)"
     />
     <div class="v-cart__total">
-      <p class="total__name">Total:</p>
+      <p class="total__name">{{'Total:' | localize }}</p>
       <p>{{cartTotalCost}} $</p>
     </div>
   </div>
@@ -39,17 +39,6 @@
         },
         computed: {
             cartTotalCost() {
-                // let result = []
-                //
-                //   for (let item of this.cart_data) {
-                //       result.push(item.price * item.quantity)
-                //   }
-                //
-                //   result = result.reduce(function (sum, el) {
-                //       return sum + el;
-                //   })
-                // return result
-
                 return this.cart_data.reduce((res, item) => res + item.price * item.quantity, 0)
             }
         },

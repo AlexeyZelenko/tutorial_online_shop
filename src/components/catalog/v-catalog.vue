@@ -7,7 +7,9 @@
     />
 
     <router-link :to="{name: 'cart', params: {cart_data: CART}}">
-      <div class="v-catalog__link_to_cart">Cart: {{CART.length}}</div>
+      <div class="v-catalog__link_to_cart">
+        <span>{{'Cart' | localize}} : {{CART.length}}</span>
+      </div>
     </router-link>
     <h1>{{'Catalog' | localize}}</h1>
     <div class="v-catalog__list">
@@ -45,7 +47,6 @@
                 minPrice: 0,
                 maxPrice: 1000,
                 messages: [
-                    // {name: 'notifications name', id: Date.now().toLocaleString()}
                 ]
             }
         },
@@ -64,7 +65,7 @@
                 .then(() => {
                     let timeStamp = Date.now().toLocaleString();
                     this.messages.unshift(
-                        { name: 'Товар добавлен в корзину', id: timeStamp, icon: 'check_circle'}
+                        { name: `Product added to cart`, id: timeStamp, icon: 'check_circle'}
                     )
                 })
             },

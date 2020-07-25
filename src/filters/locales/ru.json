@@ -1,4 +1,16 @@
 {
-  "Title": "Титл",
-  "Catalog": "Каталог"
+  "Title": "Название",
+  "Catalog": "Каталог",
+  "Back to catalog": "Назад в каталог",
+  "There are no products in cart...": "В корзине нет товаров ...",
+  "Total:": "Общее количество:",
+  "Cart": "Корзина",
+  "Qty": "Кол-во",
+  "Delete": "Удалить",
+  "Show info": "Показать информацию",
+  "Add to cart": "Добавить в корзину",
+  "Close": "Закрыть",
+  "close": "закрыть",
+  "Product added to cart": "Товар добавлен в корзину",
+  "Price": "Цена"
 }

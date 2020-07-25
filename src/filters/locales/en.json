@@ -1,4 +1,17 @@
 {
   "Title": "Title",
-  "Catalog": "Catalog"
+  "Catalog": "Catalog",
+  "Back to catalog": "Back to catalog",
+  "There are no products in cart...": "There are no products in cart...",
+  "Total:": "Total:",
+  "Cart": "Cart",
+  "Qty": "Qty",
+  "Delete": "Delete",
+  "Show info": "Show info",
+  "Add to cart": "Add to cart",
+  "Close": "Close",
+  "close": "close",
+  "Price": "Price",
+  "Product added to cart": "Product added to cart"
+
 }
