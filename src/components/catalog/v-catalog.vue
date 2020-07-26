@@ -44,11 +44,11 @@
         data() {
             return {
                 categories: [
-                    {name: 'Все', value: 'All'},
-                    {name: 'Мужские', value: 'м'},
-                    {name: 'Женские', value: 'ж'},
+                    {name: 'ALL', value: 'all'},
+                    {name: 'Man', value: 'м'},
+                    {name: 'Woman', value: 'ж'},
                 ],
-                selected: 'Все',
+                selected: 'Categories',
                 sortedProducts: [],
                 minPrice: 0,
                 maxPrice: 1000,
