@@ -16,6 +16,10 @@ export default  {
     },
     LOCALIZE_EN({commit}) {
         commit('CHANGE_LOCALE_EN')
+    },
+    FIREBASE({commit}, message) {
+        commit('FIREBASE_MUTATIONS', message)
+        console.log(message)
     }
 }
 

@@ -1,43 +1,61 @@
 <template>
-  <div class="v-main-wrapper">
-    <button
-        class="localize"
-        @click="changeLocaleRu"
-    >
-      ru
-    </button>
-    <button
-        class="localize"
-        @click="changeLocaleEn"
-    >
-      eng
-    </button>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
-  </div>
+	<div class="v-main-wrapper">
+		<button
+				class="localize"
+				@click="changeLocaleRu"
+		>
+			ru
+		</button>
+		<button
+				class="localize"
+				@click="changeLocaleEn"
+		>
+			eng
+		</button>
+		<button @click="firebasePush">{{123}}</button>
+<!--		<p>{{message}}</p>-->
+		<keep-alive>
+			<router-view></router-view>
+		</keep-alive>
+	</div>
 </template>
 
 <script>
-    // import localizeFilter from '@/filters/localize.filter'
     import {mapActions} from 'vuex'
+    import {db} from '@/main.js'
 
     export default {
         name: 'v-main-wrapper',
         props: {},
         data() {
             return {
-                title: 'Main wrapper'
+                title: 'Main wrapper',
+                message: []
             }
         },
-        computed: {},
+        computed: {
+            // newMessage() {
+            //     console.log(this.message)
+            //     return this.message
+            // }
+        },
+        firestore() {
+            return {
+                message: db.collection('products')
+            }
+        },
         methods: {
-           ...mapActions([
-               'LOCALIZE_RU',
-               'LOCALIZE_EN'
-           ]) ,
+            ...mapActions([
+                'LOCALIZE_RU',
+                'LOCALIZE_EN',
+                'FIREBASE'
+            ]),
+            firebasePush() {
+                this.FIREBASE(this.message)
+                console.log(this.message)
+            },
             changeLocaleRu() {
-               this.LOCALIZE_RU()
+                this.LOCALIZE_RU()
             },
             changeLocaleEn() {
                 this.LOCALIZE_EN()
@@ -46,13 +64,15 @@
 
         },
         watch: {},
-        mounted() {}
+        created() {
+            this.firebasePush()
+        }
     }
 </script>
 
 <style>
-  .v-main-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-  }
+	.v-main-wrapper {
+		max-width: 900px;
+		margin: 0 auto;
+	}
 </style>

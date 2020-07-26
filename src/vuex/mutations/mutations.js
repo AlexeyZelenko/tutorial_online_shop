@@ -19,10 +19,6 @@ export default  {
             }
         })
         isProductExist || state.cart.push({ ...product, quantity: 1 })
-        /*
-         * в данной строке мы сразу ставим quantity:1 для любого нового товара в корзине,
-         * компоненты получают его сразу в пропсах
-         */
     },
     SET_PRODUCTS_TO_STATE: (state, products) => {
         state.products = products;
@@ -32,6 +28,10 @@ export default  {
     },
     CHANGE_LOCALE_EN: (state) => {
         state.locale = 'en-US';
+    },
+    FIREBASE_MUTATIONS: (state, message) => {
+        state.products = message
+        console.log(message)
     }
 }
 
