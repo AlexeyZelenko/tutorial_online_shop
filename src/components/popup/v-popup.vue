@@ -9,7 +9,7 @@
           @click="closePopup"
           style="cursor: pointer"
       >
-        {{'close' | localize}}
+        close
       </i>
       </span>
       </div>
