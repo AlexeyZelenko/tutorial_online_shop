@@ -11,6 +11,7 @@ import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
 
+
 Vue.config.productionTip = false
 
 // export const db = firebase.initializeApp({ projectId: 'online-shop' }).firestore()
@@ -25,7 +26,6 @@ export const db = firebase.initializeApp({
     appId: "1:206555332095:web:9eead21cb681b196f73bca",
     measurementId: "G-QSTP059LSZ"
 }).firestore()
-
 
 
 Vue.use(firestorePlugin)

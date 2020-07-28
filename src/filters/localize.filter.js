@@ -1,11 +1,12 @@
 import store from '../vuex/store'
 import ru from './locales/ru.json'
 import en from './locales/en.json'
-// import ua from '../locales/ua.json'
+import ua from './locales/ua.json'
 
 const locales = {
     'ru-RU': ru,
     'en-US': en,
+    'ua-Ua': ua,
 
 }
 

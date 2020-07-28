@@ -20,18 +20,11 @@ export default  {
         })
         isProductExist || state.cart.push({ ...product, quantity: 1 })
     },
-    SET_PRODUCTS_TO_STATE: (state, products) => {
-        state.products = products;
-    },
-    CHANGE_LOCALE_RU: (state) => {
-        state.locale = 'ru-RU';
-    },
-    CHANGE_LOCALE_EN: (state) => {
-        state.locale = 'en-US';
+    CHANGE_LOCALE: (state, loc) => {
+        state.locale = loc;
     },
     FIREBASE_MUTATIONS: (state, message) => {
         state.products = message
-        console.log(message)
     }
 }
 

@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import 'firebase/firestore'
-import commonActions from './actions/actions'
 import getters from './getters/getters'
 import mutations from './mutations/mutations'
-import apiRequests from './actions/api-requests'
+import commonActions from './actions/actions'
+// Подключение нескольких actions
+// import apiRequests from './actions/api-requests'
 
-const actions = {...commonActions, ...apiRequests}
+const actions = {...commonActions/*, ...apiRequests*/}
 
 Vue.use(Vuex);
 

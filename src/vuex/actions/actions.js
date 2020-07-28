@@ -11,11 +11,8 @@ export default  {
     ADD_TO_CART({commit}, product) {
         commit('SET_CART', product)
     },
-    LOCALIZE_RU({commit}) {
-        commit('CHANGE_LOCALE_RU')
-    },
-    LOCALIZE_EN({commit}) {
-        commit('CHANGE_LOCALE_EN')
+    LOCALIZE({commit}, loc) {
+        commit('CHANGE_LOCALE', loc)
     },
     FIREBASE({commit}, message) {
         commit('FIREBASE_MUTATIONS', message)

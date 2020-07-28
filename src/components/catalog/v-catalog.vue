@@ -55,11 +55,6 @@
                 messages: []
             }
         },
-        // firestore() {
-        //     return {
-        //         message: db.collection('/products'),
-        //     }
-        // },
         methods: {
             sortByCategories(category) {
                 this.sortedProducts = [];
@@ -72,8 +67,7 @@
                 this.selected = category.name
             },
             ...mapActions([
-                'GET_PRODUCTS_FROM_API',
-                'ADD_TO_CART'
+                'ADD_TO_CART',
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
@@ -99,15 +93,6 @@
             }
         },
         watch: {},
-        mounted() {
-            this.GET_PRODUCTS_FROM_API()
-                .then((response) => {
-                    if (response.data) {
-                        console.log('Data arrived!')
-                    }
-                })
-            // this.$set(this.product_data, 'quantity', 1)
-        }
     }
 </script>
 

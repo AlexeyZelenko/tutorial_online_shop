@@ -2,18 +2,22 @@
 	<div class="v-main-wrapper">
 		<button
 				class="localize"
-				@click="changeLocaleRu"
+				@click="changeLocale('ua-Ua')"
+		>
+			ua
+		</button>
+		<button
+				class="localize"
+				@click="changeLocale('ru-RU')"
 		>
 			ru
 		</button>
 		<button
 				class="localize"
-				@click="changeLocaleEn"
+				@click="changeLocale('en-US')"
 		>
 			eng
 		</button>
-		<button @click="firebasePush">{{123}}</button>
-<!--		<p>{{message}}</p>-->
 		<keep-alive>
 			<router-view></router-view>
 		</keep-alive>
@@ -33,12 +37,7 @@
                 message: []
             }
         },
-        computed: {
-            // newMessage() {
-            //     console.log(this.message)
-            //     return this.message
-            // }
-        },
+        computed: {},
         firestore() {
             return {
                 message: db.collection('products')
@@ -46,26 +45,20 @@
         },
         methods: {
             ...mapActions([
-                'LOCALIZE_RU',
-                'LOCALIZE_EN',
+                'LOCALIZE',
                 'FIREBASE'
             ]),
             firebasePush() {
                 this.FIREBASE(this.message)
-                console.log(this.message)
             },
-            changeLocaleRu() {
-                this.LOCALIZE_RU()
+            changeLocale(loc) {
+                this.LOCALIZE(loc)
             },
-            changeLocaleEn() {
-                this.LOCALIZE_EN()
-            },
-
-
         },
         watch: {},
         created() {
             this.firebasePush()
+            console.log('Data arrived!')
         }
     }
 </script>
