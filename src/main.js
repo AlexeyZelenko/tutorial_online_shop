@@ -31,6 +31,8 @@ export const db = firebase.initializeApp({
 Vue.use(firestorePlugin)
 Vue.filter('localize', localizeFilter)
 
+
+
 new Vue({
   render: h => h(App),
     store,

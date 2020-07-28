@@ -34,13 +34,13 @@
         data() {
             return {
                 title: 'Main wrapper',
-                message: []
+                message: [],
             }
         },
         computed: {},
         firestore() {
             return {
-                message: db.collection('products')
+                message: db.collection('products'),
             }
         },
         methods: {
