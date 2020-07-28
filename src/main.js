@@ -34,6 +34,7 @@ export const db = firebase.initializeApp({
     appId: "1:206555332095:web:9eead21cb681b196f73bca",
     measurementId: "G-QSTP059LSZ"
 }).firestore()
+firebase.messaging();
 
 
 Vue.use(firestorePlugin)
