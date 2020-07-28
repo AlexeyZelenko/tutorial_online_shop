@@ -13,5 +13,7 @@
   "Close": "Закрити",
   "close": "закрити",
   "Product added to cart": "Товар доданий у кошик",
-  "Price": "Ціна"
+  "Price": "Ціна",
+  "Admin": "Адміністрація",
+  "You are logged in as administrator": "Ви увійшли як адміністратор"
 }

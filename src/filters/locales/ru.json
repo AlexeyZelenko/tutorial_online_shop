@@ -13,5 +13,7 @@
   "Close": "Закрыть",
   "close": "закрыть",
   "Product added to cart": "Товар добавлен в корзину",
-  "Price": "Цена"
+  "Price": "Цена",
+  "Admin": "Администратор",
+  "You are logged in as administrator": "Вы вошли как администратор"
 }

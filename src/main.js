@@ -6,10 +6,18 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/database'
 import 'firebase/auth'
+import 'firebase/storage'
+import 'firebase/performance'
+import 'firebase/messaging'
 import { firestorePlugin } from 'vuefire'
 import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
+
+
+
+import '@/scripts/main.js'
+
 
 
 Vue.config.productionTip = false

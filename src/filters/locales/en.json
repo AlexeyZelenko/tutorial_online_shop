@@ -13,6 +13,8 @@
   "Close": "Close",
   "close": "close",
   "Price": "Price",
-  "Product added to cart": "Product added to cart"
+  "Product added to cart": "Product added to cart",
+  "Admin": "Admin",
+  "You are logged in as administrator": "You are logged in as administrator"
 
 }

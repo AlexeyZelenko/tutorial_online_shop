@@ -10,6 +10,13 @@
 				<span>{{'Cart' | localize}} : {{CART.length}}</span>
 			</div>
 		</router-link>
+
+		<router-link :to="{name: 'admin'/*, params: {cart_data: CART}*/}">
+			<div class="v-catalog__link_to_admin">
+				<span>{{'Admin' | localize}}<!-- : {{CART.length}}--></span>
+			</div>
+		</router-link>
+
 		<h1>{{'Catalog' | localize}}</h1>
 		<v-select
 				:selected="selected"
@@ -109,6 +116,14 @@
 			position: absolute;
 			top: 10px;
 			right: 10px;
+			padding: $padding*2;
+			border: solid 1px #2c3e50;
+		}
+
+		&__link_to_admin {
+			position: absolute;
+			top: 10px;
+			left: 10px;
 			padding: $padding*2;
 			border: solid 1px #2c3e50;
 		}
