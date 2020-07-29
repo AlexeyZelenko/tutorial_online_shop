@@ -1,6 +1,7 @@
 <template>
 	<div class="v-main-wrapper">
-		<div>
+<!--		ПЕРЕВОДЫ-->
+		<div style="margin-bottom: 10px">
 			<v-btn class="ma-2"
 				style="color: #26ae68"
 				light
@@ -14,7 +15,6 @@
 						mdi-checkbox-marked-circle
 					</v-icon>
 			</v-btn>
-
 			<v-btn
 					class="ma-2"
 					style="color: #26ae68"
@@ -29,7 +29,6 @@
 					mdi-checkbox-marked-circle
 				</v-icon>
 			</v-btn>
-
 			<v-btn
 					class="ma-2"
 					style="color: #26ae68"
@@ -85,7 +84,6 @@
             },
             changeLocale(loc) {
                 this.LOCALIZE(loc)
-
             },
         },
         watch: {},

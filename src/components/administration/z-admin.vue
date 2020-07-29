@@ -7,7 +7,7 @@
 				{{'Back to catalog' | localize }}
 			</div>
 		</router-link>
-
+		<zTable/>
 		<z-add-new-product/>
 
 		</div>
@@ -17,11 +17,14 @@
     import 'material-design-icons-iconfont'
     import 'materialize-css/dist/js/materialize.min'
     import zAddNewProduct from './z-add-new-product'
+    import zTable from './table/z-table'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "zAdmin",
 				components: {
-					zAddNewProduct
+					zAddNewProduct,
+						zTable
 				},
         data() {
             return {
@@ -29,7 +32,11 @@
                 location2: [],
             }
         },
-        computed: {},
+        computed: {
+            ...mapGetters([
+                'PRODUCTS'
+            ])
+        },
     }
 </script>
 
