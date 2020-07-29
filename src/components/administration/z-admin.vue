@@ -6,66 +6,37 @@
 		<p>{{ 'You are logged in as administrator' | localize}}!</p>
 
 		<div>
-			<div
-			<div class="card-body">
-				<div
-				>
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5
-										style="color: darkcyan"
-								>
-									Добавить фразу
-								</h5>
-							</div>
-
-							<form
-									@submit="addLocation(name, article, available, category, image, name, price)">
-								<div class="form-group">
-                      <textarea
-		                      placeholder="Название"
-		                      v-model="name">
-                      </textarea>
-									<textarea
-											placeholder="Добавить артикль товара"
-											v-model="article">
-                    </textarea>
-								</div>
-								<div class="modal-footer">
-									<button
-											class="btn btn-info"
-											type="submit">
-										Создать
-									</button>
-								</div>
-							</form>
-						</div>
-
-					</div>
-				</div>
-			</div>
-			</article>
-		</div>
-	</div>
-	<div v-else-if="openMessage===false">
-		<div @click="openMessage=true">
-			<button
-					class="btn btn-outline-info"
-					style="position: fixed;
-        right: 7%;
-        top: 12%;
-        width: 170px;
-        height: 40px;
-        display: block;
-        z-index: 99999999;"
-					type="button"
+			<h5
+				style="color: darkcyan"
 			>
-				Создать новую карточку
-			</button>
+				Добавить карточку с товаром
+			</h5>
 		</div>
-	</div>
-	</div>
+
+		<form
+				@submit="addLocation(name, article, available, category, image, name, price)">
+			<div class="form-group">
+        <textarea
+					placeholder="Название"
+					v-model="name">
+        </textarea>
+				<textarea
+						placeholder="Добавить артикль товара"
+						v-model="article">
+          </textarea>
+			</div>
+			<div class="modal-footer">
+				<button
+						class="btn btn-info"
+						type="submit">
+					Создать
+				</button>
+			</div>
+		</form>
+		</div>
+
+
+
 
 	<!--		<div class="demo-layout mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-header">-->
 
@@ -136,8 +107,6 @@
 	<!--			</main>-->
 	<!--		</div>-->
 
-
-	</div>
 </template>
 
 <script>
