@@ -7,13 +7,16 @@
 		/>
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
 			<div class="v-catalog__link_to_cart">
-				<span>{{'Cart' | localize}} : {{CART.length}}</span>
+				<div><i class="material-icons" >redeem</i></div>
+				<p>{{CART.length}}</p>
 			</div>
 		</router-link>
 
-		<router-link :to="{name: 'admin'/*, params: {cart_data: CART}*/}">
+		<router-link :to="{name: 'admin', params: {cart_data: CART}}">
 			<div class="v-catalog__link_to_admin">
-				<span>{{'Admin' | localize}}<!-- : {{CART.length}}--></span>
+				<span class="material-icons">
+					line_weight
+				</span>
 			</div>
 		</router-link>
 
@@ -108,7 +111,7 @@
 		&__list {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-between;
+			justify-content: space-evenly;
 			align-items: center;
 		}
 
@@ -117,7 +120,7 @@
 			top: 10px;
 			right: 10px;
 			padding: $padding*2;
-			border: solid 1px #2c3e50;
+			border: thick double #4bbd2c;
 		}
 
 		&__link_to_admin {
@@ -125,7 +128,7 @@
 			top: 10px;
 			left: 10px;
 			padding: $padding*2;
-			border: solid 1px #2c3e50;
+			border: thick #0a4506;
 		}
 	}
 </style>
