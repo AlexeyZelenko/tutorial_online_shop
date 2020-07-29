@@ -13,6 +13,7 @@ import { firestorePlugin } from 'vuefire'
 import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
+import vuetify from '@/plugins/vuetify'
 
 
 
@@ -42,8 +43,10 @@ Vue.filter('localize', localizeFilter)
 
 
 
+
 new Vue({
   render: h => h(App),
+    vuetify,
     store,
     router
 }).$mount('#app')

@@ -5,3 +5,8 @@ $green-bg: #26ae68;
 $green-bg-hover: #31c375;
 
 $radius: 4px;
+
+//$footer-shaped-border-radius: map-get($rounded, 'xl') $footer-border-radius !default;
+$footer-transition-property: background-color, left, right !default;
+$footer-transition-duration: 0.2s !default;
+$footer-padding: 6px 16px !default;

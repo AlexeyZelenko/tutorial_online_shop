@@ -5,6 +5,9 @@ export default  {
     PRODUCTS(state) {
         return state.products;
     },
+    LOCALE_CHANGE(state) {
+        return state.locale;
+    },
     locale: s => s.locale
 }
 
