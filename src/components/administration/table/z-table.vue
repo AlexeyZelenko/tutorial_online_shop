@@ -19,6 +19,7 @@
 				show-select
 				class="elevation-1"
 				:search="search"
+				@deleteLocation="deleteLocation(id)"
 				:footer-props="{
       showFirstLastPage: true,
       firstIcon: 'mdi-arrow-collapse-left',
@@ -66,8 +67,7 @@
             ],
         }),
         methods: {
-
-            deleteLocation(id) {   // <-- новый метод
+            deleteLocation(id) {
                 db.collection('message').doc(id).delete()
             }
         },

@@ -1,6 +1,5 @@
 <template>
 	<div class="v-catalog">
-
 		<v-notification
 				:messages='messages'
 				:timeout="4000"
@@ -11,7 +10,6 @@
 				<p>{{CART.length}}</p>
 			</div>
 		</router-link>
-
 		<router-link :to="{name: 'admin', params: {cart_data: CART}}">
 			<div class="v-catalog__link_to_admin">
 				<span class="material-icons">
@@ -19,9 +17,7 @@
 				</span>
 			</div>
 		</router-link>
-
 		<h1>{{'Catalog' | localize}}</h1>
-
 		<v-row class="Change_categories">
 				<v-select
 						:selected="selected"
@@ -29,7 +25,6 @@
 						@select="sortByCategories"
 				/>
 		</v-row>
-
 		<div class="v-catalog__list">
 			<vCatalogItem
 					v-for="product in filteredProducts"

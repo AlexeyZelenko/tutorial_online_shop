@@ -7,11 +7,8 @@
 				{{'Back to catalog' | localize }}
 			</div>
 		</router-link>
-
-<!--		<zAdminChat/>-->
 		<zTable/>
 		<z-add-new-product/>
-
 		</div>
 </template>
 
