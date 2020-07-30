@@ -21,11 +21,15 @@
 		</router-link>
 
 		<h1>{{'Catalog' | localize}}</h1>
-		<v-select
-				:selected="selected"
-				:options="categories"
-				@select="sortByCategories"
-		/>
+
+		<v-row class="Change_categories">
+				<v-select
+						:selected="selected"
+						:options="categories"
+						@select="sortByCategories"
+				/>
+		</v-row>
+
 		<div class="v-catalog__list">
 			<vCatalogItem
 					v-for="product in filteredProducts"
@@ -54,9 +58,18 @@
         data() {
             return {
                 categories: [
-                    {name: 'ALL', value: 'all'},
-                    {name: 'Man', value: 'м'},
-                    {name: 'Woman', value: 'ж'},
+                    {name: 'Все', value: 'all'},
+                    {name: 'Ветровки', value: 'Windbreaker'},
+                    {name: 'Пальто', value: 'Coat'},
+                    {name: 'Плащи', value: 'Raincoats'},
+                    {name: 'Джинсы', value: 'Jeans'},
+                    {name: 'Брюки', value: 'Pants'},
+                    {name: 'Кофты', value: 'Sweatshirts'},
+                    {name: 'Футболки', value: 'T-shirts'},
+                    {name: 'Рубашки', value: 'Shirts'},
+                    {name: 'Блузки', value: 'Blouses'},
+                    {name: 'Платья', value: 'Dresses'},
+                    {name: 'Костюмы', value: 'Costumes'},
                 ],
                 selected: 'Categories',
                 sortedProducts: [],
@@ -120,7 +133,6 @@
 			top: 10px;
 			right: 10px;
 			padding: $padding*2;
-			border: thick double #4bbd2c;
 		}
 
 		&__link_to_admin {
@@ -130,5 +142,11 @@
 			padding: $padding*2;
 			border: thick #0a4506;
 		}
+	}
+	.Change_categories {
+		padding-bottom: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center
 	}
 </style>

@@ -1,12 +1,10 @@
 <template>
 	<v-card>
 		<v-card-title>
-			Одежда
 			<v-spacer></v-spacer>
 			<v-text-field
 					v-model="search"
 					append-icon="mdi-magnify"
-					label="Search"
 					single-line
 					hide-details
 					loading loading-text="Loading... Please wait"
