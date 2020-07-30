@@ -1,17 +1,35 @@
 <template>
-	<v-data-table
-			v-model="selected"
-			:headers="headers"
-			:items="PRODUCTS"
-			:single-select="singleSelect"
-			item-key="name"
-			show-select
-			class="elevation-1"
-	>
-		<template v-slot:top>
-			<v-switch v-model="singleSelect" label="Single select" class="pa-3"></v-switch>
-		</template>
-	</v-data-table>
+	<v-card>
+		<v-card-title>
+			Одежда
+			<v-spacer></v-spacer>
+			<v-text-field
+					v-model="search"
+					append-icon="mdi-magnify"
+					label="Search"
+					single-line
+					hide-details
+					loading loading-text="Loading... Please wait"
+			></v-text-field>
+		</v-card-title>
+		<v-data-table
+				v-model="selected"
+				:headers="headers"
+				:items="PRODUCTS"
+				:single-select="singleSelect"
+				item-key="name"
+				show-select
+				class="elevation-1"
+				:search="search"
+				:footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-arrow-collapse-left',
+      lastIcon: 'mdi-arrow-collapse-right',
+      prevIcon: 'mdi-minus',
+      nextIcon: 'mdi-plus'
+    }"
+		></v-data-table>
+	</v-card>
 </template>
 
 <script>
@@ -21,6 +39,7 @@
   export default {
     name: "zTable",
     data: () => ({
+        search: '',
         singleSelect: false,
         selected: [],
         headers: [
@@ -36,13 +55,23 @@
             { text: 'Цена', value: 'price' },
             { text: 'id', value: 'id' },
             { text: 'опубликовано', value: 'available' },
+            { text: 'Бренд', value: 'BrandName' },
+            { text: 'Новинка', value: 'NewClothes' },
+            { text: 'Производитель', value: 'clothingManufacturer' },
+            { text: 'Размер', value: 'clothingSize1' },
+            { text: 'Скидка', value: 'discount' },
+            { text: 'Акционная цена', value: 'promotionalPrice' },
+            { text: 'Скидка', value: 'stok' },
+            { text: 'Фото одежды', value: 'FotoClothes' },
+            { text: 'Видео одежды', value: 'VideoClothings' },
+            { text: 'Удалить', value: 'DeleteClothings' },
         ],
     }),
     // components: {},
     methods: {
-        addLocation(article, available, category, image, name, price) {      // <-- новый метод
+        addLocation(article, available, category, image, name, price, BrandName, NewClothes, clothingManufacturer, clothingSize1, discount, promotionalPrice, stok, FotoClothes, VideoClothings) {      // <-- новый метод
                 const createdAt = new Date()
-                db.collection('products').add({article, available, createdAt, category, image, name, price})
+                db.collection('products').add({article, available, createdAt, category, image, name, price, BrandName, NewClothes, clothingManufacturer, clothingSize1, discount, promotionalPrice, stok, FotoClothes, VideoClothings})
             },
             deleteLocation(id) {   // <-- новый метод
                 db.collection('message').doc(id).delete()

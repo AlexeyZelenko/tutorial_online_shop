@@ -8,7 +8,7 @@
 			</div>
 		</router-link>
 
-		<zAdminChat/>
+<!--		<zAdminChat/>-->
 		<zTable/>
 		<z-add-new-product/>
 
@@ -20,7 +20,7 @@
     import 'materialize-css/dist/js/materialize.min'
     import zAddNewProduct from './z-add-new-product'
     import zTable from './table/z-table'
-    import zAdminChat from './v-admin-chat'
+    // import zAdminChat from './v-admin-chat'
     import {mapGetters} from 'vuex'
 
     export default {
@@ -28,7 +28,7 @@
 				components: {
 					zAddNewProduct,
 						zTable,
-            zAdminChat
+            // zAdminChat
 				},
         data() {
             return {
