@@ -31,63 +31,54 @@
 </template>
 
 <script>
-	import {mapGetters} from 'vuex'
-  import {db} from '@/main.js'
+    import {mapGetters} from 'vuex'
+    import {db} from '@/main.js'
 
-  export default {
-    name: "zTable",
-    data: () => ({
-        search: '',
-        singleSelect: false,
-        selected: [],
-        headers: [
-            {
-                text: 'Название',
-                align: 'start',
-                sortable: false,
-                value: 'name',
-            },
-            { text: 'Артикль', value: 'article' },
-            { text: 'Категория', value: 'category' },
-            { text: 'Описание', value: 'description' },
-            { text: 'Цена', value: 'price' },
-            { text: 'id', value: 'id' },
-            { text: 'опубликовано', value: 'available' },
-            { text: 'Бренд', value: 'BrandName' },
-            { text: 'Новинка', value: 'NewClothes' },
-            { text: 'Производитель', value: 'clothingManufacturer' },
-            { text: 'Размер', value: 'clothingSize1' },
-            { text: 'Скидка', value: 'discount' },
-            { text: 'Акционная цена', value: 'promotionalPrice' },
-            { text: 'Скидка', value: 'stok' },
-            { text: 'Фото одежды', value: 'FotoClothes' },
-            { text: 'Видео одежды', value: 'VideoClothings' },
-            { text: 'Удалить', value: 'DeleteClothings' },
-        ],
-    }),
-    // components: {},
-    methods: {
-        addLocation(article, available, category, image, name, price, BrandName, NewClothes, clothingManufacturer, clothingSize1, discount, promotionalPrice, stok, FotoClothes, VideoClothings) {      // <-- новый метод
-                const createdAt = new Date()
-                db.collection('products').add({article, available, createdAt, category, image, name, price, BrandName, NewClothes, clothingManufacturer, clothingSize1, discount, promotionalPrice, stok, FotoClothes, VideoClothings})
-            },
+    export default {
+        name: "zTable",
+        data: () => ({
+            search: '',
+            singleSelect: false,
+            selected: [],
+            headers: [
+                {
+                    text: 'Название',
+                    align: 'start',
+                    sortable: false,
+                    value: 'name',
+                },
+                {text: 'Артикль', value: 'article'},
+                {text: 'Категория', value: 'category'},
+                {text: 'Описание', value: 'description'},
+                {text: 'Цена', value: 'price'},
+                {text: 'id', value: 'id'},
+                {text: 'опубликовано', value: 'available'},
+                {text: 'Бренд', value: 'BrandName'},
+                {text: 'Новинка', value: 'newClothes'},
+                {text: 'Производитель', value: 'clothingManufacturer'},
+                {text: 'Размер', value: 'clothingSize'},
+                {text: 'Скидка', value: 'discount'},
+                {text: 'Акционная цена', value: 'promotionalPrice'},
+                {text: 'Скидка', value: 'stokProduct'},
+                {text: 'Фото одежды', value: 'FotoClothes'},
+                {text: 'Видео одежды', value: 'VideoClothings'},
+                {text: 'Удалить', value: 'DeleteClothings'},
+            ],
+        }),
+        methods: {
+
             deleteLocation(id) {   // <-- новый метод
                 db.collection('message').doc(id).delete()
             }
-    },
-    computed: {
-        ...mapGetters([
-            'PRODUCTS'
-        ]),
-        products() {
-            return {
-                products: db.collection('products'),
-            }
         },
-    },
-    watch: {},
-    props: {},
-  }
+        computed: {
+            ...mapGetters([
+                'PRODUCTS'
+            ]),
+        },
+        watch: {},
+        props: {},
+    }
 </script>
 
 <style scoped>

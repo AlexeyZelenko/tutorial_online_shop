@@ -15,5 +15,7 @@
   "Product added to cart": "Товар добавлен в корзину",
   "Price": "Цена",
   "Admin": "Администратор",
-  "You are logged in as administrator": "Вы вошли как администратор"
+  "You are logged in as administrator": "Вы вошли как администратор",
+  "Admin panel": "Панель администратора",
+  "Create product": "Создать товар"
 }

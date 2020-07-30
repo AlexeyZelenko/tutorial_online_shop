@@ -15,5 +15,7 @@
   "Product added to cart": "Товар доданий у кошик",
   "Price": "Ціна",
   "Admin": "Адміністрація",
-  "You are logged in as administrator": "Ви увійшли як адміністратор"
+  "You are logged in as administrator": "Ви увійшли як адміністратор",
+  "Admin panel": "Панель Адміністратора",
+  "Create product": "Створити товар"
 }
