@@ -110,6 +110,7 @@
             filteredProducts() {
                 if (this.sortedProducts.length) {
                     return this.sortedProducts
+
                 } else {
                     return this.PRODUCTS
                 }
