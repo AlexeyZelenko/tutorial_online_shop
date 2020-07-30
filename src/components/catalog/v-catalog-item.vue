@@ -1,6 +1,5 @@
 <template>
     <div class="v-catalog-item">
-
       <v-popup
           v-if="isInfoPopupVisible"
           rightBtnTitle="Add to cart"

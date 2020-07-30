@@ -17,9 +17,6 @@ import vuetify from '@/plugins/vuetify'
 
 
 
-import '@/scripts/main.js'
-
-
 
 Vue.config.productionTip = false
 
@@ -36,6 +33,7 @@ export const db = firebase.initializeApp({
     measurementId: "G-QSTP059LSZ"
 }).firestore()
 firebase.messaging();
+firebase.auth();
 
 
 Vue.use(firestorePlugin)

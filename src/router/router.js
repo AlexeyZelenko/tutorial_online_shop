@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import vCatalog from '../components/catalog/v-catalog'
 import vCart from '../components/cart/v-cart'
 import zAdmin from '../components/administration/z-admin'
+import vAdminChat from '../components/administration/v-admin-chat'
 
 
 Vue.use(Router)
@@ -16,17 +17,23 @@ let router = new Router({
             component:  vCatalog
         },
         {
-            path: '/',
+            path: '/cart',
             name: 'cart',
             component: vCart,
             props: true
         },
         {
-            path: '/',
+            path: '/admin',
             name: 'admin',
             component: zAdmin,
             props: true
-        }
+        },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: vAdminChat,
+            props: true
+        },
     ]
 })
 

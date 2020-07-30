@@ -7,6 +7,8 @@
 				{{'Back to catalog' | localize }}
 			</div>
 		</router-link>
+
+		<zAdminChat/>
 		<zTable/>
 		<z-add-new-product/>
 
@@ -18,13 +20,15 @@
     import 'materialize-css/dist/js/materialize.min'
     import zAddNewProduct from './z-add-new-product'
     import zTable from './table/z-table'
+    import zAdminChat from './v-admin-chat'
     import {mapGetters} from 'vuex'
 
     export default {
         name: "zAdmin",
 				components: {
 					zAddNewProduct,
-						zTable
+						zTable,
+            zAdminChat
 				},
         data() {
             return {
