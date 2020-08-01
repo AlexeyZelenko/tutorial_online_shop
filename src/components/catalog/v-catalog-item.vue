@@ -10,7 +10,7 @@
 
 			<div>
 				<img class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)">
-				<p class="v_catalog_item_name">{{product_data.name}}</p>
+<!--				<p class="v_catalog_item_name">{{product_data.name}}</p>-->
 				<p class="v_catalog_item_price">{{ "Price" | localize }} : {{product_data.price}} грн.</p>
 				<p class="v_catalog_item_price">{{product_data.category}}</p>
 			</div>
@@ -41,7 +41,7 @@
 		</v-chip>
 		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
 		<p v-else class="emptyImage">{{product_data.description}}</p>
-		<p class="v_catalog_item_name">{{product_data.name}}</p>
+<!--		<p class="v_catalog_item_name">{{product_data.name}}</p>-->
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
 		<button
 				class="v-catalog-item_show-info"

@@ -4,13 +4,23 @@
 			<v-spacer></v-spacer>
 			<v-text-field
 					v-model="search"
+					label="Пошук"
 					append-icon="mdi-magnify"
 					single-line
 					hide-details
-					loading loading-text="Loading... Please wait"
+					loading loading-text="Завантаження... Будь ласка, зачекайте"
 			></v-text-field>
 		</v-card-title>
-		<button @click="deleteLocation">Удалить выбранное</button>
+		<button
+				class="v-catalog_item_add_cart_btn btn"
+				@click="deleteLocation">
+			Видалити вибране
+		</button>
+		<button
+				class="v-catalog_item_add_cart_btn btn"
+				@click="editLocation">
+			Редагувати вибране
+		</button>
 		<v-data-table
 				v-model="selected"
 				:headers="headers"
@@ -35,6 +45,8 @@
 <script>
     import {mapGetters} from 'vuex'
     import {db} from '@/main.js'
+    import Swal from 'sweetalert2'
+
 
     export default {
         name: "zTable",
@@ -68,14 +80,36 @@
                 {text: 'Видео одежды', value: 'VideoClothings'},
                 {text: 'Удалить', value: 'DeleteClothings'},
             ],
+            locations: []
         }),
         methods: {
-            deleteLocation() {
-                console.log(this.selected)
+            editLocation() {
                 let id = this.selected[0].id
-                console.log(id)
-                db.collection('products').doc(id).delete()
+                return {
+                    locations: db.collection('products').doc(id)
+                }
 
+            },
+            deleteLocation() {
+                Swal.fire({
+                    title: 'Ти впевнений?',
+                    text: "Ви не зможете відновити це!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Так, видаліть його!'
+                }).then((result) => {
+                    if (result.value) {
+                        let id = this.selected[0].id
+                        db.collection('products').doc(id).delete()
+                        Swal.fire(
+                            'Видалено!',
+                            'Ваш файл видалено.',
+                            'success'
+                        )
+                    }
+                })
             }
         },
         computed: {

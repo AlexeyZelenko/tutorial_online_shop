@@ -4,8 +4,8 @@
 			<img v-if="product.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product.image)" alt="">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
-		<p>{{ "Product name" | localize}}: {{product.name}}</p>
-		<p>{{"Article" | localize}}: {{product.article}}</p>
+<!--		<p>{{ "Product name" | localize}}: {{product.name}}</p>-->
+<!--		<p>{{"Article" | localize}}: {{product.article}}</p>-->
 		<p>{{"Price" | localize}}: {{product.price}}</p>
 		<p>{{"Descriptions" | localize}}: {{product.description}}</p>
 		<p>{{"Manufacturer country" | localize}} : {{product.clothingManufacturer}}</p>
