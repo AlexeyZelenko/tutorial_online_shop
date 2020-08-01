@@ -10,16 +10,17 @@
 					loading loading-text="Loading... Please wait"
 			></v-text-field>
 		</v-card-title>
+		<button @click="deleteLocation">Удалить выбранное</button>
 		<v-data-table
 				v-model="selected"
 				:headers="headers"
 				:items="PRODUCTS"
 				:single-select="singleSelect"
-				item-key="name"
+				item-key="article"
 				show-select
 				class="elevation-1"
 				:search="search"
-				@deleteLocation="deleteLocation(id)"
+
 				:footer-props="{
       showFirstLastPage: true,
       firstIcon: 'mdi-arrow-collapse-left',
@@ -39,8 +40,10 @@
         name: "zTable",
         data: () => ({
             search: '',
+						delete: '',
             singleSelect: false,
             selected: [],
+						products: [],
             headers: [
                 {
                     text: 'Название',
@@ -67,8 +70,12 @@
             ],
         }),
         methods: {
-            deleteLocation(id) {
-                db.collection('message').doc(id).delete()
+            deleteLocation() {
+                console.log(this.selected)
+                let id = this.selected[0].id
+                console.log(id)
+                db.collection('products').doc(id).delete()
+
             }
         },
         computed: {

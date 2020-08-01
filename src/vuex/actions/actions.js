@@ -16,7 +16,6 @@ export default  {
     },
     FIREBASE({commit}, message) {
         commit('FIREBASE_MUTATIONS', message)
-        console.log(message)
     }
 }
 
