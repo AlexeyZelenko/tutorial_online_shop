@@ -1,9 +1,26 @@
 <template>
 	<div class="z-product-information">
 		<router-link :to="{name: 'catalog'}">
+			<img v-if="product.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product.image)" alt="">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
 		<p>Product name: {{product.name}}</p>
+		<p>Article: {{product.article}}</p>
+		<p>Price: {{product.price}}</p>
+		<p>Descriptions: {{product.description}}</p>
+		<p>Manufacturer country : {{product.clothingManufacturer}}</p>
+		<p>Brand name: {{product.BrandName}}</p>
+		<p>Clothing size: {{product.clothingSize}}</p>
+			<div class="text-center" v-show="product.newClothes">
+				<v-chip
+						class="ma-2"
+						style="background-color: goldenrod; color:white"
+						text-color="white"
+				>
+					NEW!
+					<v-icon right style="color: white">mdi-star</v-icon>
+				</v-chip>
+			</div>
 	</div>
 </template>
 
@@ -26,6 +43,9 @@
             ...mapActions([
                 'FIREBASE'
             ]),
+            close () {
+                alert('Chip close clicked')
+            },
             firebasePush() {
                 this.FIREBASE(this.message)
             },
