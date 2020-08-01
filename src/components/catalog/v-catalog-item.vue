@@ -1,5 +1,5 @@
 <template>
-    <div class="v-catalog-item">
+    <div class="v-catalog-item" @click="productClick">
       <v-popup
           v-if="isInfoPopupVisible"
           rightBtnTitle="Add to cart"
@@ -16,13 +16,15 @@
 
       </v-popup>
 
+
+
       <img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
 			<p v-else class="emptyImage">{{product_data.description}}</p>
       <p class="v_catalog_item_name">{{product_data.name}}</p>
       <p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
       <button
           class="v-catalog-item_show-info"
-          @click="showPopupInfo"
+          @click="productClick"
       >
         {{'Show info' | localize}}
       </button>
@@ -57,12 +59,15 @@
            }
         },
         methods: {
+            productClick() {
+                this.$emit('productClick', this.product_data.article)
+            },
             closeInfoPopup() {
               this.isInfoPopupVisible = false
             },
-            showPopupInfo() {
-              this.isInfoPopupVisible = true;
-            },
+            // showPopupInfo() {
+            //   this.isInfoPopupVisible = true;
+            // },
             addToCart() {
                 this.$emit('addToCart', this.product_data);
             }

@@ -31,6 +31,7 @@
 					:key="product.article"
 					:product_data="product"
 					@addToCart="addToCart"
+					@productClick="productClick"
 			/>
 		</div>
 	</div>
@@ -74,6 +75,9 @@
             }
         },
         methods: {
+            productClick(article) {
+                this.$router.push({name: 'product', query: {'product': article } })
+            },
             sortByCategories(category) {
                 this.sortedProducts = [];
                 let vm = this;
