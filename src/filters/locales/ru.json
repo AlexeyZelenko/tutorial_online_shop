@@ -17,5 +17,9 @@
   "Admin": "Администратор",
   "You are logged in as administrator": "Вы вошли как администратор",
   "Admin panel": "Панель администратора",
-  "Create product": "Создать товар"
+  "Create product": "Создать товар",
+  "NEW": "НОВИНКА",
+  "Product name": "Наименование товара",
+  "Promotional Price": "Акционная цена",
+  "Discount": "Скидка"
 }

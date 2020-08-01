@@ -7,37 +7,39 @@
 				@rightBtnActions="addToCart"
 				:popupTitle="product_data.name"
 		>
-			<div style="flex: ">
-				<div class="text-center" v-show="product_data.newClothes">
-					<v-chip
-							class="ma-2"
-							style="background-color: goldenrod; color:white"
-							text-color="white"
-					>
-						NEW!
-					</v-chip>
-				</div>
-				<img class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" style="z-index: 10">
-			</div>
 
 			<div>
+				<img class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)">
 				<p class="v_catalog_item_name">{{product_data.name}}</p>
 				<p class="v_catalog_item_price">{{ "Price" | localize }} : {{product_data.price}} грн.</p>
 				<p class="v_catalog_item_price">{{product_data.category}}</p>
 			</div>
-
 		</v-popup>
-
-		<div class="text-center" v-show="product_data.newClothes">
-			<v-chip
-					class="ma-2"
-					style="background-color: goldenrod; color:white"
-					text-color="white"
-			>
-				NEW!
-			</v-chip>
-		</div>
-		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)"  alt="">
+<!--		НОВИНКА-->
+		<v-chip
+				v-show="product_data.newClothes" class="v_catalog_item_new"
+				style="background-color: goldenrod; color:white"
+				text-color="white"
+		>
+			{{ "NEW" | localize}}!
+		</v-chip>
+<!--		СКИДКА-->
+		<v-chip
+				v-show="product_data.promotionalPrice != null" class="v_catalog_item_new"
+				style="background-color: #da207d; color:white"
+				text-color="white"
+		>
+			{{"Promotional Price" | localize}}! {{product_data.promotionalPrice}}
+		</v-chip>
+<!--		СКИДКА-->
+		<v-chip
+				v-show="product_data.discount != null" class="v_catalog_item_new"
+				style="background-color: #202cda; color:white"
+				text-color="white"
+		>
+			{{"Discount" | localize}} {{product_data.discount}} %
+		</v-chip>
+		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
 		<p v-else class="emptyImage">{{product_data.description}}</p>
 		<p class="v_catalog_item_name">{{product_data.name}}</p>
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
@@ -108,6 +110,14 @@
 
 		&_image {
 			width: 100px;
+		}
+
+		.v_catalog_item_new {
+			position: relative;
+			text-align: center;
+			z-index: 999;
+			top: 190px;
+			display: flex;
 		}
 
 		&_show-info {

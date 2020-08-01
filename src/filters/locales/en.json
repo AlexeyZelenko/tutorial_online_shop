@@ -17,6 +17,9 @@
   "Admin": "Admin",
   "You are logged in as administrator": "You are logged in as administrator",
   "Admin panel": "Admin panel",
-  "Create product": "Create product"
-
+  "Create product": "Create product",
+  "NEW": "NEW",
+  "Product name": "Product name",
+  "Promotional Price": "Promotional Price",
+  "Discount": "Discount"
 }
