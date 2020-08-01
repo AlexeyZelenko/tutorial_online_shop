@@ -21,5 +21,10 @@
   "NEW": "NEW",
   "Product name": "Product name",
   "Promotional Price": "Promotional Price",
-  "Discount": "Discount"
+  "Discount": "Discount",
+  "Article" : "Article",
+  "Descriptions" : "Descriptions",
+  "Manufacturer country": "Manufacturer country",
+  "Brand name": "Brand name",
+  "Clothing size": "Clothing size"
 }

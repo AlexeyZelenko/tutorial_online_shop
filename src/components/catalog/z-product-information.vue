@@ -5,12 +5,12 @@
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
 		<p>{{ "Product name" | localize}}: {{product.name}}</p>
-		<p>Article: {{product.article}}</p>
-		<p>Price: {{product.price}}</p>
-		<p>Descriptions: {{product.description}}</p>
-		<p>Manufacturer country : {{product.clothingManufacturer}}</p>
-		<p>Brand name: {{product.BrandName}}</p>
-		<p>Clothing size: {{product.clothingSize}}</p>
+		<p>{{"Article" | localize}}: {{product.article}}</p>
+		<p>{{"Price" | localize}}: {{product.price}}</p>
+		<p>{{"Descriptions" | localize}}: {{product.description}}</p>
+		<p>{{"Manufacturer country" | localize}} : {{product.clothingManufacturer}}</p>
+		<p>{{"Brand name" | localize}}: {{product.BrandName}}</p>
+		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
 			<div class="text-center" v-show="product.newClothes">
 				<v-chip
 						class="ma-2"
@@ -20,13 +20,37 @@
 					NEW!
 					<v-icon right style="color: white">mdi-star</v-icon>
 				</v-chip>
+				<!--		СКИДКА-->
+				<v-chip
+						v-show="product.promotionalPrice != null" class="v_catalog_item_new"
+						style="background-color: #da207d; color:white"
+						text-color="white"
+				>
+					{{"Promotional Price" | localize}} {{product.promotionalPrice}} !!!
+				</v-chip>
+				<!--		СКИДКА-->
+				<v-chip
+						v-show="product.discount != null" class="v_catalog_item_new"
+						style="background-color: #202cda; color:white"
+						text-color="white"
+				>
+					{{"Discount" | localize}} {{product.discount}} %
+				</v-chip>
 			</div>
+		<button
+				style="margin-top: 20px"
+				class="v-catalog_item_add_cart_btn btn"
+				@click="addToCart"
+		>
+			{{'Add to cart' | localize}}
+		</button>
 	</div>
 </template>
 
 <script>
     import {db} from '@/main.js'
     import {mapGetters, mapActions} from 'vuex'
+    import Swal from 'sweetalert2'
 
     export default {
         name: "zProductInformation",
@@ -41,13 +65,21 @@
         },
         methods: {
             ...mapActions([
-                'FIREBASE'
+                'FIREBASE',
+								'ADD_TO_CART'
             ]),
-            close () {
-                alert('Chip close clicked')
-            },
             firebasePush() {
                 this.FIREBASE(this.message)
+            },
+            addToCart() {
+                this.ADD_TO_CART(this.product)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Товар доданий у кошик',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             },
         },
         computed: {
@@ -65,10 +97,7 @@
                 return result;
             }
         },
-        watch: {},
-        props: {},
 				mounted() {
-            console.log(this.FIREBASE)
             this.firebasePush()
         }
     }

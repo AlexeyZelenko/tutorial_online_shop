@@ -21,5 +21,10 @@
   "NEW": "НОВИНКА",
   "Product name": "Наименование товара",
   "Promotional Price": "Акционная цена",
-  "Discount": "Скидка"
+  "Discount": "Скидка",
+  "Article" : "Артикль",
+  "Descriptions" : "Описание",
+  "Manufacturer country": "Страна изготовитель",
+  "Brand name": "Имя бренда",
+  "Clothing size": "Размер одежды"
 }

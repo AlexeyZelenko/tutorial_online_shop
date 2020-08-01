@@ -45,13 +45,13 @@
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
 		<button
 				class="v-catalog-item_show-info"
-				@click="productClick"
+				@click.self="productClick"
 		>
 			{{'Show info' | localize}}
 		</button>
 		<button
 				class="v-catalog_item_add_cart_btn btn"
-				@click="addToCart"
+				@click.stop="addToCart"
 		>
 			{{'Add to cart' | localize}}
 		</button>
