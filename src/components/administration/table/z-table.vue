@@ -88,7 +88,6 @@
                 return {
                     locations: db.collection('products').doc(id)
                 }
-
             },
             deleteLocation() {
                 Swal.fire({
