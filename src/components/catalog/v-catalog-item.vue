@@ -86,9 +86,6 @@
             closeInfoPopup() {
                 this.isInfoPopupVisible = false
             },
-            // showPopupInfo() {
-            //   this.isInfoPopupVisible = true;
-            // },
             addToCart() {
                 this.$emit('addToCart', this.product_data);
             }

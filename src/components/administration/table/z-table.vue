@@ -11,12 +11,15 @@
 					loading loading-text="Завантаження... Будь ласка, зачекайте"
 			></v-text-field>
 		</v-card-title>
-		<button
-				style="margin: 10px"
-				class="v-catalog_item_add_cart_btn btn"
-				@click="editLocation">
-			Редагувати вибране
-		</button>
+		<router-link :to="{name: 'edit', params: {selected: selected}}">
+				<button
+						style="margin: 10px"
+						class="v-catalog_item_add_cart_btn btn"
+						@click="editLocation(selected)">
+					Редагувати вибране
+				</button>
+		</router-link>
+
 		<button
 				class="v-catalog_item_add_cart_btn btn"
 				@click="deleteLocation">
@@ -53,7 +56,7 @@
         data: () => ({
             search: '',
             delete: '',
-            singleSelect: false,
+            singleSelect: true,
             selected: [],
             products: [],
             headers: [

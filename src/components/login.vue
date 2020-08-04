@@ -1,26 +1,31 @@
 <template>
-	<form class="login-form">
-		<v-text-field
-				v-model="name"
-				:error-messages="nameErrors"
-				:counter="10"
-				label="Name"
-				required
-				@input="$v.name.$touch()"
-				@blur="$v.name.$touch()"
-		></v-text-field>
-		<v-text-field
-				v-model="email"
-				:error-messages="emailErrors"
-				label="E-mail"
-				required
-				@input="$v.email.$touch()"
-				@blur="$v.email.$touch()"
-		></v-text-field>
+	<div>
+		<router-link :to="{name: 'catalog'}">
+			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
+		</router-link>
+		<form class="login-form">
+			<v-text-field
+					v-model="name"
+					:error-messages="nameErrors"
+					:counter="10"
+					label="Name"
+					required
+					@input="$v.name.$touch()"
+					@blur="$v.name.$touch()"
+			></v-text-field>
+			<v-text-field
+					v-model="email"
+					:error-messages="emailErrors"
+					label="E-mail"
+					required
+					@input="$v.email.$touch()"
+					@blur="$v.email.$touch()"
+			></v-text-field>
 
-		<v-btn class="mr-4" @click="submit">Увійти</v-btn>
-		<v-btn @click="clear">Очистити</v-btn>
-	</form>
+			<v-btn class="mr-4" @click="submit">Увійти</v-btn>
+			<v-btn @click="clear">Очистити</v-btn>
+		</form>
+	</div>
 </template>
 
 <script>
@@ -64,7 +69,6 @@
 
                 if (this.name === 'admin' && this.email === 'admin@admin.admin') {
                     // this.$v.$touch()
-                    console.log(1234567)
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

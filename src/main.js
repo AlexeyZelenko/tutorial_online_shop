@@ -14,6 +14,7 @@ import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
 import vuetify from '@/plugins/vuetify'
+import '@/plugins/tiptap-vuetify'
 import Vuelidate from 'vuelidate'
 
 

@@ -5,7 +5,6 @@
 				:timeout="4000"
 		/>
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
-
 					<div class="v-catalog__link_to_cart">
 						<v-btn >
 						<v-chip
@@ -20,7 +19,6 @@
 							{{'Cart'|localize}}
 						</v-chip>
 						</v-btn>
-
 			</div>
 		</router-link>
 		<router-link :to="{name: 'login', params: {cart_data: CART}}">
@@ -138,7 +136,6 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-evenly;
-			align-items: center;
 		}
 
 		&__link_to_cart {
