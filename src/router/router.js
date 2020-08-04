@@ -6,6 +6,7 @@ import vCart from '../components/cart/v-cart'
 import zAdmin from '../components/administration/z-admin'
 import vAdminChat from '../components/administration/v-admin-chat'
 import zProductInformation from '../components/catalog/z-product-information'
+import loginAdmin from '../components/login'
 
 
 Vue.use(Router)
@@ -39,6 +40,12 @@ let router = new Router({
             path: '/chat',
             name: 'chat',
             component: vAdminChat,
+            props: true
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: loginAdmin,
             props: true
         },
     ]

@@ -14,6 +14,7 @@ import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
 import vuetify from '@/plugins/vuetify'
+import Vuelidate from 'vuelidate'
 
 
 
@@ -38,6 +39,7 @@ export const db = firebase.initializeApp({
 
 Vue.use(firestorePlugin)
 Vue.filter('localize', localizeFilter)
+Vue.use(Vuelidate)
 
 
 

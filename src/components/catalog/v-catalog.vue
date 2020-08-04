@@ -5,16 +5,29 @@
 				:timeout="4000"
 		/>
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
-			<div class="v-catalog__link_to_cart">
-				<div><i class="material-icons" >redeem</i></div>
-				<p>{{CART.length}}</p>
+
+					<div class="v-catalog__link_to_cart">
+						<v-btn >
+						<v-chip
+								class="ma-2"
+								close-icon="mdi-heart"
+								close
+								style="background-color: #3e9538; color: white; cursor: pointer"
+						>
+							<v-avatar left class="darken-4" style="background-color: #0a4506;">
+								{{CART.length}}
+							</v-avatar>
+							{{'Cart'|localize}}
+						</v-chip>
+						</v-btn>
+
 			</div>
 		</router-link>
-		<router-link :to="{name: 'admin', params: {cart_data: CART}}">
+		<router-link :to="{name: 'login', params: {cart_data: CART}}">
 			<div class="v-catalog__link_to_admin">
-				<span class="material-icons">
-					line_weight
-				</span>
+				<v-btn class="ma-2" outlined fab style="color: #3e9538">
+					<v-icon>mdi-format-list-bulleted-square</v-icon>
+				</v-btn>
 			</div>
 		</router-link>
 		<h1>{{'Catalog' | localize}}</h1>

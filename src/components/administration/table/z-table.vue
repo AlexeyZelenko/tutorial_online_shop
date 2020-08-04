@@ -12,14 +12,15 @@
 			></v-text-field>
 		</v-card-title>
 		<button
-				class="v-catalog_item_add_cart_btn btn"
-				@click="deleteLocation">
-			Видалити вибране
-		</button>
-		<button
+				style="margin: 10px"
 				class="v-catalog_item_add_cart_btn btn"
 				@click="editLocation">
 			Редагувати вибране
+		</button>
+		<button
+				class="v-catalog_item_add_cart_btn btn"
+				@click="deleteLocation">
+			Видалити вибране
 		</button>
 		<v-data-table
 				v-model="selected"
@@ -30,7 +31,6 @@
 				show-select
 				class="elevation-1"
 				:search="search"
-
 				:footer-props="{
       showFirstLastPage: true,
       firstIcon: 'mdi-arrow-collapse-left',
@@ -52,10 +52,10 @@
         name: "zTable",
         data: () => ({
             search: '',
-						delete: '',
+            delete: '',
             singleSelect: false,
             selected: [],
-						products: [],
+            products: [],
             headers: [
                 {
                     text: 'Название',
@@ -84,10 +84,9 @@
         }),
         methods: {
             editLocation() {
-                let id = this.selected[0].id
-                return {
-                    locations: db.collection('products').doc(id)
-                }
+                console.log(1234567)
+                console.log(this.selected)
+                this.$emit('editClick', this.selected)
             },
             deleteLocation() {
                 Swal.fire({
