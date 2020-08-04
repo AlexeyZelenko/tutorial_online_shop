@@ -87,8 +87,6 @@
         }),
         methods: {
             editLocation() {
-                console.log(1234567)
-                console.log(this.selected)
                 this.$emit('editClick', this.selected)
             },
             deleteLocation() {
@@ -123,6 +121,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

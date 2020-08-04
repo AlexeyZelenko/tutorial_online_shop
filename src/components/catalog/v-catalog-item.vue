@@ -9,7 +9,7 @@
 		>
 
 			<div>
-				<img class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)">
+				<img class="v-catalog-item_image_1" :src="require('@/assets/images/' + product_data.image)">
 <!--				<p class="v_catalog_item_name">{{product_data.name}}</p>-->
 				<p class="v_catalog_item_price">{{ "Price" | localize }} : {{product_data.price}} грн.</p>
 				<p class="v_catalog_item_price">{{product_data.category}}</p>
@@ -39,22 +39,24 @@
 		>
 			{{"Discount" | localize}} {{product_data.discount}} %
 		</v-chip>
-		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
+		<img v-if="product_data.image" class="v-catalog-item_image_2" :src="require('@/assets/images/' + product_data.image)" alt="">
 		<p v-else class="emptyImage">{{product_data.description}}</p>
 <!--		<p class="v_catalog_item_name">{{product_data.name}}</p>-->
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
-		<button
-				class="v-catalog-item_show-info"
-				@click.self="productClick"
-		>
-			{{'Show info' | localize}}
-		</button>
-		<button
-				class="v-catalog_item_add_cart_btn btn"
-				@click.stop="addToCart"
-		>
-			{{'Add to cart' | localize}}
-		</button>
+		<div class="v_catalog_item_button">
+			<button
+					class="v-catalog-item_show-info"
+					@click.self="productClick"
+			>
+				{{'Show info' | localize}}
+			</button>
+			<button
+					class="v-catalog_item_add_cart_btn btn"
+					@click.stop="addToCart"
+			>
+				{{'Add to cart' | localize}}
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -105,7 +107,11 @@
 		padding: $padding*2;
 		margin-bottom: $margin*2;
 
-		&_image {
+		&_image_1 {
+			width: 100px;
+		}
+
+		&_image_2 {
 			width: 100px;
 		}
 
