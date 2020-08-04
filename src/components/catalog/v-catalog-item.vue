@@ -1,5 +1,5 @@
 <template>
-	<div class="v-catalog-item" @click="productClick">
+	<div class="v-catalog-item" @click="productClick" >
 <!--		НОВИНКА-->
 		<v-chip
 				v-show="product_data.newClothes" class="v_catalog_item_new"
@@ -87,6 +87,8 @@
 		box-shadow: 0 0 8px 0 #e0e0e0;
 		padding: $padding*2;
 		margin-bottom: $margin*2;
+		z-index: 1;
+		margin-left: 1px;
 
 		&_image {
 			width: 100px;
@@ -108,10 +110,12 @@
 		}
 
 		.v_catalog_item_new {
+			margin-top: -35px;
 			position: relative;
 			text-align: center;
 			z-index: 10;
-			top: 37%;
+			top: 45%;
+			width: 95%;
 			display: flex;
 			justify-content: space-between;
 			align-items: end;
