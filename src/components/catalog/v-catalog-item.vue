@@ -1,20 +1,5 @@
 <template>
 	<div class="v-catalog-item" @click="productClick">
-		<v-popup
-				v-if="isInfoPopupVisible"
-				rightBtnTitle="Add to cart"
-				@closePopup="closeInfoPopup"
-				@rightBtnActions="addToCart"
-				:popupTitle="product_data.name"
-		>
-
-			<div>
-				<img class="v-catalog-item_image_1" :src="require('@/assets/images/' + product_data.image)">
-<!--				<p class="v_catalog_item_name">{{product_data.name}}</p>-->
-				<p class="v_catalog_item_price">{{ "Price" | localize }} : {{product_data.price}} грн.</p>
-				<p class="v_catalog_item_price">{{product_data.category}}</p>
-			</div>
-		</v-popup>
 <!--		НОВИНКА-->
 		<v-chip
 				v-show="product_data.newClothes" class="v_catalog_item_new"
@@ -39,11 +24,11 @@
 		>
 			{{"Discount" | localize}} {{product_data.discount}} %
 		</v-chip>
-		<img v-if="product_data.image" class="v-catalog-item_image_2" :src="require('@/assets/images/' + product_data.image)" alt="">
+		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
 		<p v-else class="emptyImage">{{product_data.description}}</p>
 <!--		<p class="v_catalog_item_name">{{product_data.name}}</p>-->
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
-		<div class="v_catalog_item_button">
+		<div class="v-catalog-item_button">
 			<button
 					class="v-catalog-item_show-info"
 					@click.self="productClick"
@@ -61,13 +46,9 @@
 </template>
 
 <script>
-    import vPopup from '../popup/v-popup'
 
     export default {
         name: "v-catalog-item",
-        components: {
-            vPopup
-        },
         data() {
             return {
                 isInfoPopupVisible: false
@@ -107,20 +88,8 @@
 		padding: $padding*2;
 		margin-bottom: $margin*2;
 
-		&_image_1 {
+		&_image {
 			width: 100px;
-		}
-
-		&_image_2 {
-			width: 100px;
-		}
-
-		.v_catalog_item_new {
-			position: relative;
-			text-align: center;
-			z-index: 999;
-			top: 190px;
-			display: flex;
 		}
 
 		&_show-info {
@@ -133,5 +102,20 @@
 			outline: none;
 			cursor: pointer;
 		}
+
+		&_button {
+			margin-bottom: 10px;
+		}
+
+		.v_catalog_item_new {
+			position: relative;
+			text-align: center;
+			z-index: 10;
+			top: 37%;
+			display: flex;
+			justify-content: space-between;
+			align-items: end;
+		}
+
 	}
 </style>
