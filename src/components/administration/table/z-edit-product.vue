@@ -1,10 +1,10 @@
 <template>
 	<div class="">
-		{{selected[0].name}}
+		{{selected.name}}
 		<button @click="qaz">123</button>
 		<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
 		<form
-				@submit="addLocation(article, available, category, image, name, price, BrandName, newClothes, clothingManufacturer, clothingSize, discount, promotionalPrice, stokProduct, FotoClothes, VideoClothings)">
+				@submit="addLocation(selected)">
 			<v-card>
 				<v-card-title class="grey darken-2">
 					{{'Create product' | localize}}
@@ -33,24 +33,24 @@
 										label="Наименование одежды"
 										v-model="name"
 										:rules="[rules.counter]"
-										:placeholder="[selected[0].name]"
+										:placeholder="[selected.name]"
 								></v-text-field>
 							</v-row>
 						</v-col>
 						<!--						ОПИСАНИЕ ТОВАРА-->
 						<v-col cols="12">
 							<v-text-field
-									:placeholder="[selected[0].description]"
+									:placeholder="selected.description"
 									:rules="[rules.counter, rules.counter2]"
-									v-model="description"
+									v-model="selected.description"
 							></v-text-field>
 						</v-col>
 						<!--						АРТИКЛЬ-->
 						<v-col cols="6">
 							<v-text-field
 									prepend-icon="mdi-account-card-details-outline"
-									:placeholder="selected[0].article"
-									v-model="selected[0].article"
+									:placeholder="selected.article"
+									v-model="selected.article"
 							></v-text-field>
 						</v-col>
 						<!--						ЦЕНА-->
@@ -71,8 +71,8 @@
 									type="Number"
 									prepend-icon=""
 									label="Размер одежды"
-									:placeholder="[selected[0].clothingSize]"
-									v-model="clothingSize"
+									:placeholder="selected.clothingSize"
+									v-model="selected.clothingSize"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -82,8 +82,8 @@
 									type="Number"
 									prepend-icon=""
 									label="Ценна по акции"
-									:placeholder="[selected[0].promotionalPrice]"
-									v-model="promotionalPrice"
+									:placeholder="selected.promotionalPrice"
+									v-model="selected.promotionalPrice"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -93,8 +93,8 @@
 									type="Number"
 									prepend-icon=""
 									label="Скидка на товар"
-									:placeholder="[selected[0].discount]"
-									v-model="discount"
+									:placeholder="selected.discount"
+									v-model="selected.discount"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -102,8 +102,8 @@
 						<v-col cols="6">
 							<v-select
 									prepend-icon=""
-									:placeholder="[selected[0].category]"
-									v-model="category"
+									:placeholder="[selected.category]"
+									v-model="selected.category"
 									:items="itemsCategories"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите категорию"
@@ -113,8 +113,8 @@
 						<v-col cols="6">
 							<v-select
 									prepend-icon=""
-									:placeholder="[selected[0].clothingManufacturer]"
-									v-model="clothingManufacturer"
+									:placeholder="[selected.clothingManufacturer]"
+									v-model="selected.clothingManufacturer"
 									:items="itemsclothingManufacturer"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите производителя"
@@ -124,16 +124,16 @@
 						<div class="check_box">
 							<v-checkbox
 									label="Отображать в каталоге"
-									v-model="available"
+									v-model="selected.available"
 							></v-checkbox>
 							<v-checkbox
 									label="Новинка"
-									v-model="newClothes"
+									v-model="selected.newClothes"
 							></v-checkbox>
 
 							<v-checkbox
 									label="Товар со скидкой"
-									v-model="stokProduct"
+									v-model="selected.stokProduct"
 							></v-checkbox>
 						</div>
 						<!--ФОТО-->
@@ -144,8 +144,6 @@
 									prepend-icon="mdi-camera"
 							></v-file-input>
 						</v-col>
-						<!--ВИДЕО-->
-						<v-file-input multiple label="Вибрати відео"></v-file-input>
 
 					</v-row>
 				</v-container>
@@ -179,9 +177,6 @@
     export default {
         name: "zEditProduct",
         data: () => ({
-            documents: [
-                db.collection('products').doc('T-shirt 5'),
-            ],
             selected: [],
             id: '',
             createdAt: '',
@@ -230,48 +225,9 @@
         }),
         // components: {},
         methods: {
-            qaz() {
-                console.log(this.selected)
-                console.log(this.documents)
-            },
-            addLocation(createdAt, id, article, available, category, image, name, promotionalPrice, stokProduct, FotoClothes, newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
-                console.log('addLocation')
-                id = this.id
-                createdAt = this.createdAt
-                BrandName = this.BrandName
-                article = this.article
-                discount = this.discount
-                available = this.available
-                category = this.category
-                image = this.image
-                name = this.name
-                price = this.price
-                stokProduct = this.stokProduct
-                promotionalPrice = this.promotionalPrice
-                clothingSize = this.clothingSize
-                FotoClothes = this.FotoClothes
-                newClothes = this.newClothes
-                description = this.description
-                clothingManufacturer = this.clothingManufacturer
-                // TODO db.collection('products').add(this.selected[0]).doc('id')12`
-                db.collection('products').add({
-                    article,
-                    available,
-                    BrandName,
-                    FotoClothes,
-                    discount,
-                    newClothes,
-                    clothingManufacturer,
-                    clothingSize,
-                    promotionalPrice,
-                    stokProduct,
-                    createdAt,
-                    category,
-                    image,
-                    name,
-                    price,
-                    description
-                }).doc('id')
+            addLocation(selected) {
+                this.selected = selected
+                db.collection('products').add(this.selected).doc('id')
             },
         },
         computed: {},

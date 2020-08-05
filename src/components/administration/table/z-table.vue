@@ -15,7 +15,7 @@
 				<button
 						style="margin: 10px"
 						class="v-catalog_item_add_cart_btn btn"
-						@click="editLocation(selected)">
+						@click="editLocation(selected[0])">
 					Редагувати вибране
 				</button>
 		</router-link>
@@ -80,8 +80,8 @@
                 {text: 'Скидка', value: 'discount'},
                 {text: 'Акционная цена', value: 'promotionalPrice'},
                 {text: 'Скидка', value: 'stokProduct'},
-                {text: 'Фото одежды', value: 'FotoClothes'},
-                {text: 'Видео одежды', value: 'VideoClothings'},
+                // {text: 'Фото одежды', value: 'FotoClothes'},
+                // {text: 'Видео одежды', value: 'VideoClothings'},
             ],
             locations: []
         }),
