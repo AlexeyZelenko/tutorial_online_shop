@@ -3,13 +3,13 @@
 		<router-link :to="{name: 'catalog'}">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
-		<img
-				v-if="product.image"
-				class="z-product-information_image"
-				:src="require('@/assets/images/' + product.image)"
-		>
+<!--		<img-->
+<!--				v-if="product.image"-->
+<!--				class="z-product-information_image"-->
+<!--				:src="require('@/assets/images/' + product.image)"-->
+<!--		>-->
 		<v-carousel
-			:carousel_data="sliderItems"
+				:carousel_data="product.imagesArray"
 		/>
 
 		<p>{{"Article" | localize}}: {{product.article}}</p>
@@ -66,12 +66,6 @@
         name: "zProductInformation",
         data: () => ({
             message: [],
-            sliderItems: [
-                {id: 1, name: 'img1', img: 'blouse2-1.jpg'},
-                {id: 2, name: 'img2', img: 'blouse2-2.jpg'},
-                {id: 3, name: 'img3', img: 'blouse2-3.jpg'},
-                {id: 4, name: 'img4', img: 'blouse2-4.jpg'},
-            ]
         }),
         components: {
             vCarousel
@@ -113,7 +107,7 @@
                     }
                 })
                 return result;
-            }
+            },
         },
         mounted() {
             this.firebasePush()

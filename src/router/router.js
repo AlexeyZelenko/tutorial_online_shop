@@ -1,14 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import vCatalog from '../components/catalog/v-catalog'
-import vCart from '../components/cart/v-cart'
-import zAdmin from '../components/administration/z-admin'
-import vAdminChat from '../components/administration/v-admin-chat'
-import zProductInformation from '../components/catalog/z-product-information'
-import loginAdmin from '../components/login'
-import zEditProduct from '../components/administration/table/z-edit-product'
-
 
 Vue.use(Router)
 
@@ -17,42 +9,42 @@ let router = new Router({
         {
             path: '/',
             name: 'catalog',
-            component:  vCatalog
+            component: () => import('@/components/catalog/v-catalog'),
         },
         {
             path: '/cart',
             name: 'cart',
-            component: vCart,
+            component: () => import('@/components/cart/v-cart'),
             props: true
         },
         {
             path: '/product',
             name: 'product',
-            component: zProductInformation,
+            component: () => import('@/components/catalog/z-product-information'),
             props: true
         },
         {
             path: '/admin',
             name: 'admin',
-            component: zAdmin,
+            component: () => import('@/components/administration/z-admin'),
             props: true
         },
         {
             path: '/chat',
             name: 'chat',
-            component: vAdminChat,
+            component: () => import('@/components/administration/v-admin-chat'),
             props: true
         },
         {
             path: '/login',
             name: 'login',
-            component: loginAdmin,
+            component: () => import('@/components/login'),
             props: true
         },
         {
             path: '/edit',
             name: 'edit',
-            component: zEditProduct,
+            component: () => import('@/components/administration/table/z-edit-product'),
             props: true
         },
     ]

@@ -35,7 +35,7 @@
     import vCarouselItem from '@/components/v-carousel-item'
 
     export default {
-        name: "",
+        name: "vCarousel",
         data: () => ({
             currentSlideIndex: 0
         }),
@@ -46,7 +46,6 @@
             prevSlide() {
                 if(this.currentSlideIndex > 0) {
                     this.currentSlideIndex--
-                    console.log(this.currentSlideIndex)
                 }
             },
             nextSlide() {
@@ -54,7 +53,6 @@
                     this.currentSlideIndex = 0
                 } else
 							this.currentSlideIndex++
-                console.log(this.currentSlideIndex)
             }
         },
         computed: {},

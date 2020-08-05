@@ -21,9 +21,7 @@
 						default: () => {}
         }
     },
+		mounted() {
+    }
   }
 </script>
-
-<style>
-
-</style>
