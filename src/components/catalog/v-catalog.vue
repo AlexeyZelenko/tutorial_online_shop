@@ -140,16 +140,16 @@
 
 		&__link_to_cart {
 			position: absolute;
-			top: 10px;
-			right: 10px;
-			padding: $padding*2;
+			top: 5px;
+			right: 3px;
+			padding: $padding;
 		}
 
 		&__link_to_admin {
 			position: absolute;
-			top: 10px;
-			left: 10px;
-			padding: $padding*2;
+			top: 5px;
+			left: 3px;
+			padding: $padding;
 			border: thick #0a4506;
 		}
 	}

@@ -15,7 +15,7 @@ let store = new Vuex.Store({
     state: {
         products: [],
         cart: [],
-        locale: 'ua-Ua'
+        locale: 'ru-RU'
     },
     getters,
     mutations,

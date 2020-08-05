@@ -41,7 +41,8 @@
       prevIcon: 'mdi-minus',
       nextIcon: 'mdi-plus'
     }"
-		></v-data-table>
+		>
+		</v-data-table>
 	</v-card>
 </template>
 
@@ -70,7 +71,7 @@
                 {text: 'Категория', value: 'category'},
                 {text: 'Описание', value: 'description'},
                 {text: 'Цена', value: 'price'},
-                {text: 'id', value: 'id'},
+                // {text: 'id', value: 'id'},
                 {text: 'опубликовано', value: 'available'},
                 {text: 'Бренд', value: 'BrandName'},
                 {text: 'Новинка', value: 'newClothes'},
@@ -81,7 +82,6 @@
                 {text: 'Скидка', value: 'stokProduct'},
                 {text: 'Фото одежды', value: 'FotoClothes'},
                 {text: 'Видео одежды', value: 'VideoClothings'},
-                {text: 'Удалить', value: 'DeleteClothings'},
             ],
             locations: []
         }),

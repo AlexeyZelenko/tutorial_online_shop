@@ -3,17 +3,28 @@
 		<router-link :to="{name: 'catalog'}">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
-		<img v-if="product.image" class="z-product-information_image" :src="require('@/assets/images/' + product.image)">
-		<p>{{"Price" | localize}}: {{product.price}}</p>
+		<img
+				v-if="product.image"
+				class="z-product-information_image"
+				:src="require('@/assets/images/' + product.image)"
+		>
+		<v-carousel
+			:carousel_data="sliderItems"
+		/>
+
+		<p>{{"Article" | localize}}: {{product.article}}</p>
+		<p>{{"Price" | localize}}: {{product.price}} грн</p>
 		<p>{{"Descriptions" | localize}}: {{product.description}}</p>
-		<p>{{"Manufacturer country" | localize}} : {{product.clothingManufacturer}}</p>
-		<p>{{"Brand name" | localize}}: {{product.BrandName}}</p>
+		<p v-if="product.clothingManufacturer != null">{{"Manufacturer country" | localize}} :
+			{{product.clothingManufacturer}}</p>
+		<p v-if="product.BrandName != null">{{"Brand name" | localize}}: {{product.BrandName}}</p>
 		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
 		<div class="text-center" v-show="product.newClothes">
 			<v-chip
 					class="ma-2"
 					style="background-color: goldenrod; color:white"
 					text-color="white"
+					v-show="product.newClothes===true"
 			>
 				NEW!
 				<v-icon right style="color: white">mdi-star</v-icon>
@@ -49,13 +60,22 @@
     import {db} from '@/main.js'
     import {mapGetters, mapActions} from 'vuex'
     import Swal from 'sweetalert2'
+    import vCarousel from '@/components/v-carousel'
 
     export default {
         name: "zProductInformation",
         data: () => ({
             message: [],
+            sliderItems: [
+                {id: 1, name: 'img1', img: 'blouse2-1.jpg'},
+                {id: 2, name: 'img2', img: 'blouse2-2.jpg'},
+                {id: 3, name: 'img3', img: 'blouse2-3.jpg'},
+                {id: 4, name: 'img4', img: 'blouse2-4.jpg'},
+            ]
         }),
-        // components: {},
+        components: {
+            vCarousel
+        },
         firestore() {
             return {
                 message: db.collection('products'),
@@ -109,7 +129,8 @@
 		margin-bottom: $margin*2;
 
 		&_image {
-		width: 300px;
+			width: 300px;
 		}
 	}
+
 </style>

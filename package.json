@@ -19,6 +19,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^9.17.1",
+    "swiper": "^6.1.1",
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",

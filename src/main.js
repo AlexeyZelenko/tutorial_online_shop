@@ -19,7 +19,6 @@ import Vuelidate from 'vuelidate'
 
 
 
-
 Vue.config.productionTip = false
 
 // export const db = firebase.initializeApp({ projectId: 'online-shop' }).firestore()
@@ -49,6 +48,6 @@ new Vue({
   render: h => h(App),
     vuetify,
     store,
-    router
+    router,
 }).$mount('#app')
 
