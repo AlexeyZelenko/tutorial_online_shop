@@ -144,7 +144,6 @@
 									prepend-icon="mdi-camera"
 							></v-file-input>
 						</v-col>
-
 					</v-row>
 				</v-container>
 				<v-card-actions>
@@ -164,7 +163,6 @@
 					</v-btn>
 				</v-card-actions>
 			</v-card>
-
 		</form>
 
 
