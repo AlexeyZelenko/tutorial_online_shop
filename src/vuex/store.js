@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import auth from './auth'
 import 'firebase/firestore'
 import getters from './getters/getters'
 import mutations from './mutations/mutations'
@@ -15,11 +16,15 @@ let store = new Vuex.Store({
     state: {
         products: [],
         cart: [],
-        locale: 'ru-RU'
+        locale: 'ru-RU',
+        error: null
     },
     getters,
     mutations,
-    actions
+    actions,
+    modules: {
+        auth,
+    }
 
 
 

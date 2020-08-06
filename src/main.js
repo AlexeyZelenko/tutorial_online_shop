@@ -45,12 +45,17 @@ Vue.filter('localize', localizeFilter)
 Vue.use(Vuelidate)
 
 
+let app
 
+firebase.auth().onAuthStateChanged(() => {
+    if (!app) {
+        app = new Vue({
+            render: h => h(App),
+            vuetify,
+            store,
+            router,
+        }).$mount('#app')
+    }
+})
 
-new Vue({
-  render: h => h(App),
-    vuetify,
-    store,
-    router,
-}).$mount('#app')
 

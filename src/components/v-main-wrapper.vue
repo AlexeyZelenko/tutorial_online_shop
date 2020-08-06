@@ -1,49 +1,49 @@
 <template>
 	<div class="v-main-wrapper">
 <!--		ПЕРЕВОДЫ-->
-		<div style="margin-bottom: 10px">
-			<v-btn class="ma-2"
-				style="color: #26ae68"
-				light
-				@click="changeLocale('ua-Ua')"
-				>UA
-					<v-icon
-							dark
-							right
-							v-if="LOCALE_CHANGE ==='ua-Ua'"
-					>
-						mdi-checkbox-marked-circle
-					</v-icon>
-			</v-btn>
-			<v-btn
-					class="ma-2"
-					style="color: #26ae68"
-					light
-					@click="changeLocale('ru-RU')"
-			>RU
-				<v-icon
-						dark
-						right
-						v-if="LOCALE_CHANGE ==='ru-RU'"
-				>
-					mdi-checkbox-marked-circle
-				</v-icon>
-			</v-btn>
-			<v-btn
-					class="ma-2"
-					style="color: #26ae68"
-					light
-					@click="changeLocale('en-US')"
-			>En
-				<v-icon
-						dark
-						right
-						v-if="LOCALE_CHANGE ==='en-US'"
-				>
-					mdi-checkbox-marked-circle
-				</v-icon>
-			</v-btn>
-		</div>
+<!--		<div style="margin-bottom: 10px">-->
+<!--			<v-btn class="ma-2"-->
+<!--				style="color: #26ae68"-->
+<!--				light-->
+<!--				@click="changeLocale('ua-Ua')"-->
+<!--				>UA-->
+<!--					<v-icon-->
+<!--							dark-->
+<!--							right-->
+<!--							v-if="LOCALE_CHANGE ==='ua-Ua'"-->
+<!--					>-->
+<!--						mdi-checkbox-marked-circle-->
+<!--					</v-icon>-->
+<!--			</v-btn>-->
+<!--			<v-btn-->
+<!--					class="ma-2"-->
+<!--					style="color: #26ae68"-->
+<!--					light-->
+<!--					@click="changeLocale('ru-RU')"-->
+<!--			>RU-->
+<!--				<v-icon-->
+<!--						dark-->
+<!--						right-->
+<!--						v-if="LOCALE_CHANGE ==='ru-RU'"-->
+<!--				>-->
+<!--					mdi-checkbox-marked-circle-->
+<!--				</v-icon>-->
+<!--			</v-btn>-->
+<!--			<v-btn-->
+<!--					class="ma-2"-->
+<!--					style="color: #26ae68"-->
+<!--					light-->
+<!--					@click="changeLocale('en-US')"-->
+<!--			>En-->
+<!--				<v-icon-->
+<!--						dark-->
+<!--						right-->
+<!--						v-if="LOCALE_CHANGE ==='en-US'"-->
+<!--				>-->
+<!--					mdi-checkbox-marked-circle-->
+<!--				</v-icon>-->
+<!--			</v-btn>-->
+<!--		</div>-->
 
 		<keep-alive>
 			<router-view></router-view>

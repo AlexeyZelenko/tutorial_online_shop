@@ -25,7 +25,7 @@
 					style="width: 300px"
 					class="ml-0 pl-5"
 			>
-				<span class="hidden-sm-and-down">{{ 'Admin panel' | localize}}</span>
+				<span class="hidden-sm-and-down">{{ 'Admin panel' | localize }}</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<!--КНОПКА-КОЛОКОЛЬЧИК-->

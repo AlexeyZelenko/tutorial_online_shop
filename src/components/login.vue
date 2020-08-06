@@ -5,13 +5,13 @@
 		</router-link>
 		<form class="login-form">
 			<v-text-field
-					v-model="name"
-					:error-messages="nameErrors"
+					v-model="password"
+					:error-messages="passwordErrors"
 					:counter="10"
 					label="Name"
 					required
-					@input="$v.name.$touch()"
-					@blur="$v.name.$touch()"
+					@input="$v.password.$touch()"
+					@blur="$v.password.$touch()"
 			></v-text-field>
 			<v-text-field
 					v-model="email"
@@ -31,28 +31,27 @@
 <script>
     import {validationMixin} from 'vuelidate'
     import {required, maxLength, email} from 'vuelidate/lib/validators'
-    import Swal from 'sweetalert2'
 
     export default {
-        name: "loginAdmin",
+        password: "loginAdmin",
         mixins: [validationMixin],
 
         validations: {
-            name: {required, maxLength: maxLength(10)},
+            password: {required, maxLength: maxLength(10)},
             email: {required, email},
         },
 
         data: () => ({
-            name: '',
+            password: '',
             email: '',
         }),
 
         computed: {
-            nameErrors() {
+            passwordErrors() {
                 const errors = []
-                if (!this.$v.name.$dirty) return errors
-                !this.$v.name.maxLength && errors.push('Ім’я має бути не більше 10 символів')
-                !this.$v.name.required && errors.push('Ім\'я обов\'язково.')
+                if (!this.$v.password.$dirty) return errors
+                !this.$v.password.maxLength && errors.push('Ім’я має бути не більше 10 символів')
+                !this.$v.password.required && errors.push('Ім\'я обов\'язково.')
                 return errors
             },
             emailErrors() {
@@ -65,29 +64,26 @@
         },
 
         methods: {
-            submit() {
-
-                if (this.name === 'admin' && this.email === 'admin@admin.admin') {
+            async submit() {
+                if (this.$v.$invalid) {
+                    this.$v.$touch()
+                    return
+                }
+                const formData = {
+                    email: this.email,
+                    password: this.password
+                }
+                try {
+                    await this.$store.dispatch('login', formData)
                     // this.$v.$touch()
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Ласкаво просимо, адміністратор!',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        },
-                        showConfirmButton: false,
-                        timer: 1600
-                    })
                     this.$router.push('/admin')
+                } catch (e) {
+                    console.log('error')
                 }
             },
             clear() {
                 this.$v.$reset()
-                this.name = ''
+                this.password = ''
                 this.email = ''
             },
         },
@@ -96,6 +92,7 @@
 
 <style>
 	@import '~animate.css';
+
 	.login-form {
 		padding: 20px;
 	}

@@ -8,7 +8,8 @@ export default  {
     LOCALE_CHANGE(state) {
         return state.locale;
     },
-    locale: s => s.locale
+    locale: s => s.locale,
+    error: s => s.error
 }
 
 

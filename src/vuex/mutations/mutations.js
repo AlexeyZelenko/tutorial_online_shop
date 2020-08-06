@@ -25,7 +25,11 @@ export default  {
     },
     FIREBASE_MUTATIONS: (state, message) => {
         state.products = message
-    }
+    },
+    setError(state, error) {
+        state.error = error
+    },
+
 }
 
 
