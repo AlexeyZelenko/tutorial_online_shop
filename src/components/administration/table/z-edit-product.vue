@@ -64,7 +64,6 @@
 						<!--						Размер-->
 						<v-col cols="12">
 							<v-text-field
-									type="Number"
 									prepend-icon=""
 									label="Размер одежды"
 									:placeholder="selected[0].clothingSize"
@@ -133,31 +132,35 @@
 							></v-checkbox>
 						</div>
 						<!--ФОТО-->
-						<v-col cols="12">
-							<v-file-input
-									label="Вибрати фото"
-									filled
-									prepend-icon="add_a_photo"
-							></v-file-input>
-						</v-col>
+						<!--						<v-col cols="12">-->
+						<!--							<v-file-input-->
+						<!--									label="Вибрати фото"-->
+						<!--									filled-->
+						<!--									prepend-icon="add_a_photo"-->
+						<!--							></v-file-input>-->
+						<!--						</v-col>-->
 					</v-row>
 				</v-container>
 				<v-card-actions>
-					<router-link :to="{name: 'catalog'}">
-						<v-btn
-								text
-								color="primary"
-						>
-							Отмена
-						</v-btn>
-					</router-link>
+
 					<v-btn
+							:to="{name: 'admin'}"
 							text
+							style="background-color: darkolivegreen; margin: 0 3px; color: whitesmoke"
+					>
+						Отмена
+					</v-btn>
+
+					<v-btn
+							:to="{name: 'admin'}"
+							text
+							style="background-color: darkolivegreen; color: whitesmoke"
 							type="submit"
 							@click="editThisProduct"
 					>
 						Сохранить изменения
 					</v-btn>
+
 				</v-card-actions>
 			</v-card>
 		</form>
@@ -215,7 +218,6 @@
                         clothingManufacturer: this.selected[0].clothingManufacturer,
                     })
                     .then(() => {
-                        console.log('user updated!')
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -238,7 +240,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,30 +1,27 @@
 <template>
 	<v-card>
-		<v-card-title>
-			<v-spacer></v-spacer>
-			<v-text-field
-					v-model="search"
-					label="Пошук"
-					append-icon="mdi-magnify"
-					single-line
-					hide-details
-					loading loading-text="Завантаження... Будь ласка, зачекайте"
-			></v-text-field>
-		</v-card-title>
-		<router-link :to="{name: 'edit', params: {selected: selected}}">
-				<button
-						style="margin: 10px"
-						class="v-catalog_item_add_cart_btn btn"
-						@click="editLocation(selected)">
-					Редагувати вибране
-				</button>
-		</router-link>
 
-		<button
-				class="v-catalog_item_add_cart_btn btn"
-				@click="deleteLocation">
-			Видалити вибране
-		</button>
+		<div class="text-center">
+
+			<v-btn :to="{name: 'edit', params: {selected: selected}}"
+					class="ma-2"
+					outlined
+					style="background-color: #23af23; color: white"
+					@click="editLocation(selected)">
+				<v-icon left>mdi-pencil</v-icon> Редагувати вибране
+			</v-btn>
+
+
+			<v-btn
+					class="ma-2"
+					outlined
+					style="background-color: #bd445f; color: white"
+					@click="deleteLocation"
+			>
+				<v-icon left>delete_forever</v-icon> Видалити
+			</v-btn>
+		</div>
+
 		<v-data-table
 				v-model="selected"
 				:headers="headers"
@@ -87,7 +84,6 @@
         }),
         methods: {
             editLocation() {
-                console.log(this.selected)
                 this.$emit('editClick', this.selected)
             },
             deleteLocation() {
@@ -117,11 +113,5 @@
                 'PRODUCTS'
             ]),
         },
-        watch: {},
-        props: {},
     }
 </script>
-
-<style>
-
-</style>
