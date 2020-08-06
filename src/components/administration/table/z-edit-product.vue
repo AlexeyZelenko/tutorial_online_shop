@@ -1,8 +1,7 @@
 <template>
-	<div class="">
-		<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
+	<div class="z-edit-product">
 		<form
-				@submit="editThisProduct(selected[0].article, selected[0].available, selected[0].category, selected[0].image, selected[0].name, selected[0].price, selected[0].BrandName, selected[0].newClothes, selected[0].clothingManufacturer, selected[0].clothingSize, selected[0].discount, selected[0].promotionalPrice, selected[0].stokProduct, selected[0].FotoClothes, selected[0].VideoClothings)">
+				@submit="editThisProduct(...selected[0])">
 			<v-card>
 				<v-card-title class="grey darken-2">
 					Редактировать товар
@@ -167,6 +166,7 @@
 
 <script>
     import {db} from '@/main.js'
+    import Swal from 'sweetalert2'
 
     export default {
         name: "zEditProduct",
@@ -216,6 +216,13 @@
                     })
                     .then(() => {
                         console.log('user updated!')
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Ваша работа была сохранена',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     })
             },
         },
