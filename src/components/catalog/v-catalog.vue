@@ -31,6 +31,7 @@
 		<h1>{{'Catalog' | localize}}</h1>
 		<v-row class="Change_categories">
 				<v-select
+						style="z-index: 100"
 						:selected="selected"
 						:options="categories"
 						@select="sortByCategories"
@@ -65,7 +66,7 @@
         data() {
             return {
                 categories: [
-                    {name: 'Все', value: 'all'},
+                    {name: 'Все', value: 'All'},
                     {name: 'Ветровки', value: 'Windbreaker'},
                     {name: 'Пальто', value: 'Coat'},
                     {name: 'Плащи', value: 'Raincoats'},
@@ -77,8 +78,9 @@
                     {name: 'Блузки', value: 'Blouses'},
                     {name: 'Платья', value: 'Dresses'},
                     {name: 'Костюмы', value: 'Costumes'},
+                    {name: 'Куртки', value: 'Jackets'},
                 ],
-                selected: 'Categories',
+                selected: 'Категории',
                 sortedProducts: [],
                 minPrice: 0,
                 maxPrice: 1000,
@@ -126,7 +128,6 @@
                 }
             }
         },
-        watch: {},
     }
 </script>
 
@@ -157,6 +158,6 @@
 		padding-bottom: 10px;
 		display: flex;
 		align-items: center;
-		justify-content: center
+		justify-content: center;
 	}
 </style>

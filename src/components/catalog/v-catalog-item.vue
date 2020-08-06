@@ -113,7 +113,7 @@
 			margin-top: -35px;
 			position: relative;
 			text-align: center;
-			z-index: 10;
+			z-index: 12;
 			top: 45%;
 			width: 95%;
 			display: flex;

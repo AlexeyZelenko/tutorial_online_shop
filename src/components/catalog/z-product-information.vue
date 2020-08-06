@@ -15,9 +15,9 @@
 		<p>{{"Article" | localize}}: {{product.article}}</p>
 		<p>{{"Price" | localize}}: {{product.price}} грн</p>
 		<p>{{"Descriptions" | localize}}: {{product.description}}</p>
-		<p v-if="product.clothingManufacturer != null">{{"Manufacturer country" | localize}} :
+		<p v-if="product.clothingManufacturer !== '' ">{{"Manufacturer country" | localize}} :
 			{{product.clothingManufacturer}}</p>
-		<p v-if="product.BrandName != null">{{"Brand name" | localize}}: {{product.BrandName}}</p>
+		<p v-if="product.BrandName !== '' ">{{"Brand name" | localize}}: {{product.BrandName}}</p>
 		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
 		<div class="text-center" v-show="product.newClothes">
 			<v-chip

@@ -77,14 +77,6 @@
     top: 0;
     bottom: 0;
   }
-  .v-popup {
-    padding: 16px;
-    position: fixed;
-    top: 50px;
-    width: 400px;
-    background: #ffffff;
-    box-shadow: 0 0 17px 0 #e7e7e7;
-    z-index: 10;
     &__header, &__footer {
       display: flex;
       justify-content: space-between;

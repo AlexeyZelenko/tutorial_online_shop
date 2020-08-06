@@ -69,7 +69,7 @@
                 {text: 'Описание', value: 'description'},
                 {text: 'Цена', value: 'price'},
                 // {text: 'id', value: 'id'},
-                {text: 'опубликовано', value: 'available'},
+                // {text: 'опубликовано', value: 'available'},
                 {text: 'Бренд', value: 'BrandName'},
                 {text: 'Новинка', value: 'newClothes'},
                 {text: 'Производитель', value: 'clothingManufacturer'},
