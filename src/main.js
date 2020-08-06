@@ -10,6 +10,7 @@ import 'firebase/storage'
 import 'firebase/performance'
 import 'firebase/messaging'
 import { firestorePlugin } from 'vuefire'
+import { rtdbPlugin } from 'vuefire'
 import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
@@ -21,7 +22,7 @@ import Vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 
-// export const db = firebase.initializeApp({ projectId: 'online-shop' }).firestore()
+// export const db_database = firebase.initializeApp({ databaseURL: 'https://online-shop-34af2.firebaseio.com' }).database()
 
 export const db = firebase.initializeApp({
     apiKey: "AIzaSyBMnm2m-5DVxNkJYghP8Jo41V9m3fvf0Tc",
@@ -38,6 +39,8 @@ export const db = firebase.initializeApp({
 
 
 Vue.use(firestorePlugin)
+Vue.use(rtdbPlugin)
+
 Vue.filter('localize', localizeFilter)
 Vue.use(Vuelidate)
 

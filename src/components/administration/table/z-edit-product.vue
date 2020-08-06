@@ -1,13 +1,11 @@
 <template>
 	<div class="">
-		{{selected.name}}
-		<button @click="qaz">123</button>
 		<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
 		<form
-				@submit="addLocation(selected)">
+				@submit="editThisProduct(selected[0].article, selected[0].available, selected[0].category, selected[0].image, selected[0].name, selected[0].price, selected[0].BrandName, selected[0].newClothes, selected[0].clothingManufacturer, selected[0].clothingSize, selected[0].discount, selected[0].promotionalPrice, selected[0].stokProduct, selected[0].FotoClothes, selected[0].VideoClothings)">
 			<v-card>
 				<v-card-title class="grey darken-2">
-					{{'Create product' | localize}}
+					Редактировать товар
 				</v-card-title>
 				<v-container>
 					<v-row class="mx-2">
@@ -30,39 +28,38 @@
 								</v-avatar>
 								<!--								НАЗВАНИЕ-->
 								<v-text-field
+										prepend-icon="filter_1"
 										label="Наименование одежды"
-										v-model="name"
+										v-model="selected[0].name"
 										:rules="[rules.counter]"
-										:placeholder="[selected.name]"
+										:placeholder="selected[0].name"
 								></v-text-field>
 							</v-row>
 						</v-col>
 						<!--						ОПИСАНИЕ ТОВАРА-->
 						<v-col cols="12">
 							<v-text-field
-									:placeholder="selected.description"
+									prepend-icon="edit"
+									:placeholder="selected[0].description"
 									:rules="[rules.counter, rules.counter2]"
-									v-model="selected.description"
+									v-model="selected[0].description"
 							></v-text-field>
 						</v-col>
 						<!--						АРТИКЛЬ-->
 						<v-col cols="6">
 							<v-text-field
-									prepend-icon="mdi-account-card-details-outline"
-									:placeholder="selected.article"
-									v-model="selected.article"
+									prepend-icon="local_offer"
+									:placeholder="selected[0].article"
+									v-model="selected[0].article"
 							></v-text-field>
 						</v-col>
 						<!--						ЦЕНА-->
 						<v-col cols="6">
 							<v-text-field
-									type="Number"
-									prepend-icon=""
+									prepend-icon="monetization_on"
 									label="Цена товара"
 									:placeholder="selected[0].price"
 									v-model="selected[0].price"
-									:rules="[v => (v === Number.NaN) || 'Введите число!']"
-									required
 							></v-text-field>
 						</v-col>
 						<!--						Размер-->
@@ -71,8 +68,8 @@
 									type="Number"
 									prepend-icon=""
 									label="Размер одежды"
-									:placeholder="selected.clothingSize"
-									v-model="selected.clothingSize"
+									:placeholder="selected[0].clothingSize"
+									v-model="selected[0].clothingSize"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -80,10 +77,10 @@
 						<v-col cols="12">
 							<v-text-field
 									type="Number"
-									prepend-icon=""
+									prepend-icon="insert_emoticon"
 									label="Ценна по акции"
-									:placeholder="selected.promotionalPrice"
-									v-model="selected.promotionalPrice"
+									:placeholder="selected[0].promotionalPrice"
+									v-model="selected[0].promotionalPrice"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -93,8 +90,8 @@
 									type="Number"
 									prepend-icon=""
 									label="Скидка на товар"
-									:placeholder="selected.discount"
-									v-model="selected.discount"
+									:placeholder="selected[0].discount"
+									v-model="selected[0].discount"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
 							></v-text-field>
 						</v-col>
@@ -102,8 +99,8 @@
 						<v-col cols="6">
 							<v-select
 									prepend-icon=""
-									:placeholder="[selected.category]"
-									v-model="selected.category"
+									:placeholder="selected[0].category"
+									v-model="selected[0].category"
 									:items="itemsCategories"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите категорию"
@@ -113,8 +110,8 @@
 						<v-col cols="6">
 							<v-select
 									prepend-icon=""
-									:placeholder="[selected.clothingManufacturer]"
-									v-model="selected.clothingManufacturer"
+									:placeholder="selected[0].clothingManufacturer"
+									v-model="selected[0].clothingManufacturer"
 									:items="itemsclothingManufacturer"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите производителя"
@@ -124,16 +121,16 @@
 						<div class="check_box">
 							<v-checkbox
 									label="Отображать в каталоге"
-									v-model="selected.available"
+									v-model="selected[0].available"
 							></v-checkbox>
 							<v-checkbox
 									label="Новинка"
-									v-model="selected.newClothes"
+									v-model="selected[0].newClothes"
 							></v-checkbox>
 
 							<v-checkbox
 									label="Товар со скидкой"
-									v-model="selected.stokProduct"
+									v-model="selected[0].stokProduct"
 							></v-checkbox>
 						</div>
 						<!--ФОТО-->
@@ -141,7 +138,7 @@
 							<v-file-input
 									label="Вибрати фото"
 									filled
-									prepend-icon="mdi-camera"
+									prepend-icon="add_a_photo"
 							></v-file-input>
 						</v-col>
 					</v-row>
@@ -158,14 +155,13 @@
 					<v-btn
 							text
 							type="submit"
+							@click="editThisProduct"
 					>
-						Сохранить
+						Сохранить изменения
 					</v-btn>
 				</v-card-actions>
 			</v-card>
 		</form>
-
-
 	</div>
 </template>
 
@@ -175,27 +171,6 @@
     export default {
         name: "zEditProduct",
         data: () => ({
-            selected: [],
-            id: '',
-            createdAt: '',
-            name: '',
-            article: '',
-            description: '',
-            available: null,
-            category: '',
-            image: '',
-            price: null,
-            discount: null,
-            clothingSize: null,
-            promotionalPrice: null,
-            clothingManufacturer: '',
-            VideoClothings: false,
-            BrandName: '',
-            FotoClothes: '',
-            stokProduct: null,
-            newClothes: true,
-            drawer: null,
-            select: null,
             rules: {
                 required: value => !!value || 'Обязательно.',
                 counter: value => value.length >= 5 || 'Min 5 знаков',
@@ -221,11 +196,27 @@
                 'Китай'
             ],
         }),
-        // components: {},
         methods: {
-            addLocation(selected) {
-                this.selected = selected
-                db.collection('products').add(this.selected).doc('id')
+            editThisProduct() {
+                db.collection('products')
+                    .doc(this.selected[0].id)
+                    .update({
+                        createdAt: this.selected[0].createdAt,
+                        BrandName: this.selected[0].BrandName,
+                        article: this.selected[0].article,
+                        discount: this.selected[0].discount,
+                        price: this.selected[0].price,
+                        stokProduct: this.selected[0].stokProduct,
+                        promotionalPrice: this.selected[0].promotionalPrice,
+                        clothingSize: this.selected[0].clothingSize,
+                        FotoClothes: this.selected[0].FotoClothes,
+                        newClothes: this.selected[0].newClothes,
+                        description: this.selected[0].description,
+                        clothingManufacturer: this.selected[0].clothingManufacturer,
+                    })
+                    .then(() => {
+                        console.log('user updated!')
+                    })
             },
         },
         computed: {},

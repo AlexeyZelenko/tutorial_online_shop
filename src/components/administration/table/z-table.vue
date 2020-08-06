@@ -15,7 +15,7 @@
 				<button
 						style="margin: 10px"
 						class="v-catalog_item_add_cart_btn btn"
-						@click="editLocation(selected[0])">
+						@click="editLocation(selected)">
 					Редагувати вибране
 				</button>
 		</router-link>
@@ -87,6 +87,7 @@
         }),
         methods: {
             editLocation() {
+                console.log(this.selected)
                 this.$emit('editClick', this.selected)
             },
             deleteLocation() {
