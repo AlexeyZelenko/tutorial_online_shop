@@ -25,9 +25,6 @@ let store = new Vuex.Store({
     modules: {
         auth,
     }
-
-
-
 });
 
 export default store;

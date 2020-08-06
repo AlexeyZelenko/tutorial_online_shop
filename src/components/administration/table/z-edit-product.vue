@@ -37,12 +37,18 @@
 						</v-col>
 						<!--						ОПИСАНИЕ ТОВАРА-->
 						<v-col cols="12">
-							<v-text-field
+<!--							<v-text-field-->
+<!--									prepend-icon="edit"-->
+<!--									:placeholder="selected[0].description"-->
+<!--									:rules="[rules.counter, rules.counter2]"-->
+<!--									v-model="selected[0].description"-->
+<!--							></v-text-field>-->
+							<tiptap-vuetify
 									prepend-icon="edit"
 									:placeholder="selected[0].description"
-									:rules="[rules.counter, rules.counter2]"
 									v-model="selected[0].description"
-							></v-text-field>
+									:extensions="extensions"
+							/>
 						</v-col>
 						<!--						АРТИКЛЬ-->
 						<v-col cols="6">
@@ -170,10 +176,35 @@
 <script>
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
+    // import the-component and the necessary extensions
+    import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from 'tiptap-vuetify'
 
     export default {
         name: "zEditProduct",
+        components: { TiptapVuetify  },
         data: () => ({
+            // declare extensions you want to use
+            extensions: [
+                History,
+                Blockquote,
+                Link,
+                Underline,
+                Strike,
+                Italic,
+                ListItem,
+                BulletList,
+                OrderedList,
+                [Heading, {
+                    options: {
+                        levels: [1, 2, 3]
+                    }
+                }],
+                Bold,
+                Code,
+                HorizontalRule,
+                Paragraph,
+                HardBreak
+            ],
             rules: {
                 required: value => !!value || 'Обязательно.',
                 counter: value => value.length >= 5 || 'Min 5 знаков',
