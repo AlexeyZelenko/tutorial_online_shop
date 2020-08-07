@@ -196,7 +196,7 @@
                 OrderedList,
                 [Heading, {
                     options: {
-                        levels: [1, 2, 3]
+                        levels: [4, 5, 6]
                     }
                 }],
                 Bold,

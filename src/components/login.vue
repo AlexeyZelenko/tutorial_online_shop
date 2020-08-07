@@ -45,7 +45,11 @@
             password: '',
             email: '',
         }),
-
+        metaInfo() {
+            return {
+                title: this.$title('Login')
+            }
+        },
         computed: {
             passwordErrors() {
                 const errors = []
@@ -79,6 +83,12 @@
                     this.$router.push('/admin')
                 } catch (e) {
                     console.log('error')
+                }
+            },
+            mounted() {
+                if (this.$route.query.locale) {
+                    let info = {locale: this.$route.query.locale}
+                    this.$store.commit('setInfo', info)
                 }
             },
             clear() {
