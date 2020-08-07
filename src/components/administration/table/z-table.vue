@@ -1,44 +1,63 @@
 <template>
 	<v-card>
 
-		<div class="text-center">
-
-			<v-btn :to="{name: 'edit', params: {selected: selected}}"
-					class="ma-2"
-					outlined
-					style="background-color: #23af23; color: white"
-					@click="editLocation(selected)">
-				<v-icon left>mdi-pencil</v-icon> Редагувати вибране
-			</v-btn>
-
+		<div class="z-table-button">
 
 			<v-btn
+					:to="{name: 'edit', params: {selected: selected}}"
+					@click="editLocation()"
 					class="ma-2"
 					outlined
-					style="background-color: #bd445f; color: white"
-					@click="deleteLocation"
-			>
-				<v-icon left>delete_forever</v-icon> Видалити
+					style="background-color: #23af23; color: white">
+				<v-icon
+						left
+				>
+					mdi-pencil
+				</v-icon>
+				Редагувати вибране
 			</v-btn>
+
+
 		</div>
 
 		<v-data-table
-				v-model="selected"
 				:headers="headers"
 				:items="PRODUCTS"
+				:search="search"
 				:single-select="singleSelect"
+				class="elevation-1"
 				item-key="article"
 				show-select
-				class="elevation-1"
-				:search="search"
-				:footer-props="{
-      showFirstLastPage: true,
-      firstIcon: 'mdi-arrow-collapse-left',
-      lastIcon: 'mdi-arrow-collapse-right',
-      prevIcon: 'mdi-minus',
-      nextIcon: 'mdi-plus'
-    }"
+				style="justify-content: center; padding: 20px; margin-right: 10px"
+				v-model="selected"
 		>
+			<template v-slot:item.price="{ item }">
+				<v-chip :color="getColor(item.price)" dark>{{ item.price }}</v-chip>
+			</template>
+
+			<template v-slot:item.actions="{ item }">
+<!--				<v-icon-->
+<!--						@click="editLocation(item)"-->
+<!--						class="mr-2"-->
+<!--						small-->
+<!--				>-->
+<!--					mdi-pencil-->
+<!--				</v-icon>-->
+
+
+				<v-icon
+						@click="deleteLocation(item)"
+						small
+				>
+					mdi-delete
+				</v-icon>
+			</template>
+			<v-divider
+					class="mx-4"
+					inset
+					vertical
+			></v-divider>
+
 		</v-data-table>
 	</v-card>
 </template>
@@ -58,35 +77,51 @@
             selected: [],
             products: [],
             headers: [
+                // {
+                //     text: 'Название',
+                //     value: 'name',
+                // },
                 {
-                    text: 'Название',
+                    text: 'Артикль',
+                    value: 'article',
                     align: 'start',
                     sortable: false,
-                    value: 'name',
                 },
-                {text: 'Артикль', value: 'article'},
-                {text: 'Категория', value: 'category'},
+                // {text: 'Категория', value: 'category'},
                 {text: 'Описание', value: 'description'},
                 {text: 'Цена', value: 'price'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
-                {text: 'Бренд', value: 'BrandName'},
-                {text: 'Новинка', value: 'newClothes'},
-                {text: 'Производитель', value: 'clothingManufacturer'},
-                {text: 'Размер', value: 'clothingSize'},
-                {text: 'Скидка', value: 'discount'},
-                {text: 'Акционная цена', value: 'promotionalPrice'},
-                {text: 'Скидка', value: 'stokProduct'},
-                // {text: 'Фото одежды', value: 'FotoClothes'},
+                // {text: 'Бренд', value: 'BrandName'},
+                // {text: 'Новинка', value: 'newClothes'},
+                // {text: 'Производитель', value: 'clothingManufacturer'},
+                // {text: 'Размер', value: 'clothingSize'},
+                // {text: 'Скидка', value: 'discount'},
+                // {text: 'Акционная цена', value: 'promotionalPrice'},
+                // {text: 'Скидка', value: 'stokProduct'},
+                // {text: 'Редактировать', value: 'editThisProduct'},
+                {text: 'Фото одежды', value: ''},
                 // {text: 'Видео одежды', value: 'VideoClothings'},
+                {text: 'Удалить', value: 'actions', sortable: false},
             ],
             locations: []
         }),
         methods: {
-            editLocation() {
-                this.$emit('editClick', this.selected)
+            getColor(price) {
+                if (price < 875) return 'red'
+                else if (price > 875) return 'orange'
+                else return 'green'
             },
-            deleteLocation() {
+            editLocation(item) {
+                // console.log(this.selected)
+                // console.log(item.id)
+                // console.log(this.selected[0])
+                console.log(item)
+
+                // this.$router.push('/edit')
+                // this.$emit('editClick', this.selected)
+            },
+            deleteLocation(item) {
                 Swal.fire({
                     title: 'Ти впевнений?',
                     text: "Ви не зможете відновити це!",
@@ -97,7 +132,7 @@
                     confirmButtonText: 'Так, видаліть його!'
                 }).then((result) => {
                     if (result.value) {
-                        let id = this.selected[0].id
+                        let id = item.id
                         db.collection('products').doc(id).delete()
                         Swal.fire(
                             'Видалено!',
@@ -115,3 +150,14 @@
         },
     }
 </script>
+
+<style scoped>
+	.z-table-button {
+		position: fixed;
+		right: 10%;
+		top: 85%;
+		width: 90%;
+		display: block;
+		z-index: 101;
+	}
+</style>

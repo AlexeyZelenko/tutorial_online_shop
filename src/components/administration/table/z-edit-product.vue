@@ -16,109 +16,100 @@
 									align="center"
 									class="mr-0"
 							>
-								<v-avatar
-										size="40px"
-										class="mx-3"
-								>
-									<img
-											src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-											alt=""
-									>
-								</v-avatar>
 								<!--								НАЗВАНИЕ-->
 								<v-text-field
-										prepend-icon="filter_1"
-										label="Наименование одежды"
-										v-model="selected[0].name"
-										:rules="[rules.counter]"
 										:placeholder="selected[0].name"
+										:rules="[rules.counter]"
+										label="Наименование одежды"
+										prepend-icon="filter_1"
+										v-model="selected[0].name"
 								></v-text-field>
 							</v-row>
 						</v-col>
 						<!--						ОПИСАНИЕ ТОВАРА-->
 						<v-col cols="12">
-<!--							<v-text-field-->
-<!--									prepend-icon="edit"-->
-<!--									:placeholder="selected[0].description"-->
-<!--									:rules="[rules.counter, rules.counter2]"-->
-<!--									v-model="selected[0].description"-->
-<!--							></v-text-field>-->
+							<!--							<v-text-field-->
+							<!--									prepend-icon="edit"-->
+							<!--									:placeholder="selected[0].description"-->
+							<!--									:rules="[rules.counter, rules.counter2]"-->
+							<!--									v-model="selected[0].description"-->
+							<!--							></v-text-field>-->
 							<tiptap-vuetify
-									prepend-icon="edit"
-									:placeholder="selected[0].description"
-									v-model="selected[0].description"
 									:extensions="extensions"
+									:placeholder="selected[0].description"
+									prepend-icon="edit"
+									v-model="selected[0].description"
 							/>
 						</v-col>
 						<!--						АРТИКЛЬ-->
 						<v-col cols="6">
 							<v-text-field
-									prepend-icon="local_offer"
 									:placeholder="selected[0].article"
+									prepend-icon="local_offer"
 									v-model="selected[0].article"
 							></v-text-field>
 						</v-col>
 						<!--						ЦЕНА-->
 						<v-col cols="6">
 							<v-text-field
-									prepend-icon="monetization_on"
-									label="Цена товара"
 									:placeholder="selected[0].price"
+									label="Цена товара"
+									prepend-icon="monetization_on"
 									v-model="selected[0].price"
 							></v-text-field>
 						</v-col>
 						<!--						Размер-->
 						<v-col cols="12">
 							<v-text-field
-									prepend-icon=""
-									label="Размер одежды"
 									:placeholder="selected[0].clothingSize"
-									v-model="selected[0].clothingSize"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
+									label="Размер одежды"
+									prepend-icon=""
+									v-model="selected[0].clothingSize"
 							></v-text-field>
 						</v-col>
 						<!--Акционная ценна-->
 						<v-col cols="12">
 							<v-text-field
-									type="Number"
-									prepend-icon="insert_emoticon"
-									label="Ценна по акции"
 									:placeholder="selected[0].promotionalPrice"
-									v-model="selected[0].promotionalPrice"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
+									label="Ценна по акции"
+									prepend-icon="insert_emoticon"
+									type="Number"
+									v-model="selected[0].promotionalPrice"
 							></v-text-field>
 						</v-col>
 						<!--СКИДКА-->
 						<v-col cols="12">
 							<v-text-field
-									type="Number"
-									prepend-icon=""
-									label="Скидка на товар"
 									:placeholder="selected[0].discount"
-									v-model="selected[0].discount"
 									:rules="[v => (v === Number.NaN) || 'Введите число!']"
+									label="Скидка на товар"
+									prepend-icon=""
+									type="Number"
+									v-model="selected[0].discount"
 							></v-text-field>
 						</v-col>
 						<!--						КАТЕГОРИИ-->
 						<v-col cols="6">
 							<v-select
-									prepend-icon=""
-									:placeholder="selected[0].category"
-									v-model="selected[0].category"
 									:items="itemsCategories"
+									:placeholder="selected[0].category"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите категорию"
+									prepend-icon=""
+									v-model="selected[0].category"
 							></v-select>
 						</v-col>
 						<!--							ПРОИЗВОДИТЕЛЬ-->
 						<v-col cols="6">
 							<v-select
-									prepend-icon=""
-									:placeholder="selected[0].clothingManufacturer"
-									v-model="selected[0].clothingManufacturer"
 									:items="itemsclothingManufacturer"
+									:placeholder="selected[0].clothingManufacturer"
 									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите производителя"
+									prepend-icon=""
+									v-model="selected[0].clothingManufacturer"
 							></v-select>
 						</v-col>
 						<!--						ОТОБРАЖЕНИЕ-->
@@ -151,18 +142,18 @@
 
 					<v-btn
 							:to="{name: 'admin'}"
-							text
 							style="background-color: darkolivegreen; margin: 0 3px; color: whitesmoke"
+							text
 					>
 						Отмена
 					</v-btn>
 
 					<v-btn
 							:to="{name: 'admin'}"
-							text
-							style="background-color: darkolivegreen; color: whitesmoke"
-							type="submit"
 							@click="editThisProduct"
+							style="background-color: darkolivegreen; color: whitesmoke"
+							text
+							type="submit"
 					>
 						Сохранить изменения
 					</v-btn>
@@ -177,11 +168,28 @@
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     // import the-component and the necessary extensions
-    import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from 'tiptap-vuetify'
+    import {
+        TiptapVuetify,
+        Heading,
+        Bold,
+        Italic,
+        Strike,
+        Underline,
+        Code,
+        Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
+        Link,
+        Blockquote,
+        HardBreak,
+        HorizontalRule,
+        History
+    } from 'tiptap-vuetify'
 
     export default {
         name: "zEditProduct",
-        components: { TiptapVuetify  },
+        components: {TiptapVuetify},
         data: () => ({
             // declare extensions you want to use
             extensions: [
@@ -262,6 +270,12 @@
         computed: {},
         watch: {},
         props: {
+            item: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            },
             selected: {
                 type: Array,
                 default() {

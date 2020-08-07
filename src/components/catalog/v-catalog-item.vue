@@ -66,9 +66,6 @@
             productClick() {
                 this.$emit('productClick', this.product_data.article)
             },
-            closeInfoPopup() {
-                this.isInfoPopupVisible = false
-            },
             addToCart() {
                 this.$emit('addToCart', this.product_data);
             }
