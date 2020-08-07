@@ -28,9 +28,18 @@
 				class="elevation-1"
 				item-key="article"
 				show-select
-				style="justify-content: center; padding: 20px; margin-right: 10px"
+
 				v-model="selected"
 		>
+			<template v-slot:item.image="{ item }" style="min-height: 100px">
+				<v-chip :color="getColor(item.image)" dark>{{ item.image }}</v-chip>
+				<img
+						v-if="item.image"
+						:src="require('@/assets/images/' + item.image)"
+						style="max-width: 50px; max-height: 100px; margin: 5px"
+				>
+			</template>
+
 			<template v-slot:item.price="{ item }">
 				<v-chip :color="getColor(item.price)" dark>{{ item.price }}</v-chip>
 			</template>
@@ -52,11 +61,6 @@
 					mdi-delete
 				</v-icon>
 			</template>
-			<v-divider
-					class="mx-4"
-					inset
-					vertical
-			></v-divider>
 
 		</v-data-table>
 	</v-card>
@@ -87,9 +91,9 @@
                     align: 'start',
                     sortable: false,
                 },
+                {text: 'Фото одежды', value: 'image'},
                 // {text: 'Категория', value: 'category'},
                 {text: 'Описание', value: 'description'},
-                {text: 'Цена', value: 'price'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
                 // {text: 'Бренд', value: 'BrandName'},
@@ -100,7 +104,8 @@
                 // {text: 'Акционная цена', value: 'promotionalPrice'},
                 // {text: 'Скидка', value: 'stokProduct'},
                 // {text: 'Редактировать', value: 'editThisProduct'},
-                {text: 'Фото одежды', value: ''},
+
+                {text: 'Цена', value: 'price'},
                 // {text: 'Видео одежды', value: 'VideoClothings'},
                 {text: 'Удалить', value: 'actions', sortable: false},
             ],
@@ -151,13 +156,17 @@
     }
 </script>
 
-<style scoped>
-	.z-table-button {
-		position: fixed;
-		right: 10%;
-		top: 85%;
-		width: 90%;
-		display: block;
-		z-index: 101;
-	}
+<style lang="sass">
+	.z-table-button
+		position: fixed
+		right: 10%
+		top: 85%
+		width: 90%
+		display: block
+		z-index: 10
+
+	.v-data-table__mobile-row
+		height: 100px
+		$data-table-regular-header-height: 100px
+
 </style>
