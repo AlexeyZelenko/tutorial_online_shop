@@ -28,15 +28,21 @@
 				class="elevation-1"
 				item-key="article"
 				show-select
-
 				v-model="selected"
 		>
-			<template v-slot:item.image="{ item }" style="min-height: 100px">
-				<v-chip :color="getColor(item.image)" dark>{{ item.image }}</v-chip>
+			<template
+					v-slot:item.image="{ item }"
+					style="height:190px;">
+				<v-chip
+						:color="getColor(item.image)"
+						dark
+				>
+					{{ item.image }}
+				</v-chip>
 				<img
 						v-if="item.image"
 						:src="require('@/assets/images/' + item.image)"
-						style="max-width: 50px; max-height: 100px; margin: 5px"
+						style="max-width: 100px; max-height: 100px; margin: 5px"
 				>
 			</template>
 
@@ -91,8 +97,10 @@
                     align: 'start',
                     sortable: false,
                 },
+                {text: '', value: ''},
                 {text: 'Фото одежды', value: 'image'},
                 // {text: 'Категория', value: 'category'},
+                {text: '', value: ''},
                 {text: 'Описание', value: 'description'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
@@ -108,6 +116,7 @@
                 {text: 'Цена', value: 'price'},
                 // {text: 'Видео одежды', value: 'VideoClothings'},
                 {text: 'Удалить', value: 'actions', sortable: false},
+                {text: '===============================', value: ''},
             ],
             locations: []
         }),
@@ -166,7 +175,17 @@
 		z-index: 10
 
 	.v-data-table__mobile-row
-		height: 100px
-		$data-table-regular-header-height: 100px
+		display: flex
+		align-items: center
+		align-content: normal
+		min-height: 100px
+		background-size: auto
+		background-color: #c8bb9d
+		font-size: 1rem
+
+	.v-data-table-mobile-row-min-height
+		size: 100px
+
+
 
 </style>

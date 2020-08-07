@@ -1,4 +1,6 @@
 @import 'variables.scss';
+// src/sass/main.scss
+@import '~vuetify/src/styles/styles.sass';
 
 .btn {
   padding: $padding $padding*2;
@@ -12,6 +14,8 @@
     background: $green-bg-hover;
   }
 }
+
+$data-table-mobile-row-min-height: 100px !default;
 
 
 

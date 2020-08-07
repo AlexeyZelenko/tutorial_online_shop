@@ -12,6 +12,8 @@
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "core-js": "^3.6.5",
+    "deepmerge": "^4.2.2",
+    "fibers": "^5.0.0",
     "firebase": "^7.17.1",
     "material-design-icons": "^3.0.1",
     "material-design-icons-iconfont": "^5.0.1",
@@ -38,7 +40,7 @@
     "node-sass": "^4.14.1",
     "prettier": "2.0.5",
     "sass": "^1.26.10",
-    "sass-loader": "^9.0.2",
+    "sass-loader": "^9.0.3",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0"
   },
