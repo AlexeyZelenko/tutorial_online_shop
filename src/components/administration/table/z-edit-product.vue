@@ -28,12 +28,12 @@
 						</v-col>
 						<!--						ОПИСАНИЕ ТОВАРА-->
 						<v-col cols="12">
-							<!--							<v-text-field-->
-							<!--									prepend-icon="edit"-->
-							<!--									:placeholder="selected[0].description"-->
-							<!--									:rules="[rules.counter, rules.counter2]"-->
-							<!--									v-model="selected[0].description"-->
-							<!--							></v-text-field>-->
+									<v-text-field
+											prepend-icon="edit"
+											:placeholder="selected[0].description"
+											:rules="[rules.counter, rules.counter2]"
+											v-model="selected[0].description"
+									></v-text-field>
 							<tiptap-vuetify
 									:extensions="extensions"
 									:placeholder="selected[0].description"
@@ -66,6 +66,15 @@
 									label="Размер одежды"
 									prepend-icon=""
 									v-model="selected[0].clothingSize"
+							></v-text-field>
+						</v-col>
+						<!--						Бренд-->
+						<v-col cols="12">
+							<v-text-field
+									:placeholder="selected[0].BrandName"
+									label="Бренд"
+									prepend-icon=""
+									v-model="selected[0].BrandName"
 							></v-text-field>
 						</v-col>
 						<!--Акционная ценна-->
@@ -270,12 +279,6 @@
         computed: {},
         watch: {},
         props: {
-            item: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            },
             selected: {
                 type: Array,
                 default() {

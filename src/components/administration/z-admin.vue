@@ -7,7 +7,6 @@
 				color="green darken-3"
 				dark
 		>
-<!--						<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>-->
 			<!--НАЗАД К КАТАЛОГУ-->
 			<v-toolbar-title class="ml-0 pl-4">
 				<router-link :to="{name: 'catalog'}">
@@ -15,7 +14,6 @@
 						<v-btn icon>
 							<i class="material-icons">reply</i>
 						</v-btn>
-						<!--					{{'Back to catalog' | localize }}-->
 					</div>
 				</router-link>
 			</v-toolbar-title>
@@ -34,13 +32,6 @@
 			</v-btn>
 		</v-app-bar>
 		<div>
-			<!--		<router-link :to="{name: 'catalog'}">-->
-			<!--			<div-->
-			<!--					style="height: 45px"-->
-			<!--					class="v-catalog__link_to_admin">-->
-			<!--				{{'Back to catalog' | localize }}-->
-			<!--			</div>-->
-			<!--		</router-link>-->
 			<zTable/>
 			<z-add-new-product/>
 		</div>

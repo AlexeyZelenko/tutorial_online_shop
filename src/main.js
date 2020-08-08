@@ -35,7 +35,7 @@ export const db = firebase.initializeApp({
     measurementId: "G-QSTP059LSZ"
 }).firestore()
 
-
+export const storage = firebase.storage();
 
 
 Vue.use(firestorePlugin)

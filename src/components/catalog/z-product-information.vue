@@ -1,13 +1,15 @@
 <template>
 	<div class="z-product-information">
+		<div>
+		</div>
 		<router-link :to="{name: 'catalog'}">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
-<!--		<img-->
-<!--				v-if="product.image"-->
-<!--				class="z-product-information_image"-->
-<!--				:src="require('@/assets/images/' + product.image)"-->
-<!--		>-->
+		<!--		<img-->
+		<!--				v-if="product.image"-->
+		<!--				class="z-product-information_image"-->
+		<!--				:src="require('@/assets/images/' + product.image)"-->
+		<!--		>-->
 		<v-carousel
 				:carousel_data="product.imagesArray"
 		/>
@@ -31,25 +33,25 @@
 			</v-chip>
 			<!--		СКИДКА-->
 			<v-chip
-					v-show="product.promotionalPrice != null" class="v_catalog_item_new"
-					style="background-color: #da207d; color:white"
+					class="v_catalog_item_new" style="background-color: #da207d; color:white"
 					text-color="white"
+					v-show="product.promotionalPrice != null"
 			>
 				{{"Promotional Price" | localize}} {{product.promotionalPrice}} !!!
 			</v-chip>
 			<!--		СКИДКА-->
 			<v-chip
-					v-show="product.discount != null" class="v_catalog_item_new"
-					style="background-color: #202cda; color:white"
+					class="v_catalog_item_new" style="background-color: #202cda; color:white"
 					text-color="white"
+					v-show="product.discount != null"
 			>
 				{{"Discount" | localize}} {{product.discount}} %
 			</v-chip>
 		</div>
 		<button
-				style="margin-top: 20px"
-				class="v-catalog_item_add_cart_btn btn"
 				@click="addToCart"
+				class="v-catalog_item_add_cart_btn btn"
+				style="margin-top: 20px"
 		>
 			{{'Add to cart' | localize}}
 		</button>

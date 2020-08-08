@@ -1,11 +1,16 @@
 <template>
 	<v-card>
-
+		<v-text-field
+				append-icon="mdi-magnify"
+				hide-details
+				label="Поиск"
+				single-line
+				v-model="search"
+		></v-text-field>
 		<div class="z-table-button">
-
 			<v-btn
 					:to="{name: 'edit', params: {selected: selected}}"
-					@click="editLocation()"
+					@click="editLocation(selected)"
 					class="ma-2"
 					outlined
 					style="background-color: #23af23; color: white">
@@ -16,10 +21,7 @@
 				</v-icon>
 				Редагувати вибране
 			</v-btn>
-
-
 		</div>
-
 		<v-data-table
 				:headers="headers"
 				:items="PRODUCTS"
@@ -31,18 +33,12 @@
 				v-model="selected"
 		>
 			<template
-					v-slot:item.image="{ item }"
-					style="height:190px;">
-				<v-chip
-						:color="getColor(item.image)"
-						dark
-				>
-					{{ item.image }}
-				</v-chip>
+					style="height:190px;"
+					v-slot:item.image="{ item }">
 				<img
-						v-if="item.image"
 						:src="require('@/assets/images/' + item.image)"
 						style="max-width: 100px; max-height: 100px; margin: 5px"
+						v-if="item.image"
 				>
 			</template>
 
@@ -51,13 +47,13 @@
 			</template>
 
 			<template v-slot:item.actions="{ item }">
-<!--				<v-icon-->
-<!--						@click="editLocation(item)"-->
-<!--						class="mr-2"-->
-<!--						small-->
-<!--				>-->
-<!--					mdi-pencil-->
-<!--				</v-icon>-->
+				<!--				<v-icon-->
+				<!--						@click="editLocation(item)"-->
+				<!--						class="mr-2"-->
+				<!--						small-->
+				<!--				>-->
+				<!--					mdi-pencil-->
+				<!--				</v-icon>-->
 
 
 				<v-icon
@@ -69,28 +65,57 @@
 			</template>
 
 		</v-data-table>
+		<div>
+			<!--			<img-->
+			<!--					:src="require('@/assets/images/' + item.image)"-->
+			<!--					style="max-width: 100px; max-height: 100px; margin: 5px"-->
+			<!--					v-if="item.image"-->
+			<!--			>-->
+			<form @submit="UploadFiles(File)">
+				<template>
+					<v-file-input
+							v-model="File"
+							label="File input"
+							filled
+							prepend-icon="mdi-camera"
+					></v-file-input>
+				</template>
+				<v-btn
+						text
+						type="submit"
+						@UploadFiles="UploadFiles"
+				>
+					Сохранить
+				</v-btn>
+			</form>
+
+
+<!--			<button @click="thisImages">Изображение</button>-->
+
+
+		</div>
 	</v-card>
 </template>
 
 <script>
     import {mapGetters} from 'vuex'
     import {db} from '@/main.js'
+    // import {storage} from '@/main.js'
     import Swal from 'sweetalert2'
+    import firebase from 'firebase/app'
 
 
     export default {
         name: "zTable",
         data: () => ({
+            File: {},
             search: '',
             delete: '',
             singleSelect: true,
             selected: [],
             products: [],
             headers: [
-                // {
-                //     text: 'Название',
-                //     value: 'name',
-                // },
+                // {text: 'Название', value: 'name',},
                 {
                     text: 'Артикль',
                     value: 'article',
@@ -101,19 +126,20 @@
                 {text: 'Фото одежды', value: 'image'},
                 // {text: 'Категория', value: 'category'},
                 {text: '', value: ''},
+                {text: '', value: ''},
                 {text: 'Описание', value: 'description'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
-                // {text: 'Бренд', value: 'BrandName'},
                 // {text: 'Новинка', value: 'newClothes'},
-                // {text: 'Производитель', value: 'clothingManufacturer'},
-                // {text: 'Размер', value: 'clothingSize'},
                 // {text: 'Скидка', value: 'discount'},
                 // {text: 'Акционная цена', value: 'promotionalPrice'},
                 // {text: 'Скидка', value: 'stokProduct'},
                 // {text: 'Редактировать', value: 'editThisProduct'},
-
+                {text: '', value: ''},
                 {text: 'Цена', value: 'price'},
+                {text: 'Размер', value: 'clothingSize'},
+                {text: 'Бренд', value: 'BrandName'},
+                {text: 'Производитель', value: 'clothingManufacturer'},
                 // {text: 'Видео одежды', value: 'VideoClothings'},
                 {text: 'Удалить', value: 'actions', sortable: false},
                 {text: '===============================', value: ''},
@@ -121,17 +147,97 @@
             locations: []
         }),
         methods: {
+            thisImages() {
+                // const storageRef = storage.ref();
+                // // const imagesRef = storageRef.child('images');
+                // // const spaceRef = storageRef.child('assets/images/1.jpg');
+                // // console.log(imagesRef)
+                // // console.log(spaceRef)
+            },
+            UploadFiles(File) {
+                File = this.File
+                // Points to the root reference
+                const storageRef = firebase.storage().ref();
+
+// Points to 'images'
+                const imagesRef = storageRef.child('images');
+
+// Points to 'images/space.jpg'
+// Note that you can use variables to create child values
+                const fileName = 'blouse2-1.jpg';
+                const spaceRef = imagesRef.child(fileName);
+
+// File path is 'images/space.jpg'
+                const path = spaceRef.fullPath
+                console.log(path)
+
+// File name is 'space.jpg'
+                const name = spaceRef.name
+                console.log(name)
+
+// File or Blob named mountains.jpg
+//                 const obj = {hello: 'world'};
+//                 const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
+                let file = File
+
+// Create the file metadata
+                let metadata = {
+                    contentType: 'image/jpeg'
+                };
+
+// Upload file and metadata to the object 'images/mountains.jpg'
+                var uploadTask = storageRef.child('assets/images/' + file.name).put(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+                uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                    function(snapshot) {
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                console.log('Upload is paused');
+                                break;
+                            case firebase.storage.TaskState.RUNNING: // or 'running'
+                                console.log('Upload is running');
+                                break;
+                        }
+                    }, function(error) {
+
+                        // A full list of error codes is available at
+                        // https://firebase.google.com/docs/storage/web/handle-errors
+                        switch (error.code) {
+                            case 'storage/unauthorized':
+                                // User doesn't have permission to access the object
+                                break;
+
+                            case 'storage/canceled':
+                                // User canceled the upload
+                                break;
+
+
+                            case 'storage/unknown':
+                                // Unknown error occurred, inspect error.serverResponse
+                                break;
+                        }
+                    }, function() {
+                        // Upload completed successfully, now we can get the download URL
+                        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                            console.log('File available at', downloadURL);
+                        });
+                    });
+            },
+
             getColor(price) {
-                if (price < 875) return 'red'
-                else if (price > 875) return 'orange'
+                if (price < 500) return 'red'
+                else if (price > 500) return 'orange'
+                else if (price > 1000) return 'cyan'
+                else if (price > 2000) return 'yellow'
+                else if (price > 3000) return 'grey'
                 else return 'green'
             },
             editLocation(item) {
-                // console.log(this.selected)
-                // console.log(item.id)
-                // console.log(this.selected[0])
                 console.log(item)
-
                 // this.$router.push('/edit')
                 // this.$emit('editClick', this.selected)
             },
@@ -174,18 +280,14 @@
 		display: block
 		z-index: 10
 
-	.v-data-table__mobile-row
-		display: flex
-		align-items: center
-		align-content: normal
-		min-height: 100px
-		background-size: auto
-		background-color: #c8bb9d
-		font-size: 1rem
-
-	.v-data-table-mobile-row-min-height
-		size: 100px
-
+		.v-data-table__mobile-row
+			display: flex
+			align-items: center
+			align-content: normal
+			min-height: 100px
+			background-size: auto
+			background-color: #c8bb9d
+			font-size: 1rem
 
 
 </style>

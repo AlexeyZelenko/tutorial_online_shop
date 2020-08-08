@@ -1,21 +1,29 @@
 <template>
-  <div class="v-cart-item">
-    <img class="v-cart-item__image" :src="require('@/assets/images/' + cart_item_data.image)" alt="">
-    <div class="v-cart-item__info">
-      <p>{{cart_item_data.name}}</p>
-      <p>{{cart_item_data.price}}</p>
-      <p>{{cart_item_data.article}}</p>
-    </div>
-    <div class="v-cart-item__quantity">
-      <p>{{'Qty:' | localize}}</p>
-      <span class="quantity__tools">
-        <span class="quantity__btn" @click="decrementItem">-</span>
+	<div class="v-cart-item">
+		<img :src="require('@/assets/images/' + cart_item_data.image)" alt="" class="v-cart-item__image">
+		<div class="v-cart-item__info">
+			<p>{{cart_item_data.name}}</p>
+			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
+			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
+			<p>{{'Размер'}} :{{cart_item_data.clothingSize}}</p>
+		</div>
+		<div class="v-cart-item__quantity">
+			<p>{{'Qty:' | localize}}</p>
+			<span class="quantity__tools">
+        <span @click="decrementItem" class="quantity__btn">-</span>
         {{cart_item_data.quantity}}
-        <span class="quantity__btn" @click="incrementItem">+</span>
+        <span @click="incrementItem" class="quantity__btn">+</span>
       </span>
-    </div>
-    <button @click="deleteFromCart">{{'Delete' | localize}}</button>
-  </div>
+		</div>
+		<v-btn
+				depressed
+				small
+				@click="deleteFromCart"
+				style="background-color: mediumspringgreen; color: whitesmoke"
+		>
+			{{'Delete' | localize}}
+		</v-btn>
+	</div>
 </template>
 <script>
 
@@ -31,13 +39,13 @@
         },
         methods: {
             decrementItem() {
-              this.$emit('decrement')
+                this.$emit('decrement')
             },
             incrementItem() {
                 this.$emit('increment')
             },
             deleteFromCart() {
-              this.$emit('deleteFromCart')
+                this.$emit('deleteFromCart')
             }
         },
         mounted() {
@@ -47,22 +55,26 @@
 </script>
 
 <style lang="scss">
-    .v-cart-item {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 0 8px 0 #0e0e0e;
-      padding: $padding*2;
-      margin-bottom: $margin*2;
-      &__image {
-        max-width: 50px;
-      }
-      .quantity__btn {
-        cursor: pointer;
-      }
-      .quantity__tools {
-        user-select: none;
-      }
-    }
+	.v-cart-item {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: center;
+		box-shadow: 0 0 8px 0 #0e0e0e;
+		padding: $padding*2;
+		margin-bottom: $margin*2;
+
+		&__image {
+			max-width: 50px;
+		}
+
+		.quantity__btn {
+			cursor: pointer;
+
+		}
+
+		.quantity__tools {
+			user-select: none;
+		}
+	}
 </style>
