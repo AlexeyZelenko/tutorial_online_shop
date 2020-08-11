@@ -74,24 +74,20 @@
 			<form @submit="UploadFiles(File)">
 				<template>
 					<v-file-input
-							v-model="File"
-							label="File input"
 							filled
+							label="File input"
 							prepend-icon="mdi-camera"
+							v-model="File"
 					></v-file-input>
 				</template>
 				<v-btn
+						@UploadFiles="UploadFiles"
 						text
 						type="submit"
-						@UploadFiles="UploadFiles"
 				>
 					Сохранить
 				</v-btn>
 			</form>
-
-
-<!--			<button @click="thisImages">Изображение</button>-->
-
 
 		</div>
 	</v-card>
@@ -147,13 +143,6 @@
             locations: []
         }),
         methods: {
-            thisImages() {
-                // const storageRef = storage.ref();
-                // // const imagesRef = storageRef.child('images');
-                // // const spaceRef = storageRef.child('assets/images/1.jpg');
-                // // console.log(imagesRef)
-                // // console.log(spaceRef)
-            },
             UploadFiles(File) {
                 File = this.File
                 // Points to the root reference
@@ -163,7 +152,7 @@
                 const imagesRef = storageRef.child('images');
 
 // Points to 'images/space.jpg'
-// Note that you can use variables to create child values
+// Обратите внимание, что вы можете использовать переменные для создания дочерних значений
                 const fileName = 'blouse2-1.jpg';
                 const spaceRef = imagesRef.child(fileName);
 
@@ -180,18 +169,19 @@
 //                 const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
                 let file = File
 
-// Create the file metadata
+// Создайте метаданные файла
                 let metadata = {
                     contentType: 'image/jpeg'
                 };
 
-// Upload file and metadata to the object 'images/mountains.jpg'
+// Загрузить файл и метаданные в объект 'images/mountains.jpg'
                 var uploadTask = storageRef.child('assets/images/' + file.name).put(file, metadata);
 
-// Listen for state changes, errors, and completion of the upload.
+// Следите за изменениями состояния, ошибками и завершением загрузки.
                 uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                    function(snapshot) {
-                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    function (snapshot) {
+                        // Получите информацию о ходе выполнения задачи,
+                        // включая количество загруженных байтов и общее количество байтов, которые должны быть отправлены
                         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         console.log('Upload is ' + progress + '% done');
                         switch (snapshot.state) {
@@ -202,28 +192,28 @@
                                 console.log('Upload is running');
                                 break;
                         }
-                    }, function(error) {
+                    }, function (error) {
 
-                        // A full list of error codes is available at
+                        // Полный список кодов ошибок доступен на
                         // https://firebase.google.com/docs/storage/web/handle-errors
                         switch (error.code) {
                             case 'storage/unauthorized':
-                                // User doesn't have permission to access the object
+                                // У пользователя нет разрешения на доступ к объекту
                                 break;
 
                             case 'storage/canceled':
-                                // User canceled the upload
+                                // Пользователь отменил загрузку
                                 break;
 
 
                             case 'storage/unknown':
-                                // Unknown error occurred, inspect error.serverResponse
+                                // Произошла неизвестная ошибка, проверьте error.serverResponse
                                 break;
                         }
-                    }, function() {
-                        // Upload completed successfully, now we can get the download URL
-                        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                            console.log('File available at', downloadURL);
+                    }, function () {
+                        // Загрузка завершена успешно, теперь мы можем получить URL для загрузки
+                        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                            console.log('Файл доступен', downloadURL);
                         });
                     });
             },
