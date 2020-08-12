@@ -24,8 +24,13 @@
 		>
 			{{"Discount" | localize}} {{product_data.discount}} %
 		</v-chip>
-		<img v-if="product_data.image" class="v-catalog-item_image" :src="require('@/assets/images/' + product_data.image)" alt="">
-		<p v-else class="emptyImage">{{product_data.description}}</p>
+		<img v-if="product_data.arrayImages" class="v-catalog-item_image" :src="product_data.arrayImages[0]" alt="">
+		<p
+				v-else
+				class="emptyImage"
+		>
+			<span v-html="product_data.description" />
+		</p>
 		<p class="v_catalog_item_name">{{product_data.article}}</p>
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
 		<div class="v-catalog-item_button">

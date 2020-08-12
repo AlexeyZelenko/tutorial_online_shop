@@ -11,7 +11,7 @@
 		<!--				:src="require('@/assets/images/' + product.image)"-->
 		<!--		>-->
 		<v-carousel
-				:carousel_data="product.imagesArray"
+				:carousel_data="product.arrayImages"
 		/>
 
 		<p>{{"Article" | localize}}: {{product.article}}</p>

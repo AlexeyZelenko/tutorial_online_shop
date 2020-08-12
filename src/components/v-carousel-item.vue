@@ -1,7 +1,11 @@
 <template>
 	<div class="v-carousel-item">
-		<img :src=" require('@/assets/images/' + item_data.img)">
-		<slot></slot>
+<!--		<img :src="(item.arrayImages[0])">-->
+		<slot>
+			<img
+					:src="(item_data)" alt=""
+			>
+		</slot>
 	</div>
 </template>
 

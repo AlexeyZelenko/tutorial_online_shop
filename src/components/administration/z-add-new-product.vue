@@ -215,31 +215,13 @@
     const formDefault = {
         File: [],
         name: '',
-        article: '',
+        article: +new Date(),
         description: '',
         available: null,
         category: '',
         price: '',
         discount: null,
-        clothingSize: null,
-        promotionalPrice: null,
-        clothingManufacturer: null,
-        VideoClothings: false,
-        BrandName: '',
-        FotoClothes: '',
-        stokProduct: null,
-        newClothes: true,
-    }
-    const formTest = {
-        File: [],
-        name: 'gfdgfd',
-        article: +new Date(),
-        description: 'gfdgdf',
-        available: null,
-        category: '',
-        price: '1000',
-        discount: null,
-        clothingSize: 44,
+        clothingSize: 36-42,
         promotionalPrice: null,
         clothingManufacturer: '',
         VideoClothings: false,
@@ -248,6 +230,24 @@
         stokProduct: null,
         newClothes: true,
     }
+    // const formTest = {
+    //     File: [],
+    //     name: 'gfdgfd',
+    //     article: +new Date(),
+    //     description: 'gfdgdf',
+    //     available: null,
+    //     category: '',
+    //     price: '1000',
+    //     discount: null,
+    //     clothingSize: 44,
+    //     promotionalPrice: null,
+    //     clothingManufacturer: '',
+    //     VideoClothings: false,
+    //     BrandName: '',
+    //     FotoClothes: '',
+    //     stokProduct: null,
+    //     newClothes: true,
+    // }
 
     export default {
         name: "zAddNewProduct",
@@ -279,7 +279,7 @@
                 Paragraph,
                 HardBreak
             ],
-            ...formTest, // ...formTest или ...formDefault
+            ...formDefault, // ...formTest или ...formDefault
             dialog: false,
             drawer: null,
             select: null,
@@ -384,7 +384,7 @@
 										showConfirmButton: false,
 										timer: 1500
 								})
-								// arrayImages.length=0;
+								arrayImages.length=0;
 								this.dialog = false
             },
         },
