@@ -28,22 +28,28 @@
 				:search="search"
 				:single-select="singleSelect"
 				class="elevation-1"
-				item-key="article"
+				item-key="id"
 				show-select
 				v-model="selected"
 		>
 			<template
 					style="height:190px;"
 					v-slot:item.image="{ item }">
-				<img
-						:src="require('@/assets/images/' + item.image)"
-						style="max-width: 100px; max-height: 100px; margin: 5px"
-						v-if="item.image"
+				{{ item.imageURL }}
+
+<!--				<img-->
+<!--						:src="require('@/assets/images/' + item.image)"-->
+<!--						style="max-width: 100px; max-height: 100px; margin: 5px"-->
+<!--						v-if="item.image"-->
 				>
 			</template>
 
 			<template v-slot:item.price="{ item }">
 				<v-chip :color="getColor(item.price)" dark>{{ item.price }}</v-chip>
+			</template>
+
+			<template v-slot:item.description="{ item }">
+				<span v-html="item.description" />
 			</template>
 
 			<template v-slot:item.actions="{ item }">
