@@ -179,7 +179,7 @@
 								text
 								type="submit"
 						>
-							Сохранить
+							{{ loadingPopup ? 'Загрузка...' : 'Сохранить' }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -256,6 +256,7 @@
             source: String,
         },
         data: () => ({
+            loadingPopup: false,
             // declare extensions you want to use
             extensions: [
                 History,
@@ -352,9 +353,11 @@
 										)
                 }
 
+                this.loadingPopup = true
+
 								const URLs = await Promise.all(promises)
 
-								db.collection('products').add({
+								await db.collection('products').add({
 										article,
 										available,
 										BrandName,
@@ -367,13 +370,15 @@
 										stokProduct,
 										createdAt,
 										category,
-										arrayImages1: URLs,
+										arrayImages: URLs,
 										name,
 										price,
 										description,
 								})
 
-								Swal.fire({
+                this.loadingPopup = false
+
+                Swal.fire({
 										position: 'top-end',
 										icon: 'success',
 										showConfirmButton: false,

@@ -34,13 +34,13 @@
 		>
 			<template
 					style="height:190px;"
-					v-slot:item.image="{ item }">
-				{{ item.imageURL }}
+					v-slot:item.arrayImages="{ item }">
+<!--				{{ item.arrayImages[0] }}-->
 
-<!--				<img-->
-<!--						:src="require('@/assets/images/' + item.image)"-->
-<!--						style="max-width: 100px; max-height: 100px; margin: 5px"-->
-<!--						v-if="item.image"-->
+				<img
+						:src="(item.arrayImages[0])" alt=""
+						style="max-width: 100px; max-height: 100px; margin: 5px"
+						v-if="item.arrayImages"
 				>
 			</template>
 
@@ -71,31 +71,6 @@
 			</template>
 
 		</v-data-table>
-		<div>
-			<!--			<img-->
-			<!--					:src="require('@/assets/images/' + item.image)"-->
-			<!--					style="max-width: 100px; max-height: 100px; margin: 5px"-->
-			<!--					v-if="item.image"-->
-			<!--			>-->
-			<form @submit="UploadFiles(File)">
-				<template>
-					<v-file-input
-							filled
-							label="File input"
-							prepend-icon="mdi-camera"
-							v-model="File"
-					></v-file-input>
-				</template>
-				<v-btn
-						@UploadFiles="UploadFiles"
-						text
-						type="submit"
-				>
-					Сохранить
-				</v-btn>
-			</form>
-
-		</div>
 	</v-card>
 </template>
 
@@ -125,7 +100,7 @@
                     sortable: false,
                 },
                 {text: '', value: ''},
-                {text: 'Фото одежды', value: 'image'},
+                {text: 'Фото одежды', value: 'arrayImages'},
                 // {text: 'Категория', value: 'category'},
                 {text: '', value: ''},
                 {text: '', value: ''},
