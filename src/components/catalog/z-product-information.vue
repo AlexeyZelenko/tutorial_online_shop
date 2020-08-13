@@ -112,6 +112,12 @@
                 return result;
             },
         },
+				watch: {
+
+				},
+				created() {
+
+        },
         mounted() {
             this.firebasePush()
         }

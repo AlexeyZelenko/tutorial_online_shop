@@ -142,27 +142,41 @@
 										v-model="stokProduct"
 								></v-checkbox>
 							</div>
-							<!--ФОТО-->
+	<!--ФОТО-->
 							<v-col  cols="12">
 								<v-file-input
+										:rules2="rules"
+										counter
+										accept="image/png, image/jpeg, image/bmp"
 										v-model="File"
-										placeholder="Загрузите фото"
-										label="Ввод файла"
+										color="deep-purple accent-4"
+										placeholder="Выберите фото"
+										label="Загрузка фотографий"
 										multiple
-										prepend-icon="mdi-paperclip"
+										prepend-icon="mdi-camera"
+
 								>
-									<template v-slot:selection="{ text }">
+									<template v-slot:selection="{ index, text }">
 										<v-chip
-												small
+												v-if="index < 1"
+												color="deep-purple accent-4"
+												dark
 												label
-												color="primary"
+												small
 										>
 											{{ text }}
 										</v-chip>
+										<span
+												v-else-if="index === 1"
+												class="overline grey--text text--darken-3 mx-2"
+										>
+											+{{ File.length - 1 }} Фото
+										</span>
+
 									</template>
 								</v-file-input>
 							</v-col>
-							<!--ВИДЕО-->
+	<!--ВИДЕО-->
 							<!--						<v-file-input multiple label="File input"></v-file-input>-->
 
 						</v-row>
@@ -280,10 +294,14 @@
                 HardBreak
             ],
             ...formDefault, // ...formTest или ...formDefault
+            rules2: [
+                value => !value || value.size < 5000000 || 'Avatar size should be less than 5 MB!',
+            ],
             dialog: false,
             drawer: null,
             select: null,
             arrayImages: [],
+						File: [],
             rules: {
                 required: value => !!value || 'Обязательно.',
                 counter: value => value.length >= 5 || 'Min 5 знаков',
