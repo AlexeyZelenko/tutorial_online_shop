@@ -1,9 +1,14 @@
 <template>
 	<div class="v-catalog">
+
+
 		<v-notification
 				:messages='messages'
 				:timeout="4000"
 		/>
+
+		{{TODOS}}
+
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
 					<div class="v-catalog__link_to_cart">
 						<v-btn >
@@ -103,6 +108,7 @@
             },
             ...mapActions([
                 'ADD_TO_CART',
+								'bindLocationsRef'
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
@@ -118,6 +124,7 @@
             ...mapGetters([
                 'PRODUCTS',
                 'CART',
+								'TODOS'
             ]),
             filteredProducts() {
                 if (this.sortedProducts.length) {
@@ -128,6 +135,9 @@
                 }
             }
         },
+				mounted() {
+            this.bindLocationsRef()
+        }
     }
 </script>
 

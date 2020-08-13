@@ -5,30 +5,54 @@
 		</router-link>
 		<form class="login-form">
 			<v-text-field
-					v-model="password"
-					:error-messages="passwordErrors"
 					:counter="10"
+					:error-messages="passwordErrors"
+					@blur="$v.password.$touch()"
+					@input="$v.password.$touch()"
 					label="Name"
 					required
-					@input="$v.password.$touch()"
-					@blur="$v.password.$touch()"
+					v-model="password"
 			></v-text-field>
 			<v-text-field
-					v-model="email"
 					:error-messages="emailErrors"
+					@blur="$v.email.$touch()"
+					@input="$v.email.$touch()"
 					label="E-mail"
 					required
-					@input="$v.email.$touch()"
-					@blur="$v.email.$touch()"
+					v-model="email"
 			></v-text-field>
 
-			<v-btn class="mr-4" @click="submit">Увійти</v-btn>
-			<v-btn @click="clear">Очистити</v-btn>
+			<v-btn @click="submit" class="mr-4">Войти</v-btn>
+			<v-btn @click="clear">Очистить</v-btn>
 		</form>
+
+		<div>
+			<!--			<div hidden id="user-pic"></div>-->
+			<!--			<div hidden id="user-name"></div>-->
+			<template>
+				<div class="text-center">
+					<v-btn
+							@click="signInWithGoogle"
+							color="primary" dark
+							rounded
+					>
+						<i class="material-icons">account_circle</i> Sign-in with Google
+					</v-btn>
+					<v-btn
+							@click="signOut"
+							color="primary" dark
+							rounded
+					>
+						Sign-out with Google
+					</v-btn>
+				</div>
+			</template>
+		</div>
 	</div>
 </template>
 
 <script>
+    import firebase from 'firebase/app'
     import {validationMixin} from 'vuelidate'
     import {required, maxLength, email} from 'vuelidate/lib/validators'
 
@@ -68,6 +92,24 @@
         },
 
         methods: {
+            // Signs-out of Friendly Chat.
+            signOut() {
+                firebase.auth().signOut().then(function () {
+                    console.log("Вы вышли")
+                    // Sign-out successful.
+                }).catch(function (error) {
+                    console.log('Ошибка выхода из приложения!' + error)
+                    // An error happened.
+                });
+            },
+            signInWithGoogle() {
+                // Sign into Firebase using popup auth & Google as the identity provider.
+                let provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithPopup(provider);
+                if (this.isUserSignedIn) {
+                    this.$router.push('/admin')
+                }
+            },
             async submit() {
                 if (this.$v.$invalid) {
                     this.$v.$touch()
@@ -85,10 +127,16 @@
                     console.log('error')
                 }
             },
+
             mounted() {
                 if (this.$route.query.locale) {
                     let info = {locale: this.$route.query.locale}
                     this.$store.commit('setInfo', info)
+                }
+            },
+            watch: {
+                isUserSignedIn() {
+                    return !!firebase.auth().currentUser;
                 }
             },
             clear() {

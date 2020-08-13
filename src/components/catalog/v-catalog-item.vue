@@ -31,7 +31,7 @@
 		>
 			<span v-html="product_data.description" />
 		</p>
-		<p class="v_catalog_item_name">{{product_data.article}}</p>
+<!--		<p class="v_catalog_item_name">{{product_data.article}}</p>-->
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
 		<div class="v-catalog-item_button">
 			<button

@@ -14,7 +14,7 @@
 				:carousel_data="product.arrayImages"
 		/>
 
-		<p>{{"Article" | localize}}: {{product.article}}</p>
+<!--		<p>{{"Article" | localize}}: {{product.article}}</p>-->
 		<p>{{"Price" | localize}}: {{product.price}} грн</p>
 		<p>{{"Descriptions" | localize}}:</p>
 		<p v-html="product.description"></p>
@@ -111,12 +111,6 @@
                 })
                 return result;
             },
-        },
-				watch: {
-
-				},
-				created() {
-
         },
         mounted() {
             this.firebasePush()

@@ -103,8 +103,6 @@
 						<v-col cols="6">
 							<v-select
 									:items="itemsCategories"
-									:placeholder="selected[0].category"
-									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите категорию"
 									prepend-icon=""
 									v-model="selected[0].category"
@@ -113,12 +111,11 @@
 						<!--							ПРОИЗВОДИТЕЛЬ-->
 						<v-col cols="6">
 							<v-select
-									:items="itemsclothingManufacturer"
-									:placeholder="selected[0].clothingManufacturer"
-									:rules="[v => !!v || 'Пункт требуется']"
 									label="Выберите производителя"
-									prepend-icon=""
+									placeholder="Производитель"
+									prepend-icon="face"
 									v-model="selected[0].clothingManufacturer"
+									:items="Manufacturer"
 							></v-select>
 						</v-col>
 						<!--						ОТОБРАЖЕНИЕ-->
@@ -200,6 +197,11 @@
         name: "zEditProduct",
         components: {TiptapVuetify},
         data: () => ({
+            Manufacturer: [
+                'Турция',
+                'Италия',
+                'Китай'
+            ],
             // declare extensions you want to use
             extensions: [
                 History,
@@ -228,23 +230,18 @@
                 counter2: value => value.length <= 400 || 'Max 400 знаков',
             },
             itemsCategories: [
-                'Куртка',
-                'Ветровка',
+                'Куртки',
+                'Ветровки',
                 'Пальто',
-                'Плащ',
+                'Плащи',
                 'Джинсы',
                 'Брюки',
-                'Кофта',
-                'Футболка',
-                'Рубашка',
-                'Блузка',
-                'Платье',
+                'Кофты',
+                'Футболки',
+                'Рубашки',
+                'Блузки',
+                'Платья',
                 'Костюмы',
-            ],
-            itemsclothingManufacturer: [
-                'Турция',
-                'Италия',
-                'Китай'
             ],
         }),
         methods: {

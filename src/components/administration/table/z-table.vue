@@ -9,7 +9,7 @@
 		></v-text-field>
 		<div class="z-table-button">
 			<v-btn
-					:to="{name: 'edit', params: {selected: selected}}"
+					:to="{name: 'zEditProduct', params: {selected: selected}}"
 					@click="editLocation(selected)"
 					class="ma-2"
 					outlined
@@ -52,15 +52,13 @@
 			</template>
 
 			<template v-slot:item.actions="{ item }">
-				<!--				<v-icon-->
-				<!--						@click="editLocation(item)"-->
-				<!--						class="mr-2"-->
-				<!--						small-->
-				<!--				>-->
-				<!--					mdi-pencil-->
-				<!--				</v-icon>-->
-
-
+<!--				<v-icon-->
+<!--						@click="editLocation(item)"-->
+<!--						class="mr-2"-->
+<!--						small-->
+<!--				>-->
+<!--					mdi-pencil-->
+<!--				</v-icon>-->
 				<v-icon
 						@click="deleteLocation(item)"
 						small
@@ -208,7 +206,7 @@
             },
             editLocation(item) {
                 console.log(item)
-                // this.$router.push('/edit')
+                // this.$router.push('/zEditProduct')
                 // this.$emit('editClick', this.selected)
             },
             deleteLocation(item) {

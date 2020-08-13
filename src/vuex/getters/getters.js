@@ -1,4 +1,7 @@
 export default  {
+    TODOS(state) {
+        return state.locations;
+    },
     CART(state) {
         return state.cart
     },

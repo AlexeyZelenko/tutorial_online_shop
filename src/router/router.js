@@ -42,8 +42,8 @@ let router = new Router({
             props: true
         },
         {
-            path: '/edit',
-            name: 'edit',
+            path: '/zEditProduct',
+            name: 'zEditProduct',
             component: () => import('@/components/administration/table/z-edit-product'),
             props: true
         },
