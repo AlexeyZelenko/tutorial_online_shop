@@ -221,7 +221,7 @@
         category: '',
         price: '',
         discount: null,
-        clothingSize: 36-42,
+        clothingSize: 42,
         promotionalPrice: null,
         clothingManufacturer: '',
         VideoClothings: false,

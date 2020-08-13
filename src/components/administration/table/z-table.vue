@@ -35,7 +35,6 @@
 			<template
 					style="height:190px;"
 					v-slot:item.arrayImages="{ item }">
-<!--				{{ item.arrayImages[0] }}-->
 
 				<img
 						:src="(item.arrayImages[0])" alt=""

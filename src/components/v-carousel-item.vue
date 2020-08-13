@@ -3,6 +3,7 @@
 <!--		<img :src="(item.arrayImages[0])">-->
 		<slot>
 			<img
+					style="max-width: 300px; max-height: 600px"
 					:src="(item_data)" alt=""
 			>
 		</slot>
