@@ -273,8 +273,6 @@
                     })
             },
         },
-        computed: {},
-        watch: {},
         props: {
             selected: {
                 type: Array,

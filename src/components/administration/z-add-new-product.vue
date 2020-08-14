@@ -1,17 +1,17 @@
 <template>
 	<div>
 		<!--		КНОПКА +-->
-		<v-btn
-				@click="dialog = !dialog"
-				bottom
-				color="pink"
-				dark
-				fab
-				fixed
-				right
-		>
-			<v-icon>mdi-plus</v-icon>
-		</v-btn>
+<!--		<v-btn-->
+<!--				@click="dialog = !dialog"-->
+<!--				bottom-->
+<!--				color="pink"-->
+<!--				dark-->
+<!--				fab-->
+<!--				fixed-->
+<!--				right-->
+<!--		>-->
+<!--			<v-icon>mdi-plus</v-icon>-->
+<!--		</v-btn>-->
 		<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
 		<v-dialog
 				style="z-index: 100"
@@ -330,7 +330,7 @@
 
         }),
         methods: {
-            async addLocation(arrayImages, File, article, available, category, name, promotionalPrice, stokProduct, FotoClothes, newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
+            async addLocation(arrayImages, File, article, available, category, name, promotionalPrice, stokProduct,  newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
                 const createdAt = new Date()
                 File = this.File
                 BrandName = this.BrandName
@@ -343,7 +343,6 @@
                 stokProduct = this.stokProduct
                 promotionalPrice = this.promotionalPrice
                 clothingSize = this.clothingSize
-                FotoClothes = this.FotoClothes
                 newClothes = this.newClothes
                 description = this.description
                 clothingManufacturer = this.clothingManufacturer
@@ -359,6 +358,7 @@
                     // Создайте метаданные файла
                     let metadata = {
                         contentType: 'image/jpeg',
+												name: +new Date(),
                     };
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                     const uploadTask = storageRef.child('assets/images/' + File[i].name).put(File[i], metadata);
@@ -379,7 +379,6 @@
 										article,
 										available,
 										BrandName,
-										FotoClothes,
 										discount,
 										newClothes,
 										clothingManufacturer,
