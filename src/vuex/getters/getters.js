@@ -6,7 +6,7 @@ export default  {
         return state.cart
     },
     PRODUCTS(state) {
-        return state.products;
+        return state.Products;
     },
     LOCALE_CHANGE(state) {
         return state.locale;

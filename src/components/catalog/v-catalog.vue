@@ -92,17 +92,15 @@
             },
             sortByCategories(category) {
                 this.sortedProducts = [];
-                let vm = this;
-                this.PRODUCTS.map(function (item) {
+                this.PRODUCTS.map((item) => {
                     if (item.category === category.name) {
-                        vm.sortedProducts.push(item);
+                        this.sortedProducts.push(item);
                     }
                 })
                 this.selected = category.name
             },
             ...mapActions([
                 'ADD_TO_CART',
-								'bindLocationsRef'
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
@@ -128,9 +126,6 @@
                 }
             }
         },
-				mounted() {
-            this.bindLocationsRef()
-        }
     }
 </script>
 

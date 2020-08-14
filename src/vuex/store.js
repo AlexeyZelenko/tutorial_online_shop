@@ -17,7 +17,6 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        products: [],
         cart: [],
         locale: 'ru-RU',
         error: null,

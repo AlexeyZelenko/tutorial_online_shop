@@ -27,8 +27,6 @@
 		</form>
 
 		<div>
-			<!--			<div hidden id="user-pic"></div>-->
-			<!--			<div hidden id="user-name"></div>-->
 			<template>
 				<div class="text-center">
 					<v-btn
@@ -38,13 +36,6 @@
 					>
 						<i class="material-icons">account_circle</i> Sign-in with Google
 					</v-btn>
-					<v-btn
-							@click="signOut"
-							color="primary" dark
-							rounded
-					>
-						Sign-out with Google
-					</v-btn>
 				</div>
 			</template>
 		</div>
@@ -52,7 +43,6 @@
 </template>
 
 <script>
-    import firebase from 'firebase/app'
     import {validationMixin} from 'vuelidate'
     import {required, maxLength, email} from 'vuelidate/lib/validators'
 
@@ -92,23 +82,19 @@
         },
 
         methods: {
-            // Signs-out of Friendly Chat.
-            signOut() {
-                firebase.auth().signOut().then(function () {
-                    console.log("Вы вышли")
-                    // Sign-out successful.
-                }).catch(function (error) {
-                    console.log('Ошибка выхода из приложения!' + error)
-                    // An error happened.
-                });
-            },
-            signInWithGoogle() {
-                // Sign into Firebase using popup auth & Google as the identity provider.
-                let provider = new firebase.auth.GoogleAuthProvider();
-                firebase.auth().signInWithPopup(provider);
-                if (this.isUserSignedIn) {
+            async signInWithGoogle() {
+                try {
+                    await this.$store.dispatch('signInWithGoogle')
+                    // this.$v.$touch()
                     this.$router.push('/admin')
+                } catch (e) {
+                    console.log('error')
                 }
+                // let provider = new firebase.auth.GoogleAuthProvider();
+                // firebase.auth().signInWithPopup(provider);
+                // if (this.isUserSignedIn) {
+                //     this.$router.push('/admin')
+                // }
             },
             async submit() {
                 if (this.$v.$invalid) {
@@ -132,11 +118,6 @@
                 if (this.$route.query.locale) {
                     let info = {locale: this.$route.query.locale}
                     this.$store.commit('setInfo', info)
-                }
-            },
-            watch: {
-                isUserSignedIn() {
-                    return !!firebase.auth().currentUser;
                 }
             },
             clear() {

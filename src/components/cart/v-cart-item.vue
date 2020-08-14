@@ -5,7 +5,7 @@
 		<div class="v-cart-item__info">
 			<p>{{cart_item_data.name}}</p>
 			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
-			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
+<!--			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>-->
 			<p>{{'Размер'}} :{{cart_item_data.clothingSize}}</p>
 		</div>
 		<div class="v-cart-item__quantity">

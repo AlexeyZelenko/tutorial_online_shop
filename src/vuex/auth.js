@@ -2,6 +2,17 @@ import firebase from 'firebase/app'
 
 export default {
     actions: {
+        async signInWithGoogle({commit}) {
+
+            try {
+                let provider = new firebase.auth.GoogleAuthProvider();
+                await firebase.auth().signInWithPopup(provider)
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
+        },
+
         async login({commit}, {email, password}) {
             try {
                 await firebase.auth().signInWithEmailAndPassword(email, password)

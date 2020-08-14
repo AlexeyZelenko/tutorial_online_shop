@@ -44,13 +44,13 @@
 		<!--				</v-icon>-->
 		<!--			</v-btn>-->
 		<!--		</div>-->
-<!--		<router-link :to="{name: 'chat'}">-->
-<!--			<div-->
-<!--					style="height: 45px; padding-left: 100px"-->
-<!--					class="v-catalog__link_to_admin">-->
-<!--				{{'Chat' }}-->
-<!--			</div>-->
-<!--		</router-link>-->
+		<!--		<router-link :to="{name: 'chat'}">-->
+		<!--			<div-->
+		<!--					style="height: 45px; padding-left: 100px"-->
+		<!--					class="v-catalog__link_to_admin">-->
+		<!--				{{'Chat' }}-->
+		<!--			</div>-->
+		<!--		</router-link>-->
 		<keep-alive>
 			<router-view></router-view>
 		</keep-alive>
@@ -59,16 +59,12 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import {db} from '@/main.js'
-
 
     export default {
         name: 'v-main-wrapper',
-        props: {},
         data() {
             return {
                 title: 'Main wrapper',
-                message: [],
             }
         },
         computed: {
@@ -76,26 +72,18 @@
                 'LOCALE_CHANGE',
             ]),
         },
-        firestore() {
-            return {
-                message: db.collection('products'),
-            }
-        },
         methods: {
             ...mapActions([
                 'LOCALIZE',
-                'FIREBASE'
+                'bindLocationsRef'
             ]),
-            firebasePush() {
-                this.FIREBASE(this.message)
-            },
             changeLocale(loc) {
                 this.LOCALIZE(loc)
             },
         },
         watch: {},
         created() {
-            this.firebasePush()
+            this.bindLocationsRef()
         }
     }
 </script>
