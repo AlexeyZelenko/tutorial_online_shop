@@ -15,7 +15,7 @@
 		/>
 		<div class="v-cart__total">
 			<p class="total__name">{{'Total:' | localize }}</p>
-			<p>{{cartTotalCost}} $</p>
+			<p>{{cartTotalCost}} грн</p>
 		</div>
 	</div>
 </template>

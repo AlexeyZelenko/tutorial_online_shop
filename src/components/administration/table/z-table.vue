@@ -14,10 +14,8 @@
 					:headers="headers"
 					:items="PRODUCTS"
 					:search="search"
-					:single-select="singleSelect"
 					class="elevation-1"
 					item-key="id"
-					show-select
 					v-model="selected"
 			>
 				<template
@@ -33,6 +31,10 @@
 
 				<template v-slot:item.price="{ item }">
 					<v-chip :color="getColor(item.price)" dark>{{ item.price }}</v-chip>
+				</template>
+
+				<template v-slot:item.clothingSize="{ item }">
+					<v-chip :color="getColor2(item.clothingSize)" dark>{{ item.clothingSize }}</v-chip>
 				</template>
 
 				<template v-slot:item.description="{ item }">
@@ -140,6 +142,8 @@
 											prepend-icon="done_outline"
 											v-model="editedItem.clothingSize"
 									></v-text-field>
+
+
 								</v-col>
 								<!--						Бренд-->
 								<v-col cols="12">
@@ -269,7 +273,6 @@
 <script>
     import {mapGetters} from 'vuex'
     import {db} from '@/main.js'
-    // import {storage} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
     // import the-component and the necessary extensions
@@ -601,6 +604,14 @@
                 else if (price > 3000) return 'grey'
                 else return 'green'
             },
+            getColor2(clothingSize) {
+                if (clothingSize < 36) return 'red'
+                else if (clothingSize > 36-40) return 'orange'
+                else if (clothingSize > 42-44) return 'cyan'
+                else if (clothingSize > 45-46) return 'yellow'
+                else if (clothingSize > 47-50) return 'grey'
+                else return 'green'
+            },
             deleteLocation(item) {
                 Swal.fire({
                     title: 'Ти впевнений?',
@@ -655,7 +666,6 @@
         },
 				created() {
             this.initialize()
-
         }
     }
 </script>
