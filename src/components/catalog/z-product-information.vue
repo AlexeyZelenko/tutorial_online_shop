@@ -60,7 +60,6 @@
 </template>
 
 <script>
-    import {db} from '@/main.js'
     import {mapGetters, mapActions} from 'vuex'
     import Swal from 'sweetalert2'
     import vCarousel from '@/components/v-carousel'
@@ -68,24 +67,16 @@
     export default {
         name: "zProductInformation",
         data: () => ({
-            message: [],
         }),
         components: {
             vCarousel
         },
-        firestore() {
-            return {
-                message: db.collection('products'),
-            }
-        },
         methods: {
             ...mapActions([
                 'FIREBASE',
-                'ADD_TO_CART'
+                'ADD_TO_CART',
+                'bindLocationsRef'
             ]),
-            firebasePush() {
-                this.FIREBASE(this.message)
-            },
             addToCart() {
                 this.ADD_TO_CART(this.product)
                 Swal.fire({
@@ -99,13 +90,12 @@
         },
         computed: {
             ...mapGetters([
-                'PRODUCTS'
+                'GET_PRODUCT_FROM_DB'
             ]),
             product() {
                 let result = {}
-                let vm = this;
-                this.PRODUCTS.map(function (item) {
-                    if (item.article === vm.$route.query.product) {
+                this.GET_PRODUCT_FROM_DB.map((item) =>  {
+                    if (item.article === +this.$route.query.product) {
                         result = item;
                     }
                 })
@@ -113,7 +103,7 @@
             },
         },
         mounted() {
-            this.firebasePush()
+            this.bindLocationsRef()
         }
     }
 </script>

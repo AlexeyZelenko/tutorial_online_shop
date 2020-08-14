@@ -1,6 +1,6 @@
 export default  {
-    TODOS(state) {
-        return state.locations;
+    GET_PRODUCT_FROM_DB(state) {
+        return state.Products;
     },
     CART(state) {
         return state.cart

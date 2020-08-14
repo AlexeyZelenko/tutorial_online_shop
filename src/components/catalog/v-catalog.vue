@@ -1,14 +1,9 @@
 <template>
 	<div class="v-catalog">
-
-
 		<v-notification
 				:messages='messages'
 				:timeout="4000"
 		/>
-
-		{{TODOS}}
-
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
 					<div class="v-catalog__link_to_cart">
 						<v-btn >
@@ -67,7 +62,6 @@
             vCatalogItem,
             vSelect
         },
-        props: {},
         data() {
             return {
                 categories: [
@@ -124,7 +118,6 @@
             ...mapGetters([
                 'PRODUCTS',
                 'CART',
-								'TODOS'
             ]),
             filteredProducts() {
                 if (this.sortedProducts.length) {

@@ -21,7 +21,7 @@ let store = new Vuex.Store({
         cart: [],
         locale: 'ru-RU',
         error: null,
-        locations: [],
+        Products: [],
     },
     getters,
     mutations: {
@@ -63,7 +63,7 @@ let store = new Vuex.Store({
             // and adds `bindFirestoreRef` and `unbindFirestoreRef`
             // we return the promise returned by `bindFirestoreRef` that will
             // resolve once data is ready
-            return context.bindFirestoreRef('locations', db.collection('locations'))
+            return context.bindFirestoreRef('Products', db.collection('products'))
         }),
         INCREMENT_CART_ITEM({commit}, index) {
             commit('INCREMENT', index)
