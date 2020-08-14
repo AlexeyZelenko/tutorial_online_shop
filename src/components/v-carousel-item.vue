@@ -3,7 +3,7 @@
 <!--		<img :src="(item.arrayImages[0])">-->
 		<slot>
 			<img
-					style="max-width: 300px; max-height: 600px"
+					style="width: 300px; height: 600px"
 					:src="(item_data)" alt=""
 			>
 		</slot>
@@ -22,8 +22,8 @@
     watch: {},
     props: {
         item_data: {
-            type: String,
-						default: () => ''
+            type: Object,
+						default: () => {}
         }
     },
 		mounted() {

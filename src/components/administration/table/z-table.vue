@@ -219,7 +219,7 @@
 											:rules2="rules"
 											counter
 											accept="image/png, image/jpeg, image/bmp"
-											v-model="editedItem.File"
+											v-model="File"
 											color="deep-purple accent-4"
 											placeholder="Выберите фото"
 											label="Загрузка фотографий"
@@ -227,24 +227,15 @@
 											prepend-icon="mdi-camera"
 
 									>
-										<template v-slot:selection="{ index, text }">
-											<v-chip
-													v-if="index < 1"
-													color="deep-purple accent-4"
-													dark
-													label
-													small
-											>
-												{{ text }}
-											</v-chip>
-											<span
-													v-else-if="index === 1"
-													class="overline grey--text text--darken-3 mx-2"
-											>
-											+{{ File.length - 1 }} Фото
-										</span>
-
+										<template>
+											<v-file-input
+													show-size
+													counter
+													multiple
+													label="File input"
+											></v-file-input>
 										</template>
+
 									</v-file-input>
 								</v-col>
 
@@ -376,7 +367,6 @@
             select: null,
             arrayImages: [],
             editedIndex: -1,
-            File: [],
             editedItem: {
                 File: [],
                 name: '',
@@ -496,10 +486,41 @@
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
-            editThisProduct(editProduct) {
+           async editThisProduct(editProduct) {
+                const editFile = editProduct.File,
+								File = editFile
+                const promises = []
+
+                for (let i = 0; i < File.length; i++) {
+
+                    const storageRef = firebase.storage().ref();
+                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                    // Создайте метаданные файла
+                    let metadata = {
+                        contentType: 'image/jpeg',
+                        name: +new Date(),
+                    };
+                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                    const uploadTask = storageRef.child('assets/images/' + File[i].name).put(File[i], metadata);
+
+                    promises.push(
+                        uploadTask
+                            .then(snapshot =>
+                                snapshot.ref.getDownloadURL()
+                            )
+                    )
+                }
+
+                this.loadingPopup = true
+
+                const URLs = await Promise.all(promises)
+
                 db.collection('products')
                     .doc(editProduct.id)
                     .update({
+                        arrayImages: URLs,
+												File: editProduct.File,
                         createdAt: editProduct.createdAt,
                         BrandName: editProduct.BrandName,
                         article: editProduct.article,
@@ -658,7 +679,7 @@
                 'PRODUCTS'
             ]),
             formTitle () {
-                return this.editedIndex === -1 ? 'Создать новый' : 'Редактировать'
+                return this.editedIndex === -1 ? '' : 'Редактировать'
             },
         },
         props: {

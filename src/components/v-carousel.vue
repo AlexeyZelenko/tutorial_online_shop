@@ -3,7 +3,7 @@
 		<div class="v-carouselImage" :style="{ 'margin-left': '-' + (100 * currentSlideIndex) + '%' }">
 			<v-carousel-item
 					v-for="item in carousel_data"
-					:key="item.id"
+					:key="item.article"
 					:item_data="item"
 					:width="300"
 			>
