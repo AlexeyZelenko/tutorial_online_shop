@@ -197,7 +197,7 @@
 											v-model="editedItem.clothingManufacturer"
 									></v-select>
 								</v-col>
-<!--						ОТОБРАЖЕНИЕ-->
+								<!--						ОТОБРАЖЕНИЕ-->
 								<div class="check_box">
 									<v-checkbox
 											label="Отображать в каталоге"
@@ -213,49 +213,49 @@
 											v-model="editedItem.stokProduct"
 									></v-checkbox>
 								</div>
-<!--ФОТО-->
+								<!--ФОТО-->
 								<template v-if="editedItem.arrayImages.length > 0">
 									<v-carousel>
 										<v-carousel-item
-												v-for="(item,id) in editedItem.arrayImages"
 												:key="id"
 												:src="(item)"
 												reverse-transition="fade-transition"
 												transition="fade-transition"
+												v-for="(item,id) in editedItem.arrayImages"
 										>
 											<v-btn
-													style="float: right; top: 1em;"
-													class="mx-2"
-													fab
-													dark
-													small
-													color="pink"
 													@click="deleteFoto(editedItem, item)"
+													class="mx-2"
+													color="pink"
+													dark
+													fab
+													small
+													style="float: right; top: 1em;"
 											>
 												<v-icon dark>mdi-delete</v-icon>
 											</v-btn>
 										</v-carousel-item>
 									</v-carousel>
 								</template>
-								<v-col  cols="12">
+								<v-col cols="12">
 									<v-file-input
 											:rules2="rules"
-											counter
 											accept="image/png, image/jpeg, image/bmp"
-											v-model="editedItem.File"
 											color="deep-purple accent-4"
-											placeholder="Выберите фото"
+											counter
 											label="Загрузка фотографий"
 											multiple
+											placeholder="Выберите фото"
 											prepend-icon="mdi-camera"
+											v-model="editedItem.File"
 
 									>
 										<template>
 											<v-file-input
-													show-size
 													counter
-													multiple
 													label="File input"
+													multiple
+													show-size
 											></v-file-input>
 										</template>
 
@@ -266,12 +266,12 @@
 						</v-container>
 						<v-card-actions>
 							<v-spacer></v-spacer>
-							<v-btn color="blue darken-1" text @click="close">Отмена</v-btn>
+							<v-btn @click="close" color="blue darken-1" text>Отмена</v-btn>
 							<v-btn
+									@click="save"
 									color="blue darken-1"
 									text
 									type="submit"
-									@click="save"
 							>
 								{{ loadingPopup ? 'Загрузка...' : 'Сохранить' }}
 							</v-btn>
@@ -307,7 +307,9 @@
         HorizontalRule,
         History
     } from 'tiptap-vuetify'
+
     const formDefault = {
+        NameImages: [],
         File: [],
         name: '',
         article: +new Date(),
@@ -392,6 +394,7 @@
             arrayImages: [],
             editedIndex: -1,
             editedItem: {
+                NameImages: [],
                 File: [],
                 name: '',
                 article: +new Date(),
@@ -411,6 +414,7 @@
                 arrayImages: []
             },
             defaultItem: {
+                NameImages: [],
                 File: [],
                 name: '',
                 article: +new Date(),
@@ -484,17 +488,26 @@
             deleteFoto(editedItem, item) {
                 console.log(editedItem)
                 console.log(item)
-								const array = editedItem.arrayImages
+
+
+                const array = editedItem.arrayImages
+                const arrayName = editedItem.NameImages
+
                 const index = array.indexOf(item);
                 if (index > -1) {
                     array.splice(index, 1);
+                    arrayName.splice(index, 1);
                 }
-                return editedItem.arrayImages = array
-						},
-            initialize () {
+
+                editedItem.arrayImages = array
+                editedItem.NameImages = arrayName
+
+
+            },
+            initialize() {
                 this.products = this.PRODUCTS
-						},
-            save () {
+            },
+            save() {
                 if (this.editedIndex > -1) {
                     const editProduct = Object.assign(this.products[this.editedIndex], this.editedItem)
                     this.editThisProduct(editProduct)
@@ -504,19 +517,19 @@
                 }
                 this.close()
             },
-            close () {
+            close() {
                 this.dialog = false
                 this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)
                     this.editedIndex = -1
                 })
             },
-            editItem (item) {
+            editItem(item) {
                 this.editedIndex = this.products.indexOf(item)
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
-						async editThisProduct(editProduct) {
+            async editThisProduct(editProduct) {
                 const File = editProduct.File
                 const promises = []
 
@@ -544,9 +557,9 @@
                 this.loadingPopup = true
 
                 const URLs = await Promise.all(promises)
-								const ArrayOld = editProduct.arrayImages
-								const ArrayFile = [...URLs, ...ArrayOld]
-								let id = editProduct.id
+                const ArrayOld = editProduct.arrayImages
+                const ArrayFile = [...URLs, ...ArrayOld]
+                let id = editProduct.id
 
                 db.collection('products')
                     .doc(id)
@@ -574,7 +587,7 @@
                         })
                     })
             },
-            async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, stokProduct,  newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
+            async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, stokProduct, newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
                 const createdAt = new Date()
                 File = addProduct.File
                 BrandName = addProduct.BrandName
@@ -593,7 +606,7 @@
                 arrayImages = addProduct.arrayImages
 // ЗАГРУЗКА ФОТО
                 const promises = []
-								const promisesName = []
+                const promisesName = []
 
                 for (let i = 0; i < File.length; i++) {
 
@@ -653,7 +666,7 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                arrayImages.length=0;
+                arrayImages.length = 0;
                 this.dialog = false
             },
             getColor(price) {
@@ -666,13 +679,14 @@
             },
             getColor2(clothingSize) {
                 if (clothingSize < 36) return 'red'
-                else if (clothingSize > 36-40) return 'orange'
-                else if (clothingSize > 42-44) return 'cyan'
-                else if (clothingSize > 45-46) return 'yellow'
-                else if (clothingSize > 47-50) return 'grey'
+                else if (clothingSize > 36 - 40) return 'orange'
+                else if (clothingSize > 42 - 44) return 'cyan'
+                else if (clothingSize > 45 - 46) return 'yellow'
+                else if (clothingSize > 47 - 50) return 'grey'
                 else return 'green'
             },
-            deleteLocation(item) {
+
+            async deleteLocation(item) {
                 Swal.fire({
                     title: 'Ти впевнений?',
                     text: "Ви не зможете відновити це!",
@@ -681,8 +695,25 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Так, видаліть його!'
-                }).then((result) => {
+                })
+										.then((result) => {
                     if (result.value) {
+
+                        const File = item.arrayImages
+                        for (let i = 0; i < File.length; i++) {
+                            let storageRef = firebase.storage().ref()
+                            console.log(item)
+                            console.log(item.NameImages)
+                            let nameTime = item.NameImages[i]
+                            console.log(nameTime)
+                            const Ref = storageRef.child('assets/images/' + nameTime)
+                            Ref.delete().then(function () {
+                                console.log('Фото удаленно!')
+                            }).catch(function (error) {
+                                console.log('удаление фото с всем объявлением' + error)
+                            })
+                        }
+
                         let id = item.id
                         db.collection('products').doc(id).delete()
                         Swal.fire(
@@ -692,10 +723,11 @@
                         )
                     }
                 })
+
             }
         },
         watch: {
-            dialog (val) {
+            dialog(val) {
                 val || this.close()
             },
         },
@@ -703,14 +735,14 @@
             ...mapGetters([
                 'PRODUCTS'
             ]),
-            formTitle () {
+            formTitle() {
                 return this.editedIndex === -1 ? 'Создание нового продукта' : 'Форма редактирования'
             },
         },
         props: {
             source: String,
         },
-				created() {
+        created() {
             this.initialize()
         }
     }
