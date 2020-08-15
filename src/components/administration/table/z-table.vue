@@ -77,7 +77,7 @@
 			<v-dialog
 					style="z-index: 100"
 					v-model="dialog"
-					width="100%"
+					width="400px"
 			>
 				<form>
 					<v-card>
@@ -219,6 +219,7 @@
 										<v-carousel-item
 												:key="id"
 												:src="(item)"
+												style="max-width: 400px; max-height: 600px"
 												reverse-transition="fade-transition"
 												transition="fade-transition"
 												v-for="(item,id) in editedItem.arrayImages"
@@ -685,7 +686,6 @@
                 else if (clothingSize > 47 - 50) return 'grey'
                 else return 'green'
             },
-
             async deleteLocation(item) {
                 Swal.fire({
                     title: 'Ти впевнений?',
@@ -702,10 +702,7 @@
                         const File = item.arrayImages
                         for (let i = 0; i < File.length; i++) {
                             let storageRef = firebase.storage().ref()
-                            console.log(item)
-                            console.log(item.NameImages)
                             let nameTime = item.NameImages[i]
-                            console.log(nameTime)
                             const Ref = storageRef.child('assets/images/' + nameTime)
                             Ref.delete().then(function () {
                                 console.log('Фото удаленно!')
@@ -717,8 +714,8 @@
                         let id = item.id
                         db.collection('products').doc(id).delete()
                         Swal.fire(
-                            'Видалено!',
-                            'Ваш файл видалено.',
+                            'Удаленно!',
+                            'Ваш продукт удален.',
                             'success'
                         )
                     }
