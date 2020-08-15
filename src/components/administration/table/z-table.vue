@@ -214,7 +214,7 @@
 									></v-checkbox>
 								</div>
 <!--ФОТО-->
-								<template v-if="editedItem.arrayImages.length !== 0">
+								<template v-if="editedItem.arrayImages.length > 0">
 									<v-carousel>
 										<v-carousel-item
 												v-for="(item,id) in editedItem.arrayImages"
@@ -222,7 +222,19 @@
 												:src="(item)"
 												reverse-transition="fade-transition"
 												transition="fade-transition"
-										></v-carousel-item>
+										>
+											<v-btn
+													style="float: right; top: 1em;"
+													class="mx-2"
+													fab
+													dark
+													small
+													color="pink"
+													@click="deleteFoto(editedItem, item)"
+											>
+												<v-icon dark>mdi-delete</v-icon>
+											</v-btn>
+										</v-carousel-item>
 									</v-carousel>
 								</template>
 								<v-col  cols="12">
@@ -469,6 +481,44 @@
             locations: []
         }),
         methods: {
+            deleteFoto(editedItem, item) {
+                console.log(editedItem)
+                console.log(item)
+                Swal.fire({
+                    title: 'Ты уверен?',
+                    text: "Вы не сможете восстановить это!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Да, удалить его!'
+                }).then((result) => {
+                    if (result.value) {
+                        let id = editedItem.id
+                        console.log(id)
+                        db.collection('products').doc(id).delete()
+// // Удаление фото с FirebaseStorage
+//                         // Create a reference to the file to delete
+//                         const storageRef = firebase.storage().ref();
+//                         const desertRef = storageRef.child('assets/images/' + item.//название фото);
+// // Delete the file
+//                         desertRef.delete().then(function () {
+//                             console.log('Фото удаленно!')
+//                             // File deleted successfully
+//                         }).catch(function (error) {
+//                             console.log(error)
+//                             // Uh-oh, an error occurred!
+//                         });
+
+
+                        Swal.fire(
+                            'Видалено!',
+                            'Ваш файл видалено.',
+                            'success'
+                        )
+                    }
+                })
+						},
             initialize () {
                 this.products = this.PRODUCTS
 						},
@@ -495,8 +545,7 @@
                 this.dialog = true
             },
 						async editThisProduct(editProduct) {
-                const editFile = editProduct.File,
-								File = editFile
+                const File = editProduct.File
                 const promises = []
 
                 for (let i = 0; i < File.length; i++) {
@@ -507,10 +556,10 @@
                     // Создайте метаданные файла
                     let metadata = {
                         contentType: 'image/jpeg',
-                        name: +new Date(),
                     };
+                    let nameTime = +new Date()
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = storageRef.child('assets/images/' + File[i].name).put(File[i], metadata);
+                    const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
 
                     promises.push(
                         uploadTask
@@ -523,12 +572,14 @@
                 this.loadingPopup = true
 
                 const URLs = await Promise.all(promises)
+								const ArrayOld = editProduct.arrayImages
+								const ArrayFile = [...URLs, ...ArrayOld]
+								let id = editProduct.id
 
                 db.collection('products')
-                    .doc(editProduct.id)
+                    .doc(id)
                     .update({
-                        arrayImages: URLs,
-												File: editProduct.File,
+                        arrayImages: ArrayFile,
                         createdAt: editProduct.createdAt,
                         BrandName: editProduct.BrandName,
                         article: editProduct.article,
@@ -579,10 +630,10 @@
                     // Создайте метаданные файла
                     let metadata = {
                         contentType: 'image/jpeg',
-                        name: +new Date(),
                     };
+                    const nameTime = +new Date()
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = storageRef.child('assets/images/' + File[i].name).put(File[i], metadata);
+                    const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
 
                     promises.push(
                         uploadTask
@@ -655,20 +706,6 @@
                     if (result.value) {
                         let id = item.id
                         db.collection('products').doc(id).delete()
-// Удаление фото с FirebaseStorage
-//                         // Create a reference to the file to delete
-//                         const storageRef = firebase.storage().ref();
-//                         const desertRef = storageRef.child('assets/images/' + item.//название фото);
-// // Delete the file
-//                         desertRef.delete().then(function () {
-//                             console.log('Фото удаленно!')
-//                             // File deleted successfully
-//                         }).catch(function (error) {
-//                             console.log(error)
-//                             // Uh-oh, an error occurred!
-//                         });
-
-
                         Swal.fire(
                             'Видалено!',
                             'Ваш файл видалено.',
