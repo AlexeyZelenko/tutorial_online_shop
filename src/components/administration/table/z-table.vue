@@ -593,6 +593,7 @@
                 arrayImages = addProduct.arrayImages
 // ЗАГРУЗКА ФОТО
                 const promises = []
+								const promisesName = []
 
                 for (let i = 0; i < File.length; i++) {
 
@@ -603,9 +604,10 @@
                     let metadata = {
                         contentType: 'image/jpeg',
                     };
-                    const nameTime = +new Date()
+                    const nameTime = +new Date() + '.jpg'
+                    console.log(nameTime)
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
+                    const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
 
                     promises.push(
                         uploadTask
@@ -613,13 +615,18 @@
                                 snapshot.ref.getDownloadURL()
                             )
                     )
+                    promisesName.push(
+                        nameTime
+                    )
                 }
 
                 this.loadingPopup = true
 
                 const URLs = await Promise.all(promises)
+                const NameImages = await Promise.all(promisesName)
 
                 await db.collection('products').add({
+                    NameImages: NameImages,
                     article,
                     available,
                     BrandName,
