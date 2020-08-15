@@ -197,7 +197,7 @@
 											v-model="editedItem.clothingManufacturer"
 									></v-select>
 								</v-col>
-								<!--						ОТОБРАЖЕНИЕ-->
+<!--						ОТОБРАЖЕНИЕ-->
 								<div class="check_box">
 									<v-checkbox
 											label="Отображать в каталоге"
@@ -213,13 +213,13 @@
 											v-model="editedItem.stokProduct"
 									></v-checkbox>
 								</div>
-								<!--ФОТО-->
+<!--ФОТО-->
 								<v-col  cols="12">
 									<v-file-input
 											:rules2="rules"
 											counter
 											accept="image/png, image/jpeg, image/bmp"
-											v-model="File"
+											v-model="editedItem.File"
 											color="deep-purple accent-4"
 											placeholder="Выберите фото"
 											label="Загрузка фотографий"
@@ -266,7 +266,6 @@
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
-    // import the-component and the necessary extensions
     import {
         TiptapVuetify,
         Heading,
@@ -285,8 +284,6 @@
         HorizontalRule,
         History
     } from 'tiptap-vuetify'
-
-    // eslint-disable-next-line no-unused-vars
     const formDefault = {
         File: [],
         name: '',
@@ -330,7 +327,6 @@
         components: {TiptapVuetify},
         data: () => ({
             loadingPopup: false,
-            // declare extensions you want to use
             extensions: [
                 History,
                 Blockquote,
@@ -353,6 +349,11 @@
                 HardBreak
             ],
             ...formDefault, // ...formTest или ...formDefault
+            rules: {
+                required: value => !!value || 'Обязательно.',
+                counter: value => value.length >= 5 || 'Min 5 знаков',
+                counter2: value => value.length <= 400 || 'Max 400 знаков',
+            },
             rules2: [
                 value => !value || value.size < 5000000 || 'Avatar size should be less than 5 MB!',
             ],
@@ -402,11 +403,6 @@
                 FotoClothes: '',
                 stokProduct: null,
                 newClothes: true,
-            },
-            rules: {
-                required: value => !!value || 'Обязательно.',
-                counter: value => value.length >= 5 || 'Min 5 знаков',
-                counter2: value => value.length <= 400 || 'Max 400 знаков',
             },
             itemsCategories: [
                 'Куртки',
@@ -486,7 +482,7 @@
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
-           async editThisProduct(editProduct) {
+						async editThisProduct(editProduct) {
                 const editFile = editProduct.File,
 								File = editFile
                 const promises = []
@@ -611,8 +607,9 @@
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
+                    title: 'Ваша работа была сохранена',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 })
                 arrayImages.length=0;
                 this.dialog = false

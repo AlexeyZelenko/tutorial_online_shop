@@ -1,6 +1,5 @@
 <template>
 	<div class="v-carousel-item">
-<!--		<img :src="(item.arrayImages[0])">-->
 		<slot>
 			<img
 					style="width: 300px; height: 600px"
@@ -16,17 +15,11 @@
     data: () => ({
 
     }),
-    // components: {},
-    methods: {},
-    computed: {},
-    watch: {},
     props: {
         item_data: {
             type: Object,
 						default: () => {}
         }
     },
-		mounted() {
-    }
   }
 </script>
