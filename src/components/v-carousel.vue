@@ -55,8 +55,6 @@
 							this.currentSlideIndex++
             }
         },
-        computed: {},
-        watch: {},
         props: {
             carousel_data: {
                 type: Array,

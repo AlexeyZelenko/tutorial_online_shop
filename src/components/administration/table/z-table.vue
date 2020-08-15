@@ -77,7 +77,7 @@
 			<v-dialog
 					style="z-index: 100"
 					v-model="dialog"
-					width="800px"
+					width="100%"
 			>
 				<form>
 					<v-card>
@@ -214,6 +214,17 @@
 									></v-checkbox>
 								</div>
 <!--ФОТО-->
+								<template v-if="editedItem.arrayImages.length !== 0">
+									<v-carousel>
+										<v-carousel-item
+												v-for="(item,id) in editedItem.arrayImages"
+												:key="id"
+												:src="(item)"
+												reverse-transition="fade-transition"
+												transition="fade-transition"
+										></v-carousel-item>
+									</v-carousel>
+								</template>
 								<v-col  cols="12">
 									<v-file-input
 											:rules2="rules"
@@ -385,6 +396,7 @@
                 FotoClothes: '',
                 stokProduct: null,
                 newClothes: true,
+                arrayImages: []
             },
             defaultItem: {
                 File: [],
@@ -676,7 +688,7 @@
                 'PRODUCTS'
             ]),
             formTitle () {
-                return this.editedIndex === -1 ? '' : 'Редактировать'
+                return this.editedIndex === -1 ? 'Создание нового продукта' : 'Форма редактирования'
             },
         },
         props: {
