@@ -484,40 +484,12 @@
             deleteFoto(editedItem, item) {
                 console.log(editedItem)
                 console.log(item)
-                Swal.fire({
-                    title: 'Ты уверен?',
-                    text: "Вы не сможете восстановить это!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Да, удалить его!'
-                }).then((result) => {
-                    if (result.value) {
-                        let id = editedItem.id
-                        console.log(id)
-                        db.collection('products').doc(id).delete()
-// // Удаление фото с FirebaseStorage
-//                         // Create a reference to the file to delete
-//                         const storageRef = firebase.storage().ref();
-//                         const desertRef = storageRef.child('assets/images/' + item.//название фото);
-// // Delete the file
-//                         desertRef.delete().then(function () {
-//                             console.log('Фото удаленно!')
-//                             // File deleted successfully
-//                         }).catch(function (error) {
-//                             console.log(error)
-//                             // Uh-oh, an error occurred!
-//                         });
-
-
-                        Swal.fire(
-                            'Видалено!',
-                            'Ваш файл видалено.',
-                            'success'
-                        )
-                    }
-                })
+								const array = editedItem.arrayImages
+                const index = array.indexOf(item);
+                if (index > -1) {
+                    array.splice(index, 1);
+                }
+                return editedItem.arrayImages = array
 						},
             initialize () {
                 this.products = this.PRODUCTS
