@@ -107,7 +107,7 @@
                     .then(() => {
                         let timeStamp = Date.now().toLocaleString();
                         this.messages.unshift(
-                            {name: `Товар доданий у кошик`, id: timeStamp, icon: 'check_circle'}
+                            {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
                         )
                     })
             },
