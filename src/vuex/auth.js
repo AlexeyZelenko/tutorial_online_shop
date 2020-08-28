@@ -1,12 +1,28 @@
 import firebase from 'firebase/app'
+import {db} from '@/main.js'
 
 export default {
     actions: {
-        async signInWithGoogle({commit}) {
-
+        async signInWithGoogle({commit, dispatch}) {
             try {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
+                const uid = await dispatch('getUid')
+                const a = db.collection('users').doc(`${uid}`).set({
+                    cartInfo: []
+                })
+                console.log(a)
+                if(a.length === +0) {
+                    await db.collection('users').doc(`${uid}`).set({
+                        cartInfo: []
+                    })
+                    console.log('Пользователь создан!')
+                    this.$router.push('/')
+                } else {
+                    console.log('Пользователь вошел!')
+                    this.$router.push('/')
+                }
+
             } catch (e) {
                 commit('setError', e)
                 throw e
@@ -26,9 +42,10 @@ export default {
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
                 const uid = await dispatch('getUid')
                 await firebase.database().ref(`/users/${uid}/info`).set({
-                    bill: 10000,
+                    cart: 0,
                     name
                 })
+                console.log('Пользователь создан!')
             } catch (e) {
                 commit('setError', e)
                 throw e

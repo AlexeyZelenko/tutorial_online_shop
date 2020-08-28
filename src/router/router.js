@@ -41,6 +41,12 @@ let router = new Router({
             component: () => import('@/components/login'),
             props: true
         },
+        {
+            path: '/registration',
+            name: 'registration',
+            component: () => import('@/components/registration'),
+            props: true
+        },
     ]
 })
 

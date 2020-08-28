@@ -39,6 +39,9 @@
 				</div>
 			</template>
 		</div>
+		<router-link :to="{name: 'registration'}">
+			<div>Регистрация</div>
+		</router-link>
 	</div>
 </template>
 
@@ -85,16 +88,9 @@
             async signInWithGoogle() {
                 try {
                     await this.$store.dispatch('signInWithGoogle')
-                    // this.$v.$touch()
-                    this.$router.push('/admin')
                 } catch (e) {
-                    console.log('error')
+                    console.log(2 +'error')
                 }
-                // let provider = new firebase.auth.GoogleAuthProvider();
-                // firebase.auth().signInWithPopup(provider);
-                // if (this.isUserSignedIn) {
-                //     this.$router.push('/admin')
-                // }
             },
             async submit() {
                 if (this.$v.$invalid) {
@@ -110,7 +106,7 @@
                     // this.$v.$touch()
                     this.$router.push('/admin')
                 } catch (e) {
-                    console.log('error')
+                    console.log(1 +'error')
                 }
             },
 

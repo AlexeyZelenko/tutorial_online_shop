@@ -28,7 +28,11 @@
 				</v-btn>
 			</div>
 		</router-link>
-		<h1>{{'Catalog' | localize}}</h1>
+		<img
+				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
+				:src="require('@/assets/images/logo.png')"
+				alt="">
+<!--		<h1>{{'Catalog' | localize}}</h1>-->
 		<v-row class="Change_categories">
 				<v-select
 						style="z-index: 100"

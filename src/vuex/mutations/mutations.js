@@ -1,7 +1,12 @@
+import {db} from '@/main.js'
+
 export default  {
+    CART_USER: (state, userId) => {
+        state.cartUser = db.collection('users').doc(userId);
+    },
     INCREMENT: (state, index) => {
         state.cart[index].quantity++
-    } ,
+    },
     DECREMENT: (state, index) => {
         if(state.cart[index].quantity > 1) {
             state.cart[index].quantity--
@@ -15,6 +20,7 @@ export default  {
         state.cart.map(function (item) {
             if (item.article === product.article) {
                 isProductExist = true
+
                 item.quantity++
             }
         })

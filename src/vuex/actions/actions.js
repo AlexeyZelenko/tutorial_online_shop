@@ -17,6 +17,9 @@ export default  {
     },
     FIREBASE({commit}, message) {
         commit('FIREBASE_MUTATIONS', message)
+    },
+    VIEW_CART_USER({commit}, user) {
+        commit('CART_USER', user)
     }
 }
 
