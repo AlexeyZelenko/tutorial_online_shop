@@ -17,10 +17,8 @@ export default {
                         cartInfo: []
                     })
                     console.log('Пользователь создан!')
-                    this.$router.push('/')
                 } else {
                     console.log('Пользователь вошел!')
-                    this.$router.push('/')
                 }
 
             } catch (e) {
