@@ -3,6 +3,39 @@ import {db} from '@/main.js'
 
 export default {
     actions: {
+        async logout({commit}) {
+            await firebase.auth().signOut()
+            commit('clearInfo')
+        },
+        async ADD_TO_CART({dispatch, commit}, product) {
+            const uid = await dispatch('getUid')
+            const arr = await db.collection('users')
+                .doc(`${uid}`)
+                .get()
+                .then(snapshot => {
+                    const document = snapshot.data()
+                    // do something with document
+                    return document
+                })
+            console.log(arr)
+            await db.collection('users')
+                .doc(`${uid}`)
+                .set(product)
+                .then(() => {
+                    console.log('cart updated!')
+                })
+
+            commit('SET_CART', product)
+        },
+        // async addCart({commit, dispatch}) {
+        //     const uid = await dispatch('getUid')
+        //     await db.collection('users')
+        //         .doc(`${uid}`)
+        //         .set()
+        //         .then(() => {
+        //             console.log('cart updated!')
+        //         })
+        // },
         async signInWithGoogle({commit, dispatch}) {
             try {
                 let provider = new firebase.auth.GoogleAuthProvider();
@@ -63,9 +96,5 @@ export default {
             const user = firebase.auth().currentUser
             return user ? user.uid : null
         },
-        async logout({commit}) {
-            await firebase.auth().signOut()
-            commit('clearInfo')
-        }
     }
 }

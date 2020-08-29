@@ -1,3 +1,4 @@
+
 export default  {
 
     INCREMENT_CART_ITEM({commit}, index) {
@@ -9,9 +10,9 @@ export default  {
     DELETE_FROM_CART({commit}, index) {
         commit('REMOVE_FROM_CART', index)
     },
-    ADD_TO_CART({commit}, product) {
-        commit('SET_CART', product)
-    },
+    // ADD_TO_CART({commit}, product) {
+    //     commit('SET_CART', product)
+    // },
     LOCALIZE({commit}, loc) {
         commit('CHANGE_LOCALE', loc)
     },

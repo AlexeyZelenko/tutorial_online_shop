@@ -35,6 +35,9 @@ export default  {
     setError(state, error) {
         state.error = error
     },
+    clearInfo(state) {
+        state.info = {}
+    }
 
 }
 

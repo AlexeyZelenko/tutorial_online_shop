@@ -21,7 +21,8 @@ let store = new Vuex.Store({
         locale: 'ru-RU',
         error: null,
         Products: [],
-        cartUser: []
+        cartUser: [],
+        info: []
     },
     getters,
     mutations: {

@@ -18,7 +18,9 @@
 
 
 			<v-spacer></v-spacer>
-			<div class="v-carousel-item">
+			<div
+					v-if="isUserSignedIn"
+					class="v-carousel-item">
 				<slot>
 					<img
 							id="user-pic"
@@ -67,6 +69,9 @@
             ...mapGetters([
                 'PRODUCTS'
             ]),
+            isUserSignedIn() {
+                return !!firebase.auth().currentUser;
+            },
             getUserName() {
                 return firebase.auth().currentUser.displayName;
 						},

@@ -1,12 +1,15 @@
 <template>
 	<div class="v-catalog">
+
 		<v-notification
 				:messages='messages'
 				:timeout="3000"
 		/>
-		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
-					<div class="v-catalog__link_to_cart">
-						<v-btn >
+
+		<div style="justify-content: center;">
+			<router-link :to="{name: 'cart', params: {cart_data: CART}}">
+				<div class="v-catalog__link_to_cart">
+					<v-btn >
 						<v-chip
 								class="ma-2"
 								close-icon="mdi-heart"
@@ -18,16 +21,42 @@
 							</v-avatar>
 							{{'Cart'|localize}}
 						</v-chip>
-						</v-btn>
+					</v-btn>
+				</div>
+			</router-link>
+
+			<v-spacer></v-spacer>
+			<div
+					v-if="isUserSignedIn"
+					class="v-carousel-item">
+				<slot>
+					<img
+							id="user-pic"
+							:src="(getProfilePicUrl)"
+							alt=""
+					>
+				</slot>
 			</div>
-		</router-link>
-		<router-link :to="{name: 'login', params: {cart_data: CART}}">
-			<div class="v-catalog__link_to_admin">
-				<v-btn class="ma-2" outlined fab style="color: #3e9538">
-					<v-icon>mdi-format-list-bulleted-square</v-icon>
-				</v-btn>
+			<div
+					id="user-name"
+			>{{getUserName}}
 			</div>
-		</router-link>
+<!--			<v-btn-->
+<!--					@click.prevent="logout"-->
+<!--			>-->
+<!--				Выйти-->
+<!--			</v-btn>-->
+			<v-spacer></v-spacer>
+
+			<router-link :to="{name: 'login', params: {cart_data: CART}}">
+				<div class="v-catalog__link_to_admin">
+					<v-btn class="ma-2" outlined fab style="color: #3e9538">
+						<v-icon>mdi-format-list-bulleted-square</v-icon>
+					</v-btn>
+				</div>
+			</router-link>
+		</div>
+
 		<img
 				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
 				:src="require('@/assets/images/logo.png')"
@@ -58,6 +87,7 @@
     import {mapActions, mapGetters} from 'vuex'
     import vNotification from '../notifications/v-notification'
     import vSelect from '../v-select'
+    import  firebase from 'firebase/app'
 
     export default {
         name: "v-catalog",
@@ -91,6 +121,14 @@
             }
         },
         methods: {
+            // async logout() {
+            //     try {
+            //         await this.$store.dispatch('logout')
+            //         this.$router.push({name: 'catalog' })
+            //     } catch (e) {
+            //         console.log(3 +'error')
+            //     }
+            // },
             productClick(article) {
                 this.$router.push({name: 'product', query: {'product': article } })
             },
@@ -121,6 +159,15 @@
                 'PRODUCTS',
                 'CART',
             ]),
+            isUserSignedIn() {
+                return !!firebase.auth().currentUser;
+            },
+            getUserName() {
+                return firebase.auth().currentUser.displayName;
+            },
+            getProfilePicUrl() {
+                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
+            },
             filteredProducts() {
                 if (this.sortedProducts.length) {
                     return this.sortedProducts
@@ -160,5 +207,21 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	#user-pic {
+		top: -3px;
+		position: relative;
+		display: inline-block;
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		background-size: 40px;
+		border-radius: 20px;
+	}
+	#user-name {
+		font-size: 15px;
+		line-height: normal;
+		padding-right: 5px;
+		padding-left: 5px;
 	}
 </style>
