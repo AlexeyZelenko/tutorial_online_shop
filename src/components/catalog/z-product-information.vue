@@ -72,7 +72,7 @@
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Товар доданий у кошик',
+                    title: 'Товар добавлен в корзину',
                     showConfirmButton: false,
                     timer: 1500
                 })

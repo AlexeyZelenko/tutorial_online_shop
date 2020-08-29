@@ -2,7 +2,7 @@
 	<div class="v-catalog">
 		<v-notification
 				:messages='messages'
-				:timeout="4000"
+				:timeout="3000"
 		/>
 		<router-link :to="{name: 'cart', params: {cart_data: CART}}">
 					<div class="v-catalog__link_to_cart">

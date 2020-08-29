@@ -28,19 +28,19 @@
 		</form>
 
 <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-<!--		<div>-->
-<!--			<template>-->
-<!--				<div class="text-center">-->
-<!--					<v-btn-->
-<!--							@click="signInWithGoogle"-->
-<!--							color="primary" dark-->
-<!--							rounded-->
-<!--					>-->
-<!--						<i class="material-icons">account_circle</i> Войти через Google-->
-<!--					</v-btn>-->
-<!--				</div>-->
-<!--			</template>-->
-<!--		</div>-->
+		<div>
+			<template>
+				<div class="text-center">
+					<v-btn
+							@click="signInWithGoogle"
+							color="primary" dark
+							rounded
+					>
+						<i class="material-icons">account_circle</i> Войти через Google
+					</v-btn>
+				</div>
+			</template>
+		</div>
 
 <!--		РЕГИСТРАЦИЯ : ПОЧТА+ПАРОЛЬ-->
 <!--		<router-link :to="{name: 'registration'}">-->

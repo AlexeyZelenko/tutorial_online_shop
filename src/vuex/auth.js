@@ -9,17 +9,22 @@ export default {
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
 
-
                 // Получить корзину для ткущего пользователя
-                const a = await db.collection('users').doc(`${uid}`).get('cartInfo')
-                console.log(a)
-
+                const a = await db.collection('users')
+                    .doc(`${uid}`)
+                    .get()
+                    .then(snapshot => {
+                        const document = snapshot.data()
+                        // do something with document
+                        return document
+                    })
                 // Если корзины нет
                 if(!a) {
                     // Создать корзину
                     await db.collection('users').doc(`${uid}`).set({
                         cartInfo: []
                     })
+                    console.log('Новый пользователь создан!')
                 } else {
                     console.log('Пользователь вошел!')
                 }
