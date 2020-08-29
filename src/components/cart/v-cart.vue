@@ -14,8 +14,7 @@
 				v-for="(item, index) in cart_data"
 		/>
 		<div class="v-cart__total">
-			<p class="total__name">{{'Total:' | localize }}</p>
-			<p>{{cartTotalCost}} грн</p>
+				<p class="total__name">{{'Total:' | localize }}  {{cartTotalCost}} грн</p>
 		</div>
 	</div>
 </template>

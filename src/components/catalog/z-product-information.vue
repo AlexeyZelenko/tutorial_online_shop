@@ -21,31 +21,23 @@
 			{{product.clothingManufacturer}}</p>
 		<p v-if="product.BrandName !== '' ">{{"Brand name" | localize}}: {{product.BrandName}}</p>
 		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
-		<div class="text-center" v-show="product.newClothes">
+		<div class="text-center">
 			<v-chip
 					class="ma-2"
 					style="background-color: goldenrod; color:white"
 					text-color="white"
-					v-show="product.newClothes===true"
+					v-if="product.newClothes"
 			>
 				NEW!
 				<v-icon right style="color: white">mdi-star</v-icon>
 			</v-chip>
-			<!--		СКИДКА-->
+<!--					СКИДКА-->
 			<v-chip
 					class="v_catalog_item_new" style="background-color: #da207d; color:white"
 					text-color="white"
-					v-show="product.promotionalPrice != null"
+					v-if="product.promotionalPrice"
 			>
-				{{"Promotional Price" | localize}} {{product.promotionalPrice}} !!!
-			</v-chip>
-			<!--		СКИДКА-->
-			<v-chip
-					class="v_catalog_item_new" style="background-color: #202cda; color:white"
-					text-color="white"
-					v-show="product.discount != null"
-			>
-				{{"Discount" | localize}} {{product.discount}} %
+				{{"Promotional Price" | localize}} !!!
 			</v-chip>
 		</div>
 		<button

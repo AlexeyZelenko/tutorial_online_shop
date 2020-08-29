@@ -3,6 +3,8 @@
 		<router-link :to="{name: 'catalog'}">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
+
+<!--		ФОРМА ВХОДА: ПОЧТА+ПАРОЛЬ-->
 		<form class="login-form">
 			<v-text-field
 					:counter="10"
@@ -21,27 +23,30 @@
 					required
 					v-model="email"
 			></v-text-field>
-
 			<v-btn @click="submit" class="mr-4">Войти</v-btn>
 			<v-btn @click="clear">Очистить</v-btn>
 		</form>
 
-		<div>
-			<template>
-				<div class="text-center">
-					<v-btn
-							@click="signInWithGoogle"
-							color="primary" dark
-							rounded
-					>
-						<i class="material-icons">account_circle</i> Sign-in with Google
-					</v-btn>
-				</div>
-			</template>
-		</div>
-		<router-link :to="{name: 'registration'}">
-			<div>Регистрация</div>
-		</router-link>
+<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
+<!--		<div>-->
+<!--			<template>-->
+<!--				<div class="text-center">-->
+<!--					<v-btn-->
+<!--							@click="signInWithGoogle"-->
+<!--							color="primary" dark-->
+<!--							rounded-->
+<!--					>-->
+<!--						<i class="material-icons">account_circle</i> Войти через Google-->
+<!--					</v-btn>-->
+<!--				</div>-->
+<!--			</template>-->
+<!--		</div>-->
+
+<!--		РЕГИСТРАЦИЯ : ПОЧТА+ПАРОЛЬ-->
+<!--		<router-link :to="{name: 'registration'}">-->
+<!--			<div>Регистрация</div>-->
+<!--		</router-link>-->
+
 	</div>
 </template>
 
@@ -71,15 +76,15 @@
             passwordErrors() {
                 const errors = []
                 if (!this.$v.password.$dirty) return errors
-                !this.$v.password.maxLength && errors.push('Ім’я має бути не більше 10 символів')
-                !this.$v.password.required && errors.push('Ім\'я обов\'язково.')
+                !this.$v.password.maxLength && errors.push('Имя должно быть не более 10 символов')
+                !this.$v.password.required && errors.push('Имя обязательно.')
                 return errors
             },
             emailErrors() {
                 const errors = []
                 if (!this.$v.email.$dirty) return errors
-                !this.$v.email.email && errors.push('Повинно бути дійсною електронною поштою')
-                !this.$v.email.required && errors.push('Повинно бути дійсною електронною поштою')
+                !this.$v.email.email && errors.push('Должно быть действительной электронной почтой')
+                !this.$v.email.required && errors.push('Должно быть действительной электронной почтой')
                 return errors
             },
         },
@@ -88,6 +93,9 @@
             async signInWithGoogle() {
                 try {
                     await this.$store.dispatch('signInWithGoogle')
+											.then(() => {
+													this.$router.push('/')
+											})
                 } catch (e) {
                     console.log(2 +'error')
                 }

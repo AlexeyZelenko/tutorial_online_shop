@@ -35,7 +35,7 @@
 <!--		<h1>{{'Catalog' | localize}}</h1>-->
 		<v-row class="Change_categories">
 				<v-select
-						style="z-index: 100"
+						style="z-index: 3"
 						:selected="selected"
 						:options="categories"
 						@select="sortByCategories"
@@ -124,7 +124,6 @@
             filteredProducts() {
                 if (this.sortedProducts.length) {
                     return this.sortedProducts
-
                 } else {
                     return this.PRODUCTS
                 }

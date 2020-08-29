@@ -8,15 +8,18 @@ export default {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
-                const a = db.collection('users').doc(`${uid}`).set({
-                    cartInfo: []
-                })
+
+
+                // Получить корзину для ткущего пользователя
+                const a = await db.collection('users').doc(`${uid}`).get('cartInfo')
                 console.log(a)
-                if(a.length === +0) {
+
+                // Если корзины нет
+                if(!a) {
+                    // Создать корзину
                     await db.collection('users').doc(`${uid}`).set({
                         cartInfo: []
                     })
-                    console.log('Пользователь создан!')
                 } else {
                     console.log('Пользователь вошел!')
                 }
@@ -40,8 +43,10 @@ export default {
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
                 const uid = await dispatch('getUid')
                 await firebase.database().ref(`/users/${uid}/info`).set({
-                    cart: 0,
                     name
+                })
+                await db.collection('users').doc(`${uid}`).set({
+                    cartInfo: []
                 })
                 console.log('Пользователь создан!')
             } catch (e) {

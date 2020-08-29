@@ -5,8 +5,9 @@
 		<div class="v-cart-item__info">
 			<p>{{cart_item_data.name}}</p>
 			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
-<!--			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>-->
 			<p>{{'Размер'}} :{{cart_item_data.clothingSize}}</p>
+			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
+			<p>{{'тел.: 097 788 95 80'}}</p>
 		</div>
 		<div class="v-cart-item__quantity">
 			<p>{{'Qty:' | localize}}</p>
@@ -18,11 +19,14 @@
 		</div>
 		<v-btn
 				depressed
-				small
 				@click="deleteFromCart"
-				style="background-color: mediumspringgreen; color: whitesmoke"
 		>
-			{{'Delete' | localize}}
+			<span
+					class="mdi mdi-delete-forever"
+					@click="deleteFromCart"
+					style="color: mediumvioletred"
+			></span>
+<!--			{{'Delete' | localize}}-->
 		</v-btn>
 	</div>
 </template>

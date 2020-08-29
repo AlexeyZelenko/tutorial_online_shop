@@ -99,7 +99,7 @@
 												:rules="[rules.counter]"
 												label="Наименование одежды"
 												placeholder="Name"
-												prepend-icon="check_circle"
+												prepend-icon="create"
 												v-model="editedItem.name"
 										></v-text-field>
 									</v-row>
@@ -114,7 +114,7 @@
 									/>
 								</v-col>
 								<!--						АРТИКЛЬ-->
-								<v-col cols="6">
+								<v-col cols="12">
 									<v-text-field
 											placeholder="article"
 											prepend-icon="local_offer"
@@ -123,7 +123,7 @@
 									></v-text-field>
 								</v-col>
 								<!--						ЦЕНА-->
-								<v-col cols="6">
+								<v-col cols="12">
 									<v-text-field
 											:rules="[v => (v !== Number.NaN) || 'Введите число!']"
 											label="Цена товара"
@@ -139,7 +139,7 @@
 									<v-text-field
 											label="Размер одежды"
 											placeholder="36-60"
-											prepend-icon="done_outline"
+											prepend-icon="create"
 											v-model="editedItem.clothingSize"
 									></v-text-field>
 
@@ -150,50 +150,28 @@
 									<v-text-field
 											label="Брэнд"
 											placeholder="Пьер Кардэн"
-											prepend-icon="done_outline"
+											prepend-icon="create"
 											v-model="editedItem.BrandName"
 									></v-text-field>
 								</v-col>
-								<!--Акционная ценна-->
-								<v-col cols="12">
-									<v-text-field
-											:rules="[v => (v !== Number.NaN) || 'Введите число!']"
-											label="Ценна по акции"
-											placeholder="2000"
-											prepend-icon="info"
-											type="Number"
-											v-model="editedItem.promotionalPrice"
-									></v-text-field>
-								</v-col>
-								<!--СКИДКА-->
-								<v-col cols="12">
-									<v-text-field
-											:rules="[v => (v !== Number.NaN) || 'Введите число!']"
-											label="Скидка на товар"
-											placeholder="150"
-											prepend-icon="info"
-											type="Number"
-											v-model="editedItem.discount"
-									></v-text-field>
-								</v-col>
 								<!--						КАТЕГОРИИ-->
-								<v-col cols="6">
+								<v-col cols="12">
 									<v-select
 											:items="itemsCategories"
 											:rules="[v => !!v || 'Пункт требуется']"
 											label="Выберите категорию"
 											placeholder="Категория"
-											prepend-icon="rule"
+											prepend-icon="create"
 											v-model="editedItem.category"
 									></v-select>
 								</v-col>
 								<!--							ПРОИЗВОДИТЕЛЬ-->
-								<v-col cols="6">
+								<v-col cols="12">
 									<v-select
 											:items="itemsclothingManufacturer"
 											label="Выберите производителя"
 											placeholder="Производитель"
-											prepend-icon="face"
+											prepend-icon="create"
 											v-model="editedItem.clothingManufacturer"
 									></v-select>
 								</v-col>
@@ -201,16 +179,21 @@
 								<div class="check_box">
 									<v-checkbox
 											label="Отображать в каталоге"
+											color="success"
 											v-model="available"
+											hide-details
 									></v-checkbox>
 									<v-checkbox
 											label="Новинка"
 											v-model="editedItem.newClothes"
+											color="orange"
+											hide-details
 									></v-checkbox>
-
 									<v-checkbox
 											label="Товар со скидкой"
-											v-model="editedItem.stokProduct"
+											v-model="editedItem.promotionalPrice"
+											color="indigo darken-3"
+											hide-details
 									></v-checkbox>
 								</div>
 								<!--ФОТО-->
@@ -318,35 +301,14 @@
         available: null,
         category: '',
         price: '',
-        discount: null,
         clothingSize: 42,
-        promotionalPrice: null,
+        promotionalPrice: false,
         clothingManufacturer: '',
         VideoClothings: false,
         BrandName: '',
         FotoClothes: '',
-        stokProduct: null,
         newClothes: true,
     }
-    // const formTest = {
-    //     File: [],
-    //     name: 'gfdgfd',
-    //     article: +new Date(),
-    //     description: 'gfdgdf',
-    //     available: null,
-    //     category: '',
-    //     price: '1000',
-    //     discount: null,
-    //     clothingSize: 44,
-    //     promotionalPrice: null,
-    //     clothingManufacturer: '',
-    //     VideoClothings: false,
-    //     BrandName: '',
-    //     FotoClothes: '',
-    //     stokProduct: null,
-    //     newClothes: true,
-    // }
-
 
     export default {
         name: "zTable",
@@ -383,7 +345,6 @@
             rules2: [
                 value => !value || value.size < 5000000 || 'Avatar size should be less than 5 MB!',
             ],
-            // File: {},
             search: '',
             delete: '',
             singleSelect: true,
@@ -402,15 +363,13 @@
                 description: '',
                 available: null,
                 category: '',
-                price: '',
-                discount: null,
+                price: 0,
                 clothingSize: 42,
-                promotionalPrice: null,
+                promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                stokProduct: null,
                 newClothes: true,
                 arrayImages: []
             },
@@ -422,15 +381,13 @@
                 description: '',
                 available: null,
                 category: '',
-                price: '',
-                discount: null,
+                price: 0,
                 clothingSize: 42,
-                promotionalPrice: null,
+                promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                stokProduct: null,
                 newClothes: true,
             },
             itemsCategories: [
@@ -463,16 +420,14 @@
                 },
                 {text: '', value: ''},
                 {text: 'Фото одежды', value: 'arrayImages'},
-                // {text: 'Категория', value: 'category'},
                 {text: '', value: ''},
                 {text: '', value: ''},
+                {text: 'Категория', value: 'category'},
                 {text: 'Описание', value: 'description'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
                 // {text: 'Новинка', value: 'newClothes'},
-                // {text: 'Скидка', value: 'discount'},
                 // {text: 'Акционная цена', value: 'promotionalPrice'},
-                // {text: 'Скидка', value: 'stokProduct'},
                 // {text: 'Редактировать', value: 'editThisProduct'},
                 {text: '', value: ''},
                 {text: 'Цена', value: 'price'},
@@ -480,7 +435,7 @@
                 {text: 'Бренд', value: 'BrandName'},
                 {text: 'Производитель', value: 'clothingManufacturer'},
                 // {text: 'Видео одежды', value: 'VideoClothings'},
-                {text: 'Удалить', value: 'actions', sortable: false},
+                {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
                 {text: '===============================', value: ''},
             ],
             locations: []
@@ -531,29 +486,33 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
+                console.log('editProduct', editProduct);
+
                 const File = editProduct.File
                 const promises = []
 
-                for (let i = 0; i < File.length; i++) {
+								if (File) {
+                    for (let i = 0; i < File.length; i++) {
 
-                    const storageRef = firebase.storage().ref();
-                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+                        const storageRef = firebase.storage().ref();
+                        // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
-                    // Создайте метаданные файла
-                    let metadata = {
-                        contentType: 'image/jpeg',
-                    };
-                    let nameTime = +new Date()
-                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
+                        // Создайте метаданные файла
+                        let metadata = {
+                            contentType: 'image/jpeg',
+                        };
+                        let nameTime = +new Date()
+                        // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                        const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
 
-                    promises.push(
-                        uploadTask
-                            .then(snapshot =>
-                                snapshot.ref.getDownloadURL()
-                            )
-                    )
-                }
+                        promises.push(
+                            uploadTask
+                                .then(snapshot =>
+                                    snapshot.ref.getDownloadURL()
+                                )
+                        )
+                    }
+								}
 
                 this.loadingPopup = true
 
@@ -566,12 +525,11 @@
                     .doc(id)
                     .update({
                         arrayImages: ArrayFile,
+                        category: editProduct.category,
                         createdAt: editProduct.createdAt,
                         BrandName: editProduct.BrandName,
                         article: editProduct.article,
-                        discount: editProduct.discount,
                         price: editProduct.price,
-                        stokProduct: editProduct.stokProduct,
                         promotionalPrice: editProduct.promotionalPrice,
                         clothingSize: editProduct.clothingSize,
                         newClothes: editProduct.newClothes,
@@ -588,17 +546,15 @@
                         })
                     })
             },
-            async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, stokProduct, newClothes, BrandName, discount, clothingSize, clothingManufacturer, price, description) {
+            async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
                 const createdAt = new Date()
                 File = addProduct.File
                 BrandName = addProduct.BrandName
                 article = addProduct.article
-                discount = addProduct.discount
                 available = addProduct.available
                 category = addProduct.category
                 name = addProduct.name
                 price = addProduct.price
-                stokProduct = addProduct.stokProduct
                 promotionalPrice = addProduct.promotionalPrice
                 clothingSize = addProduct.clothingSize
                 newClothes = addProduct.newClothes
@@ -609,32 +565,32 @@
                 const promises = []
                 const promisesName = []
 
-                for (let i = 0; i < File.length; i++) {
+								if(File) {
+                    for (let i = 0; i < File.length; i++) {
 
-                    const storageRef = firebase.storage().ref();
-                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+                        const storageRef = firebase.storage().ref();
+                        // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
-                    // Создайте метаданные файла
-                    let metadata = {
-                        contentType: 'image/jpeg',
-                    };
-                    const nameTime = +new Date() + '.jpg'
-                    console.log(nameTime)
-                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
+                        // Создайте метаданные файла
+                        let metadata = {
+                            contentType: 'image/jpeg',
+                        };
+                        const nameTime = +new Date() + '.jpg'
+                        console.log(nameTime)
+                        // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                        const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
 
-                    promises.push(
-                        uploadTask
-                            .then(snapshot =>
-                                snapshot.ref.getDownloadURL()
-                            )
-                    )
-                    promisesName.push(
-                        nameTime
-                    )
-                }
-
-                this.loadingPopup = true
+                        promises.push(
+                            uploadTask
+                                .then(snapshot =>
+                                    snapshot.ref.getDownloadURL()
+                                )
+                        )
+                        promisesName.push(
+                            nameTime
+                        )
+                    }
+								}
 
                 const URLs = await Promise.all(promises)
                 const NameImages = await Promise.all(promisesName)
@@ -644,12 +600,10 @@
                     article,
                     available,
                     BrandName,
-                    discount,
                     newClothes,
                     clothingManufacturer,
                     clothingSize,
                     promotionalPrice,
-                    stokProduct,
                     createdAt,
                     category,
                     arrayImages: URLs,
@@ -657,8 +611,6 @@
                     price,
                     description,
                 })
-
-                this.loadingPopup = false
 
                 Swal.fire({
                     position: 'top-end',
@@ -698,7 +650,6 @@
                 })
 										.then((result) => {
                     if (result.value) {
-
                         const File = item.arrayImages
                         for (let i = 0; i < File.length; i++) {
                             let storageRef = firebase.storage().ref()

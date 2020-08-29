@@ -1,30 +1,31 @@
 <template>
 	<div class="v-catalog-item" @click="productClick" >
+
 <!--		НОВИНКА-->
 		<v-chip
-				v-show="product_data.newClothes" class="v_catalog_item_new"
+				v-if="product_data.newClothes" class="v_catalog_item_new"
 				style="background-color: goldenrod; color:white"
 				text-color="white"
 		>
 			{{ "NEW" | localize}}!
 		</v-chip>
+
 <!--		СКИДКА-->
 		<v-chip
-				v-show="product_data.promotionalPrice != null" class="v_catalog_item_new"
+				v-if="product_data.promotionalPrice" class="v_catalog_item_new"
 				style="background-color: #da207d; color:white"
 				text-color="white"
 		>
-			{{"Promotional Price" | localize}}! {{product_data.promotionalPrice}}
+			{{"Promotional Price" | localize}}!
 		</v-chip>
-<!--		СКИДКА-->
-		<v-chip
-				v-show="product_data.discount != null" class="v_catalog_item_new"
-				style="background-color: #202cda; color:white"
-				text-color="white"
-		>
-			{{"Discount" | localize}} {{product_data.discount}} %
-		</v-chip>
-		<img v-if="product_data.arrayImages" class="v-catalog-item_image" :src="product_data.arrayImages[0]" alt="">
+		<div
+				v-if="product_data.arrayImages"
+				class="v-catalog-item_image2">
+			<img
+					class="v-catalog-item_image"
+					:src="product_data.arrayImages[0]"
+					alt="">
+		</div>
 		<p
 				v-else
 				class="emptyImage"
@@ -33,7 +34,7 @@
 		</p>
 <!--		<p class="v_catalog_item_name">{{product_data.article}}</p>-->
 		<p class="v_catalog_item_price">{{'Price' | localize }}: {{product_data.price}} грн</p>
-		<div class="v-catalog-item_button">
+		<div class="v-catalog-item_button" style="margin-bottom: 1%;">
 			<button
 					class="v-catalog-item_show-info"
 					@click.self="productClick"
@@ -81,7 +82,7 @@
 <style lang="scss">
 	.emptyImage {
 		width: 100px;
-		height: 200px;
+		height: 300px;
 	}
 
 	.v-catalog-item {
@@ -94,6 +95,11 @@
 
 		&_image {
 			width: 100px;
+			justify-content: center;
+		}
+
+		&_image2 {
+			height: 200px;
 		}
 
 		&_show-info {
@@ -122,6 +128,5 @@
 			justify-content: space-between;
 			align-items: end;
 		}
-
 	}
 </style>
