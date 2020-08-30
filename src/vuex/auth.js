@@ -9,7 +9,7 @@ export default {
         },
         async ADD_TO_CART({dispatch, commit}, product) {
             const uid = await dispatch('getUid')
-            const arr = await db.collection('users')
+            const user = await db.collection('users')
                 .doc(`${uid}`)
                 .get()
                 .then(snapshot => {
@@ -17,10 +17,14 @@ export default {
                     // do something with document
                     return document
                 })
-            console.log(arr)
+            console.log(user.cartInfo)
+            console.log(product)
             await db.collection('users')
                 .doc(`${uid}`)
-                .set(product)
+                .set({
+                    ...user,
+                    cartInfo: [...user.cartInfo, product.article]
+                })
                 .then(() => {
                     console.log('cart updated!')
                 })
