@@ -27,20 +27,7 @@
 			<v-btn @click="clear">Очистить</v-btn>
 		</form>
 
-<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-		<div>
-			<template>
-				<div class="text-center">
-					<v-btn
-							@click="signInWithGoogle"
-							color="primary" dark
-							rounded
-					>
-						<i class="material-icons">account_circle</i> Войти через Google
-					</v-btn>
-				</div>
-			</template>
-		</div>
+
 
 <!--		РЕГИСТРАЦИЯ : ПОЧТА+ПАРОЛЬ-->
 <!--		<router-link :to="{name: 'registration'}">-->
@@ -90,16 +77,6 @@
         },
 
         methods: {
-            async signInWithGoogle() {
-                try {
-                    await this.$store.dispatch('signInWithGoogle')
-											.then(() => {
-													this.$router.push('/')
-											})
-                } catch (e) {
-                    console.log(2 +'error')
-                }
-            },
             async submit() {
                 if (this.$v.$invalid) {
                     this.$v.$touch()

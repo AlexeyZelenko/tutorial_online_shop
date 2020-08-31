@@ -6,6 +6,21 @@
 				:timeout="3000"
 		/>
 
+		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
+		<div>
+			<template>
+				<div class="text-center">
+					<v-btn
+							@click="signInWithGoogle"
+							color="primary" dark
+							rounded
+					>
+						<i class="material-icons">account_circle</i> Войти через Google
+					</v-btn>
+				</div>
+			</template>
+		</div>
+
 		<div style="justify-content: center;">
 			<router-link :to="{name: 'cart', params: {cart_data: CART}}">
 				<div class="v-catalog__link_to_cart">
@@ -121,10 +136,19 @@
             }
         },
         methods: {
+            async signInWithGoogle() {
+                try {
+                    await this.$store.dispatch('signInWithGoogle')
+                        .then(() => {
+                            this.$router.push('/')
+                        })
+                } catch (e) {
+                    console.log(2 +'error')
+                }
+            },
             // async logout() {
             //     try {
             //         await this.$store.dispatch('logout')
-            //         this.$router.push({name: 'catalog' })
             //     } catch (e) {
             //         console.log(3 +'error')
             //     }
@@ -165,10 +189,10 @@
                 return !!firebase.auth().currentUser;
             },
             getUserName() {
-                return firebase.auth().currentUser.displayName;
+                return firebase.auth().currentUser.displayName || null;
             },
             getProfilePicUrl() {
-                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
+                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png' || null;
             },
             filteredProducts() {
                 if (this.sortedProducts.length) {
@@ -179,8 +203,7 @@
             }
         },
 				created() {
-            this.VIEW_CART_USER()
-            this.GET_CART_USER()
+            this.getUserName()
         }
     }
 </script>

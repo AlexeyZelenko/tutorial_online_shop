@@ -3,10 +3,6 @@ import {db} from '@/main.js'
 
 export default {
     actions: {
-        async logout({commit}) {
-            await firebase.auth().signOut()
-            commit('clearInfo')
-        },
         async ADD_TO_CART({dispatch}, product) {
             const uid = await dispatch('getUid')
             const user = await db.collection('users')
@@ -88,5 +84,9 @@ export default {
             const user = firebase.auth().currentUser
             return user ? user.uid : null
         },
+        async logout({commit}) {
+            await firebase.auth().signOut()
+            commit('clearInfo')
+        }
     }
 }

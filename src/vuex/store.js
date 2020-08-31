@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+import info from './info'
 // import 'firebase/firestore'
 import getters from './getters/getters'
 // import mutations from './mutations/mutations'
 // import commonActions from './actions/actions'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
+import firebase from "firebase";
 // Подключение нескольких actions
 // import apiRequests from './actions/api-requests'
 
@@ -69,6 +71,10 @@ let store = new Vuex.Store({
             // resolve once data is ready
             return context.bindFirestoreRef('Products', db.collection('products'))
         }),
+        async logout({commit}) {
+            await firebase.auth().signOut()
+            commit('clearInfo')
+        },
         async DELETE_FROM_CART({dispatch, commit}, index) {
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')
@@ -136,7 +142,7 @@ let store = new Vuex.Store({
         }
     },
     modules: {
-        auth,
+        auth, info,
     }
 });
 
