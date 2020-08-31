@@ -7,7 +7,7 @@ export default {
             await firebase.auth().signOut()
             commit('clearInfo')
         },
-        async ADD_TO_CART({dispatch, commit}, product) {
+        async ADD_TO_CART({dispatch}, product) {
             const uid = await dispatch('getUid')
             const user = await db.collection('users')
                 .doc(`${uid}`)
