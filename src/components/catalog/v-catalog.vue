@@ -9,13 +9,22 @@
 		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
 		<div>
 			<template>
-				<div class="text-center">
+				<div
+						class="text-center"
+				>
 					<v-btn
+							v-if="!isUserSignedIn"
 							@click="signInWithGoogle"
 							color="primary" dark
 							rounded
 					>
 						<i class="material-icons">account_circle</i> Войти через Google
+					</v-btn>
+					<v-btn
+							v-if="isUserSignedIn"
+							@click="logout"
+					>
+						Выйти
 					</v-btn>
 				</div>
 			</template>
@@ -53,14 +62,10 @@
 				</slot>
 			</div>
 			<div
+					v-if="isUserSignedIn"
 					id="user-name"
 			>{{getUserName}}
 			</div>
-<!--			<v-btn-->
-<!--					@click.prevent="logout"-->
-<!--			>-->
-<!--				Выйти-->
-<!--			</v-btn>-->
 			<v-spacer></v-spacer>
 
 			<router-link :to="{name: 'login', params: {cart_data: CART}}">
@@ -140,19 +145,18 @@
                 try {
                     await this.$store.dispatch('signInWithGoogle')
                         .then(() => {
-                            this.$router.push('/')
+                            location.reload()
                         })
                 } catch (e) {
                     console.log(2 +'error')
                 }
             },
-            // async logout() {
-            //     try {
-            //         await this.$store.dispatch('logout')
-            //     } catch (e) {
-            //         console.log(3 +'error')
-            //     }
-            // },
+            async logout() {
+                await this.$store.dispatch('logout')
+                    .then(() => {
+                        location.reload()
+                    })
+            },
             productClick(article) {
                 this.$router.push({name: 'product', query: {'product': article } })
             },
@@ -189,10 +193,10 @@
                 return !!firebase.auth().currentUser;
             },
             getUserName() {
-                return firebase.auth().currentUser.displayName || null;
+                return firebase.auth().currentUser.displayName;
             },
             getProfilePicUrl() {
-                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png' || null;
+                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
             },
             filteredProducts() {
                 if (this.sortedProducts.length) {
@@ -202,8 +206,8 @@
                 }
             }
         },
-				created() {
-            this.getUserName()
+				mounted() {
+            this.VIEW_CART_USER()
         }
     }
 </script>
