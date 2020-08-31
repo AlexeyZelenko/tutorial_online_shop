@@ -153,7 +153,6 @@
                             {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
                         )
                     })
-                this.VIEW_CART_USER()
             },
         },
         computed: {
@@ -181,6 +180,7 @@
         },
 				created() {
             this.VIEW_CART_USER()
+            this.GET_CART_USER()
         }
     }
 </script>
