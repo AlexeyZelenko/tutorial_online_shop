@@ -17,7 +17,7 @@
 								style="background-color: #3e9538; color: white; cursor: pointer"
 						>
 							<v-avatar left class="darken-4" style="background-color: #0a4506;">
-								{{CART.length}}
+								{{GET_CART_USER.length}}
 							</v-avatar>
 							{{'Cart'|localize}}
 						</v-chip>
@@ -143,6 +143,7 @@
             },
             ...mapActions([
                 'ADD_TO_CART',
+								'VIEW_CART_USER'
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
@@ -152,12 +153,14 @@
                             {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
                         )
                     })
+                this.VIEW_CART_USER()
             },
         },
         computed: {
             ...mapGetters([
                 'PRODUCTS',
                 'CART',
+								'GET_CART_USER',
             ]),
             isUserSignedIn() {
                 return !!firebase.auth().currentUser;
@@ -176,6 +179,9 @@
                 }
             }
         },
+				created() {
+            this.VIEW_CART_USER()
+        }
     }
 </script>
 

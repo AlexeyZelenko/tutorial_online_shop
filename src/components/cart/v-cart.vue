@@ -4,14 +4,14 @@
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
 		<h1>{{'Cart' | localize }}</h1>
-		<p v-if="!cart_data.length">{{'There are no products in cart...' | localize }}</p>
+		<p v-if="!GET_CART_USER.length">{{'There are no products in cart...' | localize }}</p>
 		<v-cart-item
 				:cart_item_data="item"
 				:key="item.article"
 				@decrement="decrement(index)"
 				@deleteFromCart="deleteFromCart(index)"
 				@increment="increment(index)"
-				v-for="(item, index) in cart_data"
+				v-for="(item, index) in GET_CART_USER"
 		/>
 		<div class="v-cart__total">
 				<p class="total__name">{{'Total:' | localize }}  {{cartTotalCost}} грн</p>
@@ -21,7 +21,7 @@
 
 <script>
     import VCartItem from './v-cart-item'
-    import {mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default {
         name: "v-cart.vue",
@@ -37,16 +37,25 @@
             }
         },
         computed: {
-            cartTotalCost() {
-                return this.cart_data.reduce((res, item) => res + item.price * item.quantity, 0)
-            }
+            ...mapGetters([
+                'PRODUCTS',
+                'GET_CART_USER'
+            ]),
+        },
+        created() {
+            this.VIEW_CART_USER()
         },
         methods: {
             ...mapActions([
                 'DELETE_FROM_CART',
                 'INCREMENT_CART_ITEM',
-                'DECREMENT_CART_ITEM'
+                'DECREMENT_CART_ITEM',
+                'VIEW_CART_USER'
             ]),
+
+            cartTotalCost() {
+                return this.GET_CART_USER.reduce((res, item) => res + item.price * item.quantity, 0)
+            },
             increment(index) {
                 this.INCREMENT_CART_ITEM(index)
             },
@@ -55,6 +64,9 @@
             },
             deleteFromCart(index) {
                 this.DELETE_FROM_CART(index)
+            .then(() => {
+                    this.VIEW_CART_USER()
+                })
             }
         }
     }

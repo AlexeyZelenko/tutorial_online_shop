@@ -486,7 +486,6 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
-                console.log('editProduct', editProduct);
 
                 const File = editProduct.File
                 const promises = []

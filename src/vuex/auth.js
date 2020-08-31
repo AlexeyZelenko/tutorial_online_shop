@@ -7,7 +7,7 @@ export default {
             await firebase.auth().signOut()
             commit('clearInfo')
         },
-        async ADD_TO_CART({dispatch}, product) {
+        async ADD_TO_CART({dispatch, commit}, product) {
             const uid = await dispatch('getUid')
             const user = await db.collection('users')
                 .doc(`${uid}`)
@@ -17,8 +17,6 @@ export default {
                     // do something with document
                     return document
                 })
-            console.log(user.cartInfo)
-            console.log(product)
             await db.collection('users')
                 .doc(`${uid}`)
                 .set({
@@ -28,9 +26,8 @@ export default {
                 .then(() => {
                     console.log('cart updated!')
                 })
-
-            // commit('SET_CART', product)
         },
+
         async signInWithGoogle({commit, dispatch}) {
             try {
                 let provider = new firebase.auth.GoogleAuthProvider();
