@@ -180,6 +180,7 @@
                         this.messages.unshift(
                             {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
                         )
+                        this.VIEW_CART_USER()
                     })
             },
         },
