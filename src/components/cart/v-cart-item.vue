@@ -13,7 +13,8 @@
 			<p>{{'Qty:' | localize}}</p>
 			<span class="quantity__tools">
         <span @click="decrementItem" class="quantity__btn">-</span>
-        {{cart_item_data.quantity}}
+<!--        {{cart_item_data.quantity}}-->
+				{{quantity}}
         <span @click="incrementItem" class="quantity__btn">+</span>
       </span>
 		</div>
@@ -31,6 +32,7 @@
 	</div>
 </template>
 <script>
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "v-cart-item",
@@ -42,6 +44,23 @@
                 }
             }
         },
+				computed: {
+            ...mapGetters([
+                'GET_CART_USER'
+            ]),
+            quantity() {
+                let promises = 0
+
+                for(let i = 0; i < this.GET_CART_USER.length; i++) {
+                    if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
+                        promises++
+										}else{
+                        console.log(123)
+										}
+                }
+                return  promises
+						}
+				},
         methods: {
             decrementItem() {
                 this.$emit('decrement')
@@ -54,7 +73,7 @@
             }
         },
         mounted() {
-
+					this.$set(this.cart_item_data, 'quantity', 1)
         }
     }
 </script>

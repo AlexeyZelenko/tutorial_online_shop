@@ -60,6 +60,14 @@ let store = new Vuex.Store({
             state.error = error
         },
         CART_USER: (state, cartUser) => {
+            // let isProductExist = false
+            // state.cart.map(function (item) {
+            //     if (item.article === cartUser.article) {
+            //         isProductExist = true
+            //         item.quantity++
+            //     }
+            // })
+            // isProductExist || state.cart.push({ ...cartUser, quantity: 1 })
             state.cartUser = cartUser;
         },
     },

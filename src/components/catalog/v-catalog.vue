@@ -31,7 +31,7 @@
 		</div>
 
 		<div style="justify-content: center;">
-			<router-link :to="{name: 'cart', params: {cart_data: CART}}">
+			<router-link :to="{name: 'cart'}">
 				<div class="v-catalog__link_to_cart">
 					<v-btn >
 						<v-chip
@@ -68,7 +68,7 @@
 			</div>
 			<v-spacer></v-spacer>
 
-			<router-link :to="{name: 'login', params: {cart_data: CART}}">
+			<router-link :to="{name: 'login'}">
 				<div class="v-catalog__link_to_admin">
 					<v-btn class="ma-2" outlined fab style="color: #3e9538">
 						<v-icon>mdi-format-list-bulleted-square</v-icon>
