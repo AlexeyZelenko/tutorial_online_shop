@@ -45,7 +45,6 @@
                return  [...new Set(this.GET_CART_USER)]
 						},
             cartTotalCost() {
-                console.log('this.GET_CART_USER', this.GET_CART_USER)
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
         },
