@@ -187,7 +187,6 @@
         computed: {
             ...mapGetters([
                 'PRODUCTS',
-                'CART',
 								'GET_CART_USER',
             ]),
             isUserSignedIn() {

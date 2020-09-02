@@ -2,9 +2,6 @@ export default  {
     GET_CART_USER(state) {
         return state.cartUser;
     },
-    GET_quantity_CART_USER(state) {
-        return state.quantity;
-    },
     GET_PRODUCT_FROM_DB(state) {
         return state.Products;
     },
