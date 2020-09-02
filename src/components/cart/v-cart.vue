@@ -38,7 +38,6 @@
         },
         computed: {
             ...mapGetters([
-                'PRODUCTS',
                 'GET_CART_USER'
             ]),
 						newGetCartUser() {
@@ -48,6 +47,9 @@
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
         },
+				watch: {
+
+				},
         created() {
             this.VIEW_CART_USER()
         },

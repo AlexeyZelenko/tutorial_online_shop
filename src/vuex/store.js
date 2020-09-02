@@ -4,11 +4,9 @@ import auth from './auth'
 import info from './info'
 // import 'firebase/firestore'
 import getters from './getters/getters'
-// import mutations from './mutations/mutations'
-// import commonActions from './actions/actions'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
-import firebase from "firebase";
+import firebase from "firebase/app";
 // Подключение нескольких actions
 // import apiRequests from './actions/api-requests'
 
@@ -24,24 +22,10 @@ let store = new Vuex.Store({
         error: null,
         Products: [],
         cartUser: [],
-        info: []
     },
     getters,
     mutations: {
         ...vuexfireMutations,
-        REMOVE_FROM_CART: (state, cartUser) => {
-            state.cartUser = cartUser
-        },
-        SET_CART: (state, product) => {
-            let isProductExist = false
-            state.cart.map(function (item) {
-                if (item.article === product.article) {
-                    isProductExist = true
-                    item.quantity++
-                }
-            })
-            isProductExist || state.cart.push({ ...product, quantity: 1 })
-        },
         CHANGE_LOCALE: (state, loc) => {
             state.locale = loc;
         },
@@ -75,11 +59,8 @@ let store = new Vuex.Store({
                 .then(snapshot => {
                     const document = snapshot.data()
                     // do something with document
-                    console.log(document.cartInfo)
                     return document.cartInfo
                 })
-            console.log(article)
-            console.log(cartUser)
 
             const newcartInfo = cartUser.filter(item => item !== article)
             const user = { ...this.user }
@@ -89,10 +70,9 @@ let store = new Vuex.Store({
                 .doc(`${uid}`)
                 .set(user)
                 .then(() => {
-                    console.log('product delete from cart!')
                 })
 
-            commit('REMOVE_FROM_CART', cartUser)
+            commit('CART_USER', cartUser)
         },
         async VIEW_CART_USER({dispatch, commit}) {
             const uid = await dispatch('getUid')
@@ -112,12 +92,10 @@ let store = new Vuex.Store({
                     return product
                 })
             const promises = []
-
             for(let i = 0; i < cartUser.length; i++) {
                 let result = products.filter(item => item.article === cartUser[i])
                 promises.push(result[0])
             }
-
             const result2 = await Promise.all(promises)
 
             commit('CART_USER', result2)
@@ -160,11 +138,11 @@ let store = new Vuex.Store({
             const user = { ...this.user }
             user.cartInfo = cartUser
 
-            db.collection('users')
+            await db.collection('users')
                 .doc(`${uid}`)
-                .set(user)
-                .then(() => {
-                    console.log('1 product delete from cart!')
+                .set({
+                    ...user,
+                    cartInfo: [...user.cartInfo]
                 })
         },
         LOCALIZE({commit}, loc) {
@@ -172,7 +150,7 @@ let store = new Vuex.Store({
         },
         FIREBASE({commit}, message) {
             commit('FIREBASE_MUTATIONS', message)
-        }
+        },
     },
     modules: {
         auth, info,

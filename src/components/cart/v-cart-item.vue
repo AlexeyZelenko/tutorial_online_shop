@@ -52,8 +52,6 @@
                 for(let i = 0; i < this.GET_CART_USER.length; i++) {
                     if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
                         promises++
-										}else{
-                        console.log('Подсчет кол-ва в item-data')
 										}
                 }
                 return  promises
@@ -61,7 +59,7 @@
 				},
         methods: {
             ...mapActions([
-                'VIEW_CART_USER'
+                'VIEW_CART_USER',
             ]),
             decrementItem() {
                 this.$emit('decrement')
@@ -73,7 +71,7 @@
                 this.$emit('deleteFromCart')
             }
         },
-        mounted() {
+        created() {
             this.VIEW_CART_USER()
         }
     }
