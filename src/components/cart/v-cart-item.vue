@@ -12,10 +12,9 @@
 		<div class="v-cart-item__quantity">
 			<p>{{'Qty:' | localize}}</p>
 			<span class="quantity__tools">
-        <span @click="decrementItem" class="quantity__btn">-</span>
-<!--        {{cart_item_data.quantity}}-->
+        <span @click.prevent="decrementItem" class="quantity__btn">-</span>
 				{{quantity}}
-        <span @click="incrementItem" class="quantity__btn">+</span>
+        <span @click.prevent="incrementItem" class="quantity__btn">+</span>
       </span>
 		</div>
 		<v-btn
@@ -27,12 +26,11 @@
 					@click="deleteFromCart"
 					style="color: mediumvioletred"
 			></span>
-<!--			{{'Delete' | localize}}-->
 		</v-btn>
 	</div>
 </template>
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "v-cart-item",
@@ -55,13 +53,16 @@
                     if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
                         promises++
 										}else{
-                        console.log(123)
+                        console.log('Подсчет кол-ва в item-data')
 										}
                 }
                 return  promises
 						}
 				},
         methods: {
+            ...mapActions([
+                'VIEW_CART_USER'
+            ]),
             decrementItem() {
                 this.$emit('decrement')
             },
@@ -73,7 +74,7 @@
             }
         },
         mounted() {
-					this.$set(this.cart_item_data, 'quantity', 1)
+            this.VIEW_CART_USER()
         }
     }
 </script>

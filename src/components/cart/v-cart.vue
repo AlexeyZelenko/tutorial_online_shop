@@ -8,10 +8,10 @@
 		<v-cart-item
 				:cart_item_data="item"
 				:key="item.article"
-				@decrement="decrement(index)"
-				@deleteFromCart="deleteFromCart(index)"
-				@increment="increment(index)"
-				v-for="(item, index) in newGetCartUser"
+				@decrement="decrement(item.article)"
+				@deleteFromCart="deleteFromCart(item.article)"
+				@increment="increment(item.article)"
+				v-for="item in newGetCartUser"
 		/>
 		<div class="v-cart__total">
 				<p class="total__name">{{'Total:' | localize }}  {{cartTotalCost}} грн</p>
@@ -58,15 +58,21 @@
                 'DECREMENT_CART_ITEM',
                 'VIEW_CART_USER'
             ]),
-            increment(index) {
-                this.INCREMENT_CART_ITEM(index)
+            increment(article) {
+                this.INCREMENT_CART_ITEM(article)
+                    .then(() => {
+                        this.VIEW_CART_USER()
+                    })
             },
-            decrement(index) {
-                this.DECREMENT_CART_ITEM(index)
+            decrement(article) {
+                this.DECREMENT_CART_ITEM(article)
+                    .then(() => {
+                        this.VIEW_CART_USER()
+                    })
             },
-            deleteFromCart(index) {
-                this.DELETE_FROM_CART(index)
-            .then(() => {
+            deleteFromCart(article) {
+                this.DELETE_FROM_CART(article)
+								.then(() => {
                     this.VIEW_CART_USER()
                 })
             }

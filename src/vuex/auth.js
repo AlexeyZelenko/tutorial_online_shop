@@ -21,7 +21,7 @@ export default {
                 })
                 .then(() => {
                     console.log('cart updated!')
-                })
+            })
         },
 
         async signInWithGoogle({commit, dispatch}) {

@@ -29,14 +29,6 @@ let store = new Vuex.Store({
     getters,
     mutations: {
         ...vuexfireMutations,
-        INCREMENT: (state, index) => {
-            state.cart[index].quantity++
-        },
-        DECREMENT: (state, index) => {
-            if(state.cart[index].quantity > 1) {
-                state.cart[index].quantity--
-            }
-        },
         REMOVE_FROM_CART: (state, cartUser) => {
             state.cartUser = cartUser
         },
@@ -60,14 +52,6 @@ let store = new Vuex.Store({
             state.error = error
         },
         CART_USER: (state, cartUser) => {
-            // let isProductExist = false
-            // state.cart.map(function (item) {
-            //     if (item.article === cartUser.article) {
-            //         isProductExist = true
-            //         item.quantity++
-            //     }
-            // })
-            // isProductExist || state.cart.push({ ...cartUser, quantity: 1 })
             state.cartUser = cartUser;
         },
     },
@@ -83,19 +67,21 @@ let store = new Vuex.Store({
             await firebase.auth().signOut()
             commit('clearInfo')
         },
-        async DELETE_FROM_CART({dispatch, commit}, index) {
+        async DELETE_FROM_CART({dispatch, commit}, article) {
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')
                 .doc(`${uid}`)
-                .get({})
+                .get()
                 .then(snapshot => {
                     const document = snapshot.data()
                     // do something with document
-                    document.cartInfo.splice(index, 1)
+                    console.log(document.cartInfo)
                     return document.cartInfo
                 })
+            console.log(article)
+            console.log(cartUser)
 
-            const newcartInfo = cartUser
+            const newcartInfo = cartUser.filter(item => item !== article)
             const user = { ...this.user }
             user.cartInfo = newcartInfo
 
@@ -136,11 +122,50 @@ let store = new Vuex.Store({
 
             commit('CART_USER', result2)
         },
-        INCREMENT_CART_ITEM({commit}, index) {
-            commit('INCREMENT', index)
+        async INCREMENT_CART_ITEM({dispatch}, article) {
+            const uid = await dispatch('getUid')
+            const user = await db.collection('users')
+                .doc(`${uid}`)
+                .get()
+                .then(snapshot => {
+                    const document = snapshot.data()
+                    // do something with document
+                    return document
+                })
+            await db.collection('users')
+                .doc(`${uid}`)
+                .set({
+                    ...user,
+                    cartInfo: [...user.cartInfo, article]
+                })
+                .then(() => {
+                    console.log('cart updated!')
+                })
         },
-        DECREMENT_CART_ITEM({commit}, index) {
-            commit('DECREMENT', index)
+        async DECREMENT_CART_ITEM({dispatch}, article) {
+            const uid = await dispatch('getUid')
+            const cartUser = await db.collection('users')
+                .doc(`${uid}`)
+                .get()
+                .then(snapshot => {
+                    const document = snapshot.data()
+                    // do something with document
+                    const i = document.cartInfo.indexOf(article);
+                    if(i >= 0) {
+                        document.cartInfo.splice(i, 1);
+                    }
+                    return document.cartInfo
+                })
+
+            const user = { ...this.user }
+            user.cartInfo = cartUser
+
+            db.collection('users')
+                .doc(`${uid}`)
+                .set(user)
+                .then(() => {
+                    console.log('1 product delete from cart!')
+                })
         },
         LOCALIZE({commit}, loc) {
             commit('CHANGE_LOCALE', loc)
