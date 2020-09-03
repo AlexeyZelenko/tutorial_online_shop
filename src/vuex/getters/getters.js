@@ -8,8 +8,14 @@ export default  {
     PRODUCTS(state) {
         return state.Products;
     },
+    USER_ID(state) {
+        return state.userId;
+    },
     LOCALE_CHANGE(state) {
         return state.locale;
+    },
+    User_Entrance(state) {
+        return state.userEntrance;
     },
     locale: s => s.locale,
     error: s => s.error

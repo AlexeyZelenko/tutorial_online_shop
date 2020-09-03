@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import {db} from '@/main.js'
 import Swal from 'sweetalert2'
+import router from '@/router/router'
 
 export default {
     actions: {
@@ -57,7 +58,14 @@ export default {
                     })
                     console.log('Новый пользователь создан!')
                 } else {
-                    console.log('Пользователь вошел!')
+                    if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2'].some(elem => elem === `${uid}`)) {
+                        console.log('Администратор вошел!')
+                        router.push('/admin')
+                    }else{
+                        console.log('Пользователь вошел!')
+                    }
+                    const userEntrance = !!firebase.auth().currentUser
+                    commit('USER_ENTRANCE', userEntrance)
                 }
 
             } catch (e) {
@@ -94,8 +102,26 @@ export default {
             const user = firebase.auth().currentUser
             return user ? user.uid : null
         },
-        async logout() {
+        userEntrance({commit}) {
+            const userEntrance =  !!firebase.auth().currentUser
+            commit('USER_ENTRANCE', userEntrance)
+        },
+        async USER_ID_ACTIONS({commit}) {
+            const user = firebase.auth().currentUser
+            const userID = user ? user.uid : null
+                if(userID) {
+                    console.log(userID)
+                    commit('USER_ID_ENTRANCE', userID)
+                }else{
+                    console.log('error')
+                }
+        },
+        async logout({commit}) {
             await firebase.auth().signOut()
+                .then(() => {
+                    const userEntrance = !!firebase.auth().currentUser
+                    commit('USER_ENTRANCE', userEntrance)
+                })
         }
     }
 }

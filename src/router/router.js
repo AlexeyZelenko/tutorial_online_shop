@@ -27,6 +27,7 @@ let router = new Router({
             path: '/admin',
             name: 'admin',
             component: () => import('@/components/administration/z-admin'),
+            // meta: { requiresAuth: true },
             props: true
         },
         {

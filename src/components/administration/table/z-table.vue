@@ -56,19 +56,28 @@
 				</template>
 
 				<template v-slot:item.actions="{ item }">
-					<v-icon
-							@click="editItem(item)"
-							class="mr-2"
-							small
-					>
-						mdi-pencil
-					</v-icon>
-					<v-icon
-							@click="deleteLocation(item)"
-							small
-					>
-						mdi-delete
-					</v-icon>
+					<v-row justify="space-around">
+
+						<v-avatar color="indigo" size="48">
+							<v-icon
+									@click="editItem(item)"
+							>
+								mdi-pencil
+							</v-icon>
+						</v-avatar>
+
+						<v-avatar
+								color="teal"
+								size="48"
+								style="margin-left: 10px"
+						>
+							<v-icon
+									@click="deleteLocation(item)"
+							>
+								mdi-delete
+							</v-icon>
+						</v-avatar>
+					</v-row>
 				</template>
 
 			</v-data-table>
@@ -199,7 +208,7 @@
 									<v-checkbox
 											label="Отображать в каталоге"
 											color="success"
-											v-model="available"
+											v-model="editedItem.available"
 											hide-details
 									></v-checkbox>
 									<v-checkbox
@@ -379,9 +388,9 @@
                 name: '',
                 article: +new Date(),
                 description: '',
-                available: null,
+                available: true,
                 category: '',
-                price: 0,
+                price: null,
                 clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
@@ -397,9 +406,9 @@
                 name: '',
                 article: +new Date(),
                 description: '',
-                available: null,
+                available: true,
                 category: '',
-                price: 0,
+                price: null,
                 clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
@@ -659,18 +668,17 @@
             },
             async deleteLocation(item) {
                 Swal.fire({
-                    title: 'Ти впевнений?',
-                    text: "Ви не зможете відновити це!",
+                    title: 'Вы уверенны?',
+                    text: "Вы не сможете восстановить это!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Так, видаліть його!'
+                    confirmButtonText: 'Да, удалить это!'
                 })
 										.then((result) => {
                     if (result.value) {
                         const File = item.arrayImages
-
 
                         for (let i = 0; i < File.length; i++) {
                             let storageRef = firebase.storage().ref()
@@ -682,7 +690,6 @@
                                 console.log('удаление фото с всем объявлением' + error)
                             })
                         }
-
                         let id = item.id
                         db.collection('products').doc(id).delete()
                         Swal.fire(
@@ -705,7 +712,7 @@
                 'PRODUCTS'
             ]),
             formTitle() {
-                return this.editedIndex === -1 ? 'Создание нового продукта' : 'Форма редактирования'
+                return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
             },
         },
         props: {

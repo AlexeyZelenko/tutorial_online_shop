@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
 import info from './info'
-// import 'firebase/firestore'
+import 'firebase/firestore'
+import 'firebase/auth'
 import getters from './getters/getters'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
@@ -20,6 +21,8 @@ let store = new Vuex.Store({
         error: null,
         Products: [],
         cartUser: [],
+        userEntrance: false,
+        userId: null
     },
     getters,
     mutations: {
@@ -36,6 +39,12 @@ let store = new Vuex.Store({
         CART_USER: (state, cartUser) => {
             state.cartUser = cartUser;
         },
+        USER_ENTRANCE: (state, userEntrance) => {
+            state.userEntrance = userEntrance;
+        },
+        USER_ID_ENTRANCE: (state, userID) => {
+            state.userId = userID;
+        }
     },
     actions: {
         bindLocationsRef: firestoreAction(context => {
@@ -45,6 +54,7 @@ let store = new Vuex.Store({
             // resolve once data is ready
             return context.bindFirestoreRef('Products', db.collection('products'))
         }),
+
         async DELETE_FROM_CART({dispatch, commit}, article) {
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')

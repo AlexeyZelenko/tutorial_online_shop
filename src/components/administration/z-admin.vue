@@ -15,28 +15,6 @@
 						</v-btn>
 					</div>
 			</v-toolbar-title>
-
-
-			<v-spacer></v-spacer>
-			<div
-					v-if="isUserSignedIn"
-					class="v-carousel-item">
-				<slot>
-					<img
-							id="user-pic"
-							:src="(getProfilePicUrl)"
-							alt=""
-					>
-				</slot>
-			</div>
-			<div
-					id="user-name"
-			>{{getUserName}}
-			</div>
-			<v-btn
-					:to="{name: 'catalog'}">
-				Выйти
-			</v-btn>
 		</v-app-bar>
 		<div>
 			<zTable/>
@@ -51,7 +29,6 @@
     import zAddNewProduct from './z-add-new-product'
     import zTable from './table/z-table'
     import {mapGetters} from 'vuex'
-		import  firebase from 'firebase/app'
 
     export default {
         name: "zAdmin",
@@ -69,16 +46,7 @@
             ...mapGetters([
                 'PRODUCTS'
             ]),
-            isUserSignedIn() {
-                return !!firebase.auth().currentUser;
-            },
-            getUserName() {
-                return firebase.auth().currentUser.displayName;
-						},
-            getProfilePicUrl() {
-								return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
-						}
-				}
+				},
     }
 </script>
 

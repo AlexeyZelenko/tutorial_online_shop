@@ -13,7 +13,7 @@
 						class="text-center"
 				>
 					<v-btn
-							v-if="!isUserSignedIn"
+							v-if="!User_Entrance"
 							@click="signInWithGoogle"
 							color="primary" dark
 							rounded
@@ -21,7 +21,7 @@
 						<i class="material-icons">account_circle</i> Войти через Google
 					</v-btn>
 					<v-btn
-							v-if="isUserSignedIn"
+							v-if="User_Entrance"
 							@click="logout"
 					>
 						Выйти
@@ -51,7 +51,7 @@
 
 			<v-spacer></v-spacer>
 			<div
-					v-if="isUserSignedIn"
+					v-if="this.User_Entrance"
 					class="v-carousel-item">
 				<slot>
 					<img
@@ -62,19 +62,22 @@
 				</slot>
 			</div>
 			<div
-					v-if="isUserSignedIn"
+					v-if="this.User_Entrance"
 					id="user-name"
 			>{{getUserName}}
 			</div>
 			<v-spacer></v-spacer>
+			<div class="v-catalog__link_to_admin">
+									<v-btn
+											class="ma-2"
+											outlined
+											fab
+											@click="adminPlusLogin"
+											style="color: #3e9538">
+										<v-icon>mdi-format-list-bulleted-square</v-icon>
+									</v-btn>
+								</div>
 
-			<router-link :to="{name: 'login'}">
-				<div class="v-catalog__link_to_admin">
-					<v-btn class="ma-2" outlined fab style="color: #3e9538">
-						<v-icon>mdi-format-list-bulleted-square</v-icon>
-					</v-btn>
-				</div>
-			</router-link>
 		</div>
 
 		<img
@@ -140,14 +143,19 @@
             }
         },
         methods: {
+            adminPlusLogin() {
+                if(this.entrenceAdmin) {
+                    this.$router.push('/admin')
+								}else{
+                    this.$router.push('/login')
+								}
+						},
             async signInWithGoogle() {
                 try {
                     await this.$store.dispatch('signInWithGoogle')
-                        .then(() => {
-                            location.reload()
-                        })
+                    this.VIEW_CART_USER()
                 } catch (e) {
-                    console.log(2 +'error')
+                    console.log('Ошибка входа Google')
                 }
             },
             async logout() {
@@ -170,7 +178,9 @@
             },
             ...mapActions([
                 'ADD_TO_CART',
-								'VIEW_CART_USER'
+								'VIEW_CART_USER',
+								'userEntrance',
+								'USER_ID_ACTIONS'
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
@@ -181,17 +191,22 @@
                         // )
                         this.VIEW_CART_USER()
                     })
-
             },
         },
         computed: {
             ...mapGetters([
                 'PRODUCTS',
 								'GET_CART_USER',
+								'User_Entrance',
+								'USER_ID'
             ]),
-            isUserSignedIn() {
-                return !!firebase.auth().currentUser;
-            },
+						entrenceAdmin() {
+                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2'].some(elem => elem === `${this.USER_ID}`)) {
+                    return true
+                }else{
+                    return false
+                }
+						},
             getUserName() {
                 return firebase.auth().currentUser.displayName;
             },
@@ -208,6 +223,8 @@
         },
 				mounted() {
             this.VIEW_CART_USER()
+						this.userEntrance()
+						this.USER_ID_ACTIONS()
         }
     }
 </script>

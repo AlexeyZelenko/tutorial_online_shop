@@ -75,7 +75,7 @@
         methods: {
             ...mapActions([
                 'LOCALIZE',
-                'bindLocationsRef'
+                'bindLocationsRef',
             ]),
             changeLocale(loc) {
                 this.LOCALIZE(loc)
