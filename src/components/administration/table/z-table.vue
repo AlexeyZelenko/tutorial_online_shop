@@ -1,6 +1,17 @@
 <template>
 	<div>
 		<v-card>
+			<div class="text-center pt-2">
+				<v-pagination v-model="page" :length="pageCount"></v-pagination>
+				<v-text-field
+						:value="itemsPerPage"
+						label="Товаров на странице"
+						type="number"
+						min="-1"
+						max="15"
+						@input="itemsPerPage = parseInt($event, 10)"
+				></v-text-field>
+			</div>
 			<!--		ПОИСК-->
 			<v-text-field
 					append-icon="mdi-magnify"
@@ -16,7 +27,10 @@
 					:search="search"
 					class="elevation-1"
 					item-key="id"
-					v-model="selected"
+					:page.sync="page"
+					:items-per-page="itemsPerPage"
+					hide-default-footer
+					@page-count="pageCount = $event"
 			>
 				<template
 						style="height:190px;"
@@ -60,18 +74,7 @@
 			</v-data-table>
 		</v-card>
 		<div>
-			<!--		КНОПКА +-->
-			<v-btn
-					@click="dialog = !dialog"
-					bottom
-					color="pink"
-					dark
-					fab
-					fixed
-					right
-			>
-				<v-icon>mdi-plus</v-icon>
-			</v-btn>
+
 			<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
 
 			<v-dialog
@@ -79,6 +82,22 @@
 					v-model="dialog"
 					width="400px"
 			>
+				<template v-slot:activator="{ on, attrs }">
+					<!--		КНОПКА +-->
+					<v-btn
+							@click="dialog = !dialog"
+							v-bind="attrs"
+							v-on="on"
+							bottom
+							color="pink"
+							dark
+							fab
+							fixed
+							left
+					>
+						<v-icon>mdi-plus</v-icon>
+					</v-btn>
+				</template>
 				<form>
 					<v-card>
 						<v-card-title>
@@ -257,7 +276,7 @@
 									text
 									type="submit"
 							>
-								{{ loadingPopup ? 'Загрузка...' : 'Сохранить' }}
+								Сохранить
 							</v-btn>
 						</v-card-actions>
 					</v-card>
@@ -314,7 +333,9 @@
         name: "zTable",
         components: {TiptapVuetify},
         data: () => ({
-            loadingPopup: false,
+            page: 1,
+            pageCount: 0,
+            itemsPerPage: 1,
             extensions: [
                 History,
                 Blockquote,
@@ -347,12 +368,9 @@
             ],
             search: '',
             delete: '',
-            singleSelect: true,
-            selected: [],
             products: [],
             dialog: false,
             drawer: null,
-            select: null,
             arrayImages: [],
             editedIndex: -1,
             editedItem: {
@@ -423,6 +441,7 @@
                 {text: '', value: ''},
                 {text: '', value: ''},
                 {text: 'Категория', value: 'category'},
+                {text: '', value: ''},
                 {text: 'Описание', value: 'description'},
                 // {text: 'id', value: 'id'},
                 // {text: 'опубликовано', value: 'available'},
@@ -478,6 +497,11 @@
                 this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)
                     this.editedIndex = -1
+										// if(this.defaultItem) {
+                    //     // window.location.reload()
+                    //     console.log(1)
+										// }
+
                 })
             },
             editItem(item) {
@@ -489,7 +513,6 @@
 
                 const File = editProduct.File
                 const promises = []
-
 								if (File) {
                     for (let i = 0; i < File.length; i++) {
 
@@ -512,9 +535,6 @@
                         )
                     }
 								}
-
-                this.loadingPopup = true
-
                 const URLs = await Promise.all(promises)
                 const ArrayOld = editProduct.arrayImages
                 const ArrayFile = [...URLs, ...ArrayOld]
@@ -618,7 +638,7 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                arrayImages.length = 0;
+                arrayImages = [];
                 this.dialog = false
             },
             getColor(price) {
@@ -650,6 +670,8 @@
 										.then((result) => {
                     if (result.value) {
                         const File = item.arrayImages
+
+
                         for (let i = 0; i < File.length; i++) {
                             let storageRef = firebase.storage().ref()
                             let nameTime = item.NameImages[i]

@@ -1,27 +1,37 @@
 import firebase from 'firebase/app'
 import {db} from '@/main.js'
+import Swal from 'sweetalert2'
 
 export default {
     actions: {
         async ADD_TO_CART({dispatch}, product) {
             const uid = await dispatch('getUid')
-            const user = await db.collection('users')
-                .doc(`${uid}`)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document
-                })
-            await db.collection('users')
-                .doc(`${uid}`)
-                .set({
-                    ...user,
-                    cartInfo: [...user.cartInfo, product.article]
-                })
-                .then(() => {
-                    console.log('cart updated!')
-            })
+            if(uid) {
+                const user = await db.collection('users')
+                    .doc(`${uid}`)
+                    .get()
+                    .then(snapshot => {
+                        const document = snapshot.data()
+                        // do something with document
+                        return document
+                    })
+                await db.collection('users')
+                    .doc(`${uid}`)
+                    .set({
+                        ...user,
+                        cartInfo: [...user.cartInfo, product.article]
+                    })
+                    .then(() => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Товар добавлен в корзину',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    })
+            }
+
         },
 
         async signInWithGoogle({commit, dispatch}) {

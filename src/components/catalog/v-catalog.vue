@@ -1,10 +1,10 @@
 <template>
 	<div class="v-catalog">
 
-		<v-notification
-				:messages='messages'
-				:timeout="3000"
-		/>
+<!--		<v-notification-->
+<!--				:messages='messages'-->
+<!--				:timeout="3000"-->
+<!--		/>-->
 
 		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
 		<div>
@@ -81,7 +81,6 @@
 				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
 				:src="require('@/assets/images/logo.png')"
 				alt="">
-<!--		<h1>{{'Catalog' | localize}}</h1>-->
 		<v-row class="Change_categories">
 				<v-select
 						style="z-index: 3"
@@ -105,14 +104,14 @@
 <script>
     import vCatalogItem from './v-catalog-item'
     import {mapActions, mapGetters} from 'vuex'
-    import vNotification from '../notifications/v-notification'
+    // import vNotification from '../notifications/v-notification'
     import vSelect from '../v-select'
     import  firebase from 'firebase/app'
 
     export default {
         name: "v-catalog",
         components: {
-            vNotification,
+            // vNotification,
             vCatalogItem,
             vSelect
         },
@@ -176,12 +175,13 @@
             addToCart(data) {
                 this.ADD_TO_CART(data)
                     .then(() => {
-                        let timeStamp = Date.now().toLocaleString();
-                        this.messages.unshift(
-                            {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
-                        )
+                        // let timeStamp = Date.now().toLocaleString();
+                        // this.messages.unshift(
+                        //     {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
+                        // )
                         this.VIEW_CART_USER()
                     })
+
             },
         },
         computed: {

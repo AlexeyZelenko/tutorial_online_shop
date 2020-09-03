@@ -9,17 +9,43 @@
 			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
 			<p>{{'тел.: 097 788 95 80'}}</p>
 		</div>
+
+<!--		КОЛИЧЕСТВО-->
 		<div class="v-cart-item__quantity">
 			<p>{{'Qty:' | localize}}</p>
-			<span class="quantity__tools">
-        <span @click.prevent="decrementItem" class="quantity__btn">-</span>
-				{{quantity}}
-        <span @click.prevent="incrementItem" class="quantity__btn">+</span>
-      </span>
+			<div class="text-center">
+				<v-btn
+						@click.stop="decrementItem"
+						:loading="loading5"
+						:disabled="loading5"
+						class="mx-2"
+						fab
+						small
+						style="color: palegreen; background-color: slategray"
+				>
+					<v-icon dark>mdi-minus</v-icon>
+				</v-btn>
+				<div>{{quantity}}</div>
+				<v-btn
+						@click.prevent="incrementItem"
+						:loading="loading4"
+						:disabled="loading4"
+						class="mx-2"
+						fab
+						small
+						style="color: palegreen; background-color: slategray"
+				>
+					<v-icon dark>mdi-plus</v-icon>
+				</v-btn>
+			</div>
+
+
 		</div>
 		<v-btn
 				depressed
 				@click="deleteFromCart"
+				:loading="loading"
+				:disabled="loading"
 		>
 			<span
 					class="mdi mdi-delete-forever"
@@ -34,6 +60,14 @@
 
     export default {
         name: "v-cart-item",
+        data () {
+            return {
+                loader: null,
+                loading: false,
+                loading4: false,
+                loading5: false,
+            }
+        },
         props: {
             cart_item_data: {
                 type: Object,
@@ -63,13 +97,26 @@
             ]),
             decrementItem() {
                 this.$emit('decrement')
+                this.loader = 'loading5'
             },
             incrementItem() {
                 this.$emit('increment')
+                this.loader = 'loading4'
             },
             deleteFromCart() {
                 this.$emit('deleteFromCart')
+                this.loader = 'loading'
             }
+        },
+        watch: {
+            loader () {
+                const l = this.loader
+                this[l] = !this[l]
+
+                setTimeout(() => (this[l] = false), 1000)
+
+                this.loader = null
+            },
         },
         created() {
             this.VIEW_CART_USER()
@@ -90,14 +137,41 @@
 		&__image {
 			max-width: 50px;
 		}
-
-		.quantity__btn {
-			cursor: pointer;
-
+	}
+	.custom-loader {
+		animation: loader 1s infinite;
+		display: flex;
+	}
+	@-moz-keyframes loader {
+		from {
+			transform: rotate(0);
 		}
-
-		.quantity__tools {
-			user-select: none;
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@-webkit-keyframes loader {
+		from {
+			transform: rotate(0);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@-o-keyframes loader {
+		from {
+			transform: rotate(0);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@keyframes loader {
+		from {
+			transform: rotate(0);
+		}
+		to {
+			transform: rotate(360deg);
 		}
 	}
 </style>

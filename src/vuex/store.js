@@ -6,7 +6,6 @@ import info from './info'
 import getters from './getters/getters'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
-import firebase from "firebase/app";
 // Подключение нескольких actions
 // import apiRequests from './actions/api-requests'
 
@@ -17,7 +16,6 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        cart: [],
         locale: 'ru-RU',
         error: null,
         Products: [],
@@ -47,10 +45,6 @@ let store = new Vuex.Store({
             // resolve once data is ready
             return context.bindFirestoreRef('Products', db.collection('products'))
         }),
-        async logout({commit}) {
-            await firebase.auth().signOut()
-            commit('clearInfo')
-        },
         async DELETE_FROM_CART({dispatch, commit}, article) {
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')
@@ -76,29 +70,32 @@ let store = new Vuex.Store({
         },
         async VIEW_CART_USER({dispatch, commit}) {
             const uid = await dispatch('getUid')
-            const cartUser = await db.collection('users')
-                .doc(`${uid}`)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document.cartInfo
-            })
-            const products = await db.collection('products')
-                .get()
-                .then(querySnapshot => {
-                    const product = querySnapshot.docs.map(doc => doc.data())
-                    // do something with documents
-                    return product
-                })
-            const promises = []
-            for(let i = 0; i < cartUser.length; i++) {
-                let result = products.filter(item => item.article === cartUser[i])
-                promises.push(result[0])
-            }
-            const result2 = await Promise.all(promises)
+            if(uid) {
+                const cartUser = await db.collection('users')
+                    .doc(`${uid}`)
+                    .get()
+                    .then(snapshot => {
+                        const document = snapshot.data()
+                        // do something with document
+                        return document.cartInfo
+                    })
+                const products = await db.collection('products')
+                    .get()
+                    .then(querySnapshot => {
+                        const product = querySnapshot.docs.map(doc => doc.data())
+                        // do something with documents
+                        return product
+                    })
+                const promises = []
+                for(let i = 0; i < cartUser.length; i++) {
+                    let result = products.filter(item => item.article === cartUser[i])
+                    promises.push(result[0])
+                }
+                const result2 = await Promise.all(promises)
 
-            commit('CART_USER', result2)
+                commit('CART_USER', result2)
+            }
+
         },
         async INCREMENT_CART_ITEM({dispatch}, article) {
             const uid = await dispatch('getUid')

@@ -28,7 +28,7 @@
 					text-color="white"
 					v-if="product.newClothes"
 			>
-				NEW!
+				НОВИНКА!
 				<v-icon right style="color: white">mdi-star</v-icon>
 			</v-chip>
 <!--					СКИДКА-->
@@ -69,13 +69,16 @@
             ]),
             addToCart() {
                 this.ADD_TO_CART(this.product)
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Товар добавлен в корзину',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+								.then(() => {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Товар добавлен в корзину',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+								})
+
             },
         },
         computed: {
