@@ -108,6 +108,7 @@
     import vCatalogItem from './v-catalog-item'
     import {mapActions, mapGetters} from 'vuex'
     // import vNotification from '../notifications/v-notification'
+    import vSelect from '../v-select'
     import  firebase from 'firebase/app'
 
     export default {
@@ -115,6 +116,7 @@
         components: {
             // vNotification,
             vCatalogItem,
+            vSelect
         },
         data() {
             return {

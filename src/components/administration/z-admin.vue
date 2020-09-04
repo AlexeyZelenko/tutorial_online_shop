@@ -74,8 +74,9 @@
 						</template>
 					</v-app-bar>
 				</v-card>
-
 			</div>
+
+<!--			МЕНЮ-->
 			<v-tabs-items v-model="currentItem">
 				<v-tab-item
 						v-for="item in items.concat(more)"
@@ -87,7 +88,8 @@
 							<h2>{{ item }}</h2>
 							<div v-if="item === 'Товары'">
 								<v-card>
-									<!--		ТАБЛИЦА-->
+
+<!--									Pagination-->
 									<template>
 										<v-card flat>
 											<v-container fluid>
@@ -118,7 +120,7 @@
 										</v-card>
 									</template>
 
-
+									<!--		ТАБЛИЦА-->
 									<v-data-table
 											:headers="headers"
 											:items="PRODUCTS"
@@ -186,10 +188,8 @@
 				</v-tab-item>
 			</v-tabs-items>
 
+			<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
 			<div>
-
-				<!--		ВСПЛЫВАЮЩАЯ ПАНЕЛЬ-->
-
 				<v-dialog
 						style="z-index: 100"
 						v-model="dialog"
