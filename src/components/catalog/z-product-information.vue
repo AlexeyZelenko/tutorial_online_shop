@@ -5,11 +5,6 @@
 		<router-link :to="{name: 'catalog'}">
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
-		<!--		<img-->
-		<!--				v-if="product.image"-->
-		<!--				class="z-product-information_image"-->
-		<!--				:src="require('@/assets/images/' + product.image)"-->
-		<!--		>-->
 		<v-carousel
 				:carousel_data="product.arrayImages"
 		/>
@@ -21,6 +16,7 @@
 			{{product.clothingManufacturer}}</p>
 		<p v-if="product.BrandName !== '' ">{{"Brand name" | localize}}: {{product.BrandName}}</p>
 		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
+		<p v-html="product.article"></p>
 		<div class="text-center">
 			<v-chip
 					class="ma-2"
@@ -52,7 +48,6 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import Swal from 'sweetalert2'
     import vCarousel from '@/components/v-carousel'
 
     export default {
@@ -69,16 +64,6 @@
             ]),
             addToCart() {
                 this.ADD_TO_CART(this.product)
-								.then(() => {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Товар добавлен в корзину',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-								})
-
             },
         },
         computed: {

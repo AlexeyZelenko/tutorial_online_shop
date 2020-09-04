@@ -1,8 +1,18 @@
 <template>
 	<div class="">
-		<router-link :to="{name: 'catalog'}">
-			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
-		</router-link>
+		<template>
+			<div class="text-center">
+				<v-btn
+						:to="{name: 'catalog'}"
+						block
+						style="color: whitesmoke; background-color: darkgreen"
+						color="primary"
+						dark
+				>
+					{{'Back to catalog' | localize }}
+				</v-btn>
+			</div>
+		</template>
 		<template>
 			<v-form
 					@submit.prevent="submitHandler"
@@ -41,6 +51,7 @@
 						class="mr-4"
 						@click="validate"
 						type="submit"
+						style="margin: 5px; background-color: forestgreen;"
 				>
 					Зарегестрироваться
 				</v-btn>
@@ -48,6 +59,7 @@
 				<v-btn
 						class="mr-4"
 						@click="reset"
+						style="margin: 5px; background-color: forestgreen;"
 				>
 					Очистить форму
 				</v-btn>

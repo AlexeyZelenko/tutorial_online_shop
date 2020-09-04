@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import {db} from '@/main.js'
 import Swal from 'sweetalert2'
 import router from '@/router/router'
+import 'firebase/auth'
 
 export default {
     actions: {
@@ -31,7 +32,24 @@ export default {
                             timer: 1500
                         })
                     })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ой...',
+                    text: `Вы не можете добавить товар в корзину. Для добавления товара в корзину войдите через Google Аккаунт!`,
+                    footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Войти!',
+                    cancelButtonText: 'Отмена'
+                }).then((result) => {
+                    if (result.value) {
+                        dispatch('signInWithGoogle')
+                    }
+                })
             }
+
 
         },
 
@@ -40,6 +58,14 @@ export default {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
+                const getUserName = firebase.auth().currentUser.displayName
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Вы вошли как ${getUserName}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
                 // Получить корзину для ткущего пользователя
                 const a = await db.collection('users')
@@ -66,6 +92,13 @@ export default {
                     }
                     const userEntrance = !!firebase.auth().currentUser
                     commit('USER_ENTRANCE', userEntrance)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Добропожаловать в наш магазин!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 }
 
             } catch (e) {

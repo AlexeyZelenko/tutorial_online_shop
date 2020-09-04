@@ -1,8 +1,19 @@
 <template>
 	<div>
-		<router-link :to="{name: 'catalog'}">
-			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
-		</router-link>
+		<template>
+			<div class="text-center">
+				<v-btn
+						:to="{name: 'catalog'}"
+						block
+						style="color: whitesmoke; background-color: darkgreen"
+						color="primary"
+						dark
+				>
+					{{'Back to catalog' | localize }}
+				</v-btn>
+			</div>
+		</template>
+
 
 <!--		ФОРМА ВХОДА: ПОЧТА+ПАРОЛЬ-->
 		<form class="login-form">
@@ -23,16 +34,42 @@
 					required
 					v-model="email"
 			></v-text-field>
-			<v-btn @click="submit" class="mr-4">Войти</v-btn>
-			<v-btn @click="clear">Очистить</v-btn>
+
+
+
+			<v-btn
+					@click="submit"
+					class="mr-4"
+					style="margin: 5px; background-color: limegreen;"
+			>
+				Войти
+			</v-btn>
+
+			<v-btn
+					style="margin: 5px; background-color: limegreen;"
+					@click="clear"
+			>
+				Очистить
+			</v-btn>
 		</form>
 
 
 
 <!--		РЕГИСТРАЦИЯ : ПОЧТА+ПАРОЛЬ-->
-<!--		<router-link :to="{name: 'registration'}">-->
-<!--			<div>Регистрация</div>-->
-<!--		</router-link>-->
+		<template>
+			<div class="text-center">
+				<v-btn
+						:to="{name: 'registration'}"
+						rounded
+						style="color: #00acc1; background-color: #2c3e50"
+						color="primary"
+						dark
+				>
+					Регистрация
+				</v-btn>
+			</div>
+		</template>
+
 
 	</div>
 </template>

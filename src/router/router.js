@@ -27,13 +27,7 @@ let router = new Router({
             path: '/admin',
             name: 'admin',
             component: () => import('@/components/administration/z-admin'),
-            // meta: { requiresAuth: true },
-            props: true
-        },
-        {
-            path: '/chat',
-            name: 'chat',
-            component: () => import('@/components/administration/v-admin-chat'),
+            meta: { requiresAuth: true },
             props: true
         },
         {
