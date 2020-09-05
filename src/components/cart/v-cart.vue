@@ -66,16 +66,21 @@
                 'DELETE_FROM_CART',
                 'INCREMENT_CART_ITEM',
                 'DECREMENT_CART_ITEM',
-                'VIEW_CART_USER'
+                'VIEW_CART_USER',
+								'ORDER_USER'
             ]),
-            userOrder() {
+            async userOrder() {
                 Swal.mixin({
                     cancelButtonText: 'Отмена',
                     input: 'text',
                     confirmButtonText: 'Дальше &rarr;',
                     showCancelButton: true,
-                    progressSteps: ['1', '2', '3']
+                    progressSteps: ['1', '2', '3', '4']
                 }).queue([
+                    {
+                        title: 'Имя:',
+                        text: 'Ваше имя'
+                    },
                     {
                         title: 'Телефон:',
                         text: 'Чтобы отправить товары нам нужен номер Вашего телефона'
@@ -94,12 +99,28 @@
                             title: 'Все сделано!',
                             html: `
 															Ваши данные:<br />
-															Телефон: ${result.value[0]}<br />
-															Адресс: ${result.value[1]}<br />
-															№ Новой Почты: ${result.value[2]}<br />
+															Имя: ${result.value[0]}<br />
+															Телефон: ${result.value[1]}<br />
+															Адресс: ${result.value[2]}<br />
+															№ Новой Почты: ${result.value[3]}<br />
 														`,
                             confirmButtonText: 'Заказать!'
                         })
+												.then(() => {
+                            let ObjectUserData = {}
+														ObjectUserData.name = result.value[0]
+														ObjectUserData.telephon = result.value[1]
+														ObjectUserData.adress = result.value[2]
+														ObjectUserData.newPost = result.value[3]
+                            ObjectUserData.CART = this.GET_CART_USER
+                            ObjectUserData.cartTotalCost = this.cartTotalCost
+                            console.log(ObjectUserData.cartTotalCost)
+
+                            let promises = [ObjectUserData]
+                            this.ORDER_USER(promises)
+
+                            Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
+												})
                     }
                 })
 						},

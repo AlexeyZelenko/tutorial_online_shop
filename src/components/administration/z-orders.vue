@@ -1,80 +1,79 @@
 <template>
 	<div class="">
-		<v-card flat>
-			<v-card-text>
-				<div v-if="item === 'Заказы'">
-					<v-card>
-						<p>{{GET_LIST_USERS}}</p>
-					</v-card>
-				</div>
-			</v-card-text>
-		</v-card>
-		<v-card
-				class="mx-auto"
-				width="256"
-				tile
-		>
-			<v-navigation-drawer permanent>
-				<v-system-bar></v-system-bar>
-				<v-list>
-					<v-list-item>
-						<v-list-item-avatar>
-							<v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-						</v-list-item-avatar>
-					</v-list-item>
-
-					<v-list-item link>
-						<v-list-item-content>
-							<v-list-item-title class="title">John Leider</v-list-item-title>
-							<v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
-						</v-list-item-content>
-
-						<v-list-item-action>
-							<v-icon>mdi-menu-down</v-icon>
-						</v-list-item-action>
-					</v-list-item>
-				</v-list>
-				<v-divider></v-divider>
-				<v-list
-						nav
-						dense
-				>
-					<v-list-item-group v-model="item" color="primary">
-						<v-list-item
-								v-for="(item, i) in items"
-								:key="i"
-						>
-							<v-list-item-icon>
-								<v-icon v-text="item.icon"></v-icon>
-							</v-list-item-icon>
-
-							<v-list-item-content>
-								<v-list-item-title v-text="item.text"></v-list-item-title>
-							</v-list-item-content>
-						</v-list-item>
-					</v-list-item-group>
-				</v-list>
-			</v-navigation-drawer>
-		</v-card>
+		<template>
+			<v-data-table
+					:headers="headers"
+					:items="sortListOrder"
+					:items-per-page="5"
+					class="elevation-1"
+			>
+				<template v-slot:item.description="{ item }">
+					<v-chip
+							v-for="i in item.CART"
+							:key="i.article"
+					>
+						{{i.article}}
+					</v-chip>
+				</template>
+				<template v-slot:item.cartTotalCost="{ item }">
+					<v-chip
+							:color="getColor(item.cartTotalCost)"
+							dark
+					>
+						{{ item.cartTotalCost }}
+					</v-chip>
+				</template>
+			</v-data-table>
+		</template>
 	</div>
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex'
+
     export default {
         name: "zOrders",
         data: () => ({
-            item: 0,
-            items: [
-                { text: 'Товары', icon: 'mdi-cart' },
-                { text: 'Общая сумма', icon: 'mdi-cash-multiple' },
-                { text: 'Телефон', icon: 'mdi-phone' },
-                { text: '№ Отделения Новой Почты', icon: 'mdi-account-check' },
-                { text: 'Ф.И.О', icon: 'mdi-account-circle' },
+            headers: [
+                {
+                    text: 'Имя (Покупателя)',
+                    align: 'start',
+                    sortable: false,
+                    value: 'name',
+                },
+                { text: 'Телефон', value: 'telephon' },
+                { text: 'Адресс', value: 'adress' },
+                { text: '№ отделения Новой Почты', value: 'newPost' },
+                { text: 'Список товаров',	value: `description`},
+                { text: 'Общая сумма', value: 'cartTotalCost'},
+                { text: '------------------------------------', value: '' },
             ],
         }),
         // components: {},
-        methods: {},
-        computed: {},
+        methods: {
+            ...mapActions([
+                'LIST_ORDERS_USERS',
+            ]),
+            getColor(cartTotalCost) {
+                if (cartTotalCost < 500) return 'red'
+                else if (cartTotalCost > 500) return 'orange'
+                else if (cartTotalCost > 1000) return 'cyan'
+                else if (cartTotalCost > 2000) return 'yellow'
+                else if (cartTotalCost > 3000) return 'grey'
+                else return 'green'
+            },
+				},
+        computed: {
+            ...mapGetters([
+								'GET_LIST_ORDER_USERS'
+            ]),
+						sortListOrder() {
+                return this.GET_LIST_ORDER_USERS.map(item => item[0])
+						}
+        },
+				mounted() {
+            this.LIST_ORDERS_USERS()
+        },
         watch: {},
         props: {},
     }

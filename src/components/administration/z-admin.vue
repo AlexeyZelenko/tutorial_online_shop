@@ -188,8 +188,12 @@
 							</div>
 						</v-card-text>
 					</v-card>
-					<z-users/>
-					<z-orders/>
+					<template v-if="item === 'Клиенты'">
+						<z-users/>
+					</template>
+					<template v-if="item === 'Заказы'">
+						<z-orders/>
+					</template>
 				</v-tab-item>
 			</v-tabs-items>
 
@@ -461,10 +465,10 @@
         data: () => ({
             currentItem: 'tab-Web',
             items: [
-                'Товары', 'Клиенты'
+                'Товары', 'Заказы'
             ],
             more: [
-                'Заказы', 'Размеры',
+                'Клиенты', 'Размеры',
             ],
             page: 1,
             pageCount: 0,

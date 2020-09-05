@@ -7,6 +7,7 @@ import 'firebase/auth'
 import getters from './getters/getters'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
+import Swal from "sweetalert2";
 // Подключение нескольких actions
 // import apiRequests from './actions/api-requests'
 
@@ -23,7 +24,10 @@ let store = new Vuex.Store({
         cartUser: [],
         userEntrance: false,
         userId: null,
-        listUsers: [1]
+        listUsers: [],
+        orderUser: [1],
+        Users: [],
+        ordersUSERS: []
     },
     getters,
     mutations: {
@@ -49,6 +53,12 @@ let store = new Vuex.Store({
         LIST_USERS: (state, listUsers) => {
             state.listUsers = listUsers;
         },
+        ORDER_USER: (state, orderUser) => {
+            state.orderUser = orderUser;
+        },
+        LIST_ORDER_USER: (state, result) => {
+            state.ordersUSERS = result;
+        },
     },
     actions: {
         bindLocationsRef: firestoreAction(context => {
@@ -58,15 +68,46 @@ let store = new Vuex.Store({
             // resolve once data is ready
             return context.bindFirestoreRef('Products', db.collection('products'))
         }),
+        userbindLocationsRef: firestoreAction(context => {
+            return context.bindFirestoreRef('Users', db.collection('users'))
+        }),
+        async LIST_ORDERS_USERS({commit, dispatch}) {
+            const result = await dispatch('userbindLocationsRef')
+            const listOrderInfoUsers = result.filter(item => item.orderInfo)
+            const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
+            console.log(listOrderInfoUsersMap)
+            commit('LIST_ORDER_USER', listOrderInfoUsersMap)
+        },
+        async ORDER_USER({dispatch}, promises) {
+            const uid = await dispatch('getUid')
+            // const nameGoogle = await dispatch('displayName')
+            // const avatarGoogleUser = await dispatch('getProfilePicUrl')
+            // const userGoogleData = {nameGoogle, avatarGoogleUser}
+            // console.log(uid)
+            // console.log(nameGoogle)
+            // console.log(avatarGoogleUser)
+            await db.collection('users')
+                .doc(uid)
+                .update({
+                    orderInfo: [...promises]
+                })
+                .then(() => {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Товар добавлен в базу',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+        },
         async list_Users({commit}) {
             const listUsers = await db.collection('users')
                 .get()
                 .then(querySnapshot => {
                     const documents = querySnapshot.docs.map(doc => doc.data())
-                    // do something with document
                     return documents
                 })
-            console.log(listUsers)
             commit('LIST_USERS', listUsers)
         },
         async DELETE_FROM_CART({dispatch, commit}, article) {

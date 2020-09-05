@@ -76,6 +76,7 @@
             ...mapActions([
                 'LOCALIZE',
                 'bindLocationsRef',
+								'userbindLocationsRef'
             ]),
             changeLocale(loc) {
                 this.LOCALIZE(loc)
@@ -83,6 +84,7 @@
         },
         created() {
             this.bindLocationsRef()
+            this.userbindLocationsRef()
         }
     }
 </script>

@@ -74,12 +74,12 @@ export default {
                     .then(snapshot => {
                         const document = snapshot.data()
                         // do something with document
-                        return document
+                        return document.cartInfo
                     })
                 // Если корзины нет
                 if(!a) {
                     // Создать корзину
-                    await db.collection('users').doc(`${uid}`).set({
+                    await db.collection('users').doc(uid).update({
                         cartInfo: []
                     })
                     console.log('Новый пользователь создан!')
@@ -106,7 +106,6 @@ export default {
                 throw e
             }
         },
-
         async login({commit}, {email, password}) {
             try {
                 await firebase.auth().signInWithEmailAndPassword(email, password)
@@ -134,6 +133,12 @@ export default {
         getUid() {
             const user = firebase.auth().currentUser
             return user ? user.uid : null
+        },
+        displayName() {
+            return firebase.auth().currentUser.displayName
+        },
+        getProfilePicUrl() {
+            return firebase.auth().currentUser.photoURL || '@/assets/images/profile-pic-placeholder.png';
         },
         userEntrance({commit}) {
             const userEntrance =  !!firebase.auth().currentUser

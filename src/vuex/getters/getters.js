@@ -20,6 +20,12 @@ export default  {
     GET_LIST_USERS(state) {
         return state.listUsers;
     },
+    GET_ORDER_USERS(state) {
+        return state.Users;
+    },
+    GET_LIST_ORDER_USERS(state) {
+        return state.ordersUSERS;
+    },
     locale: s => s.locale,
     error: s => s.error
 }
