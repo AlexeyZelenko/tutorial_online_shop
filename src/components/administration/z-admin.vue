@@ -88,7 +88,6 @@
 							<h2>{{ item }}</h2>
 							<div v-if="item === 'Товары'">
 								<v-card>
-
 <!--									Pagination-->
 									<template>
 										<v-card flat>
@@ -119,25 +118,29 @@
 											</v-container>
 										</v-card>
 									</template>
-
 									<!--		ТАБЛИЦА-->
 									<v-data-table
 											:headers="headers"
 											:items="PRODUCTS"
 											:search="search"
+											:sort-by="clothingManufacturer"
+											group-by="category"
 											class="elevation-1"
-											item-key="id"
+											item-key="article"
 											:page.sync="page"
 											:items-per-page="itemsPerPage"
 											hide-default-footer
 											@page-count="pageCount = $event"
+											show-group-by
 									>
 										<template
 												style="height:190px;"
 												v-slot:item.arrayImages="{ item }">
 
 											<img
-													:src="(item.arrayImages[0])" alt=""
+													loading="lazy"
+													:src="(item.arrayImages[0])"
+													alt=""
 													style="max-width: 100px; max-height: 100px; margin: 5px"
 													v-if="item.arrayImages"
 											>
@@ -185,6 +188,8 @@
 							</div>
 						</v-card-text>
 					</v-card>
+					<z-users/>
+					<z-orders/>
 				</v-tab-item>
 			</v-tabs-items>
 
@@ -332,12 +337,12 @@
 									<template v-if="editedItem.arrayImages.length > 0">
 										<v-carousel>
 											<v-carousel-item
-													:key="id"
+													:key="article"
 													:src="(item)"
 													style="max-width: 400px; max-height: 600px"
 													reverse-transition="fade-transition"
 													transition="fade-transition"
-													v-for="(item,id) in editedItem.arrayImages"
+													v-for="(item,article) in editedItem.arrayImages"
 											>
 												<v-btn
 														@click="deleteFoto(editedItem, item)"
@@ -403,10 +408,12 @@
 <script>
     import 'material-design-icons-iconfont'
     import 'materialize-css/dist/js/materialize.min'
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
+		import zUsers from '@/components/administration/z-users'
+    import zOrders from '@/components/administration/z-orders'
     import {
         TiptapVuetify,
         Heading,
@@ -446,18 +453,22 @@
 
     export default {
         name: "zAdmin",
-        components: {TiptapVuetify},
+        components: {
+            TiptapVuetify,
+            zUsers,
+						zOrders
+				},
         data: () => ({
             currentItem: 'tab-Web',
             items: [
-                'Товары', 'Клиенты',
+                'Товары', 'Клиенты'
             ],
             more: [
-                'Статистика', 'Размеры',
+                'Заказы', 'Размеры',
             ],
             page: 1,
             pageCount: 0,
-            itemsPerPage: 5,
+            itemsPerPage: 15,
             extensions: [
                 History,
                 Blockquote,
@@ -582,11 +593,18 @@
             locations: []
         }),
         methods: {
+            ...mapActions([
+                'list_Users',
+            ]),
+            addItem (item) {
+                const removed = this.items.splice(0, 1)
+                this.items.push(
+                    ...this.more.splice(this.more.indexOf(item), 1)
+                )
+                this.more.push(...removed)
+                this.$nextTick(() => { this.currentItem = 'tab-' + item })
+            },
             deleteFoto(editedItem, item) {
-                console.log(editedItem)
-                console.log(item)
-
-
                 const array = editedItem.arrayImages
                 const arrayName = editedItem.NameImages
 
@@ -595,11 +613,8 @@
                     array.splice(index, 1);
                     arrayName.splice(index, 1);
                 }
-
                 editedItem.arrayImages = array
                 editedItem.NameImages = arrayName
-
-
             },
             initialize() {
                 this.products = this.PRODUCTS
@@ -822,7 +837,8 @@
         },
         computed: {
             ...mapGetters([
-                'PRODUCTS'
+                'PRODUCTS',
+								'GET_LIST_USERS'
             ]),
             formTitle() {
                 return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
@@ -833,6 +849,7 @@
         },
         created() {
             this.initialize()
+						this.list_Users()
         }
     }
 </script>

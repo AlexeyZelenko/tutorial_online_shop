@@ -4,6 +4,16 @@
 			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
 		</router-link>
 		<h1>{{'Cart' | localize }}</h1>
+		<div class="text-center">
+			<v-btn
+					@click="userOrder"
+					style="background-color: #31c375; margin-bottom: 10px"
+					rounded
+					dark
+			>
+				Заказать
+			</v-btn>
+		</div>
 		<p v-if="!GET_CART_USER.length">{{'There are no products in cart...' | localize }}</p>
 		<v-cart-item
 				:cart_item_data="item"
@@ -22,6 +32,7 @@
 <script>
     import VCartItem from './v-cart-item'
     import {mapActions, mapGetters} from 'vuex'
+    import Swal from 'sweetalert2'
 
     export default {
         name: "v-cart.vue",
@@ -47,9 +58,6 @@
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
         },
-				watch: {
-
-				},
         created() {
             this.VIEW_CART_USER()
         },
@@ -60,6 +68,41 @@
                 'DECREMENT_CART_ITEM',
                 'VIEW_CART_USER'
             ]),
+            userOrder() {
+                Swal.mixin({
+                    cancelButtonText: 'Отмена',
+                    input: 'text',
+                    confirmButtonText: 'Дальше &rarr;',
+                    showCancelButton: true,
+                    progressSteps: ['1', '2', '3']
+                }).queue([
+                    {
+                        title: 'Телефон:',
+                        text: 'Чтобы отправить товары нам нужен номер Вашего телефона'
+                    },
+                    {
+                        title: 'Адресс',
+                        text: 'Полный адресс - Область, Населенный пункт'
+                    },
+                    {
+                        title: '№ отделения',
+                        text: '№ отделения Новой Почты'
+                    },
+                ]).then((result) => {
+                    if (result.value) {
+                        Swal.fire({
+                            title: 'Все сделано!',
+                            html: `
+															Ваши данные:<br />
+															Телефон: ${result.value[0]}<br />
+															Адресс: ${result.value[1]}<br />
+															№ Новой Почты: ${result.value[2]}<br />
+														`,
+                            confirmButtonText: 'Заказать!'
+                        })
+                    }
+                })
+						},
             increment(article) {
                 this.INCREMENT_CART_ITEM(article)
                     .then(() => {

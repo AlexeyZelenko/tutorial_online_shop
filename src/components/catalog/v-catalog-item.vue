@@ -22,6 +22,7 @@
 				v-if="product_data.arrayImages"
 				class="v-catalog-item_image2">
 			<img
+					loading="lazy"
 					class="v-catalog-item_image"
 					:src="product_data.arrayImages[0]"
 					alt="">

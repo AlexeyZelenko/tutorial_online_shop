@@ -22,7 +22,8 @@ let store = new Vuex.Store({
         Products: [],
         cartUser: [],
         userEntrance: false,
-        userId: null
+        userId: null,
+        listUsers: [1]
     },
     getters,
     mutations: {
@@ -44,7 +45,10 @@ let store = new Vuex.Store({
         },
         USER_ID_ENTRANCE: (state, userID) => {
             state.userId = userID;
-        }
+        },
+        LIST_USERS: (state, listUsers) => {
+            state.listUsers = listUsers;
+        },
     },
     actions: {
         bindLocationsRef: firestoreAction(context => {
@@ -54,7 +58,17 @@ let store = new Vuex.Store({
             // resolve once data is ready
             return context.bindFirestoreRef('Products', db.collection('products'))
         }),
-
+        async list_Users({commit}) {
+            const listUsers = await db.collection('users')
+                .get()
+                .then(querySnapshot => {
+                    const documents = querySnapshot.docs.map(doc => doc.data())
+                    // do something with document
+                    return documents
+                })
+            console.log(listUsers)
+            commit('LIST_USERS', listUsers)
+        },
         async DELETE_FROM_CART({dispatch, commit}, article) {
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')

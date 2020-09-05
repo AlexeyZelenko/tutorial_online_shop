@@ -46,12 +46,9 @@
 				@click="deleteFromCart"
 				:loading="loading"
 				:disabled="loading"
+				style="color: mediumvioletred;"
 		>
-			<span
-					class="mdi mdi-delete-forever"
-					@click="deleteFromCart"
-					style="color: mediumvioletred"
-			></span>
+			<v-icon dark>mdi mdi-delete-forever</v-icon>
 		</v-btn>
 	</div>
 </template>

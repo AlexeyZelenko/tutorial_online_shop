@@ -143,6 +143,12 @@
             }
         },
         methods: {
+            ...mapActions([
+                'ADD_TO_CART',
+                'VIEW_CART_USER',
+                'userEntrance',
+                'USER_ID_ACTIONS'
+            ]),
             adminPlusLogin() {
                 if(this.entrenceAdmin) {
                     this.$router.push('/admin')
@@ -176,12 +182,6 @@
                 })
                 this.selected = category.name
             },
-            ...mapActions([
-                'ADD_TO_CART',
-								'VIEW_CART_USER',
-								'userEntrance',
-								'USER_ID_ACTIONS'
-            ]),
             addToCart(data) {
                 this.ADD_TO_CART(data)
                     .then(() => {
@@ -201,7 +201,7 @@
 								'USER_ID'
             ]),
 						entrenceAdmin() {
-                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2'].some(elem => elem === this.USER_ID)) {
+                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2','HInmvosDanObSDnC2csXiV3iR0A2'].some(elem => elem === this.USER_ID)) {
                     return true
                 }else{
                     return false

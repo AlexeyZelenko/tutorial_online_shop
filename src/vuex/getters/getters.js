@@ -17,6 +17,9 @@ export default  {
     User_Entrance(state) {
         return state.userEntrance;
     },
+    GET_LIST_USERS(state) {
+        return state.listUsers;
+    },
     locale: s => s.locale,
     error: s => s.error
 }
