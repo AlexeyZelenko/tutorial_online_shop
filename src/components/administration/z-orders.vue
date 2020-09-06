@@ -6,13 +6,23 @@
 					:items="sortListOrder"
 					:items-per-page="5"
 					class="elevation-1"
+					disable-sort
 			>
 				<template v-slot:item.description="{ item }">
 					<v-chip
 							v-for="i in item.CART"
-							:key="i.article"
+							:key="i.id"
+							@click="productClick(i.article)"
 					>
-						{{i.article}}
+						<v-badge
+								color="green"
+								content="1"
+								overlap
+								style="padding-left: 10px"
+						>
+							{{i.article}}
+						</v-badge>
+
 					</v-chip>
 				</template>
 				<template v-slot:item.cartTotalCost="{ item }">
@@ -42,18 +52,30 @@
                     value: 'name',
                 },
                 { text: 'Телефон', value: 'telephon' },
+                { text: '', value: '' },
                 { text: 'Адресс', value: 'adress' },
+                { text: '', value: '' },
                 { text: '№ отделения Новой Почты', value: 'newPost' },
+                { text: '', value: '' },
                 { text: 'Список товаров',	value: `description`},
+                { text: '', value: '' },
                 { text: 'Общая сумма', value: 'cartTotalCost'},
-                { text: '------------------------------------', value: '' },
+                { text: '====================', value: '' },
             ],
         }),
-        // components: {},
         methods: {
             ...mapActions([
                 'LIST_ORDERS_USERS',
             ]),
+            // newGetOrderUser(item) {
+            //     console.log(item)
+            //     const a = [...new Set(item.article)]
+            //     console.log(a)
+						// 		return a
+            // },
+            productClick(article) {
+                this.$router.push({name: 'information-order', query: {'product': article } })
+            },
             getColor(cartTotalCost) {
                 if (cartTotalCost < 500) return 'red'
                 else if (cartTotalCost > 500) return 'orange'
@@ -67,6 +89,15 @@
             ...mapGetters([
 								'GET_LIST_ORDER_USERS'
             ]),
+            // quantity() {
+            //     let promises = 0
+            //     for(let i = 0; i < this.GET_CART_USER.length; i++) {
+            //         if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
+            //             promises++
+            //         }
+            //     }
+            //     return  promises
+            // },
 						sortListOrder() {
                 return this.GET_LIST_ORDER_USERS.map(item => item[0])
 						}

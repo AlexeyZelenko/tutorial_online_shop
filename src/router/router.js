@@ -42,6 +42,12 @@ let router = new Router({
             component: () => import('@/components/registration'),
             props: true
         },
+        {
+            path: '/information-order',
+            name: 'information-order',
+            component: () => import('@/components/administration/z-information-order'),
+            props: true
+        },
     ]
 })
 

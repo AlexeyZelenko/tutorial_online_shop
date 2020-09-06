@@ -118,8 +118,6 @@
 
                             let promises = [ObjectUserData]
                             this.ORDER_USER(promises)
-
-                            Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
 												})
                     }
                 })

@@ -24,8 +24,8 @@ let store = new Vuex.Store({
         cartUser: [],
         userEntrance: false,
         userId: null,
-        listUsers: [],
-        orderUser: [1],
+        listUsers: [1],
+        orderUser: [],
         Users: [],
         ordersUSERS: []
     },
@@ -80,35 +80,20 @@ let store = new Vuex.Store({
         },
         async ORDER_USER({dispatch}, promises) {
             const uid = await dispatch('getUid')
-            // const nameGoogle = await dispatch('displayName')
-            // const avatarGoogleUser = await dispatch('getProfilePicUrl')
-            // const userGoogleData = {nameGoogle, avatarGoogleUser}
-            // console.log(uid)
-            // console.log(nameGoogle)
-            // console.log(avatarGoogleUser)
             await db.collection('users')
                 .doc(uid)
                 .update({
                     orderInfo: [...promises]
                 })
                 .then(() => {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Товар добавлен в базу',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
                 })
         },
-        async list_Users({commit}) {
-            const listUsers = await db.collection('users')
-                .get()
-                .then(querySnapshot => {
-                    const documents = querySnapshot.docs.map(doc => doc.data())
-                    return documents
-                })
-            commit('LIST_USERS', listUsers)
+        async list_Users({commit, dispatch}) {
+            const nameGoogle = await dispatch('displayName')
+            const avatarGoogleUser = await dispatch('getProfilePicUrl')
+            const userGoogleData = {nameGoogle, avatarGoogleUser}
+            commit('LIST_USERS', userGoogleData)
         },
         async DELETE_FROM_CART({dispatch, commit}, article) {
             const uid = await dispatch('getUid')

@@ -79,12 +79,13 @@ export default {
                 // Если корзины нет
                 if(!a) {
                     // Создать корзину
-                    await db.collection('users').doc(uid).update({
-                        cartInfo: []
+                    await db.collection('users').doc(uid).set({
+                        ...uid,
+                        cartInfo: [...uid.cartInfo]
                     })
                     console.log('Новый пользователь создан!')
                 } else {
-                    if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2'].some(elem => elem === `${uid}`)) {
+                    if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2'].some(elem => elem === `${uid}`)) {
                         console.log('Администратор вошел!')
                         router.push('/admin')
                     }else{
@@ -92,13 +93,6 @@ export default {
                     }
                     const userEntrance = !!firebase.auth().currentUser
                     commit('USER_ENTRANCE', userEntrance)
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Добропожаловать в наш магазин!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
                 }
 
             } catch (e) {

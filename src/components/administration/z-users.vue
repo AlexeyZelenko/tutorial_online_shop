@@ -1,31 +1,24 @@
 <template>
 	<div class="">
-		<v-card flat>
-			<v-card-text>
-				<div v-if="item === 'Клиенты'">
-					<v-card>
-						<p>{{GET_LIST_USERS}}</p>
-					</v-card>
-				</div>
-			</v-card-text>
-		</v-card>
 		<v-card
 				class="mx-auto"
 				width="256"
 				tile
+				v-for="user in GET_LIST_USERS"
+				:key="user.id"
 		>
 			<v-navigation-drawer permanent>
 				<v-system-bar></v-system-bar>
 				<v-list>
 					<v-list-item>
 						<v-list-item-avatar>
-							<v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+							<v-img :src="(GET_LIST_USERS.avatarGoogleUser)"></v-img>
 						</v-list-item-avatar>
 					</v-list-item>
 
 					<v-list-item link>
 						<v-list-item-content>
-							<v-list-item-title class="title">John Leider</v-list-item-title>
+							<v-list-item-title class="title">{{GET_LIST_USERS.nameGoogle}}</v-list-item-title>
 							<v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
 						</v-list-item-content>
 
@@ -60,6 +53,8 @@
 </template>
 
 <script>
+	import {mapGetters} from 'vuex'
+
   export default {
     name: "zUsers",
     data: () => ({
@@ -74,7 +69,11 @@
     }),
     // components: {},
     methods: {},
-    computed: {},
+    computed: {
+        ...mapGetters([
+						'GET_LIST_USERS',
+				])
+		},
     watch: {},
     props: {},
   }
