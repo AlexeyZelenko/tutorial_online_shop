@@ -75,7 +75,6 @@ let store = new Vuex.Store({
             const result = await dispatch('userbindLocationsRef')
             const listOrderInfoUsers = result.filter(item => item.orderInfo)
             const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
-            console.log(listOrderInfoUsersMap)
             commit('LIST_ORDER_USER', listOrderInfoUsersMap)
         },
         async ORDER_USER({dispatch}, promises) {
@@ -158,7 +157,7 @@ let store = new Vuex.Store({
                     return document
                 })
             await db.collection('users')
-                .doc(`${uid}`)
+                .doc(uid)
                 .set({
                     ...user,
                     cartInfo: [...user.cartInfo, article]
@@ -187,7 +186,7 @@ let store = new Vuex.Store({
 
             await db.collection('users')
                 .doc(`${uid}`)
-                .set({
+                .update({
                     ...user,
                     cartInfo: [...user.cartInfo]
                 })

@@ -39,14 +39,6 @@
         components: {
             VCartItem
         },
-        props: {
-            cart_data: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            }
-        },
         computed: {
             ...mapGetters([
                 'GET_CART_USER'

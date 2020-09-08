@@ -21,7 +21,7 @@
 						class="mx-2"
 						fab
 						small
-						style="color: palegreen; background-color: slategray"
+						style="color: black; background-color: palegreen"
 				>
 					<v-icon dark>mdi-minus</v-icon>
 				</v-btn>
@@ -33,7 +33,7 @@
 						class="mx-2"
 						fab
 						small
-						style="color: palegreen; background-color: slategray"
+						style="color: black; background-color: palegreen"
 				>
 					<v-icon dark>mdi-plus</v-icon>
 				</v-btn>

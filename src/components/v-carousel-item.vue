@@ -18,8 +18,8 @@
     }),
     props: {
         item_data: {
-            type: Object,
-						default: () => {}
+            type: String,
+						default: () => ''
         }
     },
   }

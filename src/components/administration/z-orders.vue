@@ -10,19 +10,16 @@
 			>
 				<template v-slot:item.description="{ item }">
 					<v-chip
-							v-for="i in item.CART"
-							:key="i.id"
-							@click="productClick(i.article)"
 					>
-						<v-badge
-								color="green"
-								content="1"
-								overlap
-								style="padding-left: 10px"
-						>
-							{{i.article}}
-						</v-badge>
-
+						<div class="text-center">
+							<v-btn
+									:to="{name: 'order-description', params: { products: item.CART }}"
+									rounded color="primary"
+									dark
+							>
+								Показать
+							</v-btn>
+						</div>
 					</v-chip>
 				</template>
 				<template v-slot:item.cartTotalCost="{ item }">
@@ -63,16 +60,12 @@
                 { text: '====================', value: '' },
             ],
         }),
+				components: {
+				},
         methods: {
             ...mapActions([
                 'LIST_ORDERS_USERS',
             ]),
-            // newGetOrderUser(item) {
-            //     console.log(item)
-            //     const a = [...new Set(item.article)]
-            //     console.log(a)
-						// 		return a
-            // },
             productClick(article) {
                 this.$router.push({name: 'information-order', query: {'product': article } })
             },
@@ -89,15 +82,6 @@
             ...mapGetters([
 								'GET_LIST_ORDER_USERS'
             ]),
-            // quantity() {
-            //     let promises = 0
-            //     for(let i = 0; i < this.GET_CART_USER.length; i++) {
-            //         if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
-            //             promises++
-            //         }
-            //     }
-            //     return  promises
-            // },
 						sortListOrder() {
                 return this.GET_LIST_ORDER_USERS.map(item => item[0])
 						}
@@ -105,8 +89,6 @@
 				mounted() {
             this.LIST_ORDERS_USERS()
         },
-        watch: {},
-        props: {},
     }
 </script>
 

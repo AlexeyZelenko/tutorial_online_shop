@@ -194,6 +194,9 @@
 					<template v-if="item === 'Заказы'">
 						<z-orders/>
 					</template>
+					<template v-if="item === 'Размеры'">
+						<z-size/>
+					</template>
 				</v-tab-item>
 			</v-tabs-items>
 
@@ -418,6 +421,7 @@
     import firebase from 'firebase/app'
 		import zUsers from '@/components/administration/z-users'
     import zOrders from '@/components/administration/z-orders'
+    import zSize from '@/components/administration/z-size'
     import {
         TiptapVuetify,
         Heading,
@@ -460,7 +464,8 @@
         components: {
             TiptapVuetify,
             zUsers,
-						zOrders
+						zOrders,
+            zSize
 				},
         data: () => ({
             currentItem: 'tab-Web',

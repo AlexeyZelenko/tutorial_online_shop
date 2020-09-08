@@ -142,7 +142,6 @@ export default {
             const user = firebase.auth().currentUser
             const userID = user ? user.uid : null
                 if(userID) {
-                    console.log(userID)
                     commit('USER_ID_ENTRANCE', userID)
                 }else{
                     console.log('error')
