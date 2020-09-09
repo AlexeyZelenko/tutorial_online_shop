@@ -1,9 +1,19 @@
 <template>
 	<div class="">
+		<!--		ПОИСК-->
+		<v-text-field
+				append-icon="mdi-magnify"
+				hide-details
+				label="Поиск"
+				single-line
+				v-model="search"
+				style="margin: 10px 0 5px 0"
+		></v-text-field>
 		<template>
 			<v-data-table
 					:headers="headers"
 					:items="sortListOrder"
+					:search="search"
 					:items-per-page="5"
 					class="elevation-1"
 					disable-sort
@@ -41,6 +51,7 @@
     export default {
         name: "zOrders",
         data: () => ({
+            search: '',
             headers: [
                 {
                     text: 'Имя (Покупателя)',

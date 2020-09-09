@@ -1,8 +1,8 @@
 <template>
 	<v-app id="inspire">
 		<div>
+<!--ВЕРХНЯЯ ПАНЕЛЬ-->
 			<div>
-				<!--		ВЕРХНЯЯ ПАНЕЛЬ-->
 				<v-card>
 					<v-app-bar
 							app
@@ -19,16 +19,9 @@
 							</div>
 						</v-toolbar-title>
 						<v-spacer></v-spacer>
-						<!--		ПОИСК-->
-						<v-text-field
-								append-icon="mdi-magnify"
-								hide-details
-								label="Поиск"
-								single-line
-								v-model="search"
-								style="margin: 10px 0 5px 0"
-						></v-text-field>
 
+
+<!--правое МЕНЮ-->
 						<template v-slot:extension>
 							<v-tabs
 									v-model="currentItem"
@@ -88,13 +81,13 @@
 							<h2>{{ item }}</h2>
 							<div v-if="item === 'Товары'">
 								<v-card>
-<!--									Pagination-->
+<!--Pagination-->
 									<template>
 										<v-card flat>
 											<v-container fluid>
 												<v-row class="child-flex">
 													<div>
-														<v-toolbar>
+														<v-toolbar dark>
 															<v-pagination
 																	v-model="page"
 																	:length="pageCount"
@@ -118,20 +111,38 @@
 											</v-container>
 										</v-card>
 									</template>
-									<!--		ТАБЛИЦА-->
+
+									<!--		ПОИСК-->
+									<v-text-field
+											append-icon="mdi-magnify"
+											hide-details
+											label="Поиск"
+											single-line
+											v-model="search"
+											style="margin: 10px 0 5px 0"
+									></v-text-field>
+									<v-row align="center">
+										<v-col cols="12">
+											<v-select
+													v-model="search"
+													:items="categories"
+													label="Выбери категорию"
+											></v-select>
+										</v-col>
+									</v-row>
+
+<!--		ТАБЛИЦА-->
 									<v-data-table
 											:headers="headers"
 											:items="PRODUCTS"
 											:search="search"
-											:sort-by="clothingManufacturer"
-											group-by="category"
 											class="elevation-1"
 											item-key="article"
 											:page.sync="page"
 											:items-per-page="itemsPerPage"
 											hide-default-footer
 											@page-count="pageCount = $event"
-											show-group-by
+											disable-sort
 									>
 										<template
 												style="height:190px;"
@@ -394,7 +405,13 @@
 							</v-container>
 							<v-card-actions>
 								<v-spacer></v-spacer>
-								<v-btn @click="close" color="blue darken-1" text>Отмена</v-btn>
+								<v-btn
+										@click="close"
+										color="blue darken-1"
+										text
+								>
+									Отмена
+								</v-btn>
 								<v-btn
 										@click="save"
 										color="blue darken-1"
@@ -468,6 +485,21 @@
             zSize
 				},
         data: () => ({
+            categories: [
+                '',
+                'Ветровки',
+                'Пальто',
+                'Плащи',
+                'Джинсы',
+                'Брюки',
+                'Кофты',
+                'Футболки',
+                'Рубашки',
+                'Блузки',
+                'Платья',
+                'Костюмы',
+                'Куртки',
+            ],
             currentItem: 'tab-Web',
             items: [
                 'Товары', 'Заказы'
@@ -549,6 +581,7 @@
                 BrandName: '',
                 FotoClothes: '',
                 newClothes: true,
+                arrayImages: []
             },
             itemsCategories: [
                 'Куртки',
@@ -571,31 +604,24 @@
                 '',
             ],
             headers: [
-                // {text: 'Название', value: 'name',},
                 {
                     text: 'Артикль',
                     value: 'article',
                     align: 'start',
                     sortable: false,
                 },
-                {text: '', value: ''},
+                {text: '', value: '1'},
                 {text: 'Фото одежды', value: 'arrayImages'},
-                {text: '', value: ''},
-                {text: '', value: ''},
+                {text: '', value: '2'},
+                {text: '', value: '3'},
                 {text: 'Категория', value: 'category'},
-                {text: '', value: ''},
+                {text: '', value: '4'},
                 {text: 'Описание', value: 'description'},
-                // {text: 'id', value: 'id'},
-                // {text: 'опубликовано', value: 'available'},
-                // {text: 'Новинка', value: 'newClothes'},
-                // {text: 'Акционная цена', value: 'promotionalPrice'},
-                // {text: 'Редактировать', value: 'editThisProduct'},
-                {text: '', value: ''},
+                {text: '', value: '5'},
                 {text: 'Цена', value: 'price'},
                 {text: 'Размер', value: 'clothingSize'},
                 {text: 'Бренд', value: 'BrandName'},
                 {text: 'Производитель', value: 'clothingManufacturer'},
-                // {text: 'Видео одежды', value: 'VideoClothings'},
                 {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
                 {text: '===============================', value: ''},
             ],
@@ -638,16 +664,12 @@
                 }
                 this.close()
             },
-            close() {
+            async close() {
                 this.dialog = false
-                this.$nextTick(() => {
+                await this.$nextTick(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)
                     this.editedIndex = -1
-                    // if(this.defaultItem) {
-                    //     // window.location.reload()
-                    //     console.log(1)
-                    // }
-
+                    // window.location.reload()
                 })
             },
             editItem(item) {
@@ -710,6 +732,7 @@
                             timer: 1500
                         })
                     })
+
             },
             async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
                 const createdAt = new Date()
@@ -741,7 +764,6 @@
                             contentType: 'image/jpeg',
                         };
                         const nameTime = +new Date() + '.jpg'
-                        console.log(nameTime)
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                         const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
 
@@ -776,7 +798,6 @@
                     price,
                     description,
                 })
-
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -817,16 +838,18 @@
                         if (result.value) {
                             const File = item.arrayImages
 
-                            for (let i = 0; i < File.length; i++) {
-                                let storageRef = firebase.storage().ref()
-                                let nameTime = item.NameImages[i]
-                                const Ref = storageRef.child('assets/images/' + nameTime)
-                                Ref.delete().then(function () {
-                                    console.log('Фото удаленно!')
-                                }).catch(function (error) {
-                                    console.log('удаление фото с всем объявлением' + error)
-                                })
-                            }
+														if (File) {
+                                for (let i = 0; i < File.length; i++) {
+                                    let storageRef = firebase.storage().ref()
+                                    let nameTime = item.NameImages[i]
+                                    const Ref = storageRef.child('assets/images/' + nameTime)
+                                    Ref.delete().then(function () {
+                                        console.log('Фото удаленно!')
+                                    }).catch(function (error) {
+                                        console.log('удаление фото с всем объявлением' + error)
+                                    })
+                                }
+														}
                             let id = item.id
                             db.collection('products').doc(id).delete()
                             Swal.fire(
@@ -880,8 +903,6 @@
 			background-size: auto
 			background-color: #c8bb9d
 			font-size: 1rem
-
-
 </style>
 
 
