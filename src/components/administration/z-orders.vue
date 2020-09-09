@@ -60,6 +60,7 @@
                     value: 'name',
                 },
                 { text: 'Номер заказа', value: 'ID' },
+                { text: 'Дата создания', value: 'Date' },
                 { text: 'Телефон', value: 'telephon' },
                 { text: '', value: '' },
                 { text: 'Адресс', value: 'adress' },

@@ -53,6 +53,11 @@
         created() {
             this.VIEW_CART_USER()
         },
+				mounted() {
+            setInterval(() => {
+                this.date = new Date()
+						}, 1000)
+        },
         methods: {
             ...mapActions([
                 'DELETE_FROM_CART',
@@ -105,6 +110,7 @@
 														ObjectUserData.adress = result.value[2]
 														ObjectUserData.newPost = result.value[3]
                             ObjectUserData.ID = Date.now()
+                            ObjectUserData.Date = new Date().toLocaleString()
                             ObjectUserData.CART = this.GET_CART_USER
                             ObjectUserData.cartTotalCost = this.cartTotalCost
 
