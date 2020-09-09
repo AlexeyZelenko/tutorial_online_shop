@@ -104,9 +104,9 @@
 														ObjectUserData.telephon = result.value[1]
 														ObjectUserData.adress = result.value[2]
 														ObjectUserData.newPost = result.value[3]
+                            ObjectUserData.ID = Date.now()
                             ObjectUserData.CART = this.GET_CART_USER
                             ObjectUserData.cartTotalCost = this.cartTotalCost
-                            console.log(ObjectUserData.cartTotalCost)
 
                             let promises = [ObjectUserData]
                             this.ORDER_USER(promises)

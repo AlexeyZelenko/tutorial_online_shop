@@ -56,8 +56,8 @@ let store = new Vuex.Store({
         ORDER_USER: (state, orderUser) => {
             state.orderUser = orderUser;
         },
-        LIST_ORDER_USER: (state, result) => {
-            state.ordersUSERS = result;
+        LIST_ORDER_USER: (state, result3) => {
+            state.ordersUSERS = result3;
         },
     },
     actions: {
@@ -75,14 +75,36 @@ let store = new Vuex.Store({
             const result = await dispatch('userbindLocationsRef')
             const listOrderInfoUsers = result.filter(item => item.orderInfo)
             const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
-            commit('LIST_ORDER_USER', listOrderInfoUsersMap)
+
+            let result3 = []
+            for(let i = 0; listOrderInfoUsersMap.length > i; i++){
+                let result2 = []
+                for(let c = 0; listOrderInfoUsersMap[i].length > c; c++){
+                    let a = listOrderInfoUsersMap.map(item => item[c])
+                    result2.push(a[0])
+                }
+                result3.push(...result2)
+            }
+            console.log('result3', result3)
+            // return result3
+
+            commit('LIST_ORDER_USER', result3)
         },
         async ORDER_USER({dispatch}, promises) {
             const uid = await dispatch('getUid')
+            const user = await db.collection('users')
+                .doc(uid)
+                .get()
+                .then(snapshot => {
+                    const document = snapshot.data()
+                    // do something with document
+                    return document
+                })
             await db.collection('users')
                 .doc(uid)
-                .update({
-                    orderInfo: [...promises]
+                .set({
+                    ...user,
+                    orderInfo: [...user.orderInfo, ...promises]
                 })
                 .then(() => {
                     Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')

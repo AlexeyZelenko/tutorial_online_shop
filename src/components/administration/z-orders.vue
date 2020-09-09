@@ -12,7 +12,7 @@
 		<template>
 			<v-data-table
 					:headers="headers"
-					:items="sortListOrder"
+					:items="GET_LIST_ORDER_USERS"
 					:search="search"
 					:items-per-page="5"
 					class="elevation-1"
@@ -59,6 +59,7 @@
                     sortable: false,
                     value: 'name',
                 },
+                { text: 'Номер заказа', value: 'ID' },
                 { text: 'Телефон', value: 'telephon' },
                 { text: '', value: '' },
                 { text: 'Адресс', value: 'adress' },
@@ -93,9 +94,6 @@
             ...mapGetters([
 								'GET_LIST_ORDER_USERS'
             ]),
-						sortListOrder() {
-                return this.GET_LIST_ORDER_USERS.map(item => item[0])
-						}
         },
 				mounted() {
             this.LIST_ORDERS_USERS()
