@@ -1,5 +1,13 @@
 <template>
 	<div class="">
+		<v-btn
+				color="primary"
+				dark
+				@click="reloadWindow"
+		>
+			Обновить список заказов
+		</v-btn>
+
 		<!--		ПОИСК-->
 		<v-text-field
 				append-icon="mdi-magnify"
@@ -12,11 +20,13 @@
 		<template>
 			<v-data-table
 					:headers="headers"
+					:sort-by="['createdAt', 'telephone']"
+					:sort-desc="[false, true]"
+					multi-sort
 					:items="GET_LIST_ORDER_USERS"
 					:search="search"
 					:items-per-page="5"
 					class="elevation-1"
-					disable-sort
 			>
 				<template v-slot:item.description="{ item }">
 					<v-chip
@@ -53,15 +63,15 @@
         data: () => ({
             search: '',
             headers: [
+                { text: 'Дата создания', value: 'createdAt' },
                 {
-                    text: 'Имя (Покупателя)',
+                    text: 'Номер заказа',
                     align: 'start',
                     sortable: false,
-                    value: 'name',
+                    value: 'ID',
                 },
-                { text: 'Номер заказа', value: 'ID' },
-                { text: 'Дата создания', value: 'Date' },
-                { text: 'Телефон', value: 'telephon' },
+                { text: 'Имя (Покупателя)', value: 'name' },
+                { text: 'Телефон', value: 'telephone' },
                 { text: '', value: '' },
                 { text: 'Адресс', value: 'adress' },
                 { text: '', value: '' },
@@ -79,6 +89,9 @@
             ...mapActions([
                 'LIST_ORDERS_USERS',
             ]),
+            reloadWindow() {
+                this.LIST_ORDERS_USERS()
+						},
             productClick(article) {
                 this.$router.push({name: 'information-order', query: {'product': article } })
             },

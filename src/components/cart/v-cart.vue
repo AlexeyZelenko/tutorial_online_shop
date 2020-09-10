@@ -106,11 +106,11 @@
 												.then(() => {
                             let ObjectUserData = {}
 														ObjectUserData.name = result.value[0]
-														ObjectUserData.telephon = result.value[1]
+														ObjectUserData.telephone = result.value[1]
 														ObjectUserData.adress = result.value[2]
 														ObjectUserData.newPost = result.value[3]
                             ObjectUserData.ID = Date.now()
-                            ObjectUserData.Date = new Date().toLocaleString()
+                            ObjectUserData.createdAt = new Date().toLocaleString()
                             ObjectUserData.CART = this.GET_CART_USER
                             ObjectUserData.cartTotalCost = this.cartTotalCost
 
