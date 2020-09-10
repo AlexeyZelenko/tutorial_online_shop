@@ -20,7 +20,7 @@
 		<template>
 			<v-data-table
 					:headers="headers"
-					:sort-by="['createdAt', 'telephone']"
+					:sort-by="['createdAt']"
 					:sort-desc="[false, true]"
 					multi-sort
 					:items="GET_LIST_ORDER_USERS"

@@ -83,10 +83,9 @@ let store = new Vuex.Store({
                     let a = listOrderInfoUsersMap.map(item => item[c])
                     result2.push(a[0])
                 }
+                console.log(result3)
                 result3.push(...result2)
             }
-            console.log('result3', result3)
-            // return result3
 
             commit('LIST_ORDER_USER', result3)
         },
@@ -97,12 +96,20 @@ let store = new Vuex.Store({
                 .get()
                 .then(snapshot => {
                     const document = snapshot.data()
-                    // do something with document
+                    const b = document
+                    if (!b) {
+                        db.collection('users').doc(uid).update({
+                            orderInfo: []
+                        })
+                        console.log('Корзина для заказов создана!')
+                        return document
+                    }
                     return document
                 })
+            console.log(user)
             await db.collection('users')
                 .doc(uid)
-                .set({
+                .update({
                     ...user,
                     orderInfo: [...user.orderInfo, ...promises]
                 })
@@ -143,11 +150,10 @@ let store = new Vuex.Store({
             const uid = await dispatch('getUid')
             if(uid) {
                 const cartUser = await db.collection('users')
-                    .doc(`${uid}`)
+                    .doc(uid)
                     .get()
                     .then(snapshot => {
                         const document = snapshot.data()
-                        // do something with document
                         return document.cartInfo
                     })
                 const products = await db.collection('products')

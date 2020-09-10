@@ -49,42 +49,45 @@ export default {
                     }
                 })
             }
-
-
         },
-
         async signInWithGoogle({commit, dispatch}) {
             try {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
                 const getUserName = firebase.auth().currentUser.displayName
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: `Вы вошли как ${getUserName}`,
-                    showConfirmButton: false,
-                    timer: 2000
-                })
+                console.log(getUserName)
+                console.log(uid)
 
                 // Получить корзину для ткущего пользователя
-                const a = await db.collection('users')
-                    .doc(`${uid}`)
+                await db.collection('users')
+                    .doc(uid)
                     .get()
                     .then(snapshot => {
                         const document = snapshot.data()
-                        // do something with document
+                        console.log(document)
+                        // Если нет никаких данных
+                        if(!document) {
+                            db.collection('users')
+                                .doc(uid)
+                                .set({
+                                        cartInfo: [],
+                                        orderInfo: []
+                                     })
+                            return document
+                        }
+                        // Если нет никаких данных-пользователь удалил
+                        if (document === {}) {
+                            db.collection('users').doc(uid).set({
+                                cartInfo: [],
+                                orderInfo: []
+                            })
+                            return document
+                        }
                         return document.cartInfo
                     })
-                // Если корзины нет
-                if(!a) {
-                    // Создать корзину
-                    await db.collection('users').doc(uid).set({
-                        ...uid,
-                        cartInfo: [...uid.cartInfo]
-                    })
-                    console.log('Новый пользователь создан!')
-                } else {
+
+                        // Проверка администратора
                     if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2'].some(elem => elem === `${uid}`)) {
                         console.log('Администратор вошел!')
                         router.push('/admin')
@@ -93,7 +96,6 @@ export default {
                     }
                     const userEntrance = !!firebase.auth().currentUser
                     commit('USER_ENTRANCE', userEntrance)
-                }
 
             } catch (e) {
                 commit('setError', e)
@@ -143,8 +145,6 @@ export default {
             const userID = user ? user.uid : null
                 if(userID) {
                     commit('USER_ID_ENTRANCE', userID)
-                }else{
-                    console.log('error')
                 }
         },
         async logout({commit}) {
