@@ -55,9 +55,6 @@ export default {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
-                const getUserName = firebase.auth().currentUser.displayName
-                console.log(getUserName)
-                console.log(uid)
 
                 // Получить корзину для ткущего пользователя
                 await db.collection('users')
@@ -65,7 +62,6 @@ export default {
                     .get()
                     .then(snapshot => {
                         const document = snapshot.data()
-                        console.log(document)
                         // Если нет никаких данных
                         if(!document) {
                             db.collection('users')
@@ -86,9 +82,9 @@ export default {
                         }
                         return document.cartInfo
                     })
-
                         // Проверка администратора
-                    if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2'].some(elem => elem === `${uid}`)) {
+                    if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2']
+                        .some(elem => elem === `${uid}`)) {
                         console.log('Администратор вошел!')
                         router.push('/admin')
                     }else{
@@ -97,7 +93,8 @@ export default {
                     const userEntrance = !!firebase.auth().currentUser
                     commit('USER_ENTRANCE', userEntrance)
 
-            } catch (e) {
+            }
+            catch (e) {
                 commit('setError', e)
                 throw e
             }
@@ -145,6 +142,8 @@ export default {
             const userID = user ? user.uid : null
                 if(userID) {
                     commit('USER_ID_ENTRANCE', userID)
+                } else {
+                    console.log('Незарегестрированый пользователь')
                 }
         },
         async logout({commit}) {

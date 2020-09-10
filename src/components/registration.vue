@@ -93,16 +93,16 @@
 
         methods: {
             async submitHandler() {
-
                 const formData = {
                     email: this.email,
                     password: this.password,
                     name: this.name
                 }
-
                 try {
                     await this.$store.dispatch('register', formData)
-                    this.$router.push('/')
+										.then(() => {
+                        this.$router.push('/')
+										})
                 } catch (e) {
                     console.log('error')
 								}
