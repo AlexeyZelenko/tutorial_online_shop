@@ -18,6 +18,8 @@ import dateFilter from '@/filters/date.filter'
 import vuetify from '@/plugins/vuetify'
 import '@/plugins/tiptap-vuetify'
 import Vuelidate from 'vuelidate'
+import AsyncComputed from 'vue-async-computed'
+
 
 
 
@@ -37,11 +39,13 @@ export const db = firebase.initializeApp({
 }).firestore()
 
 export const storage = firebase.storage();
-export const messaging = firebase.messaging();
+
+
 
 
 Vue.use(firestorePlugin)
 Vue.use(rtdbPlugin)
+Vue.use(AsyncComputed)
 
 
 Vue.filter('localize', localizeFilter)

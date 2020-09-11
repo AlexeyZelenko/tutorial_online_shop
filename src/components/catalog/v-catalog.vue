@@ -68,7 +68,7 @@
 			</div>
 			<v-spacer></v-spacer>
 			<div
-					v-if="entrenceAdmin"
+					v-if="GET_ADMIN_ENTRANCE"
 					class="v-catalog__link_to_admin"			>
 						<v-btn
 								class="ma-2"
@@ -149,31 +149,8 @@
                 'userEntrance',
                 'USER_ID_ACTIONS'
             ]),
-            async saveMessagingDeviceToken() {
-                await firebase.messaging().getToken().then(function(currentToken) {
-                    if (currentToken) {
-                        // Сохранение токена устройства в хранилище данных.
-                        firebase.firestore().collection('fcmTokens').doc(currentToken)
-                            .set({uid: firebase.auth().currentUser.uid});
-                    } else {
-                        // Требуется запросить разрешения для отображения уведомлений.
-                        this.requestNotificationsPermissions();
-                    }
-                }).catch(function(error){
-                    console.error('Не удалось получить токен обмена сообщениями.', error);
-                });
-            },
-            async requestNotificationsPermissions() {
-                console.log('Запрос разрешения на уведомления...');
-                await firebase.messaging().requestPermission().then(function() {
-                    // Разрешение на уведомление предоставлено.
-                    this.saveMessagingDeviceToken();
-                }).catch(function(error) {
-                    console.error('Не удалось получить разрешение на уведомление.', error);
-                });
-            },
             adminPlusLogin() {
-                if(this.entrenceAdmin) {
+                if(this.GET_ADMIN_ENTRANCE) {
                     this.$router.push('/admin')
 								}else{
                     this.$router.push('/login')
@@ -182,7 +159,6 @@
             async signInWithGoogle() {
                 try {
                     await this.$store.dispatch('signInWithGoogle')
-										this.saveMessagingDeviceToken()
                     this.VIEW_CART_USER()
                 } catch (e) {
                     console.log('Ошибка входа Google')
@@ -217,21 +193,16 @@
                     })
             },
         },
+        asyncComputed: {
+        },
         computed: {
             ...mapGetters([
                 'PRODUCTS',
 								'GET_CART_USER',
 								'User_Entrance',
-								'USER_ID'
+								'USER_ID',
+								'GET_ADMIN_ENTRANCE'
             ]),
-						entrenceAdmin() {
-                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2','HInmvosDanObSDnC2csXiV3iR0A2']
-										.some(elem => elem === this.USER_ID)) {
-                    return true
-                }else{
-                    return false
-                }
-						},
             getUserName() {
                 return firebase.auth().currentUser.displayName;
             },

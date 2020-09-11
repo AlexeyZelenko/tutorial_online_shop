@@ -21,10 +21,13 @@ export default  {
         return state.listUsers;
     },
     GET_ORDER_USERS(state) {
-        return state.Users;
+        return state.listAdminUser;
     },
     GET_LIST_ORDER_USERS(state) {
         return state.ordersUSERS;
+    },
+    GET_ADMIN_ENTRANCE(state) {
+        return state.adminEntrance;
     },
     locale: s => s.locale,
     error: s => s.error

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import {db} from '@/main.js'
 import Swal from 'sweetalert2'
-import router from '@/router/router'
+// import router from '@/router/router'
 import 'firebase/auth'
 
 export default {
@@ -86,18 +86,24 @@ export default {
                     if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2']
                         .some(elem => elem === `${uid}`)) {
                         console.log('Администратор вошел!')
-                        router.push('/admin')
+                        // router.push('/admin')
                     }else{
                         console.log('Пользователь вошел!')
                     }
-                    const userEntrance = !!firebase.auth().currentUser
-                    commit('USER_ENTRANCE', userEntrance)
-
             }
             catch (e) {
                 commit('setError', e)
                 throw e
             }
+
+            const userEntrance = !!firebase.auth().currentUser
+            const USER_ID = await dispatch('getUid')
+            if(userEntrance) {
+                const adminEntrance =  await ["wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2"].includes(USER_ID)
+                console.log(adminEntrance)
+                commit('ADMIN_ENTRANCE', adminEntrance)
+            }
+            commit('USER_ENTRANCE', userEntrance)
         },
         async login({commit}, {email, password}) {
             try {
@@ -133,7 +139,7 @@ export default {
         getProfilePicUrl() {
             return firebase.auth().currentUser.photoURL || '@/assets/images/profile-pic-placeholder.png';
         },
-        userEntrance({commit}) {
+        async userEntrance({commit}) {
             const userEntrance =  !!firebase.auth().currentUser
             commit('USER_ENTRANCE', userEntrance)
         },

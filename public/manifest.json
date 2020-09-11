@@ -1,8 +1,0 @@
-{
-  "name": "shop",
-  "short_name": "shop",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "orientation": "portrait",
-  "gcm_sender_id": "206555332095"
-}

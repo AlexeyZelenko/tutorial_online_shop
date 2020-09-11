@@ -13,7 +13,7 @@
 						<!--НАЗАД К КАТАЛОГУ-->
 						<v-toolbar-title class="ml-0">
 							<div>
-								<v-btn icon :to="{name: 'catalog'}">
+								<v-btn icon :to="{name: 'catalog', params: {entranceAdmin: true}}">
 									<i class="material-icons">reply</i>
 								</v-btn>
 							</div>
