@@ -185,10 +185,6 @@
             addToCart(data) {
                 this.ADD_TO_CART(data)
                     .then(() => {
-                        // let timeStamp = Date.now().toLocaleString();
-                        // this.messages.unshift(
-                        //     {name: `Товар добавлен в корзину`, id: timeStamp, icon: 'check_circle'}
-                        // )
                         this.VIEW_CART_USER()
                     })
             },
@@ -207,7 +203,7 @@
                 return firebase.auth().currentUser.displayName;
             },
             getProfilePicUrl() {
-                return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
+                return firebase.auth().currentUser.photoURL || '@/assets/images/profile_placeholder.png';
             },
             filteredProducts() {
                 if (this.sortedProducts.length) {

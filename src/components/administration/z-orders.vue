@@ -43,12 +43,12 @@
 					</v-chip>
 				</template>
 				<template v-slot:item.cartTotalCost="{ item }">
-					<v-chip
-							:color="getColor(item.cartTotalCost)"
-							dark
-					>
-						{{ item.cartTotalCost }}
-					</v-chip>
+						<v-chip
+								:color="getColor(item.cartTotalCost)"
+								dark
+						>
+							{{ item.cartTotalCost }}
+						</v-chip>
 				</template>
 			</v-data-table>
 		</template>
@@ -63,13 +63,13 @@
         data: () => ({
             search: '',
             headers: [
-                { text: 'Дата создания', value: 'createdAt' },
                 {
                     text: 'Номер заказа',
                     align: 'start',
                     sortable: false,
                     value: 'ID',
                 },
+                { text: 'Дата создания', value: 'createdAt' },
                 { text: 'Имя (Покупателя)', value: 'name' },
                 { text: 'Телефон', value: 'telephone' },
                 { text: '', value: '' },
@@ -77,10 +77,12 @@
                 { text: '', value: '' },
                 { text: '№ отделения Новой Почты', value: 'newPost' },
                 { text: '', value: '' },
+                { text: 'Дополнительно', value: 'Addition'},
+                { text: '', value: '' },
                 { text: 'Список товаров',	value: `description`},
                 { text: '', value: '' },
                 { text: 'Общая сумма', value: 'cartTotalCost'},
-                { text: '====================', value: '' },
+                { text: '=====================================', value: '' },
             ],
         }),
 				components: {

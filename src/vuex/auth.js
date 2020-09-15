@@ -139,8 +139,13 @@ export default {
         getProfilePicUrl() {
             return firebase.auth().currentUser.photoURL || '@/assets/images/profile-pic-placeholder.png';
         },
-        async userEntrance({commit}) {
+        async userEntrance({commit, dispatch}) {
+            const USER_ID = await dispatch('getUid')
             const userEntrance =  !!firebase.auth().currentUser
+            if(userEntrance) {
+                const adminEntrance =  await ["8VcWFEfj1KYYs06GiR7dR6XpTLS2 ,wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2"].includes(USER_ID)
+                commit('ADMIN_ENTRANCE', adminEntrance)
+            }
             commit('USER_ENTRANCE', userEntrance)
         },
         async USER_ID_ACTIONS({commit}) {

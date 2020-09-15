@@ -13,7 +13,7 @@
 						<!--НАЗАД К КАТАЛОГУ-->
 						<v-toolbar-title class="ml-0">
 							<div>
-								<v-btn icon :to="{name: 'catalog', params: {entranceAdmin: true}}">
+								<v-btn icon :to="{name: 'catalog'}">
 									<i class="material-icons">reply</i>
 								</v-btn>
 							</div>
@@ -130,7 +130,6 @@
 											></v-select>
 										</v-col>
 									</v-row>
-
 <!--		ТАБЛИЦА-->
 									<v-data-table
 											:headers="headers"
@@ -655,6 +654,34 @@
                 this.products = this.PRODUCTS
             },
             save() {
+                // let timerInterval
+                // Swal.fire({
+                //     title: 'Идет обработка данных...',
+                //     html: 'Я закрою через<b></b> миллисекунды.',
+                //     timer: 2000,
+                //     timerProgressBar: true,
+                //     onBeforeOpen: () => {
+                //         Swal.showLoading()
+                //         timerInterval = setInterval(() => {
+                //             const content = Swal.getContent()
+                //             if (content) {
+                //                 const b = content.querySelector('b')
+                //                 if (b) {
+                //                     b.textContent = Swal.getTimerLeft()
+                //                 }
+                //             }
+                //         }, 100)
+                //     },
+                //     onClose: () => {
+                //         clearInterval(timerInterval)
+                //     }
+                // }).then((result) => {
+                //     /* Подробнее об обработке читайте ниже. */
+                //     if (result.dismiss === Swal.DismissReason.timer) {
+                //         console.log('Я был закрыт таймером')
+                //     }
+                // })
+
                 if (this.editedIndex > -1) {
                     const editProduct = Object.assign(this.products[this.editedIndex], this.editedItem)
                     this.editThisProduct(editProduct)
@@ -678,7 +705,6 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
-
                 const File = editProduct.File
                 const promises = []
                 if (File) {
@@ -735,6 +761,35 @@
 
             },
             async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
+
+                let timerInterval
+                Swal.fire({
+                    title: 'Auto close alert!',
+                    html: 'I will close in <b></b> milliseconds.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                                const b = content.querySelector('b')
+                                if (b) {
+                                    b.textContent = Swal.getTimerLeft()
+                                }
+                            }
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                })
+
                 const createdAt = new Date()
                 File = addProduct.File
                 BrandName = addProduct.BrandName

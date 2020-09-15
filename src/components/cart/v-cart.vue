@@ -70,25 +70,32 @@
                 Swal.mixin({
                     cancelButtonText: 'Отмена',
                     input: 'text',
-                    confirmButtonText: 'Дальше &rarr;',
+                    confirmButtonText: 'Дальше',
                     showCancelButton: true,
-                    progressSteps: ['1', '2', '3', '4']
+                    progressSteps: ['1', '2', '3', '4', '5']
                 }).queue([
                     {
                         title: 'Имя:',
-                        text: 'Ваше имя'
+                        text: 'Ваше имя',
+                        input: 'text',
                     },
                     {
                         title: 'Телефон:',
-                        text: 'Чтобы отправить товары нам нужен номер Вашего телефона'
+                        text: 'Чтобы отправить товары нам нужен номер Вашего телефона',
+                        input: 'text',
                     },
                     {
                         title: 'Адресс',
-                        text: 'Полный адресс - Область, Населенный пункт'
+                        text: 'Адресс - Область, Населенный пункт'
                     },
                     {
                         title: '№ отделения',
                         text: '№ отделения Новой Почты'
+                    },
+                    {
+                        title: 'Дополнительно...',
+                        text: 'Дополнительная информация',
+                        input: 'textarea',
                     },
                 ]).then((result) => {
                     if (result.value) {
@@ -100,6 +107,7 @@
 															Телефон: ${result.value[1]}<br />
 															Адресс: ${result.value[2]}<br />
 															№ Новой Почты: ${result.value[3]}<br />
+															Дополнительно: ${result.value[4]}<br />
 														`,
                             confirmButtonText: 'Заказать!'
                         })
@@ -109,6 +117,7 @@
 														ObjectUserData.telephone = result.value[1]
 														ObjectUserData.adress = result.value[2]
 														ObjectUserData.newPost = result.value[3]
+                            ObjectUserData.Addition = result.value[4]
                             ObjectUserData.ID = Date.now()
                             ObjectUserData.createdAt = new Date().toLocaleString()
                             ObjectUserData.CART = this.GET_CART_USER

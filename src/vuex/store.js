@@ -78,21 +78,16 @@ let store = new Vuex.Store({
         async LIST_ORDERS_USERS({commit, dispatch}) {
             const result = await dispatch('userbindLocationsRef')
             const listOrderInfoUsers = result.filter(item => item.orderInfo)
-            console.log('1',listOrderInfoUsers)
             const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
-            console.log('2',listOrderInfoUsersMap)
-
             let result3 = []
             for(let i = 0; listOrderInfoUsersMap.length > i; i++){
                 let result2 = []
                 for(let c = 0; listOrderInfoUsersMap[i].length > c; c++){
                     let a = listOrderInfoUsersMap[i][c]
-                    console.log('a',a)
                     result2.push(a)
                 }
                 result3.push(...result2)
             }
-            console.log('3',result3)
             commit('LIST_ORDER_USER', result3)
         },
         async ORDER_USER({dispatch}, promises) {
