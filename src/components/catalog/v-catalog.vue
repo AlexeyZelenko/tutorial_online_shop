@@ -94,9 +94,11 @@
 		</v-row>
 		<div class="v-catalog__list">
 			<vCatalogItem
-					v-for="product in filteredProducts"
-					:key="product.article"
+					v-for="(product, i) in filteredProducts"
 					:product_data="product"
+					:observer="observer"
+					:key="product.article"
+					:index="i"
 					@addToCart="addToCart"
 					@productClick="productClick"
 			/>
@@ -120,6 +122,8 @@
         },
         data() {
             return {
+                placeholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+                observer: null,
                 categories: [
                     {name: 'Все', value: 'All'},
                     {name: 'Ветровки', value: 'Windbreaker'},
@@ -149,6 +153,24 @@
                 'userEntrance',
                 'USER_ID_ACTIONS'
             ]),
+            onElementObserved(entries) {
+                entries.forEach(({ target, isIntersecting}) => {
+                    if (!isIntersecting) {
+                        return;
+                    }
+                    this.observer.unobserve(target);
+
+                    setTimeout(() => {
+                        const i = target.getAttribute("data-index");
+                        this.filteredProducts[i].seen = true;
+                        target.src = this.filteredProducts[i].arrayImages[0]
+
+                        target.onload = () => {
+                            target.parentNode.classList.remove('loading');
+                        };
+                    })
+                });
+            },
             adminPlusLogin() {
                 if(this.GET_ADMIN_ENTRANCE) {
                     this.$router.push('/admin')
@@ -191,6 +213,19 @@
         },
         asyncComputed: {
         },
+				created() {
+            this.userEntrance()
+            this.observer = new IntersectionObserver(
+                this.onElementObserved,
+                {
+                    root: this.$el,
+                    threshold: 0.5,
+                }
+            );
+        },
+        beforeDestroy() {
+            this.observer.disconnect();
+        },
         computed: {
             ...mapGetters([
                 'PRODUCTS',
@@ -215,7 +250,6 @@
         },
 				mounted() {
             this.VIEW_CART_USER()
-						this.userEntrance()
 						this.USER_ID_ACTIONS()
         }
     }

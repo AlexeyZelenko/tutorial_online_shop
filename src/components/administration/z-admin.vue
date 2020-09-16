@@ -1,7 +1,22 @@
 <template>
 	<v-app id="inspire">
 		<div>
-<!--ВЕРХНЯЯ ПАНЕЛЬ-->
+			<template>
+				<div class="vld-parent">
+					<loading
+							:active.sync="isLoading"
+							:can-cancel="true"
+							:is-full-page="fullPage"
+							:on-cancel="onCancel"
+					>
+
+					</loading>
+
+					<label><input type="checkbox" v-model="fullPage">Full page?</label>
+					<button @click.prevent="doAjax">fetch Data</button>
+				</div>
+			</template>
+			<!--ВЕРХНЯЯ ПАНЕЛЬ-->
 			<div>
 				<v-card>
 					<v-app-bar
@@ -13,7 +28,7 @@
 						<!--НАЗАД К КАТАЛОГУ-->
 						<v-toolbar-title class="ml-0">
 							<div>
-								<v-btn icon :to="{name: 'catalog'}">
+								<v-btn :to="{name: 'catalog'}" icon>
 									<i class="material-icons">reply</i>
 								</v-btn>
 							</div>
@@ -21,30 +36,30 @@
 						<v-spacer></v-spacer>
 
 
-<!--правое МЕНЮ-->
+						<!--правое МЕНЮ-->
 						<template v-slot:extension>
 							<v-tabs
-									v-model="currentItem"
 									fixed-tabs
 									slider-color="white"
+									v-model="currentItem"
 							>
 								<v-tab
-										v-for="item in items"
-										:key="item"
 										:href="'#tab-' + item"
+										:key="item"
+										v-for="item in items"
 								>
 									{{ item }}
 								</v-tab>
 
 								<v-menu
-										v-if="more.length"
 										bottom
 										left
+										v-if="more.length"
 								>
 									<template v-slot:activator="{ on, attrs }">
 										<v-btn
-												text
 												class="align-self-center mr-4"
+												text
 												v-bind="attrs"
 												v-on="on"
 										>
@@ -55,9 +70,9 @@
 
 									<v-list class="grey lighten-3">
 										<v-list-item
-												v-for="item in more"
 												:key="item"
 												@click="addItem(item)"
+												v-for="item in more"
 										>
 											{{ item }}
 										</v-list-item>
@@ -69,19 +84,19 @@
 				</v-card>
 			</div>
 
-<!--			МЕНЮ-->
+			<!--			МЕНЮ-->
 			<v-tabs-items v-model="currentItem">
 				<v-tab-item
-						v-for="item in items.concat(more)"
 						:key="item"
 						:value="'tab-' + item"
+						v-for="item in items.concat(more)"
 				>
 					<v-card flat>
 						<v-card-text>
 							<h2>{{ item }}</h2>
 							<div v-if="item === 'Товары'">
 								<v-card>
-<!--Pagination-->
+									<!--Pagination-->
 									<template>
 										<v-card flat>
 											<v-container fluid>
@@ -89,21 +104,21 @@
 													<div>
 														<v-toolbar dark>
 															<v-pagination
-																	v-model="page"
 																	:length="pageCount"
+																	v-model="page"
 															></v-pagination>
 														</v-toolbar>
 													</div>
 													<div style="flex-basis: 20%">
 														<v-toolbar dark>
 															<v-text-field
-																	style="margin-top: 25px"
 																	:value="itemsPerPage"
-																	label="Товаров на странице"
-																	type="number"
-																	min="-1"
-																	max="15"
 																	@input="itemsPerPage = parseInt($event, 10)"
+																	label="Товаров на странице"
+																	max="15"
+																	min="-1"
+																	style="margin-top: 25px"
+																	type="number"
 															></v-text-field>
 														</v-toolbar>
 													</div>
@@ -118,39 +133,39 @@
 											hide-details
 											label="Поиск"
 											single-line
-											v-model="search"
 											style="margin: 10px 0 5px 0"
+											v-model="search"
 									></v-text-field>
 									<v-row align="center">
 										<v-col cols="12">
 											<v-select
-													v-model="search"
 													:items="categories"
 													label="Выбери категорию"
+													v-model="search"
 											></v-select>
 										</v-col>
 									</v-row>
-<!--		ТАБЛИЦА-->
+									<!--		ТАБЛИЦА-->
 									<v-data-table
 											:headers="headers"
 											:items="PRODUCTS"
-											:search="search"
-											class="elevation-1"
-											item-key="article"
-											:page.sync="page"
 											:items-per-page="itemsPerPage"
-											hide-default-footer
+											:page.sync="page"
+											:search="search"
 											@page-count="pageCount = $event"
+											class="elevation-1"
 											disable-sort
+											hide-default-footer
+											item-key="article"
 									>
 										<template
 												style="height:190px;"
 												v-slot:item.arrayImages="{ item }">
 
 											<img
-													loading="lazy"
 													:src="(item.arrayImages[0])"
 													alt=""
+													loading="lazy"
 													style="max-width: 100px; max-height: 100px; margin: 5px"
 													v-if="item.arrayImages"
 											>
@@ -221,14 +236,14 @@
 						<!--		КНОПКА +-->
 						<v-btn
 								@click="dialog = !dialog"
-								v-bind="attrs"
-								v-on="on"
 								bottom
 								color="pink"
 								dark
 								fab
 								fixed
 								left
+								v-bind="attrs"
+								v-on="on"
 						>
 							<v-icon>mdi-plus</v-icon>
 						</v-btn>
@@ -332,22 +347,22 @@
 									<!--						ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
 										<v-checkbox
-												label="Отображать в каталоге"
 												color="success"
-												v-model="editedItem.available"
 												hide-details
+												label="Отображать в каталоге"
+												v-model="editedItem.available"
 										></v-checkbox>
 										<v-checkbox
-												label="Новинка"
-												v-model="editedItem.newClothes"
 												color="orange"
 												hide-details
+												label="Новинка"
+												v-model="editedItem.newClothes"
 										></v-checkbox>
 										<v-checkbox
-												label="Товар со скидкой"
-												v-model="editedItem.promotionalPrice"
 												color="indigo darken-3"
 												hide-details
+												label="Товар со скидкой"
+												v-model="editedItem.promotionalPrice"
 										></v-checkbox>
 									</div>
 									<!--ФОТО-->
@@ -356,8 +371,8 @@
 											<v-carousel-item
 													:key="article"
 													:src="(item)"
-													style="max-width: 400px; max-height: 600px"
 													reverse-transition="fade-transition"
+													style="max-width: 400px; max-height: 600px"
 													transition="fade-transition"
 													v-for="(item,article) in editedItem.arrayImages"
 											>
@@ -435,9 +450,11 @@
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
-		import zUsers from '@/components/administration/z-users'
+    import zUsers from '@/components/administration/z-users'
     import zOrders from '@/components/administration/z-orders'
     import zSize from '@/components/administration/z-size'
+    import Loading from 'vue-loading-overlay'
+    import 'vue-loading-overlay/dist/vue-loading.css'
     import {
         TiptapVuetify,
         Heading,
@@ -478,12 +495,15 @@
     export default {
         name: "zAdmin",
         components: {
+            Loading,
             TiptapVuetify,
             zUsers,
-						zOrders,
+            zOrders,
             zSize
-				},
+        },
         data: () => ({
+            isLoading: false,
+            fullPage: true,
             categories: [
                 '',
                 'Ветровки',
@@ -562,9 +582,11 @@
                 BrandName: '',
                 FotoClothes: '',
                 newClothes: true,
-                arrayImages: []
+                arrayImages: [],
+                seen: false
             },
             defaultItem: {
+                seen: false,
                 NameImages: [],
                 File: [],
                 name: '',
@@ -630,13 +652,25 @@
             ...mapActions([
                 'list_Users',
             ]),
-            addItem (item) {
+            doAjax() {
+                this.isLoading = true;
+                // simulate AJAX
+                setTimeout(() => {
+                    this.isLoading = false
+                },5000)
+            },
+            onCancel() {
+                console.log('User cancelled the loader.')
+            },
+            addItem(item) {
                 const removed = this.items.splice(0, 1)
                 this.items.push(
                     ...this.more.splice(this.more.indexOf(item), 1)
                 )
                 this.more.push(...removed)
-                this.$nextTick(() => { this.currentItem = 'tab-' + item })
+                this.$nextTick(() => {
+                    this.currentItem = 'tab-' + item
+                })
             },
             deleteFoto(editedItem, item) {
                 const array = editedItem.arrayImages
@@ -654,34 +688,6 @@
                 this.products = this.PRODUCTS
             },
             save() {
-                // let timerInterval
-                // Swal.fire({
-                //     title: 'Идет обработка данных...',
-                //     html: 'Я закрою через<b></b> миллисекунды.',
-                //     timer: 2000,
-                //     timerProgressBar: true,
-                //     onBeforeOpen: () => {
-                //         Swal.showLoading()
-                //         timerInterval = setInterval(() => {
-                //             const content = Swal.getContent()
-                //             if (content) {
-                //                 const b = content.querySelector('b')
-                //                 if (b) {
-                //                     b.textContent = Swal.getTimerLeft()
-                //                 }
-                //             }
-                //         }, 100)
-                //     },
-                //     onClose: () => {
-                //         clearInterval(timerInterval)
-                //     }
-                // }).then((result) => {
-                //     /* Подробнее об обработке читайте ниже. */
-                //     if (result.dismiss === Swal.DismissReason.timer) {
-                //         console.log('Я был закрыт таймером')
-                //     }
-                // })
-
                 if (this.editedIndex > -1) {
                     const editProduct = Object.assign(this.products[this.editedIndex], this.editedItem)
                     this.editThisProduct(editProduct)
@@ -705,6 +711,7 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
+                this.isLoading = true
                 const File = editProduct.File
                 const promises = []
                 if (File) {
@@ -737,6 +744,7 @@
                 db.collection('products')
                     .doc(id)
                     .update({
+                        seen: editProduct.seen,
                         arrayImages: ArrayFile,
                         category: editProduct.category,
                         createdAt: editProduct.createdAt,
@@ -749,48 +757,23 @@
                         description: editProduct.description,
                         clothingManufacturer: editProduct.clothingManufacturer,
                     })
-                    .then(() => {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Ваша работа была сохранена',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    })
-
+										.then(() => {
+												this.isLoading = false
+												Swal.fire({
+														position: 'top-end',
+														icon: 'success',
+														title: 'Ваша работа была сохранена',
+														showConfirmButton: false,
+														timer: 1500
+												})
+										})
             },
-            async addLocation(addProduct, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
+            async addLocation(addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
 
-                let timerInterval
-                Swal.fire({
-                    title: 'Auto close alert!',
-                    html: 'I will close in <b></b> milliseconds.',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    onBeforeOpen: () => {
-                        Swal.showLoading()
-                        timerInterval = setInterval(() => {
-                            const content = Swal.getContent()
-                            if (content) {
-                                const b = content.querySelector('b')
-                                if (b) {
-                                    b.textContent = Swal.getTimerLeft()
-                                }
-                            }
-                        }, 100)
-                    },
-                    onClose: () => {
-                        clearInterval(timerInterval)
-                    }
-                }).then((result) => {
-                    /* Read more about handling dismissals below */
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        console.log('I was closed by the timer')
-                    }
-                })
+                this.isLoading = true
 
                 const createdAt = new Date()
+                seen = false
                 File = addProduct.File
                 BrandName = addProduct.BrandName
                 article = addProduct.article
@@ -808,7 +791,7 @@
                 const promises = []
                 const promisesName = []
 
-                if(File) {
+                if (File) {
                     for (let i = 0; i < File.length; i++) {
 
                         const storageRef = firebase.storage().ref();
@@ -839,6 +822,7 @@
 
                 await db.collection('products').add({
                     NameImages: NameImages,
+                    seen,
                     article,
                     available,
                     BrandName,
@@ -853,6 +837,8 @@
                     price,
                     description,
                 })
+                this.isLoading = false
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -891,22 +877,23 @@
                 })
                     .then((result) => {
                         if (result.value) {
+                            this.isLoading = true
                             const File = item.arrayImages
 
-														if (File) {
+                            if (File) {
                                 for (let i = 0; i < File.length; i++) {
                                     let storageRef = firebase.storage().ref()
                                     let nameTime = item.NameImages[i]
                                     const Ref = storageRef.child('assets/images/' + nameTime)
                                     Ref.delete().then(function () {
-                                        console.log('Фото удаленно!')
                                     }).catch(function (error) {
                                         console.log('удаление фото с всем объявлением' + error)
                                     })
                                 }
-														}
+                            }
                             let id = item.id
                             db.collection('products').doc(id).delete()
+                            this.isLoading = false
                             Swal.fire(
                                 'Удаленно!',
                                 'Ваш продукт удален.',
@@ -925,7 +912,7 @@
         computed: {
             ...mapGetters([
                 'PRODUCTS',
-								'GET_LIST_USERS'
+                'GET_LIST_USERS'
             ]),
             formTitle() {
                 return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
@@ -936,7 +923,7 @@
         },
         created() {
             this.initialize()
-						this.list_Users()
+            this.list_Users()
         }
     }
 </script>
