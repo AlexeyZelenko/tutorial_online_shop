@@ -144,7 +144,6 @@
 
 		&_image2.loading{
 			height: 200px;
-			border: 1px dotted #a7a7a7;
 			position: relative;
 		}
 

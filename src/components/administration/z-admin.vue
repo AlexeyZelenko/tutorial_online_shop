@@ -444,8 +444,6 @@
 </template>
 
 <script>
-    import 'material-design-icons-iconfont'
-    import 'materialize-css/dist/js/materialize.min'
     import {mapGetters, mapActions} from 'vuex'
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'

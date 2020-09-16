@@ -2,9 +2,15 @@
 	<div class="z-product-information">
 		<div>
 		</div>
-		<router-link :to="{name: 'admin'}">
-			<div class="v-catalog__link_to_cart">Назад к заказам</div>
-		</router-link>
+		<template>
+			<v-btn
+					:to="{name: 'admin'}"
+					block
+					style="background-color: green; color: whitesmoke"
+			>
+				Назад к заказу
+			</v-btn>
+		</template>
 		<v-carousel
 				:carousel_data="product.arrayImages"
 		/>
