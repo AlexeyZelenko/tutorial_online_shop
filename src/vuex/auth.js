@@ -50,11 +50,38 @@ export default {
                 })
             }
         },
+        async saveMessagingDeviceToken({dispatch}) {
+            await firebase.messaging().getToken().then(function(currentToken) {
+                if (currentToken) {
+                    // Сохранение токена устройства в хранилище данных.
+                    console.log('Токен получен!')
+                    firebase.firestore().collection('fcmTokens').doc(currentToken)
+                        .set({uid: firebase.auth().currentUser.uid});
+                } else {
+                    // Требуется запросить разрешения для отображения уведомлений.
+                    dispatch('requestNotificationsPermissions')
+                }
+            }).catch(function(error){
+                console.error('Не удалось получить токен обмена сообщениями.', error);
+            });
+        },
+        async requestNotificationsPermissions({dispatch}) {
+            console.log('Запрос разрешения на уведомления...');
+            await firebase.messaging().requestPermission().then(function() {
+                // Разрешение на уведомление предоставлено.
+                dispatch('saveMessagingDeviceToken')
+            }).catch(function(error) {
+                console.error('Не удалось получить разрешение на уведомление.', error);
+            });
+        },
         async signInWithGoogle({commit, dispatch}) {
             try {
                 let provider = new firebase.auth.GoogleAuthProvider();
                 await firebase.auth().signInWithPopup(provider)
                 const uid = await dispatch('getUid')
+
+                // Получение ТОКЕНА
+                await dispatch('saveMessagingDeviceToken')
 
                 // Получить корзину для ткущего пользователя
                 await db.collection('users')

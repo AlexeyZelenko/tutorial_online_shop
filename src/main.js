@@ -42,7 +42,6 @@ export const storage = firebase.storage();
 
 
 
-
 Vue.use(firestorePlugin)
 Vue.use(rtdbPlugin)
 Vue.use(AsyncComputed)
