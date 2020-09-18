@@ -27,49 +27,37 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({origin: true});
+const protoLoader = require('@grpc/proto-loader');
 admin.initializeApp();
 
 
 
-/**
- * Здесь мы используем Gmail для отправки
- */
 let transporter = nodemailer.createTransport({
     service: 'gmail',
+    port: 465,
     auth: {
         user: 'women.ck.ua@gmail.com',
         pass: 'qaz0983267431qaz'
     }
 });
 
-exports.sendMail = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
+//Creating a Firebase Cloud Function
+exports.sendMail = functions.firestore.document('messages/{messageId}').onCreate((snapshot, context) =>{
+    const dest = 'zelenko.75@ukr.net';
 
-        // получение целевой электронной почты по строке запроса
-        const dest = req.query.dest;
+    //Defining mailOptions
+    const mailOptions = {
+        from: 'women.ck.ua@gmail.com', //Добавление электронной почты отправителя
+        to: dest, //Получение электронной почты получателя по строке запроса
+        subject: 'Email Sent via Firebase', //Email тема
+        html: '<b>Sending emails with Firebase is easy!</b>' //Email content in HTML
+    };
 
-        const mailOptions = {
-            from: 'Имя вашей учетной записи <zelenkooleksii75@gmail.com>', // Что-то вродеe: Jane Doe <janedoe@gmail.com>
-            to: dest,
-            subject: 'Новый заказ', // email тема
-            html: `<p style="font-size: 16px;">Вы получили новый заказ!!</p>
-                <br />
-                <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
-            ` // email content in HTML
-        };
-
-        // возвращение результата
-        return transporter.sendMail(mailOptions, (erro, info) => {
-            if(erro){
-                return res.send(erro.toString());
-            }
-            console.log('Отправлено')
-            return res.send('Отправлено');
-        });
+    // returning result
+    return transporter.sendMail(mailOptions).then(() => {
+        console.log('Mail sent to ', dest);
     });
 });
-
-
 
 
 // Отправляет уведомления всем пользователям, когда публикуется новое сообщение.
@@ -101,6 +89,7 @@ exports.sendNotifications = functions.firestore.document('messages/{messageId}')
             await cleanupTokens(response, tokens);
             console.log('Уведомления отправлены, токены очищены.');
         }
+
     });
 
 // Cleans up the tokens that are no longer valid.
@@ -121,3 +110,16 @@ function cleanupTokens(response, tokens) {
     });
     return Promise.all(tokensDelete);
 }
+
+// messaging.setBackgroundMessageHandler(function(payload) {
+//     console.log('[firebase-messaging-sw.js] Получено фоновое сообщение ', payload);
+//     // Настройте уведомление здесь
+//     const notificationTitle = 'Заголовок фонового сообщения';
+//     const notificationOptions = {
+//         body: 'Тело фонового сообщения.',
+//         icon: '/firebase-logo.png'
+//     };
+//
+//     return self.registration.showNotification(notificationTitle,
+//         notificationOptions);
+// });
