@@ -108,6 +108,16 @@ let store = new Vuex.Store({
                 .then(() => {
                     Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
                 })
+            await db.collection('messages')
+                .add({
+                    order: promises,
+                    user: `${uid}`,
+                    createdAt: new Date()
+                })
+                .then(() => {
+                    console.log('Заказ добавлен в архив')
+                })
+
         },
         async list_Users({commit, dispatch}) {
             const nameGoogle = await dispatch('displayName')
