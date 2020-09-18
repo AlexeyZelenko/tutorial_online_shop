@@ -57,7 +57,6 @@
 			<button
 					v-show="product_data.seen"
 					class="v-catalog-item_show-info"
-					@click.self="productClick"
 			>
 				{{'Show info' | localize}}
 			</button>
