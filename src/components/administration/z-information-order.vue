@@ -47,7 +47,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import vCarousel from '@/components/v-carousel'
+    const vCarousel = () => import('@/components/v-carousel')
 
     export default {
         name: "zinformationOrder",

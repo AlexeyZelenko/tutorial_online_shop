@@ -4,22 +4,20 @@
 				class="mx-auto"
 				width="256"
 				tile
-				v-for="user in GET_LIST_USERS"
-				:key="user.id"
 		>
 			<v-navigation-drawer permanent>
 				<v-system-bar></v-system-bar>
 				<v-list>
 					<v-list-item>
 						<v-list-item-avatar>
-							<v-img :src="(GET_LIST_USERS.avatarGoogleUser)"></v-img>
+							<v-img :src="(this.GET_LIST_USERS.photoURL)"></v-img>
 						</v-list-item-avatar>
 					</v-list-item>
 
 					<v-list-item link>
 						<v-list-item-content>
-							<v-list-item-title class="title">{{GET_LIST_USERS.nameGoogle}}</v-list-item-title>
-							<v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+							<v-list-item-title class="title">{{this.GET_LIST_USERS.displayName}}</v-list-item-title>
+							<v-list-item-subtitle>{{this.GET_LIST_USERS.email}}</v-list-item-subtitle>
 						</v-list-item-content>
 
 						<v-list-item-action>

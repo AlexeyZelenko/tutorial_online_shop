@@ -13,9 +13,9 @@
 		<div class="text-center">
 			<v-btn
 					@click="userOrder"
-					style="background-color: #31c375; margin-bottom: 10px"
-					rounded
 					dark
+					rounded
+					style="background-color: #31c375; margin-bottom: 10px"
 			>
 				Заказать
 			</v-btn>
@@ -30,13 +30,13 @@
 				v-for="item in newGetCartUser"
 		/>
 		<div class="v-cart__total">
-				<p class="total__name">{{'Total:' | localize }}  {{cartTotalCost}} грн</p>
+			<p class="total__name">{{'Total:' | localize }} {{cartTotalCost}} грн</p>
 		</div>
 	</div>
 </template>
 
 <script>
-    import VCartItem from './v-cart-item'
+    const VCartItem = () => import('./v-cart-item')
     import {mapActions, mapGetters} from 'vuex'
     import Swal from 'sweetalert2'
 
@@ -49,9 +49,9 @@
             ...mapGetters([
                 'GET_CART_USER'
             ]),
-						newGetCartUser() {
-               return  [...new Set(this.GET_CART_USER)]
-						},
+            newGetCartUser() {
+                return [...new Set(this.GET_CART_USER)]
+            },
             cartTotalCost() {
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
@@ -59,10 +59,10 @@
         created() {
             this.VIEW_CART_USER()
         },
-				mounted() {
+        mounted() {
             setInterval(() => {
                 this.date = new Date()
-						}, 1000)
+            }, 1000)
         },
         methods: {
             ...mapActions([
@@ -70,7 +70,7 @@
                 'INCREMENT_CART_ITEM',
                 'DECREMENT_CART_ITEM',
                 'VIEW_CART_USER',
-								'ORDER_USER'
+                'ORDER_USER'
             ]),
             async userOrder() {
                 Swal.mixin({
@@ -117,24 +117,24 @@
 														`,
                             confirmButtonText: 'Заказать!'
                         })
-												.then(() => {
-                            let ObjectUserData = {}
-														ObjectUserData.name = result.value[0]
-														ObjectUserData.telephone = result.value[1]
-														ObjectUserData.adress = result.value[2]
-														ObjectUserData.newPost = result.value[3]
-                            ObjectUserData.Addition = result.value[4]
-                            ObjectUserData.ID = Date.now()
-                            ObjectUserData.createdAt = new Date().toLocaleString()
-                            ObjectUserData.CART = this.GET_CART_USER
-                            ObjectUserData.cartTotalCost = this.cartTotalCost
+                            .then(() => {
+                                let ObjectUserData = {}
+                                ObjectUserData.name = result.value[0]
+                                ObjectUserData.telephone = result.value[1]
+                                ObjectUserData.adress = result.value[2]
+                                ObjectUserData.newPost = result.value[3]
+                                ObjectUserData.Addition = result.value[4]
+                                ObjectUserData.ID = Date.now()
+                                ObjectUserData.createdAt = new Date().toLocaleString()
+                                ObjectUserData.CART = this.GET_CART_USER
+                                ObjectUserData.cartTotalCost = this.cartTotalCost
 
-                            let promises = [ObjectUserData]
-                            this.ORDER_USER(promises)
-												})
+                                let promises = [ObjectUserData]
+                                this.ORDER_USER(promises)
+                            })
                     }
                 })
-						},
+            },
             increment(article) {
                 this.INCREMENT_CART_ITEM(article)
                     .then(() => {
@@ -149,9 +149,9 @@
             },
             deleteFromCart(article) {
                 this.DELETE_FROM_CART(article)
-								.then(() => {
-                    this.VIEW_CART_USER()
-                })
+                    .then(() => {
+                        this.VIEW_CART_USER()
+                    })
             }
         }
     }

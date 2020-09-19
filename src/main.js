@@ -19,13 +19,14 @@ import vuetify from '@/plugins/vuetify'
 import '@/plugins/tiptap-vuetify'
 import Vuelidate from 'vuelidate'
 import AsyncComputed from 'vue-async-computed'
+// const AsyncComputed = () => import('vue-async-computed')
+// import('@/filters/localize.filter').then(localizeFilter => {'@/main.js'});
 
 
 
 
 Vue.config.productionTip = false
 
-// export const db_database = firebase.initializeApp({ databaseURL: 'https://online-shop-34af2.firebaseio.com' }).database()
 
 export const db = firebase.initializeApp({
     apiKey: "AIzaSyBMnm2m-5DVxNkJYghP8Jo41V9m3fvf0Tc",

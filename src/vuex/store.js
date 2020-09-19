@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './auth'
+import  auth from './modules/auth'
+import  cart from './modules/cart'
+import  orders from './modules/orders'
 import info from './info'
 import 'firebase/firestore'
 import 'firebase/auth'
 import getters from './getters/getters'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import {db} from '@/main.js'
-import Swal from "sweetalert2";
+import firebase from 'firebase/app'
+// import Swal from "sweetalert2"
 // Подключение нескольких actions
 // import apiRequests from './actions/api-requests'
 
@@ -17,221 +20,94 @@ import Swal from "sweetalert2";
 Vue.use(Vuex);
 
 let store = new Vuex.Store({
-    state: {
-        locale: 'ru-RU',
-        error: null,
-        Products: [],
-        cartUser: [],
-        userEntrance: false,
-        userId: null,
-        listUsers: [],
-        orderUser: [],
-        Users: [],
-        ordersUSERS: [],
-        adminEntrance: false
+state: {
+    locale: 'ru-RU',
+    error: null,
+    Products: [],
+    cartUser: [],
+    userEntrance: false,
+    userId: null,
+    listUsers: [],
+    orderUser: [],
+    Users: [],
+    ordersUSERS: [],
+    adminEntrance: false
+},
+getters,
+mutations: {
+    ...vuexfireMutations,
+    CHANGE_LOCALE: (state, loc) => {
+        state.locale = loc;
     },
-    getters,
-    mutations: {
-        ...vuexfireMutations,
-        CHANGE_LOCALE: (state, loc) => {
-            state.locale = loc;
-        },
-        FIREBASE_MUTATIONS: (state, message) => {
-            state.products = message
-        },
-        setError(state, error) {
-            state.error = error
-        },
-        CART_USER: (state, cartUser) => {
-            state.cartUser = cartUser;
-        },
-        USER_ENTRANCE: (state, userEntrance) => {
-            state.userEntrance = userEntrance;
-        },
-        USER_ID_ENTRANCE: (state, userID) => {
-            state.userId = userID;
-        },
-        LIST_USERS: (state, listUsers) => {
-            state.listUsers = listUsers;
-        },
-        ORDER_USER: (state, orderUser) => {
-            state.orderUser = orderUser;
-        },
-        LIST_ORDER_USER: (state, result3) => {
-            state.ordersUSERS = result3;
-        },
-        ADMIN_ENTRANCE: (state, adminEntrance) => {
-            state.adminEntrance = adminEntrance;
-        },
+    FIREBASE_MUTATIONS: (state, message) => {
+        state.products = message
     },
-    actions: {
-        bindLocationsRef: firestoreAction(context => {
-            // context contains all original properties like commit, state, etc
-            // and adds `bindFirestoreRef` and `unbindFirestoreRef`
-            // we return the promise returned by `bindFirestoreRef` that will
-            // resolve once data is ready
-            return context.bindFirestoreRef('Products', db.collection('products'))
-        }),
-        userbindLocationsRef: firestoreAction(context => {
-            return context.bindFirestoreRef('Users', db.collection('users'))
-        }),
-        async LIST_ORDERS_USERS({commit, dispatch}) {
-            const result = await dispatch('userbindLocationsRef')
-            const listOrderInfoUsers = result.filter(item => item.orderInfo)
-            const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
-            let result3 = []
-            for(let i = 0; listOrderInfoUsersMap.length > i; i++){
-                let result2 = []
-                for(let c = 0; listOrderInfoUsersMap[i].length > c; c++){
-                    let a = listOrderInfoUsersMap[i][c]
-                    result2.push(a)
-                }
-                result3.push(...result2)
-            }
-            commit('LIST_ORDER_USER', result3)
-        },
-        async ORDER_USER({dispatch}, promises) {
-            const uid = await dispatch('getUid')
-            const user = await db.collection('users')
-                .doc(uid)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    return document
-                })
-            await db.collection('users')
-                .doc(uid)
-                .set({
-                    ...user,
-                    orderInfo: [...user.orderInfo, ...promises]
-                })
-                .then(() => {
-                    Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
-                })
-            await db.collection('messages')
-                .add({
-                    order: promises,
-                    user: `${uid}`,
-                    createdAt: new Date()
-                })
-                .then(() => {
-                    console.log('Заказ добавлен в архив')
-                })
-
-        },
-        async list_Users({commit, dispatch}) {
-            const nameGoogle = await dispatch('displayName')
-            const avatarGoogleUser = await dispatch('getProfilePicUrl')
-            const userGoogleData = {nameGoogle, avatarGoogleUser}
-            commit('LIST_USERS', userGoogleData)
-        },
-        async DELETE_FROM_CART({dispatch, commit}, article) {
-            const uid = await dispatch('getUid')
-            const cartUser = await db.collection('users')
-                .doc(uid)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document.cartInfo
-                })
-
-            const newcartInfo = cartUser.filter(item => item !== article)
-            const user = { ...this.user }
-            user.cartInfo = newcartInfo
-
-            db.collection('users')
-                .doc(uid)
-                .update(user)
-                .then(() => {
-                })
-
-            commit('CART_USER', cartUser)
-        },
-        async VIEW_CART_USER({dispatch, commit}) {
-            const uid = await dispatch('getUid')
-            if(uid) {
-                const cartUser = await db.collection('users')
-                    .doc(uid)
-                    .get()
-                    .then(snapshot => {
-                        const document = snapshot.data()
-                        return document.cartInfo
-                    })
-                const products = await db.collection('products')
-                    .get()
-                    .then(querySnapshot => {
-                        const product = querySnapshot.docs.map(doc => doc.data())
-                        // do something with documents
-                        return product
-                    })
-                const promises = []
-                for(let i = 0; i < cartUser.length; i++) {
-                    let result = products.filter(item => item.article === cartUser[i])
-                    promises.push(result[0])
-                }
-                const result2 = await Promise.all(promises)
-
-                commit('CART_USER', result2)
-            }
-
-        },
-        async INCREMENT_CART_ITEM({dispatch}, article) {
-            const uid = await dispatch('getUid')
-            const user = await db.collection('users')
-                .doc(`${uid}`)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document
-                })
-            await db.collection('users')
-                .doc(uid)
-                .set({
-                    ...user,
-                    cartInfo: [...user.cartInfo, article]
-                })
-                .then(() => {
-                    console.log('cart updated!')
-                })
-        },
-        async DECREMENT_CART_ITEM({dispatch}, article) {
-            const uid = await dispatch('getUid')
-            const cartUser = await db.collection('users')
-                .doc(`${uid}`)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    const i = document.cartInfo.indexOf(article);
-                    if(i >= 0) {
-                        document.cartInfo.splice(i, 1);
-                    }
-                    return document.cartInfo
-                })
-
-            const user = { ...this.user }
-            user.cartInfo = cartUser
-
-            await db.collection('users')
-                .doc(`${uid}`)
-                .update({
-                    ...user,
-                    cartInfo: [...user.cartInfo]
-                })
-        },
-        LOCALIZE({commit}, loc) {
-            commit('CHANGE_LOCALE', loc)
-        },
-        FIREBASE({commit}, message) {
-            commit('FIREBASE_MUTATIONS', message)
-        },
+    setError(state, error) {
+        state.error = error
     },
-    modules: {
-        auth, info,
-    }
-});
+    CART_USER: (state, cartUser) => {
+        state.cartUser = cartUser;
+    },
+    USER_ENTRANCE: (state, userEntrance) => {
+        state.userEntrance = userEntrance;
+    },
+    USER_ID_ENTRANCE: (state, userID) => {
+        state.userId = userID;
+    },
+    LIST_USERS: (state, listUsers) => {
+        state.listUsers = listUsers;
+    },
+    ORDER_USER: (state, orderUser) => {
+        state.orderUser = orderUser;
+    },
+    LIST_ORDER_USER: (state, result3) => {
+        state.ordersUSERS = result3;
+    },
+    ADMIN_ENTRANCE: (state, adminEntrance) => {
+        state.adminEntrance = adminEntrance;
+    },
+},
+actions: {
+    bindLocationsRef: firestoreAction(context => {
+        // context contains all original properties like commit, state, etc
+        // and adds `bindFirestoreRef` and `unbindFirestoreRef`
+        // we return the promise returned by `bindFirestoreRef` that will
+        // resolve once data is ready
+        return context.bindFirestoreRef('Products', db.collection('products'))
+    }),
+    userbindLocationsRef: firestoreAction(context => {
+        return context.bindFirestoreRef('Users', db.collection('users'))
+    }),
+    async list_Users({commit}) {
+        const user = firebase.auth().currentUser;
+        const userOnlain = user.providerData[0]
+        if (user != null) {
+            console.log(user.providerData)
+           await  user.providerData.forEach(function (profile) {
+                console.log("Sign-in provider: " + profile.providerId);
+                console.log("  Provider-specific UID: " + profile.uid);
+                console.log("  Name: " + profile.displayName);
+                console.log("  Email: " + profile.email);
+                console.log("  Photo URL: " + profile.photoURL);
+            })
+        }
+        commit('LIST_USERS', userOnlain)
+    },
+    LOCALIZE({commit}, loc) {
+        commit('CHANGE_LOCALE', loc)
+    },
+    FIREBASE({commit}, message) {
+        commit('FIREBASE_MUTATIONS', message)
+    },
+},
+modules: {
+    info,
+},
+})
+
+store.registerModule('auth', auth)
+store.registerModule('cart', cart)
+store.registerModule('orders', orders)
 
 export default store;
 

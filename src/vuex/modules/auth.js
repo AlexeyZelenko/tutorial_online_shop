@@ -1,55 +1,11 @@
 import firebase from 'firebase/app'
 import {db} from '@/main.js'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 // import router from '@/router/router'
 import 'firebase/auth'
 
 export default {
 actions: {
-    async ADD_TO_CART({dispatch}, product) {
-        const uid = await dispatch('getUid')
-        if(uid) {
-            const user = await db.collection('users')
-                .doc(`${uid}`)
-                .get()
-                .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document
-                })
-            await db.collection('users')
-                .doc(`${uid}`)
-                .set({
-                    ...user,
-                    cartInfo: [...user.cartInfo, product.article]
-                })
-                .then(() => {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Товар добавлен в корзину',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                })
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Ой...',
-                text: `Вы не можете добавить товар в корзину. Для добавления товара в корзину войдите через Google Аккаунт!`,
-                footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Войти!',
-                cancelButtonText: 'Отмена'
-            }).then((result) => {
-                if (result.value) {
-                    dispatch('signInWithGoogle')
-                }
-            })
-        }
-    },
     async signInWithGoogle({commit, dispatch}) {
         try {
             let provider = new firebase.auth.GoogleAuthProvider();

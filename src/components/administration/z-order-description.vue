@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import zOrderDescriptionItem from '@/components/administration/z-order-description-item'
+	const zOrderDescriptionItem = () => import('@/components/administration/z-order-description-item')
 
   export default {
     name: "zOrderDescription",

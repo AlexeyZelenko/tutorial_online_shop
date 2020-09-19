@@ -99,7 +99,7 @@
 	</div>
 </template>
 <script>
-    import vCarousel from '@/components/v-carousel'
+    const vCarousel = () => import('@/components/v-carousel')
 
     export default {
         name: "z-order-description-item",

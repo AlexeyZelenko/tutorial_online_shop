@@ -54,6 +54,12 @@
 			<!--			</div>-->
 			<!--		</router-link>-->
 		</div>
+<!--		<template>-->
+<!--			<img-->
+<!--					class="logo"-->
+<!--					:src="require('@/assets/images/logo2.png')"-->
+<!--					alt="">-->
+<!--		</template>-->
 		<keep-alive>
 			<router-view></router-view>
 		</keep-alive>
@@ -99,5 +105,10 @@
 		margin-top: 60px;
 		margin-right: 1%;
 		margin-left: 1%;
+	}
+	.logo {
+		max-width: 300px;
+		max-height: 30%;
+		padding-bottom: 10px
 	}
 </style>

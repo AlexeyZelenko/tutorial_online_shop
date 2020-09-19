@@ -82,7 +82,7 @@
 		</div>
 		<img
 				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
-				:src="require('@/assets/images/logo.png')"
+				:src="require('@/assets/images/logo2.png')"
 				alt="">
 		<v-row class="Change_categories">
 				<v-select
@@ -107,10 +107,16 @@
 </template>
 
 <script>
-    import vCatalogItem from './v-catalog-item'
+    // const vSelect = () => import('../v-select')
+    const vCatalogItem = () => ({
+        component: import("./v-catalog-item"),
+        // loading: AwesomeSpinner,//после задержки по умолчанию в 200 мс будет показан компонент AwesomeSpinner
+        // delay: 500 //настроить задержку AwesomeSpinner
+        // error: SadFaceComponent // компонент ошибки
+        // timeout: 5000 //если через 5000 миллисекунд компонент не загрузился, будет показан компонент ошибки.
+    })
     import {mapActions, mapGetters} from 'vuex'
     // import vNotification from '../notifications/v-notification'
-    import vSelect from '../v-select'
     import  firebase from 'firebase/app'
 
     export default {
@@ -118,7 +124,7 @@
         components: {
             // vNotification,
             vCatalogItem,
-            vSelect
+            vSelect: () => import('../v-select'),
         },
         data() {
             return {

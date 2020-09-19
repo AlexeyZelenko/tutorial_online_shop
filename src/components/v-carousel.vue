@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import vCarouselItem from '@/components/v-carousel-item'
+    const vCarouselItem = () => import('@/components/v-carousel-item')
 
     export default {
         name: "vCarousel",

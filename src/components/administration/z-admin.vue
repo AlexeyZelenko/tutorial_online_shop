@@ -448,10 +448,10 @@
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
-    import zUsers from '@/components/administration/z-users'
-    import zOrders from '@/components/administration/z-orders'
-    import zSize from '@/components/administration/z-size'
-    import Loading from 'vue-loading-overlay'
+    const zUsers = () => import('@/components/administration/z-users')
+    const zOrders = () => import('@/components/administration/z-orders')
+    const zSize = () => import('@/components/administration/z-size')
+    const Loading = () => import('vue-loading-overlay')
     import 'vue-loading-overlay/dist/vue-loading.css'
     import {
         TiptapVuetify,
