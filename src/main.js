@@ -15,8 +15,6 @@ import { rtdbPlugin } from 'vuefire'
 import 'material-design-icons-iconfont'
 import 'materialize-css/dist/js/materialize.min'
 import localizeFilter from '@/filters/localize.filter'
-import dateFilter from '@/filters/date.filter'
-import vuetify from '@/plugins/vuetify'
 import '@/plugins/tiptap-vuetify'
 import Vuelidate from 'vuelidate'
 import AsyncComputed from 'vue-async-computed'
@@ -50,7 +48,6 @@ Vue.use(AsyncComputed)
 
 
 Vue.filter('localize', localizeFilter)
-Vue.filter('date', dateFilter)
 Vue.use(Vuelidate)
 
 
