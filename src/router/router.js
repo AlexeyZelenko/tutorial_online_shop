@@ -54,6 +54,12 @@ let router = new Router({
             component: () => import('@/components/administration/z-order-description'),
             props: true
         },
+        {
+            path: '/cabinetUser',
+            name: 'cabinetUser',
+            component: () => import('@/components/catalog/cabinetUser'),
+            props: true
+        },
     ]
 })
 

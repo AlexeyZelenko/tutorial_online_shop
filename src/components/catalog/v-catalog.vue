@@ -15,7 +15,7 @@
 					<v-btn
 							v-if="!User_Entrance"
 							@click="signInWithGoogle"
-							color="primary" dark
+							style="background-color: darkgreen; color: white"
 							rounded
 					>
 						<i class="material-icons">account_circle</i> Войти через Google
@@ -30,25 +30,48 @@
 			</template>
 		</div>
 
-		<div style="justify-content: center;">
-			<router-link :to="{name: 'cart'}">
+		<div
+				style="justify-content: center;"
+				v-if="User_Entrance"
+		>
+			<!--Кабинет пользователя-->
+			<template>
 				<div class="v-catalog__link_to_cart">
-					<v-btn >
+					<v-card
+							flat
+							class="py-12"
+					>
+					<v-btn
+							:to="{name: 'cabinetUser'}"
+							class="ma-2"
+							tile
+							outlined
+							style="background-color: darkgreen; color: white; cursor: pointer"
+					>
+						<v-icon left>mdi-pencil</v-icon>Кабинет
+					</v-btn>
+					<v-btn
+							tile
+							:to="{name: 'cart'}"
+					>
 						<v-chip
 								class="ma-2"
 								close-icon="mdi-heart"
-								close
 								style="background-color: #3e9538; color: white; cursor: pointer"
 						>
-							<v-avatar left class="darken-4" style="background-color: #0a4506;">
+							<v-avatar
+									left
+									class="darken-4"
+									style="background-color: #0a4506;"
+							>
 								{{GET_CART_USER.length}}
 							</v-avatar>
 							{{'Cart'|localize}}
 						</v-chip>
 					</v-btn>
+					</v-card>
 				</div>
-			</router-link>
-
+			</template>
 			<v-spacer></v-spacer>
 			<div
 					v-if="this.User_Entrance"
@@ -194,9 +217,6 @@
             },
             async logout() {
                 await this.$store.dispatch('logout')
-                    .then(() => {
-                        location.reload()
-                    })
             },
             productClick(article) {
                 this.$router.push({name: 'product', query: {'product': article } })

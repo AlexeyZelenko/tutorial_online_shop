@@ -12,6 +12,25 @@ actions: {
             await firebase.auth().signInWithPopup(provider)
             const uid = await dispatch('getUid')
 
+            // Получить информацию из Database текущего пользователя
+            const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
+            // Если нет инфо, создать
+            if(!info) {
+                const user = firebase.auth().currentUser;
+                let array = []
+                await  user.providerData.forEach((profile) => {
+                    array = [profile.providerId, profile.uid, profile.displayName, profile.email, profile.photoURL]
+                    return array
+                })
+                await firebase.database().ref(`/users/${uid}/info`).set({
+                    SignInPprovider: array[0],
+                    Name: array[2],
+                    Email: array[3],
+                    PhotoURL: array[4],
+                    ProviderSpecificUID: array[1],
+                })
+            }
+
             // Получить корзину для ткущего пользователя
             await db.collection('users')
                 .doc(uid)

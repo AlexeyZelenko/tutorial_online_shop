@@ -6,7 +6,7 @@
 					block
 					style="background-color: green; color: whitesmoke"
 			>
-				Каталог товаров
+				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
 		</template>
 		<h1>{{'Cart' | localize }}</h1>

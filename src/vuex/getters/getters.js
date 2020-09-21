@@ -29,6 +29,9 @@ export default  {
     GET_ADMIN_ENTRANCE(state) {
         return state.adminEntrance;
     },
+    GET_InfoUser(state) {
+        return state.InfoUser;
+    },
     locale: s => s.locale,
     error: s => s.error
 }

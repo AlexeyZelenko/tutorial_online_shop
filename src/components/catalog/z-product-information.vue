@@ -2,9 +2,15 @@
 	<div class="z-product-information">
 		<div>
 		</div>
-		<router-link :to="{name: 'catalog'}">
-			<div class="v-catalog__link_to_cart">{{'Back to catalog' | localize }}</div>
-		</router-link>
+		<template>
+			<v-btn
+					:to="{name: 'catalog'}"
+					block
+					style="background-color: green; color: whitesmoke"
+			>
+				Каталог товаров
+			</v-btn>
+		</template>
 		<v-carousel
 				:carousel_data="product.arrayImages"
 		/>
