@@ -6,9 +6,9 @@
 			<v-btn
 					:to="{name: 'catalog'}"
 					block
-					style="background-color: green; color: whitesmoke"
+					style="background-color: green; color: whitesmoke; margin-bottom: 19px"
 			>
-				Каталог товаров
+				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
 		</template>
 		<v-carousel

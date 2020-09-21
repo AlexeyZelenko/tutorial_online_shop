@@ -46,9 +46,9 @@
 							class="ma-2"
 							tile
 							outlined
-							style="background-color: darkgreen; color: white; cursor: pointer"
+							style="background-color: darkgreen; color: white; cursor: pointer; margin-right: 10px"
 					>
-						<v-icon left>mdi-pencil</v-icon>Кабинет
+						<v-icon left>mdi-account-circle</v-icon>Кабинет
 					</v-btn>
 					<v-btn
 							tile
