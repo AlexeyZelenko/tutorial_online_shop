@@ -1,13 +1,84 @@
 <template>
 	<div class="v-catalog">
 
-<!--		<v-notification-->
-<!--				:messages='messages'-->
-<!--				:timeout="3000"-->
-<!--		/>-->
+		<!--Кабинет пользователя и корзина-->
+		<div
+				style="justify-content: center;"
+				v-if="User_Entrance"
+		>
+			<template>
+				<div class="v-catalog__link_to_cart">
+					<v-card
+							flat
+					>
+						<v-btn
+								v-if="GET_ADMIN_ENTRANCE"
+								class="ma-2"
+								outlined
+								small
+								fab
+								@click="adminPlusLogin"
+								style="color: #3e9538">
+							<v-icon>mdi-format-list-bulleted-square</v-icon>
+						</v-btn>
+					<v-btn
+							:to="{name: 'cabinetUser'}"
+							class="ma-2"
+							tile
+							outlined
+							dark
+							green
+					>
+						<v-icon left>mdi-account-circle</v-icon>Кабинет
+					</v-btn>
+					<v-btn
+							class="ma-2"
+							tile
+							outlined
+							:to="{name: 'cart'}"
+							style="background-color: #3e9538; color: white; cursor: pointer"
+					>
+						<v-chip
+								close-icon="mdi-heart"
+								style="background-color: #3e9538; color: white; cursor: pointer"
+						>
+							<v-avatar
+									left
+									class="darken-4"
+									style="background-color: #0a4506;"
+							>
+								{{GET_CART_USER.length}}
+							</v-avatar>
+							{{'Cart'|localize}}
+						</v-chip>
+					</v-btn>
+					</v-card>
+
+				</div>
+			</template>
+			<v-spacer></v-spacer>
+			<div
+					v-if="this.User_Entrance"
+					class="v-carousel-item">
+				<slot>
+					<img
+							id="user-pic"
+							:src="(getProfilePicUrl)"
+							alt=""
+					>
+				</slot>
+			</div>
+			<div
+					v-if="this.User_Entrance"
+					id="user-name"
+			>{{getUserName}}
+			</div>
+			<v-spacer></v-spacer>
+
+		</div>
 
 		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-		<div>
+		<div >
 			<template>
 				<div
 						class="text-center"
@@ -30,79 +101,6 @@
 			</template>
 		</div>
 
-		<div
-				style="justify-content: center;"
-				v-if="User_Entrance"
-		>
-			<!--Кабинет пользователя-->
-			<template>
-				<div class="v-catalog__link_to_cart">
-					<v-card
-							flat
-							class="py-12"
-					>
-					<v-btn
-							:to="{name: 'cabinetUser'}"
-							class="ma-2"
-							tile
-							outlined
-							style="background-color: darkgreen; color: white; cursor: pointer; margin-right: 10px"
-					>
-						<v-icon left>mdi-account-circle</v-icon>Кабинет
-					</v-btn>
-					<v-btn
-							tile
-							:to="{name: 'cart'}"
-					>
-						<v-chip
-								class="ma-2"
-								close-icon="mdi-heart"
-								style="background-color: #3e9538; color: white; cursor: pointer"
-						>
-							<v-avatar
-									left
-									class="darken-4"
-									style="background-color: #0a4506;"
-							>
-								{{GET_CART_USER.length}}
-							</v-avatar>
-							{{'Cart'|localize}}
-						</v-chip>
-					</v-btn>
-					</v-card>
-				</div>
-			</template>
-			<v-spacer></v-spacer>
-			<div
-					v-if="this.User_Entrance"
-					class="v-carousel-item">
-				<slot>
-					<img
-							id="user-pic"
-							:src="(getProfilePicUrl)"
-							alt=""
-					>
-				</slot>
-			</div>
-			<div
-					v-if="this.User_Entrance"
-					id="user-name"
-			>{{getUserName}}
-			</div>
-			<v-spacer></v-spacer>
-			<div
-					v-if="GET_ADMIN_ENTRANCE"
-					class="v-catalog__link_to_admin"			>
-						<v-btn
-								class="ma-2"
-								outlined
-								fab
-								@click="adminPlusLogin"
-								style="color: #3e9538">
-							<v-icon>mdi-format-list-bulleted-square</v-icon>
-						</v-btn>
-			</div>
-		</div>
 		<img
 				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
 				:src="require('@/assets/images/logo2.png')"
@@ -139,13 +137,11 @@
         // timeout: 5000 //если через 5000 миллисекунд компонент не загрузился, будет показан компонент ошибки.
     })
     import {mapActions, mapGetters} from 'vuex'
-    // import vNotification from '../notifications/v-notification'
     import  firebase from 'firebase/app'
 
     export default {
         name: "v-catalog",
         components: {
-            // vNotification,
             vCatalogItem,
             vSelect: () => import('../v-select'),
         },
@@ -290,17 +286,14 @@
 		}
 
 		&__link_to_cart {
-			position: absolute;
 			top: 5px;
 			right: 3px;
-			padding: $padding;
 		}
 
 		&__link_to_admin {
 			position: absolute;
 			top: 5px;
 			left: 3px;
-			padding: $padding;
 			border: thick #0a4506;
 		}
 	}
