@@ -9,6 +9,12 @@
   },
   "hosting": {
     "public": "dist",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
     "headers": [{
       "source" : "**/*.@(js|html)",
       "headers" : [ {
