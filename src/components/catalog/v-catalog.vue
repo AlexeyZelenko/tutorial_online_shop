@@ -21,17 +21,16 @@
 								style="color: #3e9538">
 							<v-icon>mdi-format-list-bulleted-square</v-icon>
 						</v-btn>
-					<v-btn
+						<v-btn
 							:to="{name: 'cabinetUser'}"
-							class="ma-2"
+							class="my-2"
 							tile
 							outlined
-							dark
-							green
+							style="background-color: #3e9538; color: white; cursor: pointer"
 					>
-						<v-icon left>mdi-account-circle</v-icon>Кабинет
+						<v-icon left>mdi-account-circle</v-icon> Кабинет
 					</v-btn>
-					<v-btn
+						<v-btn
 							class="ma-2"
 							tile
 							outlined

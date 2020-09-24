@@ -2,10 +2,12 @@
 // src/sass/main.scss
 @import '~vuetify/src/styles/styles.sass';
 
+
+
 .btn {
   padding: $padding $padding*2;
   background: $green-bg;
-  color: #ffffff;
+  color: $text-button-color;
   border: 0;
   border-radius: $radius;
   outline: none;
@@ -14,6 +16,8 @@
     background: $green-bg-hover;
   }
 }
+
+
 
 $data-table-mobile-row-min-height: 100px !default;
 
