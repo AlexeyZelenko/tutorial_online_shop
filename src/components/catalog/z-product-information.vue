@@ -1,7 +1,5 @@
 <template>
 	<div class="z-product-information">
-		<div>
-		</div>
 		<template>
 			<v-btn
 					:to="{name: 'catalog'}"
@@ -181,5 +179,4 @@
 			width: 300px;
 		}
 	}
-
 </style>

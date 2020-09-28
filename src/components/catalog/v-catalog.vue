@@ -1,75 +1,78 @@
 <template>
 	<div class="v-catalog">
-
 		<!--Кабинет пользователя и корзина-->
 		<div
 				style="justify-content: center;"
 				v-if="User_Entrance"
 		>
 			<template>
-				<div class="v-catalog__link_to_cart">
+				<div
+						class="v-catalog__link_to_cart"
+						style="justify-content: center;"
+				>
 					<v-card
 							flat
 					>
 						<v-btn
-								v-if="GET_ADMIN_ENTRANCE"
+								@click="adminPlusLogin"
 								class="ma-2"
+								fab
 								outlined
 								small
-								fab
-								@click="adminPlusLogin"
-								style="color: #3e9538">
+								style="color: #3e9538"
+								v-if="GET_ADMIN_ENTRANCE">
 							<v-icon>mdi-format-list-bulleted-square</v-icon>
 						</v-btn>
 						<v-btn
-							:to="{name: 'cabinetUser'}"
-							class="my-2"
-							tile
-							outlined
-							style="background-color: #3e9538; color: white; cursor: pointer"
-					>
-						<v-icon left>mdi-account-circle</v-icon> Кабинет
-					</v-btn>
-						<v-btn
-							class="ma-2"
-							tile
-							outlined
-							:to="{name: 'cart'}"
-							style="background-color: #3e9538; color: white; cursor: pointer"
-					>
-						<v-chip
-								close-icon="mdi-heart"
+								:to="{name: 'cabinetUser'}"
+								class="my-2"
+								outlined
 								style="background-color: #3e9538; color: white; cursor: pointer"
+								tile
 						>
-							<v-avatar
-									left
-									class="darken-4"
-									style="background-color: #0a4506;"
+							<v-icon left>mdi-account-circle</v-icon>
+							Кабинет
+						</v-btn>
+						<v-btn
+								:to="{name: 'cart'}"
+								class="ma-2"
+								outlined
+								style="background-color: #3e9538; color: white; cursor: pointer"
+								tile
+						>
+							<v-chip
+									close-icon="mdi-heart"
+									style="background-color: #3e9538; color: white; cursor: pointer"
 							>
-								{{GET_CART_USER.length}}
-							</v-avatar>
-							{{'Cart'|localize}}
-						</v-chip>
-					</v-btn>
+								<v-avatar
+										class="darken-4"
+										left
+										style="background-color: #0a4506;"
+								>
+									{{GET_CART_USER.length}}
+								</v-avatar>
+								{{'Cart'|localize}}
+							</v-chip>
+						</v-btn>
 					</v-card>
-
 				</div>
 			</template>
+
 			<v-spacer></v-spacer>
 			<div
-					v-if="this.User_Entrance"
-					class="v-carousel-item">
+					class="v-carousel-item"
+					v-if="this.User_Entrance">
 				<slot>
 					<img
-							id="user-pic"
 							:src="(getProfilePicUrl)"
 							alt=""
+							id="user-pic"
 					>
 				</slot>
 			</div>
 			<div
-					v-if="this.User_Entrance"
 					id="user-name"
+					v-if="this.User_Entrance"
 			>{{getUserName}}
 			</div>
 			<v-spacer></v-spacer>
@@ -77,22 +80,22 @@
 		</div>
 
 		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-		<div >
+		<div>
 			<template>
 				<div
 						class="text-center"
 				>
 					<v-btn
-							v-if="!User_Entrance"
 							@click="signInWithGoogle"
-							style="background-color: darkgreen; color: white"
 							rounded
+							style="background-color: darkgreen; color: white"
+							v-if="!User_Entrance"
 					>
 						<i class="material-icons">account_circle</i> Войти через Google
 					</v-btn>
 					<v-btn
-							v-if="User_Entrance"
 							@click="logout"
+							v-if="User_Entrance"
 					>
 						Выйти
 					</v-btn>
@@ -101,26 +104,26 @@
 		</div>
 
 		<img
-				style="max-width: 300px; max-height: 30%; padding-bottom: 10px"
 				:src="require('@/assets/images/logo2.png')"
-				alt="">
+				alt=""
+				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">
 		<v-row class="Change_categories">
-				<v-select
-						style="z-index: 3"
-						:selected="selected"
-						:options="categories"
-						@select="sortByCategories"
-				/>
+			<v-select
+					:options="categories"
+					:selected="selected"
+					@select="sortByCategories"
+					style="z-index: 3"
+			/>
 		</v-row>
 		<div class="v-catalog__list">
 			<vCatalogItem
-					v-for="(product, i) in filteredProducts"
-					:product_data="product"
-					:observer="observer"
-					:key="product.article"
 					:index="i"
+					:key="product.article"
+					:observer="observer"
+					:product_data="product"
 					@addToCart="addToCart"
 					@productClick="productClick"
+					v-for="(product, i) in filteredProducts"
 			/>
 		</div>
 	</div>
@@ -136,7 +139,7 @@
         // timeout: 5000 //если через 5000 миллисекунд компонент не загрузился, будет показан компонент ошибки.
     })
     import {mapActions, mapGetters} from 'vuex'
-    import  firebase from 'firebase/app'
+    import firebase from 'firebase/app'
 
     export default {
         name: "v-catalog",
@@ -178,7 +181,7 @@
                 'USER_ID_ACTIONS'
             ]),
             onElementObserved(entries) {
-                entries.forEach(({ target, isIntersecting}) => {
+                entries.forEach(({target, isIntersecting}) => {
                     if (!isIntersecting) {
                         return;
                     }
@@ -196,12 +199,12 @@
                 });
             },
             adminPlusLogin() {
-                if(this.GET_ADMIN_ENTRANCE) {
+                if (this.GET_ADMIN_ENTRANCE) {
                     this.$router.push('/admin')
-								}else{
+                } else {
                     this.$router.push('/login')
-								}
-						},
+                }
+            },
             async signInWithGoogle() {
                 try {
                     await this.$store.dispatch('signInWithGoogle')
@@ -214,7 +217,7 @@
                 await this.$store.dispatch('logout')
             },
             productClick(article) {
-                this.$router.push({name: 'product', query: {'product': article } })
+                this.$router.push({name: 'product', query: {'product': article}})
             },
             sortByCategories(category) {
                 this.sortedProducts = [];
@@ -232,9 +235,8 @@
                     })
             },
         },
-        asyncComputed: {
-        },
-				created() {
+        asyncComputed: {},
+        created() {
             this.userEntrance()
             this.observer = new IntersectionObserver(
                 this.onElementObserved,
@@ -250,10 +252,10 @@
         computed: {
             ...mapGetters([
                 'PRODUCTS',
-								'GET_CART_USER',
-								'User_Entrance',
-								'USER_ID',
-								'GET_ADMIN_ENTRANCE'
+                'GET_CART_USER',
+                'User_Entrance',
+                'USER_ID',
+                'GET_ADMIN_ENTRANCE'
             ]),
             getUserName() {
                 return firebase.auth().currentUser.displayName;
@@ -269,9 +271,9 @@
                 }
             }
         },
-				mounted() {
+        mounted() {
             this.VIEW_CART_USER()
-						this.USER_ID_ACTIONS()
+            this.USER_ID_ACTIONS()
         }
     }
 </script>
@@ -290,18 +292,19 @@
 		}
 
 		&__link_to_admin {
-			position: absolute;
 			top: 5px;
 			left: 3px;
 			border: thick #0a4506;
 		}
 	}
+
 	.Change_categories {
 		padding-bottom: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
+
 	#user-pic {
 		top: -3px;
 		position: relative;
@@ -312,6 +315,7 @@
 		background-size: 40px;
 		border-radius: 20px;
 	}
+
 	#user-name {
 		font-size: 15px;
 		line-height: normal;

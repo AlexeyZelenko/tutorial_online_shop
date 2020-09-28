@@ -34,7 +34,9 @@ state: {
     adminEntrance: false,
     InfoUser: [],
 },
+
 getters,
+
 mutations: {
     ...vuexfireMutations,
     CHANGE_LOCALE: (state, loc) => {
@@ -71,6 +73,7 @@ mutations: {
         state.InfoUser = info;
     },
 },
+
 actions: {
     bindLocationsRef: firestoreAction(context => {
         // context contains all original properties like commit, state, etc
