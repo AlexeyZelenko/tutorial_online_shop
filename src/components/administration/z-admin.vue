@@ -444,33 +444,34 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import {db} from '@/main.js'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
+    import 'vue-loading-overlay/dist/vue-loading.css'
+    import {
+        Blockquote,
+        Bold,
+        BulletList,
+        Code,
+        HardBreak,
+        Heading,
+        History,
+        HorizontalRule,
+        Italic,
+        Link,
+        ListItem,
+        OrderedList,
+        Paragraph,
+        Strike,
+        TiptapVuetify,
+        Underline
+    } from 'tiptap-vuetify'
+
     const zUsers = () => import('@/components/administration/z-users')
     const zOrders = () => import('@/components/administration/z-orders')
     const zSize = () => import('@/components/administration/z-size')
     const Loading = () => import('vue-loading-overlay')
-    import 'vue-loading-overlay/dist/vue-loading.css'
-    import {
-        TiptapVuetify,
-        Heading,
-        Bold,
-        Italic,
-        Strike,
-        Underline,
-        Code,
-        Paragraph,
-        BulletList,
-        OrderedList,
-        ListItem,
-        Link,
-        Blockquote,
-        HardBreak,
-        HorizontalRule,
-        History
-    } from 'tiptap-vuetify'
 
     const formDefault = {
         NameImages: [],
@@ -655,7 +656,7 @@
                 // simulate AJAX
                 setTimeout(() => {
                     this.isLoading = false
-                },5000)
+                }, 5000)
             },
             onCancel() {
                 console.log('User cancelled the loader.')
@@ -755,22 +756,22 @@
                         description: editProduct.description,
                         clothingManufacturer: editProduct.clothingManufacturer,
                     })
-										.then(() => {
-												this.isLoading = false
-												Swal.fire({
-														position: 'top-end',
-														icon: 'success',
-														title: 'Ваша работа была сохранена',
-														showConfirmButton: false,
-														timer: 1500
-												})
-										})
+                    .then(() => {
+                        this.isLoading = false
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Ваша работа была сохранена',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    })
             },
             async addLocation(addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
 
                 this.isLoading = true
 
-                const createdAt = new Date()
+                const createdAt = Date.now()
                 seen = false
                 File = addProduct.File
                 BrandName = addProduct.BrandName
