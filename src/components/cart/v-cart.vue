@@ -23,11 +23,11 @@
 		<p v-if="!GET_CART_USER.length">{{'There are no products in cart...' | localize }}</p>
 		<v-cart-item
 				:cart_item_data="item"
+				v-for="item in newGetCartUser"
 				:key="item.article"
 				@decrement="decrement(item.article)"
 				@deleteFromCart="deleteFromCart(item.article)"
 				@increment="increment(item.article)"
-				v-for="item in newGetCartUser"
 		/>
 		<div class="v-cart__total">
 			<p class="total__name">{{'Total:' | localize }} {{cartTotalCost}} грн</p>

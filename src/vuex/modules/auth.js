@@ -11,7 +11,6 @@ actions: {
             let provider = new firebase.auth.GoogleAuthProvider();
             await firebase.auth().signInWithPopup(provider)
             const uid = await dispatch('getUid')
-
             // Получить информацию из Database текущего пользователя
             const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
             // Если нет инфо, создать
@@ -58,7 +57,7 @@ actions: {
                     return document.cartInfo
                 })
                     // Проверка администратора
-                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2']
+                if(['wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2', 's0LUjzE0wPZ4LsYgr81A3YmyaQA3']
                     .some(elem => elem === `${uid}`)) {
 
                     // Получение ТОКЕНА администратора
@@ -78,7 +77,7 @@ actions: {
         const userEntrance = !!firebase.auth().currentUser
         const USER_ID = await dispatch('getUid')
         if(userEntrance) {
-            const adminEntrance =  await ["wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2"].includes(USER_ID)
+            const adminEntrance =  await ["wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2", "s0LUjzE0wPZ4LsYgr81A3YmyaQA3"].includes(USER_ID)
             commit('ADMIN_ENTRANCE', adminEntrance)
         }
         commit('USER_ENTRANCE', userEntrance)
@@ -121,7 +120,7 @@ actions: {
         const USER_ID = await dispatch('getUid')
         const userEntrance =  !!firebase.auth().currentUser
         if(userEntrance) {
-            const adminEntrance =  await ["8VcWFEfj1KYYs06GiR7dR6XpTLS2", "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2", "HInmvosDanObSDnC2csXiV3iR0A2"].includes(USER_ID)
+            const adminEntrance =  await ["8VcWFEfj1KYYs06GiR7dR6XpTLS2", "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2", "HInmvosDanObSDnC2csXiV3iR0A2", "s0LUjzE0wPZ4LsYgr81A3YmyaQA3"].includes(USER_ID)
             commit('ADMIN_ENTRANCE', adminEntrance)
         }
         commit('USER_ENTRANCE', userEntrance)

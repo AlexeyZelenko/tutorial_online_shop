@@ -112,7 +112,7 @@
 					:options="categories"
 					:selected="selected"
 					@select="sortByCategories"
-					style="z-index: 3"
+					style="z-index: 3; margin: 7px 0 7px"
 			/>
 		</v-row>
 		<div class="v-catalog__list">

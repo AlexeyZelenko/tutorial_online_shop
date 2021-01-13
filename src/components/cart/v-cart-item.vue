@@ -1,7 +1,9 @@
 <template>
 	<div class="v-cart-item">
 		<img
-				:src="(cart_item_data.arrayImages)" alt="" class="v-cart-item__image">
+				:src="(cart_item_data.arrayImages[0])"
+				alt=""
+				class="v-cart-item__image">
 		<div class="v-cart-item__info">
 			<p>{{cart_item_data.name}}</p>
 			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
@@ -10,7 +12,7 @@
 			<p>{{'тел.: 097 788 95 80'}}</p>
 		</div>
 
-<!--		КОЛИЧЕСТВО-->
+		<!--		КОЛИЧЕСТВО-->
 		<div class="v-cart-item__quantity">
 			<p>{{'Qty:' | localize}}</p>
 			<div class="text-center">
@@ -51,6 +53,7 @@
 			<v-icon dark>mdi mdi-delete-forever</v-icon>
 		</v-btn>
 	</div>
+
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex'
