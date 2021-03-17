@@ -1,112 +1,9 @@
 <template>
 	<div class="v-catalog">
-		<!--Кабинет пользователя и корзина-->
-		<div
-				style="justify-content: center;"
-				v-if="User_Entrance"
-		>
-			<template>
-				<div
-						class="v-catalog__link_to_cart"
-						style="justify-content: center;"
-				>
-					<v-card
-							flat
-					>
-						<v-btn
-								@click="adminPlusLogin"
-								class="ma-2"
-								fab
-								outlined
-								small
-								style="color: #3e9538"
-								v-if="GET_ADMIN_ENTRANCE">
-							<v-icon>mdi-format-list-bulleted-square</v-icon>
-						</v-btn>
-						<v-btn
-								:to="{name: 'cabinetUser'}"
-								class="my-2"
-								outlined
-								style="background-color: #3e9538; color: white; cursor: pointer"
-								tile
-						>
-							<v-icon left>mdi-account-circle</v-icon>
-							Кабинет
-						</v-btn>
-						<v-btn
-								:to="{name: 'cart'}"
-								class="ma-2"
-								outlined
-								style="background-color: #3e9538; color: white; cursor: pointer"
-								tile
-						>
-							<v-chip
-									close-icon="mdi-heart"
-									style="background-color: #3e9538; color: white; cursor: pointer"
-							>
-								<v-avatar
-										class="darken-4"
-										left
-										style="background-color: #0a4506;"
-								>
-									{{GET_CART_USER.length}}
-								</v-avatar>
-								{{'Cart'|localize}}
-							</v-chip>
-						</v-btn>
-					</v-card>
-				</div>
-			</template>
-
-			<v-spacer></v-spacer>
-			<div
-					class="v-carousel-item"
-					v-if="this.User_Entrance">
-				<slot>
-					<img
-							:src="(getProfilePicUrl)"
-							alt=""
-							id="user-pic"
-					>
-				</slot>
-			</div>
-			<div
-					id="user-name"
-					v-if="this.User_Entrance"
-			>{{getUserName}}
-			</div>
-			<v-spacer></v-spacer>
-
-		</div>
-
-		<!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-		<div>
-			<template>
-				<div
-						class="text-center"
-				>
-					<v-btn
-							@click="signInWithGoogle"
-							rounded
-							style="background-color: darkgreen; color: white"
-							v-if="!User_Entrance"
-					>
-						<i class="material-icons">account_circle</i> Войти через Google
-					</v-btn>
-					<v-btn
-							@click="logout"
-							v-if="User_Entrance"
-					>
-						Выйти
-					</v-btn>
-				</div>
-			</template>
-		</div>
-
-		<img
-				:src="require('@/assets/images/logo2.png')"
-				alt=""
-				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">
+<!--		<img-->
+<!--				:src="require('@/assets/images/logo2.png')"-->
+<!--				alt=""-->
+<!--				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">-->
 		<v-row class="Change_categories">
 			<v-select
 					:options="categories"
@@ -132,7 +29,7 @@
 <script>
     // const vSelect = () => import('../v-select')
     const vCatalogItem = () => ({
-        component: import("./v-catalog-item"),
+        component: import("../../components/catalog/v-catalog-item"),
         // loading: AwesomeSpinner,//после задержки по умолчанию в 200 мс будет показан компонент AwesomeSpinner
         // delay: 500 //настроить задержку AwesomeSpinner
         // error: SadFaceComponent // компонент ошибки
@@ -145,7 +42,7 @@
         name: "v-catalog",
         components: {
             vCatalogItem,
-            vSelect: () => import('../v-select'),
+            vSelect: () => import('../../components/v-select'),
         },
         data() {
             return {
@@ -284,6 +181,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-evenly;
+      background-color: #0e0e0e;
 		}
 
 		&__link_to_cart {

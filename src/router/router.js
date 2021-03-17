@@ -10,55 +10,56 @@ let router = new Router({
         {
             path: '/',
             name: 'catalog',
-            component: () => import('@/components/catalog/v-catalog'),
+            meta: {layout: 'main'},
+            component: () => import('@/pages/catalog/v-catalog'),
         },
         {
             path: '/cart',
             name: 'cart',
-            component: () => import('@/components/cart/v-cart'),
+            component: () => import('@/pages/cart/v-cart'),
             props: true
         },
         {
             path: '/product',
             name: 'product',
-            component: () => import('@/components/catalog/z-product-information'),
+            component: () => import('@/pages/catalog/z-product-information'),
             props: true
         },
         {
             path: '/admin',
             name: 'admin',
-            component: () => import('@/components/administration/z-admin'),
+            component: () => import('@/pages/administration/z-admin'),
             meta: { requiresAuth: true },
             props: true
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('@/components/login'),
+            component: () => import('@/pages/login'),
             props: true
         },
         {
             path: '/registration',
             name: 'registration',
-            component: () => import('@/components/registration'),
+            component: () => import('@/pages/registration'),
             props: true
         },
         {
             path: '/information-order',
             name: 'information-order',
-            component: () => import('@/components/administration/z-information-order'),
+            component: () => import('@/pages/administration/z-information-order'),
             props: true
         },
         {
             path: '/order-description',
             name: 'order-description',
-            component: () => import('@/components/administration/z-order-description'),
+            component: () => import('@/pages/administration/z-order-description'),
             props: true
         },
         {
             path: '/cabinetUser',
             name: 'cabinetUser',
-            component: () => import('@/components/catalog/cabinetUser'),
+            component: () => import('@/pages/catalog/cabinetUser'),
             props: true
         },
     ]

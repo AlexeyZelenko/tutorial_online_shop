@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    const VCartItem = () => import('./v-cart-item')
+    const VCartItem = () => import('../../components/cart/v-cart-item')
     import {mapActions, mapGetters} from 'vuex'
     import Swal from 'sweetalert2'
 

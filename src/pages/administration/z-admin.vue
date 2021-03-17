@@ -445,7 +445,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import {db} from '@/main.js'
+    import {db} from '@/main'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
     import 'vue-loading-overlay/dist/vue-loading.css'

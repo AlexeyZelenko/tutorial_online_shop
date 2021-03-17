@@ -148,7 +148,7 @@
 </script>
 
 <style>
-	@import '~animate.css';
+	/*@import '@/../../node_modules/animate.css/animate';*/
 
 	.login-form {
 		padding: 20px;
