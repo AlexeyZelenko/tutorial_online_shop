@@ -27,14 +27,31 @@
           </v-list>
         </v-menu>
         <v-icon
-            class="px-4 material-icons btn_admin"
+            class="px-2 material-icons btn_admin"
             @click="1"
         >mdi-apple</v-icon>
-        <a href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
+        <img
+            @click="1"
+            src="@/assets/icons/huawei-logo-64.png"
+            alt=""
+            class="px-2 btn_admin"
+            style="height: 24px">
+        <img
+            @click="1"
+            src="@/assets/icons/xiaomi-96.png"
+            alt=""
+            class="px-2 btn_admin"
+            style="height: 36px">
+        <img
+            @click="1"
+            src="@/assets/icons/samsung-512.png"
+            alt=""
+            class="btn_admin"
+            style="height: 48px">
+
 
         <v-spacer></v-spacer>
+<!--        <a href="#contact">Contact</a>-->
 
         <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
         <div
@@ -258,6 +275,9 @@
 </script>
 
 <style lang="scss">
+img {
+  cursor: pointer;
+}
 /* Style the navbar */
 #navbar {
   overflow: hidden;

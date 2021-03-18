@@ -4,14 +4,14 @@
 <!--				:src="require('@/assets/images/logo2.png')"-->
 <!--				alt=""-->
 <!--				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">-->
-		<v-row class="Change_categories">
-			<v-select
-					:options="categories"
-					:selected="selected"
-					@select="sortByCategories"
-					style="z-index: 3; margin: 7px 0 7px"
-			/>
-		</v-row>
+<!--		<v-row class="Change_categories">-->
+<!--			<v-select-->
+<!--					:options="categories"-->
+<!--					:selected="selected"-->
+<!--					@select="sortByCategories"-->
+<!--					style="z-index: 3; margin: 7px 0 7px"-->
+<!--			/>-->
+<!--		</v-row>-->
 		<div class="v-catalog__list">
 			<vCatalogItem
 					:index="i"
@@ -42,7 +42,7 @@
         name: "v-catalog",
         components: {
             vCatalogItem,
-            vSelect: () => import('../../components/v-select'),
+            // vSelect: () => import('../../components/v-select'),
         },
         data() {
             return {
@@ -182,6 +182,7 @@
 			flex-wrap: wrap;
 			justify-content: space-evenly;
       background-color: #0e0e0e;
+      padding-top: 10px;
 		}
 
 		&__link_to_cart {
@@ -194,13 +195,6 @@
 			left: 3px;
 			border: thick #0a4506;
 		}
-	}
-
-	.Change_categories {
-		padding-bottom: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
 
 	#user-pic {
