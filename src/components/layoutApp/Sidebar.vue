@@ -4,20 +4,23 @@
       height="700"
       hide-delimiter-background
       show-arrows-on-hover
+      style="margin-top: 80px"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn
-          color="success"
           v-bind="attrs"
           v-on="on"
-      >Previous slide</v-btn>
+          color="success"
+      >Previous slide
+      </v-btn>
     </template>
     <template v-slot:next="{ on, attrs }">
       <v-btn
-          color="info"
           v-bind="attrs"
           v-on="on"
-      >Next slide</v-btn>
+          color="info"
+      >Next slide
+      </v-btn>
     </template>
     <v-carousel-item
         v-for="(slide, i) in slides"
@@ -28,13 +31,51 @@
           height="100%"
       >
         <v-row
-            class="fill-height"
             align="center"
+            class="fill-height"
             justify="center"
         >
           <div class="display-3">
-            {{ slide }} Slide
+            {{ slide }}
           </div>
+
+          <img alt="" src="@/assets/products/11-iphone.png">
+          <template>
+            <v-container
+                class="pa-0"
+                fluid
+            >
+              <v-row align="center">
+                <v-col
+                    cols="12"
+                    sm="6"
+                >
+                  <div class="text-center">
+                    <v-btn
+                        color="primary"
+                        text
+                    >
+                      Подробнее >>
+                    </v-btn>
+                  </div>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                >
+                  <div class="text-center">
+                    <v-btn
+                        color="primary"
+                        dark
+                        rounded
+                    >
+                      Купить
+                    </v-btn>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-container>
+          </template>
         </v-row>
       </v-sheet>
     </v-carousel-item>
@@ -43,7 +84,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       colors: [
         'indigo',
@@ -53,7 +94,7 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
-        'First',
+        'iPhone 11',
         'Second',
         'Third',
         'Fourth',
