@@ -35,47 +35,28 @@
             class="fill-height"
             justify="center"
         >
-          <div class="display-3">
-            {{ slide }}
-          </div>
+          <div class="display-3 ">
+            <span>{{ slide }}</span>
+            <div class="text-center">
+              <v-btn
+                  color="primary"
+                  text
+              >
+                Подробнее >>
+              </v-btn>
+            </div>
+            <div class="text-center">
+              <v-btn
+                  color="primary"
+                  dark
+                  rounded
+              >
+                Купить
+              </v-btn>
+            </div>
 
-          <img alt="" src="@/assets/products/11-iphone.png">
-          <template>
-            <v-container
-                class="pa-0"
-                fluid
-            >
-              <v-row align="center">
-                <v-col
-                    cols="12"
-                    sm="6"
-                >
-                  <div class="text-center">
-                    <v-btn
-                        color="primary"
-                        text
-                    >
-                      Подробнее >>
-                    </v-btn>
-                  </div>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                >
-                  <div class="text-center">
-                    <v-btn
-                        color="primary"
-                        dark
-                        rounded
-                    >
-                      Купить
-                    </v-btn>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-container>
-          </template>
+            <img alt="" src="@/assets/products/11-iphone.png">
+          </div>
         </v-row>
       </v-sheet>
     </v-carousel-item>
