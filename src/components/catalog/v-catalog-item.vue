@@ -60,13 +60,13 @@
 			>
 				{{'Show info' | localize}}
 			</button>
-			<button
-					v-show="product_data.seen"
-					class="v-catalog_item_add_cart_btn btn"
-					@click.stop="addToCart"
-			>
-				{{'Add to cart' | localize}}
-			</button>
+<!--			<button-->
+<!--					v-show="product_data.seen"-->
+<!--					class="v-catalog_item_add_cart_btn btn"-->
+<!--					@click.stop="addToCart"-->
+<!--			>-->
+<!--				{{'Add to cart' | localize}}-->
+<!--			</button>-->
 		</div>
 	</div>
 </template>

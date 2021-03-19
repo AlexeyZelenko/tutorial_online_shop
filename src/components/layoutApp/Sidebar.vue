@@ -4,7 +4,7 @@
       height="700"
       hide-delimiter-background
       show-arrows-on-hover
-      style="margin-top: 80px"
+      style="margin-top: 180px"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn
@@ -55,7 +55,11 @@
               </v-btn>
             </div>
 
-            <img alt="" src="@/assets/products/11-iphone.png">
+            <img
+                alt=""
+                src="@/assets/products/11-iphone.png"
+                style="max-height: 400px"
+            >
           </div>
         </v-row>
       </v-sheet>
@@ -83,6 +87,8 @@ export default {
       ],
     }
   },
+  methods: {
+  }
 }
 </script>
 

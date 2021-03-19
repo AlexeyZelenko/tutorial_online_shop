@@ -4,7 +4,8 @@
 <!--				:src="require('@/assets/images/logo2.png')"-->
 <!--				alt=""-->
 <!--				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">-->
-<!--		<v-row class="Change_categories">-->
+
+<!--		<v-row>-->
 <!--			<v-select-->
 <!--					:options="categories"-->
 <!--					:selected="selected"-->
@@ -12,7 +13,10 @@
 <!--					style="z-index: 3; margin: 7px 0 7px"-->
 <!--			/>-->
 <!--		</v-row>-->
-		<div class="v-catalog__list">
+
+		<div
+        class="v-catalog__list"
+    >
 			<vCatalogItem
 					:index="i"
 					:key="product.article"
@@ -114,17 +118,18 @@
                 await this.$store.dispatch('logout')
             },
             productClick(article) {
+              console.log('article', article)
                 this.$router.push({name: 'product', query: {'product': article}})
             },
-            sortByCategories(category) {
-                this.sortedProducts = [];
-                this.PRODUCTS.map((item) => {
-                    if (item.category === category.name) {
-                        this.sortedProducts.push(item);
-                    }
-                })
-                this.selected = category.name
-            },
+            // sortByCategories(category) {
+            //     this.sortedProducts = [];
+            //     this.PRODUCTS.map((item) => {
+            //         if (item.category === category.name) {
+            //             this.sortedProducts.push(item);
+            //         }
+            //     })
+            //     this.selected = category.name
+            // },
             addToCart(data) {
                 this.ADD_TO_CART(data)
                     .then(() => {
@@ -132,7 +137,6 @@
                     })
             },
         },
-        asyncComputed: {},
         created() {
             this.userEntrance()
             this.observer = new IntersectionObserver(
@@ -148,7 +152,7 @@
         },
         computed: {
             ...mapGetters([
-                'PRODUCTS',
+                'GET_PRODUCTS',
                 'GET_CART_USER',
                 'User_Entrance',
                 'USER_ID',
@@ -161,11 +165,7 @@
                 return firebase.auth().currentUser.photoURL || '@/assets/images/profile_placeholder.png';
             },
             filteredProducts() {
-                if (this.sortedProducts.length) {
-                    return this.sortedProducts
-                } else {
-                    return this.PRODUCTS
-                }
+              return this.GET_PRODUCTS
             }
         },
         mounted() {

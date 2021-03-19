@@ -205,7 +205,7 @@
                           class="ma-4"
                           height="50"
                           width="100"
-                          @click="toggle"
+                          @click="toggle; sortProduct(item2.text)"
                       >
 <!--                        <v-row-->
 <!--                            class="fill-height"-->
@@ -223,23 +223,23 @@
                     </v-slide-item>
                   </v-slide-group>
 
-                  <v-expand-transition>
-                    <v-sheet
-                        v-if="model != null"
-                        height="200"
-                        tile
-                    >
-                      <v-row
-                          class="fill-height"
-                          align="center"
-                          justify="center"
-                      >
-                        <h3 class="title">
-                          Selected {{ model }}
-                        </h3>
-                      </v-row>
-                    </v-sheet>
-                  </v-expand-transition>
+<!--                  <v-expand-transition>-->
+<!--                    <v-sheet-->
+<!--                        v-if="model != null"-->
+<!--                        height="200"-->
+<!--                        tile-->
+<!--                    >-->
+<!--                      <v-row-->
+<!--                          class="fill-height"-->
+<!--                          align="center"-->
+<!--                          justify="center"-->
+<!--                      >-->
+<!--                        <h3 class="title">-->
+<!--                          Selected {{ model }}-->
+<!--                        </h3>-->
+<!--                      </v-row>-->
+<!--                    </v-sheet>-->
+<!--                  </v-expand-transition>-->
                 </v-sheet>
               </template>
             </v-card>
@@ -343,8 +343,18 @@
         'ADD_TO_CART',
         'VIEW_CART_USER',
         'userEntrance',
-        'USER_ID_ACTIONS'
+        'USER_ID_ACTIONS',
+        'sortByCategories'
       ]),
+      async sortProduct (product) {
+        // this.sortByCategories(product)
+        console.log('product', product)
+        try {
+          await this.$store.dispatch('sortByCategories', product)
+        } catch (e) {
+          console.log('Ошибка сортировки')
+        }
+      },
       onElementObserved(entries) {
         entries.forEach(({target, isIntersecting}) => {
           if (!isIntersecting) {

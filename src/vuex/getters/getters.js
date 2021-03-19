@@ -5,7 +5,9 @@ export default  {
     GET_PRODUCT_FROM_DB(state) {
         return state.Products;
     },
-    PRODUCTS: state => state.Products,
+    GET_PRODUCTS: state => {
+      return state.sortedProducts
+    },
     USER_ID(state) {
         return state.userId;
     },

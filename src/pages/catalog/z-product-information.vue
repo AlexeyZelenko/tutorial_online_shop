@@ -31,7 +31,7 @@
 <!--		<p>{{'Европа : '}}{{this.select.state}}</p>-->
 <!--		<p>{{'Международная система : '}}{{this.select.abbr}}</p>-->
 
-		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>
+<!--		<p>{{"Clothing size" | localize}}: {{product.clothingSize}}</p>-->
 
 
 		<p>Артикль товара: {{product.article}}</p>
@@ -160,7 +160,7 @@
             product() {
                 let result = {}
                 this.GET_PRODUCT_FROM_DB.map((item) =>  {
-                    if (item.article === +this.$route.query.product) {
+                    if (+item.article === +this.$route.query.product) {
                         result = item;
                     }
                 })

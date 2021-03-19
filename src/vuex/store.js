@@ -33,6 +33,7 @@ state: {
     ordersUSERS: [],
     adminEntrance: false,
     InfoUser: [],
+    sortedProducts: []
 },
 
 getters,
@@ -72,6 +73,9 @@ mutations: {
     USER_INFO: (state, info) => {
         state.InfoUser = info;
     },
+    SORT_PRODUCTS: (state, sortedProducts) => {
+    state.sortedProducts = sortedProducts;
+  },
 },
 
 actions: {
@@ -80,7 +84,7 @@ actions: {
         // and adds `bindFirestoreRef` and `unbindFirestoreRef`
         // we return the promise returned by `bindFirestoreRef` that will
         // resolve once data is ready
-        return context.bindFirestoreRef('Products', db.collection('products'))
+        return context.bindFirestoreRef('Products', db.collection('products2'))
     }),
     userbindLocationsRef: firestoreAction(context => {
         return context.bindFirestoreRef('Users', db.collection('users'))
@@ -95,6 +99,19 @@ actions: {
     },
     FIREBASE({commit}, message) {
         commit('FIREBASE_MUTATIONS', message)
+    },
+    async sortByCategories({commit, state}, product) {
+      console.log(product)
+      const sortedProducts = [];
+      console.log('Products', state.Products)
+      state.Products.map((item) => {
+        console.log(item)
+        if (item.category === product) {
+          sortedProducts.push(item)
+        }
+      })
+      console.log('sortedProducts', sortedProducts)
+      commit('SORT_PRODUCTS', sortedProducts)
     },
 },
 modules: {
