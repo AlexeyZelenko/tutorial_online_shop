@@ -23,7 +23,7 @@
       </v-btn>
     </template>
     <v-carousel-item
-        v-for="(slide, i) in slides"
+        v-for="(item, i) in GET_PRODUCTS"
         :key="i"
     >
       <v-sheet
@@ -35,10 +35,13 @@
             class="fill-height"
             justify="center"
         >
-          <div class="display-3 ">
-            <span>{{ slide }}</span>
+          <div
+              class="display-3 "
+          >
+            <span>{{ item.name }}</span>
             <div class="text-center">
               <v-btn
+                  @click="productClick(item.article)"
                   color="primary"
                   text
               >
@@ -57,7 +60,7 @@
 
             <img
                 alt=""
-                src="@/assets/products/11-iphone.png"
+                :src="item.arrayImages[0]"
                 style="max-height: 400px"
             >
           </div>
@@ -68,6 +71,8 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+
 export default {
   data() {
     return {
@@ -77,6 +82,8 @@ export default {
         'pink darken-2',
         'red lighten-1',
         'deep-purple accent-4',
+        'purple lighten-1',
+        'cyan darken-4'
       ],
       slides: [
         'iPhone 11',
@@ -88,6 +95,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+    ]),
+    productClick(article) {
+      console.log('article', article)
+      this.$router.push({name: 'product', query: {'product': article}})
+    },
+    clickTest () {
+      const a = this.GET_PRODUCTS
+      console.log('a', a)
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'GET_RANDOM_PRODUCTS',
+      'GET_PRODUCTS'
+    ]),
+  },
+  mounted() {
+    this.clickTest()
   }
 }
 </script>

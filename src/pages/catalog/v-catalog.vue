@@ -152,7 +152,7 @@
         },
         computed: {
             ...mapGetters([
-                'GET_PRODUCTS',
+                'GET_SORTED_PRODUCTS',
                 'GET_CART_USER',
                 'User_Entrance',
                 'USER_ID',
@@ -165,7 +165,7 @@
                 return firebase.auth().currentUser.photoURL || '@/assets/images/profile_placeholder.png';
             },
             filteredProducts() {
-              return this.GET_PRODUCTS
+              return this.GET_SORTED_PRODUCTS
             }
         },
         mounted() {

@@ -4,6 +4,7 @@
 			class="v-catalog-item"
 			@click="productClick"
 	>
+    <p>{{product_data.name}}</p>
 
 <!--		НОВИНКА-->
 		<v-chip
@@ -122,7 +123,7 @@
 
 	.v-catalog-item {
 		flex-basis: 25%;
-		box-shadow: 0 0 8px 0 #e0e0e0;
+		box-shadow: 0 0 8px 0 #574f4f;
 		padding: $padding*2;
 		margin-bottom: $margin*2;
 		z-index: 1;
@@ -135,7 +136,6 @@
 
 		&_image2 img {
 			height: 200px;
-			border: 1px dotted #a7a7a7;
 			position: relative;
 		}
 

@@ -11,6 +11,7 @@
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
 		</template>
+    <h3>{{product.name}}</h3>
 		<v-carousel
 				:carousel_data="product.arrayImages"
 		/>

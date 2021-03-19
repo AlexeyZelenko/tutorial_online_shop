@@ -1,12 +1,16 @@
 export default  {
+    GET_RANDOM_PRODUCTS: s => (s.Products[Math.floor(Math.random() * s.Products.length)]),
     GET_CART_USER(state) {
         return state.cartUser;
     },
     GET_PRODUCT_FROM_DB(state) {
         return state.Products;
     },
-    GET_PRODUCTS: state => {
+    GET_SORTED_PRODUCTS: state => {
       return state.sortedProducts
+    },
+    GET_PRODUCTS: state => {
+      return state.Products
     },
     USER_ID(state) {
         return state.userId;

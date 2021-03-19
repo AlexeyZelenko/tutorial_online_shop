@@ -101,16 +101,12 @@ actions: {
         commit('FIREBASE_MUTATIONS', message)
     },
     async sortByCategories({commit, state}, product) {
-      console.log(product)
       const sortedProducts = [];
-      console.log('Products', state.Products)
       state.Products.map((item) => {
-        console.log(item)
         if (item.category === product) {
           sortedProducts.push(item)
         }
       })
-      console.log('sortedProducts', sortedProducts)
       commit('SORT_PRODUCTS', sortedProducts)
     },
 },
