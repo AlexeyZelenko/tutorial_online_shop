@@ -159,7 +159,7 @@
 			z-index: 5;
 			padding: 8px 16px;
 			margin-bottom: 5px;
-			background: darkseagreen;
+			background: $green-bg-hover;
 			color: whitesmoke;
 			border: 0;
 			border-radius: 4px;
