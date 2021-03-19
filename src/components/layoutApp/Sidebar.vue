@@ -4,7 +4,7 @@
       height="700"
       hide-delimiter-background
       show-arrows-on-hover
-      style="margin-top: 180px"
+      style="margin-top: 120px"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn

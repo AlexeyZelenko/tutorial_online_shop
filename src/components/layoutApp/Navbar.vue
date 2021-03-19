@@ -10,6 +10,7 @@
             icons-and-text
         >
           <v-menu
+
               bottom
               left
           >
@@ -192,7 +193,7 @@
                 >
                   <v-slide-group
                       v-model="model"
-                      class="pa-4"
+                      class="pa-2"
                       show-arrows
                   >
                     <v-slide-item
@@ -201,21 +202,12 @@
                         v-slot="{ active, toggle }"
                     >
                       <v-card
-                          :color="active ? 'primary' : 'dark'"
-                          class="ma-4"
-                          height="50"
+                          :color="active ? 'teal accent-4' : 'dark'"
+                          class="ma-2"
+                          height="30"
                           width="100"
-                          @click="toggle; sortProduct(item2.text)"
+                          @click="toggle(); sortProduct(item2.text)"
                       >
-<!--                        <v-row-->
-<!--                            class="fill-height"-->
-<!--                            align="center"-->
-<!--                            justify="center"-->
-<!--                        >-->
-<!--                          <v-scale-transition>-->
-<!--                            <p>{{item2.text}}</p>-->
-<!--                          </v-scale-transition>-->
-<!--                        </v-row>-->
                         <v-scale-transition>
                           <p>{{item2.text}}</p>
                         </v-scale-transition>
@@ -223,6 +215,7 @@
                     </v-slide-item>
                   </v-slide-group>
 
+<!--                  Выпадающее меню-->
 <!--                  <v-expand-transition>-->
 <!--                    <v-sheet-->
 <!--                        v-if="model != null"-->
@@ -459,32 +452,10 @@ img {
 /* Style the navbar */
 #navbar {
   overflow: hidden;
-  background-color: #333;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 999999;
-  opacity: 1;
-}
-
-/* Navbar links */
-#navbar a {
-  font-size: 14px;
-  float: left;
-  display: block;
-  color: $main-color;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
-}
-
-/* Page content */
-.content {
-  padding: 16px;
-}
-
-.btn_admin {
-  color: $main-color;
 }
 
 </style>

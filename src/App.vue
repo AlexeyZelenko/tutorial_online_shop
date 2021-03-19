@@ -51,9 +51,4 @@
 		color: #2c3e50;
     background: $main-color;
 	}
-	.logo {
-		max-width: 300px;
-		max-height: 30%;
-		padding-bottom: 10px
-	}
 </style>
