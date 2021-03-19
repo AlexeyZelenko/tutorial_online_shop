@@ -130,7 +130,6 @@
 		margin-left: 1px;
 
 		&_image {
-			width: 100px;
 			justify-content: center;
 		}
 

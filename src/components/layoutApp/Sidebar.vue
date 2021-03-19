@@ -23,7 +23,7 @@
       </v-btn>
     </template>
     <v-carousel-item
-        v-for="(item, i) in GET_PRODUCTS"
+        v-for="(item, i) in RANDOM_PRODUCTS"
         :key="i"
     >
       <v-sheet
@@ -83,15 +83,11 @@ export default {
         'red lighten-1',
         'deep-purple accent-4',
         'purple lighten-1',
-        'cyan darken-4'
-      ],
-      slides: [
-        'iPhone 11',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-      ],
+        'cyan darken-4',
+        'light-green darken-3',
+        'brown darken-4',
+        'deep-orange accent-4'
+      ]
     }
   },
   methods: {
@@ -100,10 +96,6 @@ export default {
     productClick(article) {
       console.log('article', article)
       this.$router.push({name: 'product', query: {'product': article}})
-    },
-    clickTest () {
-      const a = this.GET_PRODUCTS
-      console.log('a', a)
     }
   },
   computed: {
@@ -111,9 +103,10 @@ export default {
       'GET_RANDOM_PRODUCTS',
       'GET_PRODUCTS'
     ]),
-  },
-  mounted() {
-    this.clickTest()
+    RANDOM_PRODUCTS() {
+      const a = this.GET_PRODUCTS
+      return a.sort(() => Math.random() - 0.5)
+    }
   }
 }
 </script>
