@@ -1,7 +1,6 @@
 <template>
   <div>
     <div
-        style="margin-left: 0"
         class="app-main-layout"
     >
       <Navbar/>

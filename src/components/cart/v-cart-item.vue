@@ -7,9 +7,9 @@
 		<div class="v-cart-item__info">
 			<p>{{cart_item_data.name}}</p>
 			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
-			<p>{{'Размер'}} :{{cart_item_data.clothingSize}}</p>
+			<p>{{'Модель'}} :{{cart_item_data.clothingSize}}</p>
 			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
-			<p>{{'тел.: 097 788 95 80'}}</p>
+			<p>{{'тел.: +380636910177'}}</p>
 		</div>
 
 		<!--		КОЛИЧЕСТВО-->

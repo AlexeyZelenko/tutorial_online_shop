@@ -4,7 +4,7 @@
       height="700"
       hide-delimiter-background
       show-arrows-on-hover
-      style="margin-top: 120px"
+      style="margin-top: 110px"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn
@@ -48,15 +48,15 @@
                 Подробнее >>
               </v-btn>
             </div>
-            <div class="text-center">
-              <v-btn
-                  color="primary"
-                  dark
-                  rounded
-              >
-                Купить
-              </v-btn>
-            </div>
+<!--            <div class="text-center">-->
+<!--              <v-btn-->
+<!--                  color="primary"-->
+<!--                  dark-->
+<!--                  rounded-->
+<!--              >-->
+<!--                Купить-->
+<!--              </v-btn>-->
+<!--            </div>-->
 
             <img
                 alt=""

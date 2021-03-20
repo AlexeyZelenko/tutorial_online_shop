@@ -1,244 +1,241 @@
 <template>
   <div id="navbar">
     <template>
-      <v-card>
-        <v-tabs
-            v-model="tab"
-            background-color="black accent-2"
-            centered
-            dark
-            icons-and-text
+      <v-tabs
+          v-model="tab"
+          background-color="black accent-2"
+          fixed-tabs
+          dark
+          next-icon="mdi-arrow-right-bold-box-outline"
+          prev-icon="mdi-arrow-left-bold-box-outline"
+          show-arrows
+      >
+        <v-tabs-slider color="#64FFDA"></v-tabs-slider>
+        <v-tab
+            href="#tab-1"
         >
-<!--          Мобильное меню-->
-          <v-menu
-              bottom
-              left
+          <img
+              src="@/assets/icons/ос-mac-60.png"
+              alt=""
+              style="height: 36px"
           >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
+        </v-tab>
 
-            <v-list>
-              <v-list-item
-                  v-for="(item, i) in items"
-                  :key="i"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-          <v-tabs-slider></v-tabs-slider>
+        <v-tab href="#tab-2">
+          <img
+              @click="1"
+              src="@/assets/icons/huawei-logo-64.png"
+              alt=""
+              style="height: 36px">
+        </v-tab>
 
-          <v-tab
-              href="#tab-1"
+        <v-tab
+            href="#tab-3"
+        >
+          <img
+              @click="1"
+              src="@/assets/icons/mi-48.png"
+              alt=""
+              style="height: 36px">
+        </v-tab>
+
+        <v-tab href="#tab-4">
+          <img
+              @click="1"
+              src="@/assets/icons/samsung-512.png"
+              alt=""
+              class="btn_admin"
+              style="height: 36px">
+        </v-tab>
+
+<!--        <v-tab href="#tab-5">-->
+<!--        </v-tab>-->
+
+        <v-spacer></v-spacer>
+        <v-tab href="#tab-5">
+          <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
+          <div
+              class="text-center"
           >
-            <img
-                @click="1"
-                src="@/assets/icons/ос-mac-60.png"
-                alt=""
-                style="height: 36px"
-            >
-          </v-tab>
-
-          <v-tab href="#tab-2">
-            <img
-                @click="1"
-                src="@/assets/icons/huawei-logo-64.png"
-                alt=""
-                style="height: 36px">
-          </v-tab>
-
-          <v-tab
-              href="#tab-3"
-          >
-            <img
-                @click="1"
-                src="@/assets/icons/mi-48.png"
-                alt=""
-                style="height: 36px">
-          </v-tab>
-
-          <v-tab href="#tab-4">
-            <img
-                @click="1"
-                src="@/assets/icons/samsung-512.png"
-                alt=""
+            <v-btn
+                @click="signInWithGoogle"
+                icon
                 class="btn_admin"
-                style="height: 36px">
-          </v-tab>
-          <v-spacer></v-spacer>
-          <v-tab>
-            <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-            <div
-                class="text-center"
+                v-if="!User_Entrance"
             >
-              <v-btn
-                  @click="signInWithGoogle"
-                  icon
-                  class="btn_admin"
+              <i
                   v-if="!User_Entrance"
-              >
-                <i
-                    v-if="!User_Entrance"
-                    class="material-icons btn_admin"
-                    @click="signInWithGoogle"
-                >account_circle</i>
-              </v-btn>
-              <v-btn
-                  class="mx-2"
-                  @click="logout"
-                  v-if="User_Entrance"
-              >
-                Выйти
-              </v-btn>
-            </div>
-            <!--Кабинет пользователя и корзина-->
-            <div
-                style="justify-content: center;"
+                  class="material-icons btn_admin"
+                  @click="signInWithGoogle"
+              >account_circle</i>
+            </v-btn>
+            <v-btn
+                class="mx-2"
+                @click="logout"
                 v-if="User_Entrance"
             >
-              <template>
-                <div
-                    style="justify-content: center;"
-                >
-                  <v-card
-                      flat
-                  >
-                    <v-btn
-                        @click="adminPlusLogin"
-                        class="ma-2"
-                        fab
-                        outlined
-                        small
-                        v-if="GET_ADMIN_ENTRANCE">
-                      <v-icon>mdi-format-list-bulleted-square</v-icon>
-                    </v-btn>
-                    <v-btn
-                        :to="{name: 'cabinetUser'}"
-                        class="my-2"
-                        tile
-                    >
-                      <v-icon
-                          :to="{name: 'cabinetUser'}"
-                          left
-                      >
-                        mdi-account-circle
-                      </v-icon>
-                      Кабинет
-                    </v-btn>
-                    <v-btn
-                        :to="{name: 'cart'}"
-                        class="ma-2"
-                        tile
-                    >
-                      <v-chip
-                          close-icon="mdi-heart"
-                      >
-                        <v-avatar
-                            class="darken-4"
-                            left
-                            style="background-color: #0a4506;"
-                        >
-                          {{GET_CART_USER.length}}
-                        </v-avatar>
-                        {{'Cart'|localize}}
-                      </v-chip>
-                    </v-btn>
-                  </v-card>
-                </div>
-              </template>
+              Выйти
+            </v-btn>
+          </div>
 
-              <v-spacer></v-spacer>
-              <!--          <div-->
-              <!--              class="v-carousel-item"-->
-              <!--              v-if="this.User_Entrance">-->
-              <!--            <slot>-->
-              <!--              <img-->
-              <!--                  :src="(getProfilePicUrl)"-->
-              <!--                  alt=""-->
-              <!--                  id="user-pic"-->
-              <!--              >-->
-              <!--            </slot>-->
-              <!--          </div>-->
-              <!--          <div-->
-              <!--              id="user-name"-->
-              <!--              v-if="this.User_Entrance"-->
-              <!--          >{{getUserName}}-->
-              <!--          </div>-->
-            </div>
-          </v-tab>
-        </v-tabs>
+        </v-tab>
+      </v-tabs>
 
-        <v-tabs-items v-model="tab">
-          <v-tab-item
-              v-for="item in IconMenu"
-              :key="item.id"
-              :value="'tab-' + item.id"
+      <v-tabs-items v-model="tab">
+        <v-tab-item
+            v-for="item in IconMenu"
+            :key="item.id"
+            :value="'tab-' + item.id"
+        >
+          <v-card
+              flat
+              dark
           >
-            <v-card
-                flat
-                dark
-            >
-              <template>
-                <v-sheet
-                    class="mx-auto"
-                    max-width="800"
+            <template>
+              <v-sheet
+                  class="mx-auto"
+                  max-width="800"
+              >
+                <v-slide-group
+                    v-model="model"
+                    class="pa-2"
+                    show-arrows
                 >
-                  <v-slide-group
-                      v-model="model"
-                      class="pa-2"
-                      show-arrows
+                  <v-slide-item
+                      v-for="item2 in item.arrayArray"
+                      :key="item2.id"
+                      v-slot="{ active, toggle }"
                   >
-                    <v-slide-item
-                        v-for="item2 in item.arrayArray"
-                        :key="item2.id"
-                        v-slot="{ active, toggle }"
+                    <v-card
+                        :color="active ? 'teal accent-4' : 'dark'"
+                        class="ma-2"
+                        height="30"
+                        width="100"
+                        @click="toggle(); sortProduct(item2.text)"
                     >
-                      <v-card
-                          :color="active ? 'teal accent-4' : 'dark'"
-                          class="ma-2"
-                          height="30"
-                          width="100"
-                          @click="toggle(); sortProduct(item2.text)"
-                      >
-                        <v-scale-transition>
-                          <p>{{item2.text}}</p>
-                        </v-scale-transition>
-                      </v-card>
-                    </v-slide-item>
-                  </v-slide-group>
+                      <v-scale-transition>
+                        <p>{{item2.text}}</p>
+                      </v-scale-transition>
+                    </v-card>
+                  </v-slide-item>
+                </v-slide-group>
 
-<!--                  Выпадающее меню-->
-<!--                  <v-expand-transition>-->
-<!--                    <v-sheet-->
-<!--                        v-if="model != null"-->
-<!--                        height="200"-->
-<!--                        tile-->
+                <!--                  Выпадающее меню-->
+                <!--                  <v-expand-transition>-->
+                <!--                    <v-sheet-->
+                <!--                        v-if="model != null"-->
+                <!--                        height="200"-->
+                <!--                        tile-->
+                <!--                    >-->
+                <!--                      <v-row-->
+                <!--                          class="fill-height"-->
+                <!--                          align="center"-->
+                <!--                          justify="center"-->
+                <!--                      >-->
+                <!--                        <h3 class="title">-->
+                <!--                          Selected {{ model }}-->
+                <!--                        </h3>-->
+                <!--                      </v-row>-->
+                <!--                    </v-sheet>-->
+                <!--                  </v-expand-transition>-->
+              </v-sheet>
+            </template>
+          </v-card>
+        </v-tab-item>
+        <v-tab-items
+            v-model="tab"
+            v-if="User_Entrance"
+        >
+          <!--Кабинет пользователя и корзина-->
+          <div
+              style="justify-content: center;"
+              v-if="User_Entrance"
+          >
+            <template>
+              <div
+                  style="justify-content: center;"
+              >
+                <v-card
+                    flat
+                >
+                  <v-btn
+                      @click="adminPlusLogin"
+                      class="ma-2"
+                      fab
+                      outlined
+                      small
+                      v-if="GET_ADMIN_ENTRANCE">
+                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                  </v-btn>
+<!--                  <v-btn-->
+<!--                      :to="{name: 'cabinetUser'}"-->
+<!--                      class="my-2"-->
+<!--                      tile-->
+<!--                  >-->
+<!--                    <v-icon-->
+<!--                        :to="{name: 'cabinetUser'}"-->
+<!--                        left-->
 <!--                    >-->
-<!--                      <v-row-->
-<!--                          class="fill-height"-->
-<!--                          align="center"-->
-<!--                          justify="center"-->
+<!--                      mdi-account-circle-->
+<!--                    </v-icon>-->
+<!--                    Кабинет-->
+<!--                  </v-btn>-->
+<!--                  <v-btn-->
+<!--                      :to="{name: 'cart'}"-->
+<!--                      class="ma-2"-->
+<!--                      tile-->
+<!--                  >-->
+<!--                    <v-chip-->
+<!--                        close-icon="mdi-heart"-->
+<!--                    >-->
+<!--                      <v-avatar-->
+<!--                          class="darken-4"-->
+<!--                          left-->
+<!--                          style="background-color: #0a4506;"-->
 <!--                      >-->
-<!--                        <h3 class="title">-->
-<!--                          Selected {{ model }}-->
-<!--                        </h3>-->
-<!--                      </v-row>-->
-<!--                    </v-sheet>-->
-<!--                  </v-expand-transition>-->
-                </v-sheet>
-              </template>
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card>
+<!--                        {{GET_CART_USER.length}}-->
+<!--                      </v-avatar>-->
+<!--                      {{'Cart'|localize}}-->
+<!--                    </v-chip>-->
+<!--                  </v-btn>-->
+                </v-card>
+              </div>
+            </template>
+
+            <v-spacer></v-spacer>
+            <!--          <div-->
+            <!--              class="v-carousel-item"-->
+            <!--              v-if="this.User_Entrance">-->
+            <!--            <slot>-->
+            <!--              <img-->
+            <!--                  :src="(getProfilePicUrl)"-->
+            <!--                  alt=""-->
+            <!--                  id="user-pic"-->
+            <!--              >-->
+            <!--            </slot>-->
+            <!--          </div>-->
+            <!--          <div-->
+            <!--              id="user-name"-->
+            <!--              v-if="this.User_Entrance"-->
+            <!--          >{{getUserName}}-->
+            <!--          </div>-->
+          </div>
+        </v-tab-items>
+      </v-tabs-items>
     </template>
+    <!--  Кнопка rjhpbys-->
+    <div
+        @click="goToCard"
+        type="button"
+        class="callback-bt"
+    >
+      <div class="text-call">
+        <v-icon color="white">
+          mdi-cart
+        </v-icon>
+        <p style="color: white">{{GET_CART_USER.length}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -338,6 +335,9 @@
         'USER_ID_ACTIONS',
         'sortByCategories'
       ]),
+      goToCard () {
+        this.$router.push({name: 'cart'})
+      },
       async sortProduct (product) {
         // this.sortByCategories(product)
         console.log('product', product)
@@ -456,5 +456,228 @@ img {
   width: 100%;
   z-index: 999999;
 }
+
+/*кнопка корзины*/
+
+.callback-bt {
+  background:#38a3fd;
+  border:2px solid #38a3fd;
+  border-radius:50%;
+  box-shadow:0 8px 10px rgba(56,163,253,0.3);
+  cursor:pointer;
+  height:68px;
+  text-align:center;
+  width:68px;
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
+  z-index:999;
+  transition:.5s;
+  -webkit-animation:hoverWave linear 1s infinite;
+  animation:hoverWave linear 1s infinite;
+}
+
+.callback-bt .text-call{
+  height:68px;
+  width:68px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+}
+
+.callback-bt .text-call span {
+  text-align: center;
+  color:#38a3fd;
+  opacity: 0;
+  font-size: 0;
+  position:absolute;
+  right: 4px;
+  top: 22px;
+  line-height: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: opacity .3s linear;
+  font-family: 'montserrat', Arial, Helvetica, sans-serif;
+}
+
+.callback-bt .text-call:hover span {
+  opacity: 1;
+  font-size: 11px;
+}
+
+.callback-bt:hover {
+  z-index:1;
+  background: #1d7575;
+  color:transparent;
+  transition:.3s;
+}
+
+
+@-webkit-keyframes hoverWave {
+  0% {
+    box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 0 rgba(56,163,253,0.2),0 0 0 0 rgba(56,163,253,0.2)
+  }
+  40% {
+    box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 15px rgba(56,163,253,0.2),0 0 0 0 rgba(56,163,253,0.2)
+  }
+  80% {
+    box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 30px rgba(56,163,253,0),0 0 0 26.7px rgba(56,163,253,0.067)
+  }
+  100% {
+    box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 30px rgba(56,163,253,0),0 0 0 40px rgba(56,163,253,0.0)
+  }
+}@keyframes hoverWave {
+   0% {
+     box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 0 rgba(56,163,253,0.2),0 0 0 0 rgba(56,163,253,0.2)
+   }
+   40% {
+     box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 15px rgba(56,163,253,0.2),0 0 0 0 rgba(56,163,253,0.2)
+   }
+   80% {
+     box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 30px rgba(56,163,253,0),0 0 0 26.7px rgba(56,163,253,0.067)
+   }
+   100% {
+     box-shadow:0 8px 10px rgba(56,163,253,0.3),0 0 0 30px rgba(56,163,253,0),0 0 0 40px rgba(56,163,253,0.0)
+   }
+ }
+
+/* animations icon */
+
+@keyframes shake {
+  0% {
+    transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+  }
+  10% {
+    transform: rotateZ(-30deg);
+    -ms-transform: rotateZ(-30deg);
+    -webkit-transform: rotateZ(-30deg);
+  }
+  20% {
+    transform: rotateZ(15deg);
+    -ms-transform: rotateZ(15deg);
+    -webkit-transform: rotateZ(15deg);
+  }
+  30% {
+    transform: rotateZ(-10deg);
+    -ms-transform: rotateZ(-10deg);
+    -webkit-transform: rotateZ(-10deg);
+  }
+  40% {
+    transform: rotateZ(7.5deg);
+    -ms-transform: rotateZ(7.5deg);
+    -webkit-transform: rotateZ(7.5deg);
+  }
+  50% {
+    transform: rotateZ(-6deg);
+    -ms-transform: rotateZ(-6deg);
+    -webkit-transform: rotateZ(-6deg);
+  }
+  60% {
+    transform: rotateZ(5deg);
+    -ms-transform: rotateZ(5deg);
+    -webkit-transform: rotateZ(5deg);
+  }
+  70% {
+    transform: rotateZ(-4.28571deg);
+    -ms-transform: rotateZ(-4.28571deg);
+    -webkit-transform: rotateZ(-4.28571deg);
+  }
+  80% {
+    transform: rotateZ(3.75deg);
+    -ms-transform: rotateZ(3.75deg);
+    -webkit-transform: rotateZ(3.75deg);
+  }
+  90% {
+    transform: rotateZ(-3.33333deg);
+    -ms-transform: rotateZ(-3.33333deg);
+    -webkit-transform: rotateZ(-3.33333deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+  }
+}
+
+@-webkit-keyframes shake {
+  0% {
+    transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+  }
+  10% {
+    transform: rotateZ(-30deg);
+    -ms-transform: rotateZ(-30deg);
+    -webkit-transform: rotateZ(-30deg);
+  }
+  20% {
+    transform: rotateZ(15deg);
+    -ms-transform: rotateZ(15deg);
+    -webkit-transform: rotateZ(15deg);
+  }
+  30% {
+    transform: rotateZ(-10deg);
+    -ms-transform: rotateZ(-10deg);
+    -webkit-transform: rotateZ(-10deg);
+  }
+  40% {
+    transform: rotateZ(7.5deg);
+    -ms-transform: rotateZ(7.5deg);
+    -webkit-transform: rotateZ(7.5deg);
+  }
+  50% {
+    transform: rotateZ(-6deg);
+    -ms-transform: rotateZ(-6deg);
+    -webkit-transform: rotateZ(-6deg);
+  }
+  60% {
+    transform: rotateZ(5deg);
+    -ms-transform: rotateZ(5deg);
+    -webkit-transform: rotateZ(5deg);
+  }
+  70% {
+    transform: rotateZ(-4.28571deg);
+    -ms-transform: rotateZ(-4.28571deg);
+    -webkit-transform: rotateZ(-4.28571deg);
+  }
+  80% {
+    transform: rotateZ(3.75deg);
+    -ms-transform: rotateZ(3.75deg);
+    -webkit-transform: rotateZ(3.75deg);
+  }
+  90% {
+    transform: rotateZ(-3.33333deg);
+    -ms-transform: rotateZ(-3.33333deg);
+    -webkit-transform: rotateZ(-3.33333deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -ms-transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+  }
+}
+/* конец кнопки звонка */
+.fixedbut {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: block;
+  background: #2db700;
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 23px;
+  font-size: 17px;
+}
+.fixedbut:hover { background: #222; }
+.div1{
+  width: 100%;
+  height: 100px;
+  font-family: 'Oswald', sans-serif;
+  background-color:#212;
+  position: relative;
+}
+
 
 </style>
