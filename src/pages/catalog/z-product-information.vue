@@ -150,7 +150,7 @@
 
                       <img
                           style="height: 50px"
-                          src="@/assets/images/authorised.jpg"
+                          src="@/assets/images/authorised.png"
                           alt=""
                       >
 
