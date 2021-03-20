@@ -1,0 +1,75 @@
+<template>
+  <v-card class="my-2">
+    <h5 class="py-2">Вам может понравиться:</h5>
+    <v-tabs
+        color="deep-purple accent-4"
+        right
+    >
+<!--      <v-tab>Landscape</v-tab>-->
+<!--      <v-tab>City</v-tab>-->
+<!--      <v-tab>Abstract</v-tab>-->
+
+      <v-tab-item
+          v-for="n in 3"
+          :key="n"
+      >
+        <v-container fluid>
+          <v-row>
+            <v-col
+                v-for="item in RANDOM_PRODUCTS"
+                :key="item.article"
+                cols="12"
+                md="4"
+            >
+              <p style="color: darkcyan">{{item.name}}</p>
+              <div class="text-center">
+                <v-btn
+                    @click="productClick(item.article)"
+                    color="primary"
+                    text
+                >
+                  Подробнее >>
+                </v-btn>
+              </div>
+              <v-img
+                  :src="item.arrayImages[0]"
+                  aspect-ratio="1"
+              ></v-img>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-tab-item>
+    </v-tabs>
+  </v-card>
+</template>
+
+<script>
+import {mapActions, mapGetters} from 'vuex'
+
+export default {
+  name: "RandomProducts",
+  methods: {
+    ...mapActions([]),
+    productClick(article) {
+      window.scrollTo({ top: 300, behavior: 'smooth' })
+      this.$router.push({name: 'product', query: {'product': article}})
+
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'GET_RANDOM_PRODUCTS',
+      'GET_PRODUCTS'
+    ]),
+    RANDOM_PRODUCTS() {
+      const a = this.GET_PRODUCTS
+      return a.sort(() => Math.random() - 0.5)
+    }
+  }
+}
+
+</script>
+
+<style scoped>
+
+</style>
