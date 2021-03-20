@@ -35,6 +35,7 @@
         </v-toolbar>
 
         <v-tabs-items v-model="tabs">
+<!--          Все про товар-->
           <v-tab-item>
             <v-card flat class="my-4">
               <v-carousel
@@ -151,6 +152,8 @@
               </button>
             </v-card>
           </v-tab-item>
+
+<!--          Характеристики-->
           <v-tab-item>
             <v-card flat>
               <v-card-title class="headline">
@@ -171,6 +174,8 @@
               </v-card-text>
             </v-card>
           </v-tab-item>
+
+<!--          Фото-->
           <v-tab-item>
             <v-card flat>
               <v-card-title class="headline">

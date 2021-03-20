@@ -5,12 +5,11 @@
         color="deep-purple accent-4"
         right
     >
-<!--      <v-tab>Landscape</v-tab>-->
-<!--      <v-tab>City</v-tab>-->
-<!--      <v-tab>Abstract</v-tab>-->
+      <v-tab>назад</v-tab>
+      <v-tab>вперед</v-tab>
 
       <v-tab-item
-          v-for="n in 3"
+          v-for="n in 2"
           :key="n"
       >
         <v-container fluid>
