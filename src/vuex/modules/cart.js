@@ -83,7 +83,7 @@ export default {
                         const document = snapshot.data()
                         return document.cartInfo
                     })
-                const products = await db.collection('products')
+                const products = await db.collection('products2')
                     .get()
                     .then(querySnapshot => {
                         const product = querySnapshot.docs.map(doc => doc.data())

@@ -9,14 +9,13 @@
             dark
             icons-and-text
         >
+<!--          Мобильное меню-->
           <v-menu
-
               bottom
               left
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  dark
                   icon
                   v-bind="attrs"
                   v-on="on"
