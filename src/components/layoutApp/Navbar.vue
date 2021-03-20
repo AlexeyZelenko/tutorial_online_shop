@@ -77,7 +77,15 @@
               Выйти
             </v-btn>
           </div>
-
+          <v-btn
+              @click="adminPlusLogin"
+              class="ma-2"
+              fab
+              outlined
+              small
+              v-if="GET_ADMIN_ENTRANCE">
+            <v-icon>mdi-format-list-bulleted-square</v-icon>
+          </v-btn>
         </v-tab>
       </v-tabs>
 
@@ -142,88 +150,88 @@
             </template>
           </v-card>
         </v-tab-item>
-        <v-tab-items
-            v-model="tab"
-            v-if="User_Entrance"
-        >
+<!--        <v-tab-items-->
+<!--            v-model="tab"-->
+<!--            v-if="User_Entrance"-->
+<!--        >-->
           <!--Кабинет пользователя и корзина-->
-          <div
-              style="justify-content: center;"
-              v-if="User_Entrance"
-          >
-            <template>
-              <div
-                  style="justify-content: center;"
-              >
-                <v-card
-                    flat
-                >
-                  <v-btn
-                      @click="adminPlusLogin"
-                      class="ma-2"
-                      fab
-                      outlined
-                      small
-                      v-if="GET_ADMIN_ENTRANCE">
-                    <v-icon>mdi-format-list-bulleted-square</v-icon>
-                  </v-btn>
+<!--          <div-->
+<!--              style="justify-content: center;"-->
+<!--              v-if="User_Entrance"-->
+<!--          >-->
+<!--            <template>-->
+<!--              <div-->
+<!--                  style="justify-content: center;"-->
+<!--              >-->
+<!--                <v-card-->
+<!--                    flat-->
+<!--                >-->
 <!--                  <v-btn-->
-<!--                      :to="{name: 'cabinetUser'}"-->
-<!--                      class="my-2"-->
-<!--                      tile-->
-<!--                  >-->
-<!--                    <v-icon-->
-<!--                        :to="{name: 'cabinetUser'}"-->
-<!--                        left-->
-<!--                    >-->
-<!--                      mdi-account-circle-->
-<!--                    </v-icon>-->
-<!--                    Кабинет-->
-<!--                  </v-btn>-->
-<!--                  <v-btn-->
-<!--                      :to="{name: 'cart'}"-->
+<!--                      @click="adminPlusLogin"-->
 <!--                      class="ma-2"-->
-<!--                      tile-->
-<!--                  >-->
-<!--                    <v-chip-->
-<!--                        close-icon="mdi-heart"-->
-<!--                    >-->
-<!--                      <v-avatar-->
-<!--                          class="darken-4"-->
-<!--                          left-->
-<!--                          style="background-color: #0a4506;"-->
-<!--                      >-->
-<!--                        {{GET_CART_USER.length}}-->
-<!--                      </v-avatar>-->
-<!--                      {{'Cart'|localize}}-->
-<!--                    </v-chip>-->
+<!--                      fab-->
+<!--                      outlined-->
+<!--                      small-->
+<!--                      v-if="GET_ADMIN_ENTRANCE">-->
+<!--                    <v-icon>mdi-format-list-bulleted-square</v-icon>-->
 <!--                  </v-btn>-->
-                </v-card>
-              </div>
-            </template>
+<!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
+<!--&lt;!&ndash;                      :to="{name: 'cabinetUser'}"&ndash;&gt;-->
+<!--&lt;!&ndash;                      class="my-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                      tile&ndash;&gt;-->
+<!--&lt;!&ndash;                  >&ndash;&gt;-->
+<!--&lt;!&ndash;                    <v-icon&ndash;&gt;-->
+<!--&lt;!&ndash;                        :to="{name: 'cabinetUser'}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        left&ndash;&gt;-->
+<!--&lt;!&ndash;                    >&ndash;&gt;-->
+<!--&lt;!&ndash;                      mdi-account-circle&ndash;&gt;-->
+<!--&lt;!&ndash;                    </v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                    Кабинет&ndash;&gt;-->
+<!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
+<!--&lt;!&ndash;                      :to="{name: 'cart'}"&ndash;&gt;-->
+<!--&lt;!&ndash;                      class="ma-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                      tile&ndash;&gt;-->
+<!--&lt;!&ndash;                  >&ndash;&gt;-->
+<!--&lt;!&ndash;                    <v-chip&ndash;&gt;-->
+<!--&lt;!&ndash;                        close-icon="mdi-heart"&ndash;&gt;-->
+<!--&lt;!&ndash;                    >&ndash;&gt;-->
+<!--&lt;!&ndash;                      <v-avatar&ndash;&gt;-->
+<!--&lt;!&ndash;                          class="darken-4"&ndash;&gt;-->
+<!--&lt;!&ndash;                          left&ndash;&gt;-->
+<!--&lt;!&ndash;                          style="background-color: #0a4506;"&ndash;&gt;-->
+<!--&lt;!&ndash;                      >&ndash;&gt;-->
+<!--&lt;!&ndash;                        {{GET_CART_USER.length}}&ndash;&gt;-->
+<!--&lt;!&ndash;                      </v-avatar>&ndash;&gt;-->
+<!--&lt;!&ndash;                      {{'Cart'|localize}}&ndash;&gt;-->
+<!--&lt;!&ndash;                    </v-chip>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
+<!--                </v-card>-->
+<!--              </div>-->
+<!--            </template>-->
 
-            <v-spacer></v-spacer>
-            <!--          <div-->
-            <!--              class="v-carousel-item"-->
-            <!--              v-if="this.User_Entrance">-->
-            <!--            <slot>-->
-            <!--              <img-->
-            <!--                  :src="(getProfilePicUrl)"-->
-            <!--                  alt=""-->
-            <!--                  id="user-pic"-->
-            <!--              >-->
-            <!--            </slot>-->
-            <!--          </div>-->
-            <!--          <div-->
-            <!--              id="user-name"-->
-            <!--              v-if="this.User_Entrance"-->
-            <!--          >{{getUserName}}-->
-            <!--          </div>-->
-          </div>
-        </v-tab-items>
+<!--            <v-spacer></v-spacer>-->
+<!--            &lt;!&ndash;          <div&ndash;&gt;-->
+<!--            &lt;!&ndash;              class="v-carousel-item"&ndash;&gt;-->
+<!--            &lt;!&ndash;              v-if="this.User_Entrance">&ndash;&gt;-->
+<!--            &lt;!&ndash;            <slot>&ndash;&gt;-->
+<!--            &lt;!&ndash;              <img&ndash;&gt;-->
+<!--            &lt;!&ndash;                  :src="(getProfilePicUrl)"&ndash;&gt;-->
+<!--            &lt;!&ndash;                  alt=""&ndash;&gt;-->
+<!--            &lt;!&ndash;                  id="user-pic"&ndash;&gt;-->
+<!--            &lt;!&ndash;              >&ndash;&gt;-->
+<!--            &lt;!&ndash;            </slot>&ndash;&gt;-->
+<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;          <div&ndash;&gt;-->
+<!--            &lt;!&ndash;              id="user-name"&ndash;&gt;-->
+<!--            &lt;!&ndash;              v-if="this.User_Entrance"&ndash;&gt;-->
+<!--            &lt;!&ndash;          >{{getUserName}}&ndash;&gt;-->
+<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </v-tab-items>-->
       </v-tabs-items>
     </template>
-    <!--  Кнопка rjhpbys-->
+    <!--  Кнопка корзина-->
     <div
         @click="goToCard"
         type="button"

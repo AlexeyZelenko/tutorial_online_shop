@@ -12,6 +12,9 @@ export default  {
     GET_PRODUCTS: state => {
       return state.Products
     },
+    PRODUCTS: state => {
+      return state.Products
+    },
     USER_ID(state) {
         return state.userId;
     },
