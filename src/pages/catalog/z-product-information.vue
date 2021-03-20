@@ -37,7 +37,10 @@
         <v-tabs-items v-model="tabs">
 <!--          Все про товар-->
           <v-tab-item>
-            <v-card flat class="my-4">
+            <v-card
+                flat
+                class="my-4"
+            >
 
               <v-card-text>
                 <v-row align="center">
@@ -142,10 +145,48 @@
                       </v-list>
 
 
-
-
                       <h5>{{product.price}} грн</h5>
                       <h5 style="text-decoration: line-through">{{product.price2}} грн</h5>
+
+                      <img
+                          style="height: 50px"
+                          src="@/assets/images/authorised.jpg"
+                          alt=""
+                      >
+
+<!--                      Наличие товара-->
+                      <div>
+                        <v-btn
+                            v-if="product.presence"
+                            class="ma-2"
+                            color="teal"
+                            dark
+                        >
+                          В наличии
+                          <v-icon
+                              dark
+                              right
+                          >
+                            mdi-checkbox-marked-circle
+                          </v-icon>
+                        </v-btn>
+
+                        <v-btn
+                            v-if="!product.presence"
+                            class="ma-2"
+                            color="red"
+                            dark
+                        >
+                          Отсутствует
+                          <v-icon
+                              dark
+                              right
+                          >
+                            mdi-cancel
+                          </v-icon>
+                        </v-btn>
+                      </div>
+
 
                       <p>{{"Descriptions" | localize}}:</p>
                       <p v-html="product.description"></p>
