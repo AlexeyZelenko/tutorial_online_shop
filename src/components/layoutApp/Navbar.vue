@@ -78,12 +78,13 @@
             </v-btn>
           </div>
           <v-btn
+              v-if="GET_ADMIN_ENTRANCE"
               @click="adminPlusLogin"
               class="ma-2"
               fab
               outlined
               small
-              v-if="GET_ADMIN_ENTRANCE">
+          >
             <v-icon>mdi-format-list-bulleted-square</v-icon>
           </v-btn>
         </v-tab>
@@ -233,6 +234,7 @@
     </template>
     <!--  Кнопка корзина-->
     <div
+        v-if="User_Entrance"
         @click="goToCard"
         type="button"
         class="callback-bt"
