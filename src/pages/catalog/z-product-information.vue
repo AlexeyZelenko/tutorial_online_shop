@@ -8,7 +8,7 @@
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
-      <span>{{product.category}} > {{product.name}}</span>
+      <span>{{product.category}} > {{product.name}} > {{this.selectcolor}} > {{this.selectmodel}}</span>
 		</template>
     <h3>{{product.name}}</h3>
 
@@ -55,7 +55,98 @@
                       md="6"
                   >
                     <div>
-                      <p>{{"Price" | localize}}: {{product.price}} грн</p>
+
+                      <v-list
+                          class="transparent"
+                      >
+                        <v-list-item>
+                          <v-list-item-title>
+                            <!--Цвета-->
+                            <v-card
+                                style="background-color: whitesmoke; margin: 10px"
+                            >
+                              <p>Доступные цвета:</p>
+                              <v-item-group mandatory>
+                                <v-container>
+                                  <v-row>
+                                    <v-col
+                                        v-for="n in product.arrayColor"
+                                        :key="n"
+                                        cols="12"
+                                        md="4"
+                                    >
+                                      <v-item v-slot="{ active, toggle }">
+                                        <v-card
+                                            :color="n"
+                                            class="d-flex align-center"
+                                            height="50"
+                                            @click="selectColor(n); toggle()"
+                                        >
+                                          <v-scroll-y-transition>
+                                            <div
+                                                v-if="active"
+                                                class="display-3 flex-grow-1 text-center"
+                                            >
+                                              <v-icon style="color: whitesmoke">
+                                                {{ active ? 'mdi-heart-outline' : '' }}
+                                              </v-icon>
+                                            </div>
+                                          </v-scroll-y-transition>
+                                        </v-card>
+                                      </v-item>
+                                    </v-col>
+                                  </v-row>
+                                </v-container>
+                              </v-item-group>
+                            </v-card>
+                          </v-list-item-title>
+
+                          <v-list-item-subtitle>
+                            <!--Модель-->
+                            <v-card
+                                style="background-color: whitesmoke; margin: 10px"
+                            >
+                              <p>Модель:</p>
+                              <v-item-group mandatory>
+                                <v-container>
+                                  <v-row>
+                                    <v-col
+                                        v-for="n in product.arrayModel"
+                                        :key="n"
+                                        cols="12"
+                                        md="4"
+                                    >
+                                      <v-item v-slot="{ active, toggle }">
+                                        <v-card
+                                            :color="active ? 'primary' : ''"
+                                            class="d-flex align-center"
+                                            height="50"
+                                            @click="selectModel(n); toggle()"
+                                        >
+                                          <v-scroll-y-transition>
+                                            <div
+                                                class="display-1 flex-grow-1 text-center"
+                                            >
+                                              {{n}}
+                                            </div>
+                                          </v-scroll-y-transition>
+                                        </v-card>
+                                      </v-item>
+                                    </v-col>
+                                  </v-row>
+                                </v-container>
+                              </v-item-group>
+                            </v-card>
+                          </v-list-item-subtitle>
+                        </v-list-item>
+                      </v-list>
+
+
+
+
+                      <h5>{{product.price}} грн</h5>
+                      <h5 style="text-decoration: line-through">{{product.price2}} грн</h5>
+
                       <p>{{"Descriptions" | localize}}:</p>
                       <p v-html="product.description"></p>
                       <p v-if="product.clothingManufacturer !== '' ">{{"Manufacturer country" | localize}} :
@@ -221,6 +312,8 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          selectmodel: '',
+          selectcolor: '',
           arrayTabs: [
             {
               id: 1,
@@ -260,13 +353,21 @@
         }),
         components: {
             vCarousel,
-          RandomProducts
+            RandomProducts
         },
         methods: {
             ...mapActions([
                 'ADD_TO_CART',
                 'bindLocationsRef'
             ]),
+            selectColor(n) {
+              console.log(n)
+                this.selectcolor = n
+            },
+            selectModel(n) {
+              console.log(n)
+              this.selectmodel = n
+            },
             addToCart() {
                 this.ADD_TO_CART(this.product)
             },
