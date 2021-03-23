@@ -3,7 +3,9 @@
 	<div class="wrapper">
     <v-list class="transparent">
       <v-list-item>
-        <v-card style="width: 70px">
+        <div
+            style="width: 70px"
+        >
           <v-tabs
               vertical
           >
@@ -19,7 +21,7 @@
               >
             </v-tab>
           </v-tabs>
-        </v-card>
+        </div>
 
         <v-list-item-subtitle>
           <div>

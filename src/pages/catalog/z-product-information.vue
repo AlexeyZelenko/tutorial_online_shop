@@ -75,14 +75,15 @@
                                     <v-col
                                         v-for="n in product.arrayColor"
                                         :key="n"
-                                        cols="12"
-                                        md="4"
+                                        cols="6"
+                                        md="2"
                                     >
                                       <v-item v-slot="{ active, toggle }">
                                         <v-card
                                             :color="n"
                                             class="d-flex align-center"
-                                            height="50"
+                                            height="30"
+                                            width="30"
                                             @click="selectColor(n); toggle()"
                                         >
                                           <v-scroll-y-transition>
@@ -90,8 +91,8 @@
                                                 v-if="active"
                                                 class="display-3 flex-grow-1 text-center"
                                             >
-                                              <v-icon style="color: whitesmoke">
-                                                {{ active ? 'mdi-heart-outline' : '' }}
+                                              <v-icon style="color: darkgreen">
+                                                {{ active ? 'mdi-check' : '' }}
                                               </v-icon>
                                             </div>
                                           </v-scroll-y-transition>
@@ -116,21 +117,22 @@
                                     <v-col
                                         v-for="n in product.arrayModel"
                                         :key="n"
-                                        cols="12"
+                                        cols="6"
                                         md="4"
                                     >
                                       <v-item v-slot="{ active, toggle }">
                                         <v-card
                                             :color="active ? 'primary' : ''"
-                                            class="d-flex align-center"
-                                            height="50"
+                                            class="d-flex text-center"
+                                            height="30"
+                                            width="50"
                                             @click="selectModel(n); toggle()"
                                         >
                                           <v-scroll-y-transition>
                                             <div
                                                 class="display-1 flex-grow-1 text-center"
                                             >
-                                              {{n}}
+                                              <p style="font-size: 16px">{{n}}</p>
                                             </div>
                                           </v-scroll-y-transition>
                                         </v-card>
@@ -144,9 +146,12 @@
                         </v-list-item>
                       </v-list>
 
-
-                      <h5>{{product.price}} грн</h5>
-                      <h5 style="text-decoration: line-through">{{product.price2}} грн</h5>
+                      <h4
+                          style="text-decoration: line-through; color: orangered"
+                      >
+                        {{product.price2}} грн
+                      </h4>
+                      <h3>{{product.price}} грн</h3>
 
                       <img
                           style="height: 50px"
@@ -159,7 +164,9 @@
                         <v-btn
                             v-if="product.presence"
                             class="ma-2"
+                            x-small
                             color="teal"
+                            rounded
                             dark
                         >
                           В наличии
@@ -175,6 +182,8 @@
                             v-if="!product.presence"
                             class="ma-2"
                             color="red"
+                            x-small
+                            rounded
                             dark
                         >
                           Отсутствует
@@ -190,9 +199,9 @@
 
                       <p>{{"Descriptions" | localize}}:</p>
                       <p v-html="product.description"></p>
-                      <p v-if="product.clothingManufacturer !== '' ">{{"Manufacturer country" | localize}} :
-                        {{product.clothingManufacturer}}</p>
-                      <p v-if="product.BrandName !== '' ">{{"Brand name" | localize}}: {{product.BrandName}}</p>
+<!--                      <p v-if="product.clothingManufacturer !== '' ">{{"Manufacturer country" | localize}} :-->
+<!--                        {{product.clothingManufacturer}}</p>-->
+<!--                      <p v-if="product.BrandName !== '' ">{{"Brand name" | localize}}: {{product.BrandName}}</p>-->
 
                       <!--Выбрать размер-->
                       <!--		<button-->
@@ -303,27 +312,6 @@
             </v-card>
           </v-tab-item>
 
-<!--          Характеристики-->
-          <v-tab-item>
-            <v-card flat>
-              <v-card-title class="headline">
-                Технические характеристики {{product.name}}
-              </v-card-title>
-              <v-card-text>
-                <p>
-                  Duis lobortis massa imperdiet quam. Donec vitae orci sed dolor rutrum auctor. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Praesent congue erat at massa.
-                </p>
-
-                <p>
-                  Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Etiam sit amet orci eget eros faucibus tincidunt. Donec sodales sagittis magna.
-                </p>
-
-                <p class="mb-0">
-                  Ut leo. Suspendisse potenti. Duis vel nibh at velit scelerisque suscipit. Fusce pharetra convallis urna.
-                </p>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
 
 <!--          Фото-->
           <v-tab-item>
@@ -335,6 +323,75 @@
                   :carousel_data="product.arrayImages"
               />
             </v-card>
+          </v-tab-item>
+
+<!--          Отзывы-->
+          <v-tab-item>
+          </v-tab-item>
+
+<!--          Задать вопрос-->
+          <v-tab-item>
+            <template>
+              <v-card
+                  max-width="375"
+                  class="mx-auto"
+              >
+                <v-card-title>
+                  <div class="display-1 pl-12 pt-12">
+                    Наши контакты:
+                  </div>
+                </v-card-title>
+
+                <v-list two-line>
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-phone
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>+38 063 69 10 177</v-list-item-title>
+                      <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                      <v-icon>mdi-message-text</v-icon>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-divider inset></v-divider>
+
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-email
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>aliconnors@example.com</v-list-item-title>
+                      <v-list-item-subtitle>Администратор</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-divider inset></v-divider>
+
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-telegram
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>Timoxa</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-card>
+            </template>
+
           </v-tab-item>
         </v-tabs-items>
       </v-card>
@@ -363,21 +420,16 @@
             },
             {
               id: 2,
-              name: 'Характеристики',
-              text: '123'
-            },
-            {
-              id: 3,
               name: 'Фото',
               text: '123'
             },
             {
-              id: 4,
+              id: 3,
               name: 'Отзывы',
               text: '123'
             },
             {
-              id: 5,
+              id: 4,
               name: 'Задать вопрос',
               text: '123'
             }

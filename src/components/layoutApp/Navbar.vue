@@ -549,7 +549,7 @@
 }
 
 .sidenav span:hover {
-  color: #21b786;
+  color: #e2ece9;
   background-color: #21b786;
 }
 
@@ -559,6 +559,7 @@
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+  text-decoration: none;
 }
 
 .dropdown-container {
@@ -569,7 +570,9 @@
 
 @media screen and (max-width: 570px) {
   .menu2 {display: none}
-  .sidenav {padding-top: 15px;}
+  .sidenav {
+    padding-top: 15px;
+  }
   .sidenav a {
     font-size: 18px;
     color: #0f6883;
