@@ -133,10 +133,13 @@
                                         >
                                           <v-scroll-y-transition>
                                             <div
-                                                class="display-1 flex-grow-1 text-center"
+                                                class="display-1 flex-grow-1 text-center ma-2"
                                             >
-                                              <p style="font-size: 16px">{{n}}</p>
+                                              <p
+                                                  style="font-size: 14px"
+                                              >{{n}}</p>
                                             </div>
+
                                           </v-scroll-y-transition>
                                         </v-card>
                                       </v-item>
