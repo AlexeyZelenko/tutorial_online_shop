@@ -1,7 +1,67 @@
 <template>
   <div id="navbar">
+
+    <!--    Боковое меню-->
+    <div
+        id="mySidenavMain"
+        class="sidenav"
+    >
+      <a
+          href="javascript:void(0)"
+          class="closebtn"
+          @click="closeNav"
+      >
+        ×
+      </a>
+      <div
+          class="nav-link"
+          v-for="item in IconMenu"
+          :key="item.name"
+          @click="item.dropdown = !item.dropdown"
+      >
+        <span>
+          <img
+              :src="require(`@/assets/icons/${item.link}.png`)"
+              alt=""
+              :style="`height: ${item.style}px`"
+          >
+        </span>
+
+        <div
+            class="dropdown-container"
+            v-for="item2 in item.arrayArray"
+            :key="item2.id"
+        >
+        <span
+            v-if="item.dropdown"
+            @click="sortProduct(item2.text)"
+        >
+          {{item2.text}}
+        </span>
+      </div>
+      </div>
+
+    </div>
+
+
     <template>
+      <v-toolbar
+          color="black"
+          dark
+          dense
+          flat
+      >
+        <!-- Кнопка для мобильника -->
+        <span
+            style="font-size:24px; cursor:pointer; color: #847e7e; margin-right: 10px"
+            @click="openNav"
+        >
+      ☰
+    </span>
+      </v-toolbar>
+
       <v-tabs
+          class="menu2"
           v-model="tab"
           background-color="black accent-2"
           fixed-tabs
@@ -24,7 +84,7 @@
         <v-tab href="#tab-2">
           <img
               @click="1"
-              src="@/assets/icons/huawei-logo-64.png"
+              src="@/assets/icons/google-100.png"
               alt=""
               style="height: 36px">
         </v-tab>
@@ -48,8 +108,8 @@
               style="height: 36px">
         </v-tab>
 
-<!--        <v-tab href="#tab-5">-->
-<!--        </v-tab>-->
+        <!--        <v-tab href="#tab-5">-->
+        <!--        </v-tab>-->
 
         <v-spacer></v-spacer>
         <v-tab href="#tab-5">
@@ -90,146 +150,149 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab">
-        <v-tab-item
-            v-for="item in IconMenu"
-            :key="item.id"
-            :value="'tab-' + item.id"
-        >
-          <v-card
-              flat
-              dark
+      <div class="menu2">
+        <v-tabs-items v-model="tab">
+          <v-tab-item
+              v-for="item in IconMenu"
+              :key="item.id"
+              :value="'tab-' + item.id"
           >
-            <template>
-              <v-sheet
-                  class="mx-auto"
-                  max-width="800"
-              >
-                <v-slide-group
-                    v-model="model"
-                    class="pa-2"
-                    show-arrows
+            <v-card
+                flat
+                dark
+            >
+              <template>
+                <v-sheet
+                    class="mx-auto"
+                    max-width="800"
                 >
-                  <v-slide-item
-                      v-for="item2 in item.arrayArray"
-                      :key="item2.id"
-                      v-slot="{ active, toggle }"
+                  <v-slide-group
+                      v-model="model"
+                      class="pa-2"
+                      show-arrows
                   >
-                    <v-scale-transition>
-                      <v-btn
-                          text
-                          :color="active ? 'teal accent-4' : 'white'"
-                          class="ma-2"
-                          @click="toggle(); sortProduct(item2.text)"
-                      >
-                        {{item2.text}}
-                      </v-btn>
-                    </v-scale-transition>
-                  </v-slide-item>
-                </v-slide-group>
+                    <v-slide-item
+                        v-for="item2 in item.arrayArray"
+                        :key="item2.id"
+                        v-slot="{ active, toggle }"
+                    >
+                      <v-scale-transition>
+                        <v-btn
+                            text
+                            :color="active ? 'teal accent-4' : 'white'"
+                            class="ma-2"
+                            @click="toggle(); sortProduct(item2.text)"
+                        >
+                          {{item2.text}}
+                        </v-btn>
+                      </v-scale-transition>
+                    </v-slide-item>
+                  </v-slide-group>
 
-                <!--                  Выпадающее меню-->
-                <!--                  <v-expand-transition>-->
-                <!--                    <v-sheet-->
-                <!--                        v-if="model != null"-->
-                <!--                        height="200"-->
-                <!--                        tile-->
-                <!--                    >-->
-                <!--                      <v-row-->
-                <!--                          class="fill-height"-->
-                <!--                          align="center"-->
-                <!--                          justify="center"-->
-                <!--                      >-->
-                <!--                        <h3 class="title">-->
-                <!--                          Selected {{ model }}-->
-                <!--                        </h3>-->
-                <!--                      </v-row>-->
-                <!--                    </v-sheet>-->
-                <!--                  </v-expand-transition>-->
-              </v-sheet>
-            </template>
-          </v-card>
-        </v-tab-item>
-<!--        <v-tab-items-->
-<!--            v-model="tab"-->
-<!--            v-if="User_Entrance"-->
-<!--        >-->
+                  <!--                  Выпадающее меню-->
+                  <!--                  <v-expand-transition>-->
+                  <!--                    <v-sheet-->
+                  <!--                        v-if="model != null"-->
+                  <!--                        height="200"-->
+                  <!--                        tile-->
+                  <!--                    >-->
+                  <!--                      <v-row-->
+                  <!--                          class="fill-height"-->
+                  <!--                          align="center"-->
+                  <!--                          justify="center"-->
+                  <!--                      >-->
+                  <!--                        <h3 class="title">-->
+                  <!--                          Selected {{ model }}-->
+                  <!--                        </h3>-->
+                  <!--                      </v-row>-->
+                  <!--                    </v-sheet>-->
+                  <!--                  </v-expand-transition>-->
+                </v-sheet>
+              </template>
+            </v-card>
+          </v-tab-item>
+          <!--        <v-tab-items-->
+          <!--            v-model="tab"-->
+          <!--            v-if="User_Entrance"-->
+          <!--        >-->
           <!--Кабинет пользователя и корзина-->
-<!--          <div-->
-<!--              style="justify-content: center;"-->
-<!--              v-if="User_Entrance"-->
-<!--          >-->
-<!--            <template>-->
-<!--              <div-->
-<!--                  style="justify-content: center;"-->
-<!--              >-->
-<!--                <v-card-->
-<!--                    flat-->
-<!--                >-->
-<!--                  <v-btn-->
-<!--                      @click="adminPlusLogin"-->
-<!--                      class="ma-2"-->
-<!--                      fab-->
-<!--                      outlined-->
-<!--                      small-->
-<!--                      v-if="GET_ADMIN_ENTRANCE">-->
-<!--                    <v-icon>mdi-format-list-bulleted-square</v-icon>-->
-<!--                  </v-btn>-->
-<!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
-<!--&lt;!&ndash;                      :to="{name: 'cabinetUser'}"&ndash;&gt;-->
-<!--&lt;!&ndash;                      class="my-2"&ndash;&gt;-->
-<!--&lt;!&ndash;                      tile&ndash;&gt;-->
-<!--&lt;!&ndash;                  >&ndash;&gt;-->
-<!--&lt;!&ndash;                    <v-icon&ndash;&gt;-->
-<!--&lt;!&ndash;                        :to="{name: 'cabinetUser'}"&ndash;&gt;-->
-<!--&lt;!&ndash;                        left&ndash;&gt;-->
-<!--&lt;!&ndash;                    >&ndash;&gt;-->
-<!--&lt;!&ndash;                      mdi-account-circle&ndash;&gt;-->
-<!--&lt;!&ndash;                    </v-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;                    Кабинет&ndash;&gt;-->
-<!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
-<!--&lt;!&ndash;                      :to="{name: 'cart'}"&ndash;&gt;-->
-<!--&lt;!&ndash;                      class="ma-2"&ndash;&gt;-->
-<!--&lt;!&ndash;                      tile&ndash;&gt;-->
-<!--&lt;!&ndash;                  >&ndash;&gt;-->
-<!--&lt;!&ndash;                    <v-chip&ndash;&gt;-->
-<!--&lt;!&ndash;                        close-icon="mdi-heart"&ndash;&gt;-->
-<!--&lt;!&ndash;                    >&ndash;&gt;-->
-<!--&lt;!&ndash;                      <v-avatar&ndash;&gt;-->
-<!--&lt;!&ndash;                          class="darken-4"&ndash;&gt;-->
-<!--&lt;!&ndash;                          left&ndash;&gt;-->
-<!--&lt;!&ndash;                          style="background-color: #0a4506;"&ndash;&gt;-->
-<!--&lt;!&ndash;                      >&ndash;&gt;-->
-<!--&lt;!&ndash;                        {{GET_CART_USER.length}}&ndash;&gt;-->
-<!--&lt;!&ndash;                      </v-avatar>&ndash;&gt;-->
-<!--&lt;!&ndash;                      {{'Cart'|localize}}&ndash;&gt;-->
-<!--&lt;!&ndash;                    </v-chip>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
-<!--                </v-card>-->
-<!--              </div>-->
-<!--            </template>-->
+          <!--          <div-->
+          <!--              style="justify-content: center;"-->
+          <!--              v-if="User_Entrance"-->
+          <!--          >-->
+          <!--            <template>-->
+          <!--              <div-->
+          <!--                  style="justify-content: center;"-->
+          <!--              >-->
+          <!--                <v-card-->
+          <!--                    flat-->
+          <!--                >-->
+          <!--                  <v-btn-->
+          <!--                      @click="adminPlusLogin"-->
+          <!--                      class="ma-2"-->
+          <!--                      fab-->
+          <!--                      outlined-->
+          <!--                      small-->
+          <!--                      v-if="GET_ADMIN_ENTRANCE">-->
+          <!--                    <v-icon>mdi-format-list-bulleted-square</v-icon>-->
+          <!--                  </v-btn>-->
+          <!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
+          <!--&lt;!&ndash;                      :to="{name: 'cabinetUser'}"&ndash;&gt;-->
+          <!--&lt;!&ndash;                      class="my-2"&ndash;&gt;-->
+          <!--&lt;!&ndash;                      tile&ndash;&gt;-->
+          <!--&lt;!&ndash;                  >&ndash;&gt;-->
+          <!--&lt;!&ndash;                    <v-icon&ndash;&gt;-->
+          <!--&lt;!&ndash;                        :to="{name: 'cabinetUser'}"&ndash;&gt;-->
+          <!--&lt;!&ndash;                        left&ndash;&gt;-->
+          <!--&lt;!&ndash;                    >&ndash;&gt;-->
+          <!--&lt;!&ndash;                      mdi-account-circle&ndash;&gt;-->
+          <!--&lt;!&ndash;                    </v-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;                    Кабинет&ndash;&gt;-->
+          <!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
+          <!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
+          <!--&lt;!&ndash;                      :to="{name: 'cart'}"&ndash;&gt;-->
+          <!--&lt;!&ndash;                      class="ma-2"&ndash;&gt;-->
+          <!--&lt;!&ndash;                      tile&ndash;&gt;-->
+          <!--&lt;!&ndash;                  >&ndash;&gt;-->
+          <!--&lt;!&ndash;                    <v-chip&ndash;&gt;-->
+          <!--&lt;!&ndash;                        close-icon="mdi-heart"&ndash;&gt;-->
+          <!--&lt;!&ndash;                    >&ndash;&gt;-->
+          <!--&lt;!&ndash;                      <v-avatar&ndash;&gt;-->
+          <!--&lt;!&ndash;                          class="darken-4"&ndash;&gt;-->
+          <!--&lt;!&ndash;                          left&ndash;&gt;-->
+          <!--&lt;!&ndash;                          style="background-color: #0a4506;"&ndash;&gt;-->
+          <!--&lt;!&ndash;                      >&ndash;&gt;-->
+          <!--&lt;!&ndash;                        {{GET_CART_USER.length}}&ndash;&gt;-->
+          <!--&lt;!&ndash;                      </v-avatar>&ndash;&gt;-->
+          <!--&lt;!&ndash;                      {{'Cart'|localize}}&ndash;&gt;-->
+          <!--&lt;!&ndash;                    </v-chip>&ndash;&gt;-->
+          <!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
+          <!--                </v-card>-->
+          <!--              </div>-->
+          <!--            </template>-->
 
-<!--            <v-spacer></v-spacer>-->
-<!--            &lt;!&ndash;          <div&ndash;&gt;-->
-<!--            &lt;!&ndash;              class="v-carousel-item"&ndash;&gt;-->
-<!--            &lt;!&ndash;              v-if="this.User_Entrance">&ndash;&gt;-->
-<!--            &lt;!&ndash;            <slot>&ndash;&gt;-->
-<!--            &lt;!&ndash;              <img&ndash;&gt;-->
-<!--            &lt;!&ndash;                  :src="(getProfilePicUrl)"&ndash;&gt;-->
-<!--            &lt;!&ndash;                  alt=""&ndash;&gt;-->
-<!--            &lt;!&ndash;                  id="user-pic"&ndash;&gt;-->
-<!--            &lt;!&ndash;              >&ndash;&gt;-->
-<!--            &lt;!&ndash;            </slot>&ndash;&gt;-->
-<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;          <div&ndash;&gt;-->
-<!--            &lt;!&ndash;              id="user-name"&ndash;&gt;-->
-<!--            &lt;!&ndash;              v-if="this.User_Entrance"&ndash;&gt;-->
-<!--            &lt;!&ndash;          >{{getUserName}}&ndash;&gt;-->
-<!--            &lt;!&ndash;          </div>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </v-tab-items>-->
-      </v-tabs-items>
+          <!--            <v-spacer></v-spacer>-->
+          <!--            &lt;!&ndash;          <div&ndash;&gt;-->
+          <!--            &lt;!&ndash;              class="v-carousel-item"&ndash;&gt;-->
+          <!--            &lt;!&ndash;              v-if="this.User_Entrance">&ndash;&gt;-->
+          <!--            &lt;!&ndash;            <slot>&ndash;&gt;-->
+          <!--            &lt;!&ndash;              <img&ndash;&gt;-->
+          <!--            &lt;!&ndash;                  :src="(getProfilePicUrl)"&ndash;&gt;-->
+          <!--            &lt;!&ndash;                  alt=""&ndash;&gt;-->
+          <!--            &lt;!&ndash;                  id="user-pic"&ndash;&gt;-->
+          <!--            &lt;!&ndash;              >&ndash;&gt;-->
+          <!--            &lt;!&ndash;            </slot>&ndash;&gt;-->
+          <!--            &lt;!&ndash;          </div>&ndash;&gt;-->
+          <!--            &lt;!&ndash;          <div&ndash;&gt;-->
+          <!--            &lt;!&ndash;              id="user-name"&ndash;&gt;-->
+          <!--            &lt;!&ndash;              v-if="this.User_Entrance"&ndash;&gt;-->
+          <!--            &lt;!&ndash;          >{{getUserName}}&ndash;&gt;-->
+          <!--            &lt;!&ndash;          </div>&ndash;&gt;-->
+          <!--          </div>-->
+          <!--        </v-tab-items>-->
+        </v-tabs-items>
+      </div>
+
     </template>
     <!--  Кнопка корзина-->
     <div
@@ -254,14 +317,17 @@
 
   export default {
     data: () => ({
+      showDropdownMenu: false,
       model: null,
       tab: null,
       IconMenu: [
         {
           id: 1,
-          icon: '@/assets/icons/ос-mac-60.png',
-          clickMenu: '',
+          name: 'mac',
+          link: "ос-mac-60",
+          style: "36",
           text: '1',
+          dropdown: false,
           arrayArray: [
             {
               text: 'Iphone'
@@ -282,20 +348,24 @@
         },
         {
           id: 2,
-          icon: '@/assets/icons/ос-mac-60.png',
-          clickMenu: '',
+          name: 'google',
+          link: "google-100",
+          style: "36",
           text: '2',
+          dropdown: false,
           arrayArray: [
             {
-              text: 'Аксессуары'
+              text: 'Google Pixel'
             }
           ]
         },
         {
           id: 3,
-          icon: '@/assets/icons/ос-mac-60.png',
-          clickMenu: '',
+          name: 'mi',
+          link: "mi-48",
+          style: "36",
           text: '3',
+          dropdown: false,
           arrayArray: [
             {
               text: 'AirDots'
@@ -310,9 +380,11 @@
         },
         {
           id: 4,
-          icon: '@/assets/icons/ос-mac-60.png',
-          clickMenu: '',
+          name: 'samsung',
+          link: "samsung-512",
+          style: "36",
           text: '4',
+          dropdown: false,
           arrayArray: [
             {
               text: 'Phone'
@@ -329,12 +401,6 @@
           ]
         }
       ],
-      items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
     }),
     methods: {
       ...mapActions([
@@ -344,6 +410,12 @@
         'USER_ID_ACTIONS',
         'sortByCategories'
       ]),
+      openNav () {
+        document.getElementById('mySidenavMain').style.width = '250px'
+      },
+      closeNav () {
+        document.getElementById('mySidenavMain').style.width = '0'
+      },
       goToCard () {
         this.$router.push({name: 'cart'})
       },
@@ -454,6 +526,56 @@
 </script>
 
 <style lang="scss">
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #040303;
+  opacity: 0.9;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav span {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 24px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav span:hover {
+  color: #21b786;
+  background-color: #21b786;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.dropdown-container {
+  background-color: #262626;
+  padding-left: 8px;
+  color: #00BFA5;
+}
+
+@media screen and (max-width: 570px) {
+  .menu2 {display: none}
+  .sidenav {padding-top: 15px;}
+  .sidenav a {
+    font-size: 18px;
+    color: #0f6883;
+    text-decoration: none;
+  }
+}
 img {
   cursor: pointer;
 }
@@ -687,4 +809,5 @@ img {
   background-color:#212;
   position: relative;
 }
+
 </style>
