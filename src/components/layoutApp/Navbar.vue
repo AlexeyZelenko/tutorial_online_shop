@@ -115,17 +115,16 @@
                       :key="item2.id"
                       v-slot="{ active, toggle }"
                   >
-                    <v-card
-                        :color="active ? 'teal accent-4' : 'dark'"
-                        class="ma-2"
-                        height="30"
-                        width="100"
-                        @click="toggle(); sortProduct(item2.text)"
-                    >
-                      <v-scale-transition>
-                        <p>{{item2.text}}</p>
-                      </v-scale-transition>
-                    </v-card>
+                    <v-scale-transition>
+                      <v-btn
+                          text
+                          :color="active ? 'teal accent-4' : 'white'"
+                          class="ma-2"
+                          @click="toggle(); sortProduct(item2.text)"
+                      >
+                        {{item2.text}}
+                      </v-btn>
+                    </v-scale-transition>
                   </v-slide-item>
                 </v-slide-group>
 
@@ -350,9 +349,9 @@
       },
       async sortProduct (product) {
         // this.sortByCategories(product)
-        console.log('product', product)
         try {
           await this.$store.dispatch('sortByCategories', product)
+          window.scrollTo(0, 1000)
         } catch (e) {
           console.log('Ошибка сортировки')
         }
@@ -688,6 +687,4 @@ img {
   background-color:#212;
   position: relative;
 }
-
-
 </style>

@@ -27,7 +27,7 @@
         :key="i"
     >
       <v-sheet
-          :color="colors[i]"
+          :color="colors[10]"
           height="100%"
       >
         <v-row
@@ -38,7 +38,7 @@
           <div
               class="display-3 "
           >
-            <span>{{ item.name }}</span>
+            <span style="color: black">{{ item.name }}</span>
             <div class="text-center">
               <v-btn
                   @click="productClick(item.article)"
@@ -86,7 +86,8 @@ export default {
         'cyan darken-4',
         'light-green darken-3',
         'brown darken-4',
-        'deep-orange accent-4'
+        'deep-orange accent-4',
+          '#ecfcf0'
       ]
     }
   },
