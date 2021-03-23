@@ -18,7 +18,7 @@
                 v-for="item in RANDOM_PRODUCTS"
                 :key="item.article"
                 cols="12"
-                md="4"
+                md="2"
             >
               <p style="color: darkcyan">{{item.name}}</p>
               <div class="text-center">
@@ -50,7 +50,7 @@ export default {
   methods: {
     ...mapActions([]),
     productClick(article) {
-      window.scrollTo({ top: 300, behavior: 'smooth' })
+      window.scrollTo({ top: 150, behavior: 'smooth' })
       this.$router.push({name: 'product', query: {'product': article}})
 
     }

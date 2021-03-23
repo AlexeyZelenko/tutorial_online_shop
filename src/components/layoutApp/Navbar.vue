@@ -53,6 +53,7 @@
       >
         <!-- Кнопка для мобильника -->
         <span
+            class="menu1"
             style="font-size:24px; cursor:pointer; color: #847e7e; margin-right: 10px"
             @click="openNav"
         >
@@ -526,6 +527,9 @@
 </script>
 
 <style lang="scss">
+.menu1 {
+  display: none;
+}
 .sidenav {
   height: 100%;
   width: 0;
@@ -568,8 +572,9 @@
   color: #00BFA5;
 }
 
-@media screen and (max-width: 570px) {
+@media (max-width: 570px) {
   .menu2 {display: none}
+  .menu1 {display: block}
   .sidenav {
     padding-top: 15px;
   }

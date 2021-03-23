@@ -2,23 +2,26 @@
 	<div class="z-product-information">
 		<template>
 			<v-btn
+          class="main-color-btn"
 					:to="{name: 'catalog'}"
 					block
-					style="background-color: green; color: whitesmoke; margin-bottom: 19px"
+					style="background-color: black; color: #ecfcf0; margin-bottom: 19px"
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
-      <span>{{product.category}} > {{product.name}} > {{this.selectcolor}} > {{this.selectmodel}}</span>
+      <span >{{product.category}} > {{product.name}} > {{this.selectcolor}} > {{this.selectmodel}}</span>
 		</template>
-    <h3>{{product.name}}</h3>
+
 
     <template>
+
       <v-card>
         <v-toolbar
             color="purple"
             dark
             flat
         >
+          <h3>{{product.name}}</h3>
           <template v-slot:extension>
             <v-tabs
                 v-model="tabs"
