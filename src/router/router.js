@@ -62,6 +62,12 @@ let router = new Router({
             component: () => import('@/pages/catalog/cabinetUser'),
             props: true
         },
+        {
+          path: '/reviews',
+          name: 'reviews',
+          component: () => import('@/pages/Reviews'),
+          props: true
+        },
     ]
 })
 

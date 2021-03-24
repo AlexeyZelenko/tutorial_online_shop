@@ -6,13 +6,16 @@
         id="mySidenavMain"
         class="sidenav"
     >
-      <a
-          href="javascript:void(0)"
-          class="closebtn"
-          @click="closeNav"
-      >
+      <span>
+        <a
+            href="javascript:void(0)"
+            class="closebtn"
+            @click="closeNav"
+        >
         ×
       </a>
+      </span>
+
       <div
           class="nav-link"
           v-for="item in IconMenu"
@@ -39,7 +42,15 @@
           {{item2.text}}
         </span>
       </div>
+
       </div>
+
+      <span
+          style="color: #ecfcf0; "
+          @click="goToReviews()"
+      >
+        Отзывы
+      </span>
 
     </div>
 
@@ -106,14 +117,22 @@
               src="@/assets/icons/samsung-512.png"
               alt=""
               class="btn_admin"
-              style="height: 36px">
+              style="height: 36px"
+          >
         </v-tab>
 
-        <!--        <v-tab href="#tab-5">-->
-        <!--        </v-tab>-->
+        <v-tab href="#tab-5">
+          <v-btn
+              text
+              color="white"
+              @click="goToReviews"
+          >
+            Отзывы
+          </v-btn>
+        </v-tab>
 
         <v-spacer></v-spacer>
-        <v-tab href="#tab-5">
+        <v-tab href="#tab-6">
           <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
           <div
               class="text-center"
@@ -400,6 +419,13 @@
               text: 'Аксессуары'
             },
           ]
+        },
+        {
+          id: 5,
+          name: 'Отзывы',
+          link: "reviews",
+          style: "36",
+          dropdown: false,
         }
       ],
     }),
@@ -416,6 +442,9 @@
       },
       closeNav () {
         document.getElementById('mySidenavMain').style.width = '0'
+      },
+      goToReviews () {
+        this.$router.push({name: 'reviews'})
       },
       goToCard () {
         this.$router.push({name: 'cart'})
@@ -545,7 +574,7 @@
 }
 
 .sidenav span {
-  padding: 8px 8px 8px 32px;
+  padding: 20px 8px 8px 32px;
   text-decoration: none;
   font-size: 24px;
   display: block;
