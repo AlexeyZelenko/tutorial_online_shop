@@ -49,7 +49,7 @@
           style="color: #ecfcf0; "
           @click="goToReviews()"
       >
-        Отзывы
+        отзывы
       </span>
 
     </div>
@@ -127,7 +127,7 @@
               color="white"
               @click="goToReviews"
           >
-            Отзывы
+            отзывы
           </v-btn>
         </v-tab>
 
@@ -420,13 +420,6 @@
             },
           ]
         },
-        {
-          id: 5,
-          name: 'Отзывы',
-          link: "reviews",
-          style: "36",
-          dropdown: false,
-        }
       ],
     }),
     methods: {

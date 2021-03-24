@@ -12,7 +12,7 @@
       <v-icon dark left>mdi-arrow-left</v-icon>
       Каталог товаров
     </v-btn>
-    <v-row align="center">
+    <v-row justify="space-between">
       <v-col
           cols="12"
           md="6"
@@ -22,18 +22,18 @@
               :dense="$vuetify.breakpoint.smAndDown"
           >
             <v-timeline-item
-                v-for="n in arrayReviews"
-                :key="n"
+                v-for="review in arrayReviews"
+                :key="review.id"
             >
             <span slot="opposite">
-              {{n.time}}
+              {{review.time}}
             </span>
               <v-card class="elevation-2">
                 <v-card-title class="headline">
-                  {{n.name}}
+                  {{review.name}}
                 </v-card-title>
                 <v-card-text>
-                  {{n.text}}
+                  {{review.text}}
                 </v-card-text>
               </v-card>
             </v-timeline-item>
@@ -52,6 +52,11 @@
             <div class="text-center">
               <v-rating
                   v-model="rating"
+                  background-color="yellow accent-4"
+                  color="yellow accent-4"
+                  dense
+                  hover
+                  size="20"
                   icon-label="custom icon label text {0} of {1}"
               ></v-rating>
             </div>
@@ -60,7 +65,7 @@
                   v-model="name"
                   :error-messages="nameErrors"
                   :counter="10"
-                  label="Name"
+                  label="Имя"
                   required
                   @input="$v.name.$touch()"
                   @blur="$v.name.$touch()"
@@ -92,12 +97,16 @@
               ></v-checkbox>
 
               <v-btn
+                  color="secondary"
                   class="mr-4"
                   @click="submit"
               >
-                отправить
+                Оставить отзыв
               </v-btn>
-              <v-btn @click="clear">
+              <v-btn
+                  color="primary"
+                  @click="clear"
+              >
                 очистить
               </v-btn>
             </form>

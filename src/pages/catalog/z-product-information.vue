@@ -22,7 +22,10 @@
             flat
         >
           <h3>{{product.name}}</h3>
-          <template v-slot:extension>
+          <template
+              v-slot:extension
+          >
+
             <v-tabs
                 v-model="tabs"
                 centered
@@ -331,9 +334,6 @@
             </v-card>
           </v-tab-item>
 
-<!--          Отзывы-->
-          <v-tab-item>
-          </v-tab-item>
 
 <!--          Задать вопрос-->
           <v-tab-item>
@@ -421,7 +421,7 @@
           arrayTabs: [
             {
               id: 1,
-              name: 'Все про товар',
+              name: 'Все о товаре',
               text: '123'
             },
             {
@@ -431,11 +431,6 @@
             },
             {
               id: 3,
-              name: 'Отзывы',
-              text: '123'
-            },
-            {
-              id: 4,
               name: 'Задать вопрос',
               text: '123'
             }
@@ -494,9 +489,5 @@
 		box-shadow: 0 0 8px 0 #e0e0e0;
 		padding: $padding*2;
 		margin-bottom: $margin*2;
-
-		&_image {
-			width: 300px;
-		}
 	}
 </style>
