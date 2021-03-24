@@ -12,7 +12,7 @@
       <v-icon dark left>mdi-arrow-left</v-icon>
       Каталог товаров
     </v-btn>
-    <v-row justify="space-between">
+    <v-row justify="center">
       <v-col
           cols="12"
           md="6"
@@ -80,7 +80,7 @@
               ></v-text-field>
               <v-divider></v-divider>
               <v-textarea
-                  v-model="title"
+                  v-model="text"
                   label="Ваш отзыв"
                   counter
                   maxlength="120"
@@ -99,7 +99,7 @@
               <v-btn
                   color="secondary"
                   class="mr-4"
-                  @click="submit"
+                  @click.prevent="submit"
               >
                 Оставить отзыв
               </v-btn>
@@ -121,15 +121,17 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
+import {mapActions} from 'vuex'
+import Swal from "sweetalert2"
+// import store from '@/vuex/store'
 
 export default {
   mixins: [validationMixin],
 
   validations: {
-    title: { required, maxLength: maxLength(100) },
+    text: { required, maxLength: maxLength(100) },
     name: { required, maxLength: maxLength(10) },
     email: { required, email },
-    select: { required },
     checkbox: {
       checked (val) {
         return val
@@ -138,38 +140,14 @@ export default {
   },
 
   data: () => ({
+    rewiews: {},
     rating: 0,
-    title: '',
+    text: '',
     name: '',
     email: '',
     select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-    ],
     checkbox: false,
-    arrayReviews: [
-      {
-        id: 1,
-        name: 'Алексей',
-        text: 'Хорошая компания!',
-        time: '12.03.2021'
-      },
-      {
-        id: 2,
-        name: 'Вася',
-        text: 'Понравилось обслуживание!',
-        time: '23.03.2021'
-      },
-      {
-        id: 3,
-        name: 'Вася',
-        text: 'Понравилось обслуживание!',
-        time: '12.02.2021'
-      }
-    ],
+    arrayReviews: [],
     reverse: true,
   }),
   computed: {
@@ -202,18 +180,59 @@ export default {
   },
 
   methods: {
-    submit () {
+    ...mapActions([
+      'createNewReview',
+    ]),
+    async submit () {
       this.$v.$touch()
+      Swal.fire({
+        title: 'Загрузка...',
+        text: '',
+        imageUrl: '352.gif' || '~~/assets/352.gif',
+        showConfirmButton: false
+      })
+
+      const payload = {
+        text: this.text,
+        rating: this.rating,
+        name: this.name,
+        email: this.email,
+      }
+      await this.createNewReview( payload )
+      // store.dispatch('createNewReview', payload)
+
+      try {
+        this.get_reviews()
+        Swal.fire('Коментарий добавлен!!!')
+        this.clear()
+      } catch (error) {
+        Swal.fire({
+          title: 'Помилка завантаження...',
+          text: error
+        })
+      }
     },
-    clear () {
+    clear (){
       this.$v.$reset()
-      this.title = ''
+      this.text = ''
       this.name = ''
       this.email = ''
       this.select = null
       this.checkbox = false
     },
+    async get_reviews () {
+      const response = await fetch('https://online-shop-34af2.firebaseio.com/reviews.json')
+      const data = await response.json()
+      console.log('data', data)
+
+      this.arrayReviews = Object.keys(data).map(key => {
+        return { ...data[key], id: key }
+      })
+    }
   },
+  mounted () {
+    this.get_reviews()
+  }
 }
 </script>
 

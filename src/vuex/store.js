@@ -89,6 +89,16 @@ actions: {
     userbindLocationsRef: firestoreAction(context => {
         return context.bindFirestoreRef('Users', db.collection('users'))
     }),
+   async createNewReview (commit, payload) {
+    const newText = payload
+    await fetch('https://online-shop-34af2.firebaseio.com/reviews.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newText)
+    })
+  },
     async list_Users({commit}) {
         const user = firebase.auth().currentUser;
         const userOnlain = user.providerData[0]
