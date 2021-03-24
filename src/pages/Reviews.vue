@@ -209,6 +209,7 @@ export default {
         rating: this.rating,
         name: this.name,
         email: this.email,
+        createdAt: Date.now()
       }
       await this.createNewReview( payload )
       // store.dispatch('createNewReview', payload)
@@ -235,7 +236,6 @@ export default {
     async get_reviews () {
       const response = await fetch('https://online-shop-34af2.firebaseio.com/reviews.json')
       const data = await response.json()
-      console.log('data', data)
 
       this.arrayReviews = Object.keys(data).map(key => {
         return { ...data[key], id: key }

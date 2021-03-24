@@ -266,7 +266,7 @@
 											<!--								НАЗВАНИЕ-->
 											<v-text-field
 													:rules="[rules.counter]"
-													label="Наименование одежды"
+													label="Наименование товара"
 													placeholder="Name"
 													prepend-icon="create"
 													v-model="editedItem.name"
@@ -304,46 +304,49 @@
 										></v-text-field>
 									</v-col>
 									<!--						Размер-->
-									<v-col cols="12">
-										<v-text-field
-												label="Размер одежды"
-												placeholder="36-60"
-												prepend-icon="create"
-												v-model="editedItem.clothingSize"
-										></v-text-field>
+<!--									<v-col cols="12">-->
+<!--										<v-text-field-->
+<!--												label="Размер одежды"-->
+<!--												placeholder="36-60"-->
+<!--												prepend-icon="create"-->
+<!--												v-model="editedItem.clothingSize"-->
+<!--										></v-text-field>-->
+<!--									</v-col>-->
 
 
-									</v-col>
 									<!--						Бренд-->
-									<v-col cols="12">
-										<v-text-field
-												label="Брэнд"
-												placeholder="Пьер Кардэн"
-												prepend-icon="create"
-												v-model="editedItem.BrandName"
-										></v-text-field>
-									</v-col>
+<!--									<v-col cols="12">-->
+<!--										<v-text-field-->
+<!--												label="Брэнд"-->
+<!--												placeholder="Apple"-->
+<!--												prepend-icon="create"-->
+<!--												v-model="editedItem.BrandName"-->
+<!--										></v-text-field>-->
+<!--									</v-col>-->
+
+                  <!--							БРЭНД-->
+                  <v-col cols="12">
+                    <v-select
+                        :items="BrandName"
+                        label="Выберите бренд"
+                        placeholder="Бренд"
+                        prepend-icon="create"
+                        v-model="editedItem.BrandName"
+                    ></v-select>
+                  </v-col>
+
 									<!--						КАТЕГОРИИ-->
 									<v-col cols="12">
 										<v-select
 												:items="itemsCategories"
 												:rules="[v => !!v || 'Пункт требуется']"
-												label="Выберите категорию"
-												placeholder="Категория"
+												label="Выберите модель"
+												placeholder="модель"
 												prepend-icon="create"
 												v-model="editedItem.category"
 										></v-select>
 									</v-col>
-									<!--							ПРОИЗВОДИТЕЛЬ-->
-									<v-col cols="12">
-										<v-select
-												:items="itemsclothingManufacturer"
-												label="Выберите производителя"
-												placeholder="Производитель"
-												prepend-icon="create"
-												v-model="editedItem.clothingManufacturer"
-										></v-select>
-									</v-col>
+
 									<!--						ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
 										<v-checkbox
@@ -523,7 +526,7 @@
                 'Товары', 'Заказы'
             ],
             more: [
-                'Клиенты', 'Размеры',
+                'Клиенты', 'Аналитика',
             ],
             page: 1,
             pageCount: 0,
@@ -604,24 +607,15 @@
                 arrayImages: []
             },
             itemsCategories: [
-                'Куртки',
-                'Ветровки',
-                'Пальто',
-                'Плащи',
-                'Джинсы',
-                'Брюки',
-                'Кофты',
-                'Футболки',
-                'Рубашки',
-                'Блузки',
-                'Платья',
-                'Костюмы',
+                '128',
+                '256',
+                '512',
             ],
-            itemsclothingManufacturer: [
-                'Турция',
-                'Италия',
-                'Китай',
-                '',
+          BrandName: [
+                'Apple',
+                'Google',
+                'Xiaomi',
+                'Samsung',
             ],
             headers: [
                 {
@@ -631,7 +625,7 @@
                     sortable: false,
                 },
                 {text: '', value: '1'},
-                {text: 'Фото одежды', value: 'arrayImages'},
+                {text: 'Фото', value: 'arrayImages'},
                 {text: '', value: '2'},
                 {text: '', value: '3'},
                 {text: 'Категория', value: 'category'},
@@ -639,11 +633,9 @@
                 {text: 'Описание', value: 'description'},
                 {text: '', value: '5'},
                 {text: 'Цена', value: 'price'},
-                {text: 'Размер', value: 'clothingSize'},
                 {text: 'Бренд', value: 'BrandName'},
-                {text: 'Производитель', value: 'clothingManufacturer'},
                 {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
-                {text: '===============================', value: ''},
+                {text: '===========================', value: ''},
             ],
             locations: []
         }),
@@ -659,7 +651,7 @@
                 }, 5000)
             },
             onCancel() {
-                console.log('User cancelled the loader.')
+                console.log('Пользователь отменил загрузчик.')
             },
             addItem(item) {
                 const removed = this.items.splice(0, 1)
@@ -767,7 +759,7 @@
                         })
                     })
             },
-            async addLocation(addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, clothingSize, clothingManufacturer, price, description) {
+            async addLocation(addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, description) {
 
                 this.isLoading = true
 
@@ -781,10 +773,8 @@
                 name = addProduct.name
                 price = addProduct.price
                 promotionalPrice = addProduct.promotionalPrice
-                clothingSize = addProduct.clothingSize
                 newClothes = addProduct.newClothes
                 description = addProduct.description
-                clothingManufacturer = addProduct.clothingManufacturer
                 arrayImages = addProduct.arrayImages
 // ЗАГРУЗКА ФОТО
                 const promises = []
@@ -826,8 +816,6 @@
                     available,
                     BrandName,
                     newClothes,
-                    clothingManufacturer,
-                    clothingSize,
                     promotionalPrice,
                     createdAt,
                     category,
