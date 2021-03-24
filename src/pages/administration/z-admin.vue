@@ -347,6 +347,136 @@
 										></v-select>
 									</v-col>
 
+<!--                  Модель-->
+                  <template>
+                    <v-container fluid>
+                      <v-select
+                          v-model="selectedFruits"
+                          :items="fruits"
+                          label="Выберите модели"
+                          multiple
+                      >
+                        <template v-slot:prepend-item>
+                          <v-list-item
+                              ripple
+                              @click="toggle"
+                          >
+                            <v-list-item-action>
+                              <v-icon :color="selectedFruits.length > 0 ? 'indigo darken-4' : ''">
+                                {{ icon }}
+                              </v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                Выбрать все
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider class="mt-2"></v-divider>
+                        </template>
+                        <template v-slot:append-item>
+                          <v-divider class="mb-2"></v-divider>
+                          <v-list-item disabled>
+                            <v-list-item-avatar color="grey lighten-3">
+                              <v-icon>
+                                mdi-food-apple
+                              </v-icon>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content v-if="likesAllFruit">
+                              <v-list-item-title>
+                                Вы выбрали все модели!
+                              </v-list-item-title>
+                            </v-list-item-content>
+
+                            <v-list-item-content v-else-if="likesSomeFruit">
+                              <v-list-item-title>
+                                Кол-во моделей
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                {{ selectedFruits.length }}
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+
+                            <v-list-item-content v-else>
+                              <v-list-item-title>
+                                Выберите модели для телефона
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                Давай, сделай выбор выше!
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </template>
+                      </v-select>
+                    </v-container>
+                  </template>
+
+<!--                  Цвета-->
+                  <template>
+                    <v-container fluid>
+                      <v-select
+                          v-model="selectedFruits"
+                          :items="fruitsColors"
+                          label="Выберите цвета"
+                          multiple
+                      >
+                        <template v-slot:prepend-item>
+                          <v-list-item
+                              ripple
+                              @click="toggle"
+                          >
+                            <v-list-item-action>
+                              <v-icon :color="selectedFruits.length > 0 ? 'indigo darken-4' : ''">
+                                {{ icon }}
+                              </v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                Выбрать все
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-divider class="mt-2"></v-divider>
+                        </template>
+                        <template v-slot:append-item>
+                          <v-divider class="mb-2"></v-divider>
+                          <v-list-item disabled>
+                            <v-list-item-avatar color="grey lighten-3">
+                              <v-icon>
+                                mdi-food-apple
+                              </v-icon>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content v-if="likesAllFruit">
+                              <v-list-item-title>
+                                Вы выбрали все цвета!
+                              </v-list-item-title>
+                            </v-list-item-content>
+
+                            <v-list-item-content v-else-if="likesSomeFruit">
+                              <v-list-item-title>
+                                Кол-во цветов
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                {{ selectedFruits.length }}
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+
+                            <v-list-item-content v-else>
+                              <v-list-item-title>
+                                Выберите цвета телефона
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                Давай, сделай выбор выше!
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </template>
+                      </v-select>
+                    </v-container>
+                  </template>
+
 									<!--						ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
 										<v-checkbox
@@ -611,7 +741,19 @@
                 '256',
                 '512',
             ],
-          BrandName: [
+            fruits: [
+                '128',
+                '256',
+                '512'
+            ],
+            fruitsColors: [
+                'black',
+                'yellow',
+                'cyan',
+                'green'
+            ],
+            selectedFruits: [],
+            BrandName: [
                 'Apple',
                 'Google',
                 'Xiaomi',
@@ -643,6 +785,15 @@
             ...mapActions([
                 'list_Users',
             ]),
+            toggle () {
+              this.$nextTick(() => {
+                if (this.likesAllFruit) {
+                  this.selectedFruits = []
+                } else {
+                  this.selectedFruits = this.fruits.slice()
+                }
+              })
+            },
             doAjax() {
                 this.isLoading = true;
                 // simulate AJAX
@@ -809,7 +960,7 @@
                 const URLs = await Promise.all(promises)
                 const NameImages = await Promise.all(promisesName)
 
-                await db.collection('products').add({
+                await db.collection('products2').add({
                     NameImages: NameImages,
                     seen,
                     article,
@@ -901,6 +1052,17 @@
                 'PRODUCTS',
                 'GET_LIST_USERS'
             ]),
+          likesAllFruit () {
+            return this.selectedFruits.length === this.fruits.length
+          },
+          likesSomeFruit () {
+            return this.selectedFruits.length > 0 && !this.likesAllFruit
+          },
+          icon () {
+            if (this.likesAllFruit) return 'mdi-close-box'
+            if (this.likesSomeFruit) return 'mdi-minus-box'
+            return 'mdi-checkbox-blank-outline'
+          },
             formTitle() {
                 return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
             },
