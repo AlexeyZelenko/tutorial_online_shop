@@ -633,6 +633,7 @@
 
     const formDefault = {
         NameImages: [],
+        selectedFruits: [],
         File: [],
         name: '',
         article: +new Date(),
@@ -726,6 +727,7 @@
             arrayImages: [],
             editedIndex: -1,
             editedItem: {
+                selectedFruits: [],
                 NameImages: [],
                 File: [],
                 name: '',
@@ -748,6 +750,7 @@
             },
             defaultItem: {
                 seen: false,
+                selectedFruits: [],
                 NameImages: [],
                 File: [],
                 name: '',
@@ -943,7 +946,7 @@
                         })
                     })
             },
-            async addLocation(presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
+            async addLocation(arrayModel, presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
 
                 this.isLoading = true
 
@@ -962,6 +965,7 @@
                 newClothes = addProduct.newClothes
                 description = addProduct.description
                 arrayImages = addProduct.arrayImages
+                arrayModel = addProduct.selectedFruits
 // ЗАГРУЗКА ФОТО
                 const promises = []
                 const promisesName = []
@@ -997,6 +1001,7 @@
 
                 await db.collection('products2').add({
                     NameImages: NameImages,
+                    arrayModel,
                     presence,
                     seen,
                     article,
