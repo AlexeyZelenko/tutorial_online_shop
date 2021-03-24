@@ -32,6 +32,17 @@
                 <v-card-title class="headline">
                   {{review.name}}
                 </v-card-title>
+                <v-rating
+                    v-model="review.rating"
+                    background-color="yellow accent-4"
+                    color="yellow accent-4"
+                    dense
+                    hover
+                    size="20"
+                    icon-label="custom icon label text {0} of {1}"
+                >
+
+                </v-rating>
                 <v-card-text>
                   {{review.text}}
                 </v-card-text>
@@ -97,13 +108,14 @@
               ></v-checkbox>
 
               <v-btn
-                  color="secondary"
+                  color="success"
                   class="mr-4"
                   @click.prevent="submit"
               >
                 Оставить отзыв
               </v-btn>
               <v-btn
+                  class="ma-2"
                   color="primary"
                   @click="clear"
               >
