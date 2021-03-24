@@ -273,6 +273,7 @@
 											></v-text-field>
 										</v-row>
 									</v-col>
+
 									<!--						ОПИСАНИЕ ТОВАРА-->
 									<v-col cols="12">
 										<tiptap-vuetify
@@ -282,6 +283,7 @@
 												v-model="editedItem.description"
 										/>
 									</v-col>
+
 									<!--						АРТИКЛЬ-->
 									<v-col cols="12">
 										<v-text-field
@@ -291,6 +293,7 @@
 												v-model="editedItem.article"
 										></v-text-field>
 									</v-col>
+
 									<!--						ЦЕНА-->
 									<v-col cols="12">
 										<v-text-field
@@ -303,6 +306,20 @@
 												v-model="editedItem.price"
 										></v-text-field>
 									</v-col>
+
+                  <!--						ЦЕНА Завышенная-->
+                  <v-col cols="12">
+                    <v-text-field
+                        :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                        label="Предыдущая цена товара"
+                        placeholder="ОБЯЗАТЕЛЬНО"
+                        prepend-icon="monetization_on"
+                        required
+                        type="Number"
+                        v-model="editedItem.price2"
+                    ></v-text-field>
+                  </v-col>
+
 									<!--						Размер-->
 <!--									<v-col cols="12">-->
 <!--										<v-text-field-->
@@ -497,6 +514,14 @@
 												label="Товар со скидкой"
 												v-model="editedItem.promotionalPrice"
 										></v-checkbox>
+                    <v-checkbox
+                        color="success"
+                        hide-details
+                        label="Наличие на складе"
+                        v-model="editedItem.presence"
+                    ></v-checkbox>
+
+
 									</div>
 									<!--ФОТО-->
 									<template v-if="editedItem.arrayImages.length > 0">
@@ -613,8 +638,10 @@
         article: +new Date(),
         description: '',
         available: null,
+        presence: true,
         category: '',
         price: '',
+        price2: '',
         clothingSize: 42,
         promotionalPrice: false,
         clothingManufacturer: '',
@@ -705,8 +732,10 @@
                 article: +new Date(),
                 description: '',
                 available: true,
+                presence: true,
                 category: '',
                 price: null,
+                price2: null,
                 clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
@@ -725,8 +754,10 @@
                 article: +new Date(),
                 description: '',
                 available: true,
+                presence: true,
                 category: '',
                 price: null,
+                price2: null,
                 clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
@@ -742,6 +773,7 @@
                 '512',
             ],
             fruits: [
+                '64',
                 '128',
                 '256',
                 '512'
@@ -750,7 +782,8 @@
                 'black',
                 'yellow',
                 'cyan',
-                'green'
+                'green',
+                'white'
             ],
             selectedFruits: [],
             BrandName: [
@@ -910,7 +943,7 @@
                         })
                     })
             },
-            async addLocation(addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, description) {
+            async addLocation(presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
 
                 this.isLoading = true
 
@@ -920,9 +953,11 @@
                 BrandName = addProduct.BrandName
                 article = addProduct.article
                 available = addProduct.available
+                presence = addProduct.presence
                 category = addProduct.category
                 name = addProduct.name
                 price = addProduct.price
+                price2 = addProduct.price2
                 promotionalPrice = addProduct.promotionalPrice
                 newClothes = addProduct.newClothes
                 description = addProduct.description
@@ -962,6 +997,7 @@
 
                 await db.collection('products2').add({
                     NameImages: NameImages,
+                    presence,
                     seen,
                     article,
                     available,
@@ -973,6 +1009,7 @@
                     arrayImages: URLs,
                     name,
                     price,
+                    price2,
                     description,
                 })
                 this.isLoading = false
