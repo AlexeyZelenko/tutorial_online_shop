@@ -484,6 +484,55 @@
                     </v-container>
                   </template>
 
+                  <v-row
+                      class="ma-2"
+                      style="flex: 0 0 auto"
+                  >
+                    <v-row justify="space-around">
+                    <v-color-picker :mode.sync="mode"></v-color-picker>
+                    <v-select
+                        v-model="mode"
+                        style="max-width: 300px"
+                    ></v-select>
+
+                  </v-row>
+                  </v-row>
+
+                  <template>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-combobox
+                              v-model="selectColors"
+                              :items="fruitsColors"
+                              label="Выберите цвета"
+                              multiple
+                              chips
+                          >
+                            <template v-slot:selection="data">
+                              <v-chip
+                                  class="accent white--text"
+                                  :key="JSON.stringify(data.item)"
+                                  v-bind="data.attrs"
+                                  :input-value="data.selected"
+                                  :disabled="data.disabled"
+                                  @click:close="data.parent.selectItem(data.item)"
+                              >
+                                <v-avatar
+                                    style="background-color: #071c22"
+                                    class="white--text"
+                                    left
+                                ></v-avatar>
+                                {{ data.item }}
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </template>
+
+
 									<!--						ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
 										<v-checkbox
@@ -669,6 +718,15 @@
             zSize
         },
         data: () => ({
+          selectColors: [],
+            items2: [
+              'Programming',
+              'Design',
+              'Vue',
+              'Vuetify',
+            ],
+            mode: 'hexa',
+            picker: null,
             isLoading: false,
             fullPage: true,
             currentItem: 'tab-Web',
@@ -796,7 +854,8 @@
                 'yellow',
                 'cyan',
                 'green',
-                'white'
+                'white',
+                'red'
             ],
             arrayModel: null,
             BrandName: [
