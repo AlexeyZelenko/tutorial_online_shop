@@ -320,27 +320,6 @@
                     ></v-text-field>
                   </v-col>
 
-									<!--						Размер-->
-<!--									<v-col cols="12">-->
-<!--										<v-text-field-->
-<!--												label="Размер одежды"-->
-<!--												placeholder="36-60"-->
-<!--												prepend-icon="create"-->
-<!--												v-model="editedItem.clothingSize"-->
-<!--										></v-text-field>-->
-<!--									</v-col>-->
-
-
-									<!--						Бренд-->
-<!--									<v-col cols="12">-->
-<!--										<v-text-field-->
-<!--												label="Брэнд"-->
-<!--												placeholder="Apple"-->
-<!--												prepend-icon="create"-->
-<!--												v-model="editedItem.BrandName"-->
-<!--										></v-text-field>-->
-<!--									</v-col>-->
-
                   <!--							БРЭНД-->
                   <v-col
                       cols="12"
@@ -556,6 +535,22 @@
 												>
 													<v-icon dark>mdi-delete</v-icon>
 												</v-btn>
+
+                        <!--    Переместить фото в начало массива-->
+                        <template>
+                          <div class="text-center">
+                            <v-btn
+                                @click="FirstFoto(editedItem, item)"
+                                style="float: right; top: 1em;"
+                                rounded
+                                color="teal"
+                                dark
+                            >
+                              Сделать главной
+                            </v-btn>
+                          </div>
+                        </template>
+
 											</v-carousel-item>
 										</v-carousel>
 									</template>
@@ -643,6 +638,7 @@
     const Loading = () => import('vue-loading-overlay')
 
     const formDefault = {
+        arrayModel: [],
         NameImages: [],
         selectedFruits: [],
         File: [],
@@ -675,21 +671,6 @@
         data: () => ({
             isLoading: false,
             fullPage: true,
-            categories: [
-                '',
-                'Ветровки',
-                'Пальто',
-                'Плащи',
-                'Джинсы',
-                'Брюки',
-                'Кофты',
-                'Футболки',
-                'Рубашки',
-                'Блузки',
-                'Платья',
-                'Костюмы',
-                'Куртки',
-            ],
             currentItem: 'tab-Web',
             items: [
                 'Товары', 'Заказы'
@@ -730,6 +711,7 @@
             rules2: [
                 value => !value || value.size < 5000000 || 'Avatar size should be less than 5 MB!',
             ],
+            categories: [],
             search: '',
             delete: '',
             products: [],
@@ -739,6 +721,7 @@
             editedIndex: -1,
             editedItem: {
                 arrayModel: [],
+                selectedFruits: [],
                 fruitsColors: [],
                 NameImages: [],
                 File: [],
@@ -750,7 +733,6 @@
                 category: '',
                 price: null,
                 price2: null,
-                clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
@@ -762,6 +744,7 @@
             },
             defaultItem: {
                 seen: false,
+                selectedFruits: [],
                 fruitsColors: [],
                 arrayModel: [],
                 NameImages: [],
@@ -774,7 +757,6 @@
                 category: '',
                 price: null,
                 price2: null,
-                clothingSize: 42,
                 promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
@@ -825,8 +807,8 @@
             ],
             headers: [
                 {
-                    text: 'Артикль',
-                    value: 'article',
+                    text: 'Название',
+                    value: 'name',
                     align: 'start',
                     sortable: false,
                 },
@@ -834,12 +816,12 @@
                 {text: 'Фото', value: 'arrayImages'},
                 {text: '', value: '2'},
                 {text: '', value: '3'},
+                {text: 'Бренд', value: 'BrandName'},
                 {text: 'Категория', value: 'category'},
                 {text: '', value: '4'},
                 {text: 'Описание', value: 'description'},
                 {text: '', value: '5'},
                 {text: 'Цена', value: 'price'},
-                {text: 'Бренд', value: 'BrandName'},
                 {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
                 {text: '===========================', value: ''},
             ],
@@ -893,6 +875,18 @@
                 editedItem.arrayImages = array
                 editedItem.NameImages = arrayName
             },
+            FirstFoto(editedItem, item) {
+            const array = editedItem.arrayImages
+            const arrayName = editedItem.NameImages
+
+            const index = array.indexOf(item);
+            if (index > -1) {
+              array.unshift(...array.splice(index,1));
+              arrayName.unshift(...arrayName.splice(index,1));
+            }
+            editedItem.arrayImages = array
+            editedItem.NameImages = arrayName
+          },
             initialize() {
                 this.products = this.PRODUCTS
             },
@@ -977,32 +971,34 @@
                         })
                     })
             },
-            async addLocation(addProduct, arrayColor, arrayModel, selectedFruits, presence, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
+            async addLocation(addProduct) {
 
-                this.isLoading = true
+              this.isLoading = true
 
-                const createdAt = Date.now()
-                seen = false
-                File = addProduct.File
-                BrandName = addProduct.BrandName
-                article = addProduct.article
-                available = addProduct.available
-                presence = addProduct.presence
-                category = addProduct.category
-                name = addProduct.name
-                price = addProduct.price
-                price2 = addProduct.price2
-                promotionalPrice = addProduct.promotionalPrice
-                newClothes = addProduct.newClothes
-                description = addProduct.description
-                arrayImages = addProduct.arrayImages
-                arrayColor = addProduct.fruitsColors
-                arrayModel = addProduct.arrayModel
+              const createdAt = Date.now()
+              const seen = false
+              const File = addProduct.File
+              const BrandName = addProduct.BrandName
+              const article = addProduct.article
+              const available = addProduct.available
+              const presence = addProduct.presence
+              const category = addProduct.category
+              const name = addProduct.name
+              const price = addProduct.price
+              const price2 = addProduct.price2
+              const promotionalPrice = addProduct.promotionalPrice
+              const newClothes = addProduct.newClothes
+              const description = addProduct.description
+              const arrayColor = addProduct.selectedFruits
+              const arrayModel = addProduct.arrayModel
+
+              console.log('addProduct', addProduct)
 // ЗАГРУЗКА ФОТО
                 const promises = []
                 const promisesName = []
 
                 if (File) {
+                  console.log('File', File)
                     for (let i = 0; i < File.length; i++) {
 
                         const storageRef = firebase.storage().ref();
@@ -1012,17 +1008,17 @@
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        const nameTime = +new Date() + '.png'
+                        const nameTime = +new Date() + name + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = await storageRef.child('assets/images/' + name + nameTime).put(File[i], metadata);
+                        const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
 
-                        await promises.push(
+                        promises.push(
                             uploadTask
                                 .then(snapshot =>
                                     snapshot.ref.getDownloadURL()
                                 )
                         )
-                        await promisesName.push(
+                        promisesName.push(
                             nameTime
                         )
                     }
@@ -1033,8 +1029,8 @@
 
                 await db.collection('products2').add({
                     NameImages: NameImages,
-                    arrayColor,
-                    arrayModel,
+                    arrayColor: arrayColor,
+                    arrayModel: arrayModel,
                     presence,
                     seen,
                     article,
@@ -1049,7 +1045,8 @@
                     price,
                     price2,
                     description,
-                })
+                });
+
                 this.isLoading = false
 
                 Swal.fire({
@@ -1059,7 +1056,6 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                arrayImages = [];
                 this.dialog = false
             },
             getColor(price) {
@@ -1105,7 +1101,7 @@
                                 }
                             }
                             let id = item.id
-                            db.collection('products').doc(id).delete()
+                            db.collection('products2').doc(id).delete()
                             this.isLoading = false
                             Swal.fire(
                                 'Удаленно!',
