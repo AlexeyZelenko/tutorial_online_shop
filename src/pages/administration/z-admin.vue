@@ -798,7 +798,7 @@
                 'green',
                 'white'
             ],
-            arrayModel: [],
+            arrayModel: null,
             BrandName: [
                 'Apple',
                 'Google',
@@ -927,9 +927,9 @@
                         let metadata = {
                             contentType: 'image/jpeg',
                         };
-                        let nameTime = +new Date()
+                        let nameTime = +new Date() + name
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child('assets/images/' + nameTime + '.jpg').put(File[i], metadata);
+                        const uploadTask = storageRef.child('assets/images/' + nameTime + '.png').put(File[i], metadata);
 
                         promises.push(
                             uploadTask
@@ -944,7 +944,7 @@
                 const ArrayFile = [...URLs, ...ArrayOld]
                 let id = editProduct.id
 
-                db.collection('products')
+                db.collection('products2')
                     .doc(id)
                     .update({
                         seen: editProduct.seen,
@@ -955,10 +955,8 @@
                         article: editProduct.article,
                         price: editProduct.price,
                         promotionalPrice: editProduct.promotionalPrice,
-                        clothingSize: editProduct.clothingSize,
                         newClothes: editProduct.newClothes,
                         description: editProduct.description,
-                        clothingManufacturer: editProduct.clothingManufacturer,
                     })
                     .then(() => {
                         this.isLoading = false
@@ -1027,7 +1025,7 @@
                 const URLs = await Promise.all(promises)
                 const NameImages = await Promise.all(promisesName)
 
-                await db.collection('products2').add({
+                let docRef = await db.collection('products2').add({
                     NameImages: NameImages,
                     arrayColor: arrayColor,
                     arrayModel: arrayModel,
@@ -1046,6 +1044,12 @@
                     price2,
                     description,
                 });
+                try {
+                  const docAdded = await docRef;
+                  await db.collection('products2').doc('products/' + `${docAdded.id}`).update({id: `${docAdded.id}`});
+                } catch (err) {
+                  return err;
+                }
 
                 this.isLoading = false
 
