@@ -420,76 +420,15 @@
                   </template>
 
 <!--                  Цвета-->
-                  <template>
-                    <v-container fluid>
-                      <v-select
-                          v-model="editedItem.arrayColor"
-                          :items="fruitsColors"
-                          label="Выберите цвета"
-                          multiple
-                      >
-                        <template v-slot:prepend-item>
-                          <v-list-item
-                              ripple
-                              @click="toggle"
-                          >
-                            <v-list-item-action>
-                              <v-icon :color="editedItem.arrayColor.length > 0 ? 'indigo darken-4' : ''">
-                                {{ icon }}
-                              </v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                              <v-list-item-title>
-                                Выбрать все
-                              </v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                          <v-divider class="mt-2"></v-divider>
-                        </template>
-                        <template v-slot:append-item>
-                          <v-divider class="mb-2"></v-divider>
-                          <v-list-item disabled>
-                            <v-list-item-avatar color="grey lighten-3">
-                              <v-icon>
-                                mdi-food-apple
-                              </v-icon>
-                            </v-list-item-avatar>
-
-                            <v-list-item-content v-if="likesAllFruit">
-                              <v-list-item-title>
-                                Вы выбрали все цвета!
-                              </v-list-item-title>
-                            </v-list-item-content>
-
-                            <v-list-item-content v-else-if="likesSomeFruit">
-                              <v-list-item-title>
-                                Кол-во цветов
-                              </v-list-item-title>
-                              <v-list-item-subtitle>
-                                {{ editedItem.arrayColor.length }}
-                              </v-list-item-subtitle>
-                            </v-list-item-content>
-
-                            <v-list-item-content v-else>
-                              <v-list-item-title>
-                                Выберите цвета телефона
-                              </v-list-item-title>
-                              <v-list-item-subtitle>
-                                Давай, сделай выбор выше!
-                              </v-list-item-subtitle>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </template>
-                      </v-select>
-                    </v-container>
-                  </template>
-
                   <v-row
                       class="ma-2"
                       style="flex: 0 0 auto"
                   >
                     <v-row justify="space-around">
-                    <v-color-picker :mode.sync="mode"></v-color-picker>
+                    <v-color-picker
+                        show-swatches
+                        :mode.sync="mode"
+                    ></v-color-picker>
                     <v-select
                         v-model="mode"
                         style="max-width: 300px"
@@ -503,7 +442,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-combobox
-                              v-model="selectColors"
+                              v-model="editedItem.arrayColor"
                               :items="fruitsColors"
                               label="Выберите цвета"
                               multiple
@@ -519,7 +458,7 @@
                                   @click:close="data.parent.selectItem(data.item)"
                               >
                                 <v-avatar
-                                    style="background-color: #071c22"
+                                    :style="`background-color: ${data.item}`"
                                     class="white--text"
                                     left
                                 ></v-avatar>
