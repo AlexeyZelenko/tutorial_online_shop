@@ -358,7 +358,7 @@
                   <template>
                     <v-container fluid>
                       <v-select
-                          v-model="arrayModel"
+                          v-model="editedItem.arrayModel"
                           :items="fruits"
                           label="Выберите модели"
                           multiple
@@ -369,7 +369,7 @@
                               @click="toggle"
                           >
                             <v-list-item-action>
-                              <v-icon :color="selectedFruits.length > 0 ? 'indigo darken-4' : ''">
+                              <v-icon :color="editedItem.arrayModel.length > 0 ? 'indigo darken-4' : ''">
                                 {{ icon }}
                               </v-icon>
                             </v-list-item-action>
@@ -401,7 +401,7 @@
                                 Кол-во моделей
                               </v-list-item-title>
                               <v-list-item-subtitle>
-                                {{ arrayModel.length }}
+                                {{ editedItem.arrayModel.length }}
                               </v-list-item-subtitle>
                             </v-list-item-content>
 
@@ -423,7 +423,7 @@
                   <template>
                     <v-container fluid>
                       <v-select
-                          v-model="selectedFruits"
+                          v-model="editedItem.arrayColor"
                           :items="fruitsColors"
                           label="Выберите цвета"
                           multiple
@@ -434,7 +434,7 @@
                               @click="toggle"
                           >
                             <v-list-item-action>
-                              <v-icon :color="selectedFruits.length > 0 ? 'indigo darken-4' : ''">
+                              <v-icon :color="editedItem.arrayColor.length > 0 ? 'indigo darken-4' : ''">
                                 {{ icon }}
                               </v-icon>
                             </v-list-item-action>
@@ -466,7 +466,7 @@
                                 Кол-во цветов
                               </v-list-item-title>
                               <v-list-item-subtitle>
-                                {{ selectedFruits.length }}
+                                {{ editedItem.arrayColor.length }}
                               </v-list-item-subtitle>
                             </v-list-item-content>
 
@@ -722,7 +722,7 @@
             editedItem: {
                 arrayModel: [],
                 selectedFruits: [],
-                fruitsColors: [],
+                arrayColor: [],
                 NameImages: [],
                 File: [],
                 name: '',
@@ -745,7 +745,7 @@
             defaultItem: {
                 seen: false,
                 selectedFruits: [],
-                fruitsColors: [],
+                arrayColor: [],
                 arrayModel: [],
                 NameImages: [],
                 File: [],
@@ -914,6 +914,7 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
+              console.log('editProduct', editProduct)
                 this.isLoading = true
                 const File = editProduct.File
                 const promises = []
@@ -949,6 +950,8 @@
                     .update({
                         seen: editProduct.seen,
                         arrayImages: ArrayFile,
+                        arrayModel: editProduct.arrayModel,
+                        arrayColor: editProduct.arrayColor,
                         category: editProduct.category,
                         createdAt: editProduct.createdAt,
                         BrandName: editProduct.BrandName,
@@ -987,7 +990,7 @@
               const promotionalPrice = addProduct.promotionalPrice
               const newClothes = addProduct.newClothes
               const description = addProduct.description
-              const arrayColor = addProduct.selectedFruits
+              const arrayColor = addProduct.arrayColor
               const arrayModel = addProduct.arrayModel
 
               console.log('addProduct', addProduct)
@@ -1128,10 +1131,10 @@
                 'GET_LIST_USERS'
             ]),
           likesAllFruit () {
-            return this.arrayModel.length === this.fruits.length
+            return this.editedItem.arrayModel.length === this.fruits.length
           },
           likesSomeFruit () {
-            return this.arrayModel.length > 0 && !this.likesAllFruit
+            return this.editedItem.arrayModel.length > 0 && !this.likesAllFruit
           },
           icon () {
             if (this.likesAllFruit) return 'mdi-close-box'
