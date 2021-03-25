@@ -342,7 +342,9 @@
 <!--									</v-col>-->
 
                   <!--							БРЭНД-->
-                  <v-col cols="12">
+                  <v-col
+                      cols="12"
+                  >
                     <v-select
                         :items="BrandName"
                         label="Выберите бренд"
@@ -350,19 +352,28 @@
                         prepend-icon="create"
                         v-model="editedItem.BrandName"
                     ></v-select>
+                    <v-select
+                        :items="itemsCategories"
+                        :rules="[v => !!v || 'Пункт требуется']"
+                        label="Выберите категорию"
+                        placeholder="категория"
+                        prepend-icon="create"
+                        v-model="editedItem.category"
+                    ></v-select>
+
                   </v-col>
 
 									<!--						КАТЕГОРИИ-->
-									<v-col cols="12">
-										<v-select
-												:items="itemsCategories"
-												:rules="[v => !!v || 'Пункт требуется']"
-												label="Выберите модель"
-												placeholder="модель"
-												prepend-icon="create"
-												v-model="editedItem.category"
-										></v-select>
-									</v-col>
+<!--									<v-col cols="12">-->
+<!--										<v-select-->
+<!--												:items="itemsCategories[item]"-->
+<!--												:rules="[v => !!v || 'Пункт требуется']"-->
+<!--												label="Выберите категорию"-->
+<!--												placeholder="категория"-->
+<!--												prepend-icon="create"-->
+<!--												v-model="editedItem.category"-->
+<!--										></v-select>-->
+<!--									</v-col>-->
 
 <!--                  Модель-->
                   <template>
@@ -771,9 +782,24 @@
                 arrayImages: []
             },
             itemsCategories: [
-                '128',
-                '256',
-                '512',
+              'iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
+              // {
+              //   name: 'Apple',
+              //   arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
+              // },
+              // {
+              //   name: 'Google',
+              //   arrayCategory: ['google pixel']
+              // },
+              // {
+              //   name: 'Xiaomi',
+              //   arrayCategory: ['airdots', 'smartband', 'аксессуары']
+              // },
+              // {
+              //   name: 'Samsung',
+              //   arrayCategory: ['phone', 'наушники', 'watch', 'аксессуары']
+              // },
+
             ],
             fruits: [
                 '64',
@@ -821,6 +847,9 @@
             ...mapActions([
                 'list_Users',
             ]),
+            change (a) {
+              console.log(a)
+            },
             toggle () {
               this.$nextTick(() => {
                 if (this.likesAllFruit) {
@@ -946,7 +975,7 @@
                         })
                     })
             },
-            async addLocation(arrayModel, presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
+            async addLocation(arrayModel, selectedFruits, presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
 
                 this.isLoading = true
 
