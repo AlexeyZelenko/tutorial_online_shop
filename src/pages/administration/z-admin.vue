@@ -379,7 +379,7 @@
                   <template>
                     <v-container fluid>
                       <v-select
-                          v-model="selectedFruits"
+                          v-model="arrayModel"
                           :items="fruits"
                           label="Выберите модели"
                           multiple
@@ -422,7 +422,7 @@
                                 Кол-во моделей
                               </v-list-item-title>
                               <v-list-item-subtitle>
-                                {{ selectedFruits.length }}
+                                {{ arrayModel.length }}
                               </v-list-item-subtitle>
                             </v-list-item-content>
 
@@ -738,7 +738,8 @@
             arrayImages: [],
             editedIndex: -1,
             editedItem: {
-                selectedFruits: [],
+                arrayModel: [],
+                fruitsColors: [],
                 NameImages: [],
                 File: [],
                 name: '',
@@ -761,7 +762,8 @@
             },
             defaultItem: {
                 seen: false,
-                selectedFruits: [],
+                fruitsColors: [],
+                arrayModel: [],
                 NameImages: [],
                 File: [],
                 name: '',
@@ -814,7 +816,7 @@
                 'green',
                 'white'
             ],
-            selectedFruits: [],
+            arrayModel: [],
             BrandName: [
                 'Apple',
                 'Google',
@@ -975,7 +977,7 @@
                         })
                     })
             },
-            async addLocation(arrayModel, selectedFruits, presence, addProduct, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
+            async addLocation(addProduct, arrayColor, arrayModel, selectedFruits, presence, seen, arrayImages, File, article, available, category, name, promotionalPrice, newClothes, BrandName, price, price2, description) {
 
                 this.isLoading = true
 
@@ -994,7 +996,8 @@
                 newClothes = addProduct.newClothes
                 description = addProduct.description
                 arrayImages = addProduct.arrayImages
-                arrayModel = addProduct.selectedFruits
+                arrayColor = addProduct.fruitsColors
+                arrayModel = addProduct.arrayModel
 // ЗАГРУЗКА ФОТО
                 const promises = []
                 const promisesName = []
@@ -1007,19 +1010,19 @@
 
                         // Создайте метаданные файла
                         let metadata = {
-                            contentType: 'image/jpeg',
+                            contentType: 'image/png',
                         };
-                        const nameTime = +new Date() + '.jpg'
+                        const nameTime = +new Date() + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
+                        const uploadTask = await storageRef.child('assets/images/' + name + nameTime).put(File[i], metadata);
 
-                        promises.push(
+                        await promises.push(
                             uploadTask
                                 .then(snapshot =>
                                     snapshot.ref.getDownloadURL()
                                 )
                         )
-                        promisesName.push(
+                        await promisesName.push(
                             nameTime
                         )
                     }
@@ -1030,6 +1033,7 @@
 
                 await db.collection('products2').add({
                     NameImages: NameImages,
+                    arrayColor,
                     arrayModel,
                     presence,
                     seen,
@@ -1124,10 +1128,10 @@
                 'GET_LIST_USERS'
             ]),
           likesAllFruit () {
-            return this.selectedFruits.length === this.fruits.length
+            return this.arrayModel.length === this.fruits.length
           },
           likesSomeFruit () {
-            return this.selectedFruits.length > 0 && !this.likesAllFruit
+            return this.arrayModel.length > 0 && !this.likesAllFruit
           },
           icon () {
             if (this.likesAllFruit) return 'mdi-close-box'
