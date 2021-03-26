@@ -131,43 +131,80 @@
           </v-btn>
         </v-tab>
 
+
+        <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
         <v-spacer></v-spacer>
         <v-tab href="#tab-6">
-          <!--		ВХОД ЧЕРЕЗ ГУГЛ АККАУНТ-->
-          <div
-              class="text-center"
+          <v-speed-dial
+              v-model="fab"
+              right='true'
+              direction=left
+              transition="scale-transition"
           >
+            <template
+                v-slot:activator
+            >
+              <v-btn
+                  v-model="fab"
+                  color="black"
+                  dark
+                  fab
+                  small
+              >
+                <v-icon v-if="fab">
+                  mdi-close
+                </v-icon>
+                <v-icon v-else>
+                  mdi-account
+                </v-icon>
+
+              </v-btn>
+            </template>
             <v-btn
                 @click="signInWithGoogle"
-                icon
-                class="btn_admin"
                 v-if="!User_Entrance"
+                fab
+                dark
+                small
+                color="indigo"
             >
-              <i
-                  v-if="!User_Entrance"
-                  class="material-icons btn_admin"
-                  @click="signInWithGoogle"
-              >account_circle</i>
+              <v-icon>mdi-account-circle</v-icon>
             </v-btn>
             <v-btn
-                class="mx-2"
+                v-if="GET_ADMIN_ENTRANCE"
+                @click="adminPlusLogin"
+                fab
+                dark
+                small
+                color="green"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+                fab
+                dark
+                small
+                color="grey"
+                @click="goToCard"
+                v-if="User_Entrance"
+            >
+              <v-icon>mdi-cart-outline</v-icon>
+            </v-btn>
+
+            <v-btn
+                fab
+                dark
+                small
+                color="red"
                 @click="logout"
                 v-if="User_Entrance"
             >
-              Выйти
+              <v-icon>mdi-account-arrow-right</v-icon>
             </v-btn>
-          </div>
-          <v-btn
-              v-if="GET_ADMIN_ENTRANCE"
-              @click="adminPlusLogin"
-              class="ma-2"
-              fab
-              outlined
-              small
-          >
-            <v-icon>mdi-format-list-bulleted-square</v-icon>
-          </v-btn>
+          </v-speed-dial>
+
         </v-tab>
+
       </v-tabs>
 
       <div class="menu2">
@@ -329,6 +366,7 @@
       </div>
 
     </template>
+
     <!--  Кнопка корзина-->
     <div
         v-if="User_Entrance"
@@ -343,6 +381,7 @@
         <p style="color: white">{{GET_CART_USER.length}}</p>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -352,6 +391,10 @@
 
   export default {
     data: () => ({
+      fab: false,
+      fling: false,
+      tabs: null,
+      transition: 'slide-y-reverse-transition',
       showDropdownMenu: false,
       model: null,
       tab: null,
@@ -396,7 +439,7 @@
           arrayArray: [
             {
               text: 'Google Pixel',
-              figure: ''
+              figure: 'google_pixel'
             }
           ]
         },
@@ -410,15 +453,15 @@
           arrayArray: [
             {
               text: 'AirDots',
-              figure: ''
+              figure: 'AirDots'
             },
             {
               text: 'SmartBand',
-              figure: ''
+              figure: 'smartBand'
             },
             {
               text: 'Аксессуары',
-              figure: ''
+              figure: 'accessories'
             }
           ]
         },
@@ -432,19 +475,19 @@
           arrayArray: [
             {
               text: 'Phone',
-              figure: ''
+              figure: 'phone_samsung'
             },
             {
               text: 'Наушники',
-              figure: ''
+              figure: 'airpods_samsung'
             },
             {
               text: 'Watch',
-              figure: ''
+              figure: 'watch_samsung'
             },
             {
               text: 'Аксессуары',
-              figure: ''
+              figure: 'music_accessories'
             },
           ]
         },
@@ -555,6 +598,14 @@
         'USER_ID',
         'GET_ADMIN_ENTRANCE'
       ]),
+      activeFab () {
+        switch (this.tabs) {
+          case 'one': return { class: 'purple', icon: 'account_circle' }
+          case 'two': return { class: 'red', icon: 'edit' }
+          case 'three': return { class: 'green', icon: 'keyboard_arrow_up' }
+          default: return {}
+        }
+      },
       getUserName() {
         return firebase.auth().currentUser.displayName;
       },
@@ -569,6 +620,20 @@
         }
       }
     },
+    watch: {
+      top (val) {
+        this.bottom = !val
+      },
+      right (val) {
+        this.left = !val
+      },
+      bottom (val) {
+        this.top = !val
+      },
+      left (val) {
+        this.right = !val
+      },
+    },
     mounted() {
       this.VIEW_CART_USER()
       this.USER_ID_ACTIONS()
@@ -577,6 +642,14 @@
 </script>
 
 <style lang="scss">
+#create .v-speed-dial {
+  position: absolute;
+}
+
+#create .v-btn--floating {
+  position: relative;
+
+}
 .chapternav-icon {
   background: center bottom no-repeat;
   display: block;
@@ -648,7 +721,7 @@ img {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999999;
+  z-index: 2;
 }
 
 /*кнопка корзины*/

@@ -597,7 +597,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import {db} from '@/main'
+    import { db } from '@/main'
     import Swal from 'sweetalert2'
     import firebase from 'firebase/app'
     import 'vue-loading-overlay/dist/vue-loading.css'
@@ -658,12 +658,6 @@
         },
         data: () => ({
           selectColors: [],
-            items2: [
-              'Programming',
-              'Design',
-              'Vue',
-              'Vuetify',
-            ],
             mode: 'hexa',
             picker: null,
             isLoading: false,
@@ -763,7 +757,7 @@
                 arrayImages: []
             },
             itemsCategories: [
-              'iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
+              'Iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
               // {
               //   name: 'Apple',
               //   arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
@@ -1047,7 +1041,7 @@
                 });
                 try {
                   const docAdded = await docRef;
-                  await db.collection('products2').doc('products/' + `${docAdded.id}`).update({id: `${docAdded.id}`});
+                  await db.collection('products2').doc(docAdded.id).update({id: `${docAdded.id}`});
                 } catch (err) {
                   return err;
                 }

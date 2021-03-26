@@ -1,5 +1,6 @@
 <template>
 	<div class="z-product-information">
+
 		<template>
 			<v-btn
           class="main-color-btn"
@@ -12,10 +13,25 @@
       <span >{{product.category}} > {{product.name}} > {{this.selectcolor}} > {{this.selectmodel}}</span>
 		</template>
 
-
     <template>
 
       <v-card>
+        <v-fab-transition>
+          <v-btn
+              :key="activeFab.icon"
+              :color="activeFab.color"
+              fab
+              large
+              dark
+              top
+              right
+              absolute
+              class="v-btn--example"
+              @click="goToCard"
+          >
+            <v-icon>{{ activeFab.icon }}</v-icon>
+          </v-btn>
+        </v-fab-transition>
         <v-toolbar
             color="purple"
             dark
@@ -47,7 +63,6 @@
                 flat
                 class="my-4"
             >
-
               <v-card-text>
                 <v-row align="center">
                   <v-col
@@ -241,7 +256,6 @@
                   </v-col>
                 </v-row>
               </v-card-text>
-
             </v-card>
           </v-tab-item>
 
@@ -261,69 +275,68 @@
 
 <!--          Задать вопрос-->
           <v-tab-item>
-            <template>
-              <v-card
-                  max-width="375"
-                  class="mx-auto"
-              >
-                <v-card-title>
-                  <div class="display-1 pl-12 pt-12">
-                    Наши контакты:
-                  </div>
-                </v-card-title>
+            <v-card
+                max-width="375"
+                class="mx-auto"
+            >
+              <v-card-title>
+                <div class="display-1 pl-12 pt-12">
+                  Наши контакты:
+                </div>
+              </v-card-title>
 
-                <v-list two-line>
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon color="indigo">
-                        mdi-phone
-                      </v-icon>
-                    </v-list-item-icon>
+              <v-list two-line>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="indigo">
+                      mdi-phone
+                    </v-icon>
+                  </v-list-item-icon>
 
-                    <v-list-item-content>
-                      <v-list-item-title>+38 063 69 10 177</v-list-item-title>
-                      <v-list-item-subtitle>Mobile</v-list-item-subtitle>
-                    </v-list-item-content>
+                  <v-list-item-content>
+                    <v-list-item-title>+38 063 69 10 177</v-list-item-title>
+                    <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+                  </v-list-item-content>
 
-                    <v-list-item-icon>
-                      <v-icon>mdi-message-text</v-icon>
-                    </v-list-item-icon>
-                  </v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-message-text</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
 
-                  <v-divider inset></v-divider>
+                <v-divider inset></v-divider>
 
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon color="indigo">
-                        mdi-email
-                      </v-icon>
-                    </v-list-item-icon>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="indigo">
+                      mdi-email
+                    </v-icon>
+                  </v-list-item-icon>
 
-                    <v-list-item-content>
-                      <v-list-item-title>aliconnors@example.com</v-list-item-title>
-                      <v-list-item-subtitle>Администратор</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>aliconnors@example.com</v-list-item-title>
+                    <v-list-item-subtitle>Администратор</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
 
-                  <v-divider inset></v-divider>
+                <v-divider inset></v-divider>
 
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon color="indigo">
-                        mdi-telegram
-                      </v-icon>
-                    </v-list-item-icon>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="indigo">
+                      mdi-telegram
+                    </v-icon>
+                  </v-list-item-icon>
 
-                    <v-list-item-content>
-                      <v-list-item-title>Timoxa</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-card>
-            </template>
-
+                  <v-list-item-content>
+                    <v-list-item-title>Timoxa</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
           </v-tab-item>
+
         </v-tabs-items>
+
       </v-card>
     </template>
 
@@ -340,34 +353,25 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          fab: false,
+          hidden: false,
           selectmodel: '',
           selectcolor: '',
           arrayTabs: [
             {
               id: 1,
               name: 'Все о товаре',
-              text: '123'
             },
             {
               id: 2,
               name: 'Фото',
-              text: '123'
             },
             {
               id: 3,
               name: 'Задать вопрос',
-              text: '123'
             }
           ],
           tabs: null,
-            // select: { state: '36-38', abbr: 'S' },
-            // items: [
-            //     { state: '36-38', abbr: 'S' },
-            //     { state: '38-42', abbr: 'M' },
-            //     { state: '44-46', abbr: 'L' },
-            //     { state: '48-52', abbr: 'XL' },
-            // ],
-            // dialog: false,
         }),
         components: {
             vCarousel,
@@ -378,6 +382,9 @@
                 'ADD_TO_CART',
                 'bindLocationsRef'
             ]),
+            goToCard () {
+              this.$router.push({name: 'cart'})
+            },
             selectColor(n) {
               console.log(n)
                 this.selectcolor = n
@@ -394,6 +401,16 @@
             ...mapGetters([
                 'GET_PRODUCT_FROM_DB'
             ]),
+            activeFab () {
+              switch (this.tabs) {
+                case 0: return { color: 'success', icon: 'mdi-cart' }
+                case 1: return { color: 'indigo', icon: 'mdi-cart' }
+                case 2: return { color: 'primary', icon: 'mdi-share-variant' }
+                default: return {
+                  color: 'success', icon: 'mdi-share-variant'
+                }
+              }
+            },
             product() {
                 let result = {}
                 this.GET_PRODUCT_FROM_DB.map((item) =>  {
@@ -408,10 +425,15 @@
 </script>
 
 <style lang="scss">
-	.z-product-information {
-		flex-basis: 25%;
-		box-shadow: 0 0 8px 0 #e0e0e0;
-		padding: $padding*2;
-		margin-bottom: $margin*2;
-	}
+#lateral .v-btn--example {
+  bottom: 0;
+  position: absolute;
+  margin: 0 0 16px 16px;
+}
+.z-product-information {
+  flex-basis: 25%;
+  box-shadow: 0 0 8px 0 #e0e0e0;
+  padding: $padding*2;
+  margin-bottom: $margin*2;
+}
 </style>
