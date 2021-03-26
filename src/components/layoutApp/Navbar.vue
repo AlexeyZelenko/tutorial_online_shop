@@ -1,6 +1,5 @@
 <template>
   <div id="navbar">
-
     <!--    Боковое меню-->
     <div
         id="mySidenavMain"
@@ -54,23 +53,24 @@
 
     </div>
 
-
     <template>
-      <v-toolbar
-          color="black"
-          dark
-          dense
-          flat
-      >
-        <!-- Кнопка для мобильника -->
-        <span
-            class="menu1"
-            style="font-size:24px; cursor:pointer; color: #847e7e; margin-right: 10px"
-            @click="openNav"
+      <div class="menu1">
+        <v-toolbar
+            color="black"
+            dark
+            dense
+            flat
         >
-      ☰
-    </span>
-      </v-toolbar>
+          <!-- Кнопка для мобильника -->
+          <span
+              style="font-size:24px; cursor:pointer; color: #847e7e; margin-right: 10px"
+              @click="openNav"
+          >
+          ☰
+        </span>
+        </v-toolbar>
+      </div>
+
 
       <v-tabs
           class="menu2"
@@ -196,15 +196,30 @@
                         :key="item2.id"
                         v-slot="{ active, toggle }"
                     >
-                      <v-scale-transition>
-                        <v-btn
-                            text
-                            :color="active ? 'teal accent-4' : 'white'"
-                            class="ma-2"
+                      <v-scale-transition >
+                        <div
+                            class="mx-7 my-1"
                             @click="toggle(); sortProduct(item2.text)"
                         >
-                          {{item2.text}}
-                        </v-btn>
+                          <figure>
+                            <p>
+                              <img
+                                  class="chapternav-icon"
+                                  :src="require(`@/assets/menu/${item2.figure}.png`)"
+                                  alt=""
+                              />
+                            </p>
+                          </figure>
+
+                          <v-btn
+                              text
+                              x-small
+                              :color="active ? 'teal accent-4' : 'white'"
+                          >
+                            {{item2.text}}
+                          </v-btn>
+                        </div>
+
                       </v-scale-transition>
                     </v-slide-item>
                   </v-slide-group>
@@ -350,19 +365,24 @@
           dropdown: false,
           arrayArray: [
             {
-              text: 'Iphone'
+              text: 'Iphone',
+              figure: 'iphone'
             },
             {
-              text: 'AirPods'
+              text: 'AirPods',
+              figure: 'airpods'
             },
             {
-              text: 'IPad'
+              text: 'IPad',
+              figure: 'ipad'
             },
             {
-              text: 'Watch'
+              text: 'Watch',
+              figure: 'watch'
             },
             {
-              text: 'MacBook'
+              text: 'MacBook',
+              figure: 'mac'
             }
           ]
         },
@@ -375,7 +395,8 @@
           dropdown: false,
           arrayArray: [
             {
-              text: 'Google Pixel'
+              text: 'Google Pixel',
+              figure: ''
             }
           ]
         },
@@ -388,13 +409,16 @@
           dropdown: false,
           arrayArray: [
             {
-              text: 'AirDots'
+              text: 'AirDots',
+              figure: ''
             },
             {
-              text: 'SmartBand'
+              text: 'SmartBand',
+              figure: ''
             },
             {
-              text: 'Аксессуары'
+              text: 'Аксессуары',
+              figure: ''
             }
           ]
         },
@@ -407,16 +431,20 @@
           dropdown: false,
           arrayArray: [
             {
-              text: 'Phone'
+              text: 'Phone',
+              figure: ''
             },
             {
-              text: 'Наушники'
+              text: 'Наушники',
+              figure: ''
             },
             {
-              text: 'Watch'
+              text: 'Watch',
+              figure: ''
             },
             {
-              text: 'Аксессуары'
+              text: 'Аксессуары',
+              figure: ''
             },
           ]
         },
@@ -549,6 +577,12 @@
 </script>
 
 <style lang="scss">
+.chapternav-icon {
+  background: center bottom no-repeat;
+  display: block;
+  margin: 0 auto 7px;
+  height: 54px;
+}
 .menu1 {
   display: none;
 }
@@ -563,7 +597,6 @@
   opacity: 0.9;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
 }
 
 .sidenav span {
