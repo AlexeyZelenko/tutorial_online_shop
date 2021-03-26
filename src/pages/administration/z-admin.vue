@@ -452,31 +452,46 @@
 
 
                   <!--                  Цвет1-->
-                  <v-row
-                      class="ma-2"
-                      style="flex: 0 0 auto"
+                  <container
+                      class="py-2"
+                      style="background-color: #dedddd"
                   >
-                    <v-row justify="space-around">
-                      <v-color-picker
-                          show-swatches
-                          :mode.sync="mode"
-                      ></v-color-picker>
-                      <v-select
-                          v-model="mode"
-                          style="max-width: 300px"
-                      ></v-select>
+                    <p>Блок 1</p>
+                    <v-row
+                        class="ma-2"
+                        style="flex: 0 0 auto"
+                    >
+                      <v-row justify="space-around">
+                        <v-color-picker
+                            show-swatches
+                            :mode.sync="mode"
+                        ></v-color-picker>
+                        <v-select
+                            v-model="mode"
+                            style="max-width: 300px"
+                        ></v-select>
 
+                      </v-row>
                     </v-row>
-                  </v-row>
 
-                  <template>
                     <v-container fluid>
                       <v-row>
+                        <v-col
+                            class="py-6"
+                            cols="12"
+                        >
+                          <v-text-field
+                              label="НАЗВАНИЕ ЦВЕТА #1"
+                              placeholder="Введите название цвета #1"
+                              outlined
+                              dense
+                          ></v-text-field>
+                        </v-col>
                         <v-col cols="12">
                           <v-combobox
                               v-model="editedItem.arrayColor"
                               :items="fruitsColors"
-                              label="Выберите цвета"
+                              label="ЦВЕТ #1"
                               chips
                           >
                             <template v-slot:selection="data">
@@ -500,436 +515,452 @@
                         </v-col>
                       </v-row>
                     </v-container>
-                  </template>
 
 
-									<!--ФОТО1-->
-									<template v-if="editedItem.arrayImages.length > 0">
-										<v-carousel>
-											<v-carousel-item
-													:key="article"
-													:src="(item)"
-													reverse-transition="fade-transition"
-													style="max-width: 400px; max-height: 600px"
-													transition="fade-transition"
-													v-for="(item,article) in editedItem.arrayImages"
-											>
-												<v-btn
-														@click="deleteFoto(editedItem, item)"
-														class="mx-2"
-														color="pink"
-														dark
-														fab
-														small
-														style="float: right; top: 1em;"
-												>
-													<v-icon dark>mdi-delete</v-icon>
-												</v-btn>
+                    <!--ФОТО1-->
+                    <template v-if="editedItem.arrayImages.length > 0">
+                      <v-carousel>
+                        <v-carousel-item
+                            :key="article"
+                            :src="(item)"
+                            reverse-transition="fade-transition"
+                            style="max-width: 400px; max-height: 600px"
+                            transition="fade-transition"
+                            v-for="(item,article) in editedItem.arrayImages"
+                        >
+                          <v-btn
+                              @click="deleteFoto(editedItem, item)"
+                              class="mx-2"
+                              color="pink"
+                              dark
+                              fab
+                              small
+                              style="float: right; top: 1em;"
+                          >
+                            <v-icon dark>mdi-delete</v-icon>
+                          </v-btn>
 
-                        <!--    Переместить фото в начало массива-->
+                          <!--    Переместить фото в начало массива-->
+                          <template>
+                            <div class="text-center">
+                              <v-btn
+                                  @click="FirstFoto(editedItem, item)"
+                                  style="float: right; top: 1em;"
+                                  rounded
+                                  color="teal"
+                                  dark
+                              >
+                                Сделать главной
+                              </v-btn>
+                            </div>
+                          </template>
+
+                        </v-carousel-item>
+                      </v-carousel>
+                    </template>
+                    <v-col cols="12">
+                      <v-file-input
+                          :rules2="rules"
+                          accept="image/png, image/jpeg, image/bmp"
+                          color="deep-purple accent-4"
+                          counter
+                          label="Загрузка фотографий #1"
+                          multiple
+                          placeholder="Выберите фото"
+                          prepend-icon="mdi-camera"
+                          v-model="editedItem.File"
+
+                      >
                         <template>
-                          <div class="text-center">
-                            <v-btn
-                                @click="FirstFoto(editedItem, item)"
-                                style="float: right; top: 1em;"
-                                rounded
-                                color="teal"
-                                dark
-                            >
-                              Сделать главной
-                            </v-btn>
-                          </div>
+                          <v-file-input
+                              counter
+                              label="File input"
+                              multiple
+                              show-size
+                          ></v-file-input>
                         </template>
 
-											</v-carousel-item>
-										</v-carousel>
-									</template>
-									<v-col cols="12">
-										<v-file-input
-												:rules2="rules"
-												accept="image/png, image/jpeg, image/bmp"
-												color="deep-purple accent-4"
-												counter
-												label="Загрузка фотографий"
-												multiple
-												placeholder="Выберите фото"
-												prepend-icon="mdi-camera"
-												v-model="editedItem.File"
+                      </v-file-input>
+                    </v-col>
 
-										>
-											<template>
-												<v-file-input
-														counter
-														label="File input"
-														multiple
-														show-size
-												></v-file-input>
-											</template>
+                  </container>
 
-										</v-file-input>
-									</v-col>
-
-                  <v-divider class="mx-4"></v-divider>
+                  <v-divider class="mx-2"></v-divider>
 
                   <!--                  Цвет2-->
-                  <v-row
-                      class="ma-2"
-                      style="flex: 0 0 auto"
+                  <container
+                      class="py-2"
+                      style="background-color: #C8E6C9FF"
                   >
-                    <v-row justify="space-around">
-                      <v-color-picker
-                          show-swatches
-                          :mode.sync="mode"
-                      ></v-color-picker>
-                      <v-select
-                          v-model="mode"
-                          style="max-width: 300px"
-                      ></v-select>
+                    <p>Блок 2</p>
+                    <v-row
+                        class="ma-2"
+                        style="flex: 0 0 auto"
+                    >
+                      <v-row justify="space-around">
+                        <v-color-picker
+                            show-swatches
+                            :mode.sync="mode"
+                        ></v-color-picker>
+                        <v-select
+                            v-model="mode"
+                            style="max-width: 300px"
+                        ></v-select>
 
-                    </v-row>
-                  </v-row>
-
-                  <template>
-                    <v-container fluid>
-                      <v-row>
-                        <v-col cols="12">
-                          <v-combobox
-                              v-model="editedItem.arrayColor2"
-                              :items="fruitsColors"
-                              label="Выберите цвета"
-                              chips
-                          >
-                            <template v-slot:selection="data">
-                              <v-chip
-                                  class="accent white--text"
-                                  :key="JSON.stringify(data.item)"
-                                  v-bind="data.attrs"
-                                  :input-value="data.selected"
-                                  :disabled="data.disabled"
-                                  @click:close="data.parent.selectItem(data.item)"
-                              >
-                                <v-avatar
-                                    :style="`background-color: ${data.item}`"
-                                    class="white--text"
-                                    left
-                                ></v-avatar>
-                                {{ data.item }}
-                              </v-chip>
-                            </template>
-                          </v-combobox>
-                        </v-col>
                       </v-row>
-                    </v-container>
-                  </template>
+                    </v-row>
 
-
-                  <!--ФОТО2-->
-                  <template v-if="editedItem.arrayImages2.length > 0">
-                    <v-carousel>
-                      <v-carousel-item
-                          :key="article"
-                          :src="(item)"
-                          reverse-transition="fade-transition"
-                          style="max-width: 400px; max-height: 600px"
-                          transition="fade-transition"
-                          v-for="(item,article) in editedItem.arrayImages2"
-                      >
-                        <v-btn
-                            @click="deleteFoto2(editedItem, item)"
-                            class="mx-2"
-                            color="pink"
-                            dark
-                            fab
-                            small
-                            style="float: right; top: 1em;"
-                        >
-                          <v-icon dark>mdi-delete</v-icon>
-                        </v-btn>
-
-                        <!--    Переместить фото в начало массива-->
-                        <template>
-                          <div class="text-center">
-                            <v-btn
-                                @click="FirstFoto2(editedItem, item)"
-                                style="float: right; top: 1em;"
-                                rounded
-                                color="teal"
-                                dark
+                    <template>
+                      <v-container fluid>
+                        <v-row>
+                          <v-col cols="12">
+                            <v-combobox
+                                v-model="editedItem.arrayColor2"
+                                :items="fruitsColors"
+                                label="Выберите цвета"
+                                chips
                             >
-                              Сделать главной
-                            </v-btn>
-                          </div>
+                              <template v-slot:selection="data">
+                                <v-chip
+                                    class="accent white--text"
+                                    :key="JSON.stringify(data.item)"
+                                    v-bind="data.attrs"
+                                    :input-value="data.selected"
+                                    :disabled="data.disabled"
+                                    @click:close="data.parent.selectItem(data.item)"
+                                >
+                                  <v-avatar
+                                      :style="`background-color: ${data.item}`"
+                                      class="white--text"
+                                      left
+                                  ></v-avatar>
+                                  {{ data.item }}
+                                </v-chip>
+                              </template>
+                            </v-combobox>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </template>
+
+
+                    <!--ФОТО2-->
+                    <template v-if="editedItem.arrayImages2.length > 0">
+                      <v-carousel>
+                        <v-carousel-item
+                            :key="article"
+                            :src="(item)"
+                            reverse-transition="fade-transition"
+                            style="max-width: 400px; max-height: 600px"
+                            transition="fade-transition"
+                            v-for="(item,article) in editedItem.arrayImages2"
+                        >
+                          <v-btn
+                              @click="deleteFoto2(editedItem, item)"
+                              class="mx-2"
+                              color="pink"
+                              dark
+                              fab
+                              small
+                              style="float: right; top: 1em;"
+                          >
+                            <v-icon dark>mdi-delete</v-icon>
+                          </v-btn>
+
+                          <!--    Переместить фото в начало массива-->
+                          <template>
+                            <div class="text-center">
+                              <v-btn
+                                  @click="FirstFoto2(editedItem, item)"
+                                  style="float: right; top: 1em;"
+                                  rounded
+                                  color="teal"
+                                  dark
+                              >
+                                Сделать главной
+                              </v-btn>
+                            </div>
+                          </template>
+
+                        </v-carousel-item>
+                      </v-carousel>
+                    </template>
+                    <v-col cols="12">
+                      <v-file-input
+                          :rules2="rules"
+                          accept="image/png, image/jpeg, image/bmp"
+                          color="deep-purple accent-4"
+                          counter
+                          label="Загрузка фотографий"
+                          multiple
+                          placeholder="Выберите фото"
+                          prepend-icon="mdi-camera"
+                          v-model="editedItem.File2"
+
+                      >
+                        <template>
+                          <v-file-input
+                              counter
+                              label="File input"
+                              multiple
+                              show-size
+                          ></v-file-input>
                         </template>
 
-                      </v-carousel-item>
-                    </v-carousel>
-                  </template>
-                  <v-col cols="12">
-                    <v-file-input
-                        :rules2="rules"
-                        accept="image/png, image/jpeg, image/bmp"
-                        color="deep-purple accent-4"
-                        counter
-                        label="Загрузка фотографий"
-                        multiple
-                        placeholder="Выберите фото"
-                        prepend-icon="mdi-camera"
-                        v-model="editedItem.File2"
+                      </v-file-input>
+                    </v-col>
+                  </container>
 
-                    >
-                      <template>
-                        <v-file-input
-                            counter
-                            label="File input"
-                            multiple
-                            show-size
-                        ></v-file-input>
-                      </template>
-
-                    </v-file-input>
-                  </v-col>
 
                   <v-divider class="mx-4"></v-divider>
 
                   <!--                  Цвет3-->
-                  <v-row
-                      class="ma-2"
-                      style="flex: 0 0 auto"
+                  <container
+                      class="py-2"
+                      style="background-color: #E3F2FDFF"
                   >
-                    <v-row justify="space-around">
-                      <v-color-picker
-                          show-swatches
-                          :mode.sync="mode"
-                      ></v-color-picker>
-                      <v-select
-                          v-model="mode"
-                          style="max-width: 300px"
-                      ></v-select>
+                    <p>Блок 3</p>
+                    <v-row
+                        class="ma-2"
+                        style="flex: 0 0 auto"
+                    >
+                      <v-row justify="space-around">
+                        <v-color-picker
+                            show-swatches
+                            :mode.sync="mode"
+                        ></v-color-picker>
+                        <v-select
+                            v-model="mode"
+                            style="max-width: 300px"
+                        ></v-select>
 
-                    </v-row>
-                  </v-row>
-
-                  <template>
-                    <v-container fluid>
-                      <v-row>
-                        <v-col cols="12">
-                          <v-combobox
-                              v-model="editedItem.arrayColor3"
-                              :items="fruitsColors"
-                              label="Выберите цвета"
-                              chips
-                          >
-                            <template v-slot:selection="data">
-                              <v-chip
-                                  class="accent white--text"
-                                  :key="JSON.stringify(data.item)"
-                                  v-bind="data.attrs"
-                                  :input-value="data.selected"
-                                  :disabled="data.disabled"
-                                  @click:close="data.parent.selectItem(data.item)"
-                              >
-                                <v-avatar
-                                    :style="`background-color: ${data.item}`"
-                                    class="white--text"
-                                    left
-                                ></v-avatar>
-                                {{ data.item }}
-                              </v-chip>
-                            </template>
-                          </v-combobox>
-                        </v-col>
                       </v-row>
-                    </v-container>
-                  </template>
+                    </v-row>
 
-
-                  <!--ФОТО3-->
-                  <template v-if="editedItem.arrayImages3.length > 0">
-                    <v-carousel>
-                      <v-carousel-item
-                          :key="article"
-                          :src="(item)"
-                          reverse-transition="fade-transition"
-                          style="max-width: 400px; max-height: 600px"
-                          transition="fade-transition"
-                          v-for="(item,article) in editedItem.arrayImages3"
-                      >
-                        <v-btn
-                            @click="deleteFoto3(editedItem, item)"
-                            class="mx-2"
-                            color="pink"
-                            dark
-                            fab
-                            small
-                            style="float: right; top: 1em;"
-                        >
-                          <v-icon dark>mdi-delete</v-icon>
-                        </v-btn>
-
-                        <!--    Переместить фото в начало массива-->
-                        <template>
-                          <div class="text-center">
-                            <v-btn
-                                @click="FirstFoto3(editedItem, item)"
-                                style="float: right; top: 1em;"
-                                rounded
-                                color="teal"
-                                dark
+                    <template>
+                      <v-container fluid>
+                        <v-row>
+                          <v-col cols="12">
+                            <v-combobox
+                                v-model="editedItem.arrayColor3"
+                                :items="fruitsColors"
+                                label="Выберите цвета"
+                                chips
                             >
-                              Сделать главной
-                            </v-btn>
-                          </div>
+                              <template v-slot:selection="data">
+                                <v-chip
+                                    class="accent white--text"
+                                    :key="JSON.stringify(data.item)"
+                                    v-bind="data.attrs"
+                                    :input-value="data.selected"
+                                    :disabled="data.disabled"
+                                    @click:close="data.parent.selectItem(data.item)"
+                                >
+                                  <v-avatar
+                                      :style="`background-color: ${data.item}`"
+                                      class="white--text"
+                                      left
+                                  ></v-avatar>
+                                  {{ data.item }}
+                                </v-chip>
+                              </template>
+                            </v-combobox>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </template>
+
+                    <!--ФОТО3-->
+                    <template v-if="editedItem.arrayImages3.length > 0">
+                      <v-carousel>
+                        <v-carousel-item
+                            :key="article"
+                            :src="(item)"
+                            reverse-transition="fade-transition"
+                            style="max-width: 400px; max-height: 600px"
+                            transition="fade-transition"
+                            v-for="(item,article) in editedItem.arrayImages3"
+                        >
+                          <v-btn
+                              @click="deleteFoto3(editedItem, item)"
+                              class="mx-2"
+                              color="pink"
+                              dark
+                              fab
+                              small
+                              style="float: right; top: 1em;"
+                          >
+                            <v-icon dark>mdi-delete</v-icon>
+                          </v-btn>
+
+                          <!--    Переместить фото в начало массива-->
+                          <template>
+                            <div class="text-center">
+                              <v-btn
+                                  @click="FirstFoto3(editedItem, item)"
+                                  style="float: right; top: 1em;"
+                                  rounded
+                                  color="teal"
+                                  dark
+                              >
+                                Сделать главной
+                              </v-btn>
+                            </div>
+                          </template>
+
+                        </v-carousel-item>
+                      </v-carousel>
+                    </template>
+                    <v-col cols="12">
+                      <v-file-input
+                          :rules2="rules"
+                          accept="image/png, image/jpeg, image/bmp"
+                          color="deep-purple accent-4"
+                          counter
+                          label="Загрузка фотографий"
+                          multiple
+                          placeholder="Выберите фото"
+                          prepend-icon="mdi-camera"
+                          v-model="editedItem.File3"
+
+                      >
+                        <template>
+                          <v-file-input
+                              counter
+                              label="File input"
+                              multiple
+                              show-size
+                          ></v-file-input>
                         </template>
 
-                      </v-carousel-item>
-                    </v-carousel>
-                  </template>
-                  <v-col cols="12">
-                    <v-file-input
-                        :rules2="rules"
-                        accept="image/png, image/jpeg, image/bmp"
-                        color="deep-purple accent-4"
-                        counter
-                        label="Загрузка фотографий"
-                        multiple
-                        placeholder="Выберите фото"
-                        prepend-icon="mdi-camera"
-                        v-model="editedItem.File3"
-
-                    >
-                      <template>
-                        <v-file-input
-                            counter
-                            label="File input"
-                            multiple
-                            show-size
-                        ></v-file-input>
-                      </template>
-
-                    </v-file-input>
-                  </v-col>
+                      </v-file-input>
+                    </v-col>
+                  </container>
 
                   <v-divider class="mx-4"></v-divider>
 
-
-
                   <!--                  Цвет4-->
-                  <v-row
-                      class="ma-2"
-                      style="flex: 0 0 auto"
+                  <container
+                      class="py-2"
+                      style="background-color: #FFCCBCFF"
                   >
-                    <v-row justify="space-around">
-                      <v-color-picker
-                          show-swatches
-                          :mode.sync="mode"
-                      ></v-color-picker>
-                      <v-select
-                          v-model="mode"
-                          style="max-width: 300px"
-                      ></v-select>
+                    <p>Блок 4</p>
+                    <v-row
+                        class="ma-2"
+                        style="flex: 0 0 auto"
+                    >
+                      <v-row justify="space-around">
+                        <v-color-picker
+                            show-swatches
+                            :mode.sync="mode"
+                        ></v-color-picker>
+                        <v-select
+                            v-model="mode"
+                            style="max-width: 300px"
+                        ></v-select>
 
-                    </v-row>
-                  </v-row>
-
-                  <template>
-                    <v-container fluid>
-                      <v-row>
-                        <v-col cols="12">
-                          <v-combobox
-                              v-model="editedItem.arrayColor4"
-                              :items="fruitsColors"
-                              label="Выберите цвета"
-                              chips
-                          >
-                            <template v-slot:selection="data">
-                              <v-chip
-                                  class="accent white--text"
-                                  :key="JSON.stringify(data.item)"
-                                  v-bind="data.attrs"
-                                  :input-value="data.selected"
-                                  :disabled="data.disabled"
-                                  @click:close="data.parent.selectItem(data.item)"
-                              >
-                                <v-avatar
-                                    :style="`background-color: ${data.item}`"
-                                    class="white--text"
-                                    left
-                                ></v-avatar>
-                                {{ data.item }}
-                              </v-chip>
-                            </template>
-                          </v-combobox>
-                        </v-col>
                       </v-row>
-                    </v-container>
-                  </template>
+                    </v-row>
 
-
-                  <!--ФОТО4-->
-                  <template v-if="editedItem.arrayImages4.length > 0">
-                    <v-carousel>
-                      <v-carousel-item
-                          :key="article"
-                          :src="(item)"
-                          reverse-transition="fade-transition"
-                          style="max-width: 400px; max-height: 600px"
-                          transition="fade-transition"
-                          v-for="(item,article) in editedItem.arrayImages4"
-                      >
-                        <v-btn
-                            @click="deleteFoto4(editedItem, item)"
-                            class="mx-2"
-                            color="pink"
-                            dark
-                            fab
-                            small
-                            style="float: right; top: 1em;"
-                        >
-                          <v-icon dark>mdi-delete</v-icon>
-                        </v-btn>
-
-                        <!--    Переместить фото в начало массива-->
-                        <template>
-                          <div class="text-center">
-                            <v-btn
-                                @click="FirstFoto4(editedItem, item)"
-                                style="float: right; top: 1em;"
-                                rounded
-                                color="teal"
-                                dark
+                    <template>
+                      <v-container fluid>
+                        <v-row>
+                          <v-col cols="12">
+                            <v-combobox
+                                v-model="editedItem.arrayColor4"
+                                :items="fruitsColors"
+                                label="Выберите цвета"
+                                chips
                             >
-                              Сделать главной
-                            </v-btn>
-                          </div>
+                              <template v-slot:selection="data">
+                                <v-chip
+                                    class="accent white--text"
+                                    :key="JSON.stringify(data.item)"
+                                    v-bind="data.attrs"
+                                    :input-value="data.selected"
+                                    :disabled="data.disabled"
+                                    @click:close="data.parent.selectItem(data.item)"
+                                >
+                                  <v-avatar
+                                      :style="`background-color: ${data.item}`"
+                                      class="white--text"
+                                      left
+                                  ></v-avatar>
+                                  {{ data.item }}
+                                </v-chip>
+                              </template>
+                            </v-combobox>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </template>
+
+                    <!--ФОТО4-->
+                    <template v-if="editedItem.arrayImages4.length > 0">
+                      <v-carousel>
+                        <v-carousel-item
+                            :key="article"
+                            :src="(item)"
+                            reverse-transition="fade-transition"
+                            style="max-width: 400px; max-height: 600px"
+                            transition="fade-transition"
+                            v-for="(item,article) in editedItem.arrayImages4"
+                        >
+                          <v-btn
+                              @click="deleteFoto4(editedItem, item)"
+                              class="mx-2"
+                              color="pink"
+                              dark
+                              fab
+                              small
+                              style="float: right; top: 1em;"
+                          >
+                            <v-icon dark>mdi-delete</v-icon>
+                          </v-btn>
+
+                          <!--    Переместить фото в начало массива-->
+                          <template>
+                            <div class="text-center">
+                              <v-btn
+                                  @click="FirstFoto4(editedItem, item)"
+                                  style="float: right; top: 1em;"
+                                  rounded
+                                  color="teal"
+                                  dark
+                              >
+                                Сделать главной
+                              </v-btn>
+                            </div>
+                          </template>
+
+                        </v-carousel-item>
+                      </v-carousel>
+                    </template>
+                    <v-col cols="12">
+                      <v-file-input
+                          :rules2="rules"
+                          accept="image/png, image/jpeg, image/bmp"
+                          color="deep-purple accent-4"
+                          counter
+                          label="Загрузка фотографий"
+                          multiple
+                          placeholder="Выберите фото"
+                          prepend-icon="mdi-camera"
+                          v-model="editedItem.File4"
+
+                      >
+                        <template>
+                          <v-file-input
+                              counter
+                              label="File input"
+                              multiple
+                              show-size
+                          ></v-file-input>
                         </template>
 
-                      </v-carousel-item>
-                    </v-carousel>
-                  </template>
-                  <v-col cols="12">
-                    <v-file-input
-                        :rules2="rules"
-                        accept="image/png, image/jpeg, image/bmp"
-                        color="deep-purple accent-4"
-                        counter
-                        label="Загрузка фотографий"
-                        multiple
-                        placeholder="Выберите фото"
-                        prepend-icon="mdi-camera"
-                        v-model="editedItem.File4"
-
-                    >
-                      <template>
-                        <v-file-input
-                            counter
-                            label="File input"
-                            multiple
-                            show-size
-                        ></v-file-input>
-                      </template>
-
-                    </v-file-input>
-                  </v-col>
+                      </v-file-input>
+                    </v-col>
+                  </container>
 
                   <v-divider class="mx-4"></v-divider>
 
