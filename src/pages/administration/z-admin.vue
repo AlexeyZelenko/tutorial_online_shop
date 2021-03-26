@@ -484,7 +484,7 @@
 												color="orange"
 												hide-details
 												label="Новинка"
-												v-model="editedItem.newClothes"
+												v-model="editedItem.newProduct"
 										></v-checkbox>
 										<v-checkbox
 												color="indigo darken-3"
@@ -644,7 +644,7 @@
         VideoClothings: false,
         BrandName: '',
         FotoClothes: '',
-        newClothes: true,
+        newProduct: true,
     }
 
     export default {
@@ -729,7 +729,7 @@
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                newClothes: true,
+                newProduct: true,
                 arrayImages: [],
                 seen: false
             },
@@ -753,7 +753,7 @@
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                newClothes: true,
+                 newProduct: true,
                 arrayImages: []
             },
             itemsCategories: [
@@ -788,7 +788,8 @@
                 'cyan',
                 'green',
                 'white',
-                'red'
+                'red',
+                'grey'
             ],
             arrayModel: null,
             BrandName: [
@@ -918,11 +919,11 @@
 
                         // Создайте метаданные файла
                         let metadata = {
-                            contentType: 'image/jpeg',
+                            contentType: 'image/png',
                         };
                         let nameTime = +new Date() + name
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child('assets/images/' + nameTime + '.png').put(File[i], metadata);
+                        const uploadTask = storageRef.child('assets/images/' + nameTime + name + '.png').put(File[i], metadata);
 
                         promises.push(
                             uploadTask
@@ -949,8 +950,7 @@
                         BrandName: editProduct.BrandName,
                         article: editProduct.article,
                         price: editProduct.price,
-                        promotionalPrice: editProduct.promotionalPrice,
-                        newClothes: editProduct.newClothes,
+                        newProduct: editProduct.newProduct,
                         description: editProduct.description,
                     })
                     .then(() => {
@@ -980,12 +980,11 @@
               const price = addProduct.price
               const price2 = addProduct.price2
               const promotionalPrice = addProduct.promotionalPrice
-              const newClothes = addProduct.newClothes
+              const newProduct = addProduct.newProduct
               const description = addProduct.description
               const arrayColor = addProduct.arrayColor
               const arrayModel = addProduct.arrayModel
 
-              console.log('addProduct', addProduct)
 // ЗАГРУЗКА ФОТО
                 const promises = []
                 const promisesName = []
@@ -994,24 +993,25 @@
                   console.log('File', File)
                     for (let i = 0; i < File.length; i++) {
 
-                        const storageRef = firebase.storage().ref();
+                        const storageRef = await firebase.storage().ref();
                         // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
                         // Создайте метаданные файла
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        const nameTime = +new Date() + name + '.png'
+                        const nameTime = await +new Date() + i + name + '.png'
+                      console.log(nameTime)
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                         const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
 
-                        promises.push(
+                        await promises.push(
                             uploadTask
                                 .then(snapshot =>
                                     snapshot.ref.getDownloadURL()
                                 )
                         )
-                        promisesName.push(
+                        await promisesName.push(
                             nameTime
                         )
                     }
@@ -1029,7 +1029,7 @@
                     article,
                     available,
                     BrandName,
-                    newClothes,
+                    newProduct,
                     promotionalPrice,
                     createdAt,
                     category,

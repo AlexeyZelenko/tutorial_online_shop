@@ -8,7 +8,7 @@
 
 <!--		НОВИНКА-->
 		<v-chip
-				v-if="product_data.newClothes"
+				v-if="product_data.newProduct"
 				class="v_catalog_item_new"
 				style="background-color: goldenrod; color:white"
 				text-color="white"

@@ -28,7 +28,7 @@
 					class="ma-2"
 					style="background-color: goldenrod; color:white"
 					text-color="white"
-					v-if="product.newClothes"
+					v-if="product.newProduct"
 			>
 				НОВИНКА!
 				<v-icon right style="color: white">mdi-star</v-icon>
