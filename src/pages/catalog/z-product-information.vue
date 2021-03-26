@@ -71,8 +71,12 @@
                       md="6"
                   >
                     <v-carousel
-                        :carousel_data="product.arrayImages"
+                        :carousel_data="arrayImagesViews"
                     />
+<!--                    <v-carousel-->
+<!--                        v-if="product.arrayImages2"-->
+<!--                        :carousel_data="product.arrayImages2"-->
+<!--                    />-->
                   </v-col>
                   <v-col
                       cols="12"
@@ -94,8 +98,8 @@
                                 <v-container>
                                   <v-row>
                                     <v-col
-                                        v-for="n in product.arrayColor"
-                                        :key="n"
+                                        v-for="(n, index) in product.arrayColor"
+                                        :key="index"
                                         cols="6"
                                         md="2"
                                     >
@@ -105,7 +109,7 @@
                                             class="d-flex align-center"
                                             height="30"
                                             width="30"
-                                            @click="selectColor(n); toggle()"
+                                            @click="selectColor(index); toggle()"
                                         >
                                           <v-scroll-y-transition>
                                             <div
@@ -353,6 +357,7 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          arrayImagesViews: [],
           fab: false,
           hidden: false,
           selectmodel: '',
@@ -385,9 +390,23 @@
             goToCard () {
               this.$router.push({name: 'cart'})
             },
-            selectColor(n) {
-              console.log(n)
-                this.selectcolor = n
+            async selectColor(index) {
+
+              if (index === 0) {
+                this.arrayImagesViews = this.product.arrayImages;
+              }
+              else if (index === 1) {
+                this.arrayImagesViews = this.product.arrayImages2;
+              }
+              else if (index === 2) {
+                this.arrayImagesViews = this.product.arrayImages3;
+              }
+              else if (index === 3) {
+                this.arrayImagesViews = this.product.arrayImages4;
+              } else {
+               this.arrayImagesViews = await this.product.arrayImages;
+              }
+                this.selectcolor = index
             },
             selectModel(n) {
               console.log(n)
@@ -421,6 +440,10 @@
                 return result;
             },
         },
+        mounted() {
+          const index = 0;
+          this.selectColor(index)
+        }
     }
 </script>
 

@@ -269,6 +269,7 @@
 													label="Наименование товара"
 													placeholder="Name"
 													prepend-icon="create"
+                          required
 													v-model="editedItem.name"
 											></v-text-field>
 										</v-row>
@@ -285,14 +286,14 @@
 									</v-col>
 
 									<!--						АРТИКЛЬ-->
-									<v-col cols="12">
-										<v-text-field
-												placeholder="article"
-												prepend-icon="local_offer"
-												required
-												v-model="editedItem.article"
-										></v-text-field>
-									</v-col>
+<!--									<v-col cols="12">-->
+<!--										<v-text-field-->
+<!--												placeholder="article"-->
+<!--												prepend-icon="local_offer"-->
+<!--												required-->
+<!--												v-model="editedItem.article"-->
+<!--										></v-text-field>-->
+<!--									</v-col>-->
 
 									<!--						ЦЕНА-->
 									<v-col cols="12">
@@ -419,60 +420,7 @@
                     </v-container>
                   </template>
 
-<!--                  Цвета-->
-                  <v-row
-                      class="ma-2"
-                      style="flex: 0 0 auto"
-                  >
-                    <v-row justify="space-around">
-                    <v-color-picker
-                        show-swatches
-                        :mode.sync="mode"
-                    ></v-color-picker>
-                    <v-select
-                        v-model="mode"
-                        style="max-width: 300px"
-                    ></v-select>
-
-                  </v-row>
-                  </v-row>
-
-                  <template>
-                    <v-container fluid>
-                      <v-row>
-                        <v-col cols="12">
-                          <v-combobox
-                              v-model="editedItem.arrayColor"
-                              :items="fruitsColors"
-                              label="Выберите цвета"
-                              multiple
-                              chips
-                          >
-                            <template v-slot:selection="data">
-                              <v-chip
-                                  class="accent white--text"
-                                  :key="JSON.stringify(data.item)"
-                                  v-bind="data.attrs"
-                                  :input-value="data.selected"
-                                  :disabled="data.disabled"
-                                  @click:close="data.parent.selectItem(data.item)"
-                              >
-                                <v-avatar
-                                    :style="`background-color: ${data.item}`"
-                                    class="white--text"
-                                    left
-                                ></v-avatar>
-                                {{ data.item }}
-                              </v-chip>
-                            </template>
-                          </v-combobox>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </template>
-
-
-									<!--						ОТОБРАЖЕНИЕ-->
+<!--															ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
 										<v-checkbox
 												color="success"
@@ -501,7 +449,61 @@
 
 
 									</div>
-									<!--ФОТО-->
+
+
+                  <!--                  Цвет1-->
+                  <v-row
+                      class="ma-2"
+                      style="flex: 0 0 auto"
+                  >
+                    <v-row justify="space-around">
+                      <v-color-picker
+                          show-swatches
+                          :mode.sync="mode"
+                      ></v-color-picker>
+                      <v-select
+                          v-model="mode"
+                          style="max-width: 300px"
+                      ></v-select>
+
+                    </v-row>
+                  </v-row>
+
+                  <template>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-combobox
+                              v-model="editedItem.arrayColor"
+                              :items="fruitsColors"
+                              label="Выберите цвета"
+                              chips
+                          >
+                            <template v-slot:selection="data">
+                              <v-chip
+                                  class="accent white--text"
+                                  :key="JSON.stringify(data.item)"
+                                  v-bind="data.attrs"
+                                  :input-value="data.selected"
+                                  :disabled="data.disabled"
+                                  @click:close="data.parent.selectItem(data.item)"
+                              >
+                                <v-avatar
+                                    :style="`background-color: ${data.item}`"
+                                    class="white--text"
+                                    left
+                                ></v-avatar>
+                                {{ data.item }}
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </template>
+
+
+									<!--ФОТО1-->
 									<template v-if="editedItem.arrayImages.length > 0">
 										<v-carousel>
 											<v-carousel-item
@@ -566,6 +568,372 @@
 
 										</v-file-input>
 									</v-col>
+
+                  <v-divider class="mx-4"></v-divider>
+
+                  <!--                  Цвет2-->
+                  <v-row
+                      class="ma-2"
+                      style="flex: 0 0 auto"
+                  >
+                    <v-row justify="space-around">
+                      <v-color-picker
+                          show-swatches
+                          :mode.sync="mode"
+                      ></v-color-picker>
+                      <v-select
+                          v-model="mode"
+                          style="max-width: 300px"
+                      ></v-select>
+
+                    </v-row>
+                  </v-row>
+
+                  <template>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-combobox
+                              v-model="editedItem.arrayColor2"
+                              :items="fruitsColors"
+                              label="Выберите цвета"
+                              chips
+                          >
+                            <template v-slot:selection="data">
+                              <v-chip
+                                  class="accent white--text"
+                                  :key="JSON.stringify(data.item)"
+                                  v-bind="data.attrs"
+                                  :input-value="data.selected"
+                                  :disabled="data.disabled"
+                                  @click:close="data.parent.selectItem(data.item)"
+                              >
+                                <v-avatar
+                                    :style="`background-color: ${data.item}`"
+                                    class="white--text"
+                                    left
+                                ></v-avatar>
+                                {{ data.item }}
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </template>
+
+
+                  <!--ФОТО2-->
+                  <template v-if="editedItem.arrayImages2.length > 0">
+                    <v-carousel>
+                      <v-carousel-item
+                          :key="article"
+                          :src="(item)"
+                          reverse-transition="fade-transition"
+                          style="max-width: 400px; max-height: 600px"
+                          transition="fade-transition"
+                          v-for="(item,article) in editedItem.arrayImages2"
+                      >
+                        <v-btn
+                            @click="deleteFoto2(editedItem, item)"
+                            class="mx-2"
+                            color="pink"
+                            dark
+                            fab
+                            small
+                            style="float: right; top: 1em;"
+                        >
+                          <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+
+                        <!--    Переместить фото в начало массива-->
+                        <template>
+                          <div class="text-center">
+                            <v-btn
+                                @click="FirstFoto2(editedItem, item)"
+                                style="float: right; top: 1em;"
+                                rounded
+                                color="teal"
+                                dark
+                            >
+                              Сделать главной
+                            </v-btn>
+                          </div>
+                        </template>
+
+                      </v-carousel-item>
+                    </v-carousel>
+                  </template>
+                  <v-col cols="12">
+                    <v-file-input
+                        :rules2="rules"
+                        accept="image/png, image/jpeg, image/bmp"
+                        color="deep-purple accent-4"
+                        counter
+                        label="Загрузка фотографий"
+                        multiple
+                        placeholder="Выберите фото"
+                        prepend-icon="mdi-camera"
+                        v-model="editedItem.File2"
+
+                    >
+                      <template>
+                        <v-file-input
+                            counter
+                            label="File input"
+                            multiple
+                            show-size
+                        ></v-file-input>
+                      </template>
+
+                    </v-file-input>
+                  </v-col>
+
+                  <v-divider class="mx-4"></v-divider>
+
+                  <!--                  Цвет3-->
+                  <v-row
+                      class="ma-2"
+                      style="flex: 0 0 auto"
+                  >
+                    <v-row justify="space-around">
+                      <v-color-picker
+                          show-swatches
+                          :mode.sync="mode"
+                      ></v-color-picker>
+                      <v-select
+                          v-model="mode"
+                          style="max-width: 300px"
+                      ></v-select>
+
+                    </v-row>
+                  </v-row>
+
+                  <template>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-combobox
+                              v-model="editedItem.arrayColor3"
+                              :items="fruitsColors"
+                              label="Выберите цвета"
+                              chips
+                          >
+                            <template v-slot:selection="data">
+                              <v-chip
+                                  class="accent white--text"
+                                  :key="JSON.stringify(data.item)"
+                                  v-bind="data.attrs"
+                                  :input-value="data.selected"
+                                  :disabled="data.disabled"
+                                  @click:close="data.parent.selectItem(data.item)"
+                              >
+                                <v-avatar
+                                    :style="`background-color: ${data.item}`"
+                                    class="white--text"
+                                    left
+                                ></v-avatar>
+                                {{ data.item }}
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </template>
+
+
+                  <!--ФОТО3-->
+                  <template v-if="editedItem.arrayImages3.length > 0">
+                    <v-carousel>
+                      <v-carousel-item
+                          :key="article"
+                          :src="(item)"
+                          reverse-transition="fade-transition"
+                          style="max-width: 400px; max-height: 600px"
+                          transition="fade-transition"
+                          v-for="(item,article) in editedItem.arrayImages3"
+                      >
+                        <v-btn
+                            @click="deleteFoto3(editedItem, item)"
+                            class="mx-2"
+                            color="pink"
+                            dark
+                            fab
+                            small
+                            style="float: right; top: 1em;"
+                        >
+                          <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+
+                        <!--    Переместить фото в начало массива-->
+                        <template>
+                          <div class="text-center">
+                            <v-btn
+                                @click="FirstFoto3(editedItem, item)"
+                                style="float: right; top: 1em;"
+                                rounded
+                                color="teal"
+                                dark
+                            >
+                              Сделать главной
+                            </v-btn>
+                          </div>
+                        </template>
+
+                      </v-carousel-item>
+                    </v-carousel>
+                  </template>
+                  <v-col cols="12">
+                    <v-file-input
+                        :rules2="rules"
+                        accept="image/png, image/jpeg, image/bmp"
+                        color="deep-purple accent-4"
+                        counter
+                        label="Загрузка фотографий"
+                        multiple
+                        placeholder="Выберите фото"
+                        prepend-icon="mdi-camera"
+                        v-model="editedItem.File3"
+
+                    >
+                      <template>
+                        <v-file-input
+                            counter
+                            label="File input"
+                            multiple
+                            show-size
+                        ></v-file-input>
+                      </template>
+
+                    </v-file-input>
+                  </v-col>
+
+                  <v-divider class="mx-4"></v-divider>
+
+
+
+                  <!--                  Цвет4-->
+                  <v-row
+                      class="ma-2"
+                      style="flex: 0 0 auto"
+                  >
+                    <v-row justify="space-around">
+                      <v-color-picker
+                          show-swatches
+                          :mode.sync="mode"
+                      ></v-color-picker>
+                      <v-select
+                          v-model="mode"
+                          style="max-width: 300px"
+                      ></v-select>
+
+                    </v-row>
+                  </v-row>
+
+                  <template>
+                    <v-container fluid>
+                      <v-row>
+                        <v-col cols="12">
+                          <v-combobox
+                              v-model="editedItem.arrayColor4"
+                              :items="fruitsColors"
+                              label="Выберите цвета"
+                              chips
+                          >
+                            <template v-slot:selection="data">
+                              <v-chip
+                                  class="accent white--text"
+                                  :key="JSON.stringify(data.item)"
+                                  v-bind="data.attrs"
+                                  :input-value="data.selected"
+                                  :disabled="data.disabled"
+                                  @click:close="data.parent.selectItem(data.item)"
+                              >
+                                <v-avatar
+                                    :style="`background-color: ${data.item}`"
+                                    class="white--text"
+                                    left
+                                ></v-avatar>
+                                {{ data.item }}
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </template>
+
+
+                  <!--ФОТО4-->
+                  <template v-if="editedItem.arrayImages4.length > 0">
+                    <v-carousel>
+                      <v-carousel-item
+                          :key="article"
+                          :src="(item)"
+                          reverse-transition="fade-transition"
+                          style="max-width: 400px; max-height: 600px"
+                          transition="fade-transition"
+                          v-for="(item,article) in editedItem.arrayImages4"
+                      >
+                        <v-btn
+                            @click="deleteFoto4(editedItem, item)"
+                            class="mx-2"
+                            color="pink"
+                            dark
+                            fab
+                            small
+                            style="float: right; top: 1em;"
+                        >
+                          <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+
+                        <!--    Переместить фото в начало массива-->
+                        <template>
+                          <div class="text-center">
+                            <v-btn
+                                @click="FirstFoto4(editedItem, item)"
+                                style="float: right; top: 1em;"
+                                rounded
+                                color="teal"
+                                dark
+                            >
+                              Сделать главной
+                            </v-btn>
+                          </div>
+                        </template>
+
+                      </v-carousel-item>
+                    </v-carousel>
+                  </template>
+                  <v-col cols="12">
+                    <v-file-input
+                        :rules2="rules"
+                        accept="image/png, image/jpeg, image/bmp"
+                        color="deep-purple accent-4"
+                        counter
+                        label="Загрузка фотографий"
+                        multiple
+                        placeholder="Выберите фото"
+                        prepend-icon="mdi-camera"
+                        v-model="editedItem.File4"
+
+                    >
+                      <template>
+                        <v-file-input
+                            counter
+                            label="File input"
+                            multiple
+                            show-size
+                        ></v-file-input>
+                      </template>
+
+                    </v-file-input>
+                  </v-col>
+
+                  <v-divider class="mx-4"></v-divider>
+
+
 
 								</v-row>
 							</v-container>
@@ -700,7 +1068,7 @@
                 counter2: value => value.length <= 400 || 'Max 400 знаков',
             },
             rules2: [
-                value => !value || value.size < 5000000 || 'Avatar size should be less than 5 MB!',
+                value => !value || value.size < 3000000 || 'Avatar size should be less than 5 MB!',
             ],
             categories: [],
             search: '',
@@ -709,13 +1077,22 @@
             dialog: false,
             drawer: null,
             arrayImages: [],
+            arrayImages2: [],
+            arrayImages3: [],
+            arrayImages4: [],
             editedIndex: -1,
             editedItem: {
                 arrayModel: [],
                 selectedFruits: [],
                 arrayColor: [],
+                arrayColor2: [],
+                arrayColor3: [],
+                arrayColor4: [],
                 NameImages: [],
                 File: [],
+                File2: [],
+                File3: [],
+                File4: [],
                 name: '',
                 article: +new Date(),
                 description: '',
@@ -731,15 +1108,24 @@
                 FotoClothes: '',
                 newProduct: true,
                 arrayImages: [],
+                arrayImages2: [],
+                arrayImages3: [],
+                arrayImages4: [],
                 seen: false
             },
             defaultItem: {
                 seen: false,
                 selectedFruits: [],
                 arrayColor: [],
+                arrayColor2: [],
+                arrayColor3: [],
+                arrayColor4: [],
                 arrayModel: [],
                 NameImages: [],
                 File: [],
+                File2: [],
+                File3: [],
+                File4: [],
                 name: '',
                 article: +new Date(),
                 description: '',
@@ -753,8 +1139,10 @@
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                 newProduct: true,
-                arrayImages: []
+                newProduct: true,
+                arrayImages2: [],
+                arrayImages3: [],
+                arrayImages4: []
             },
             itemsCategories: [
               'Iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
@@ -880,6 +1268,78 @@
             editedItem.arrayImages = array
             editedItem.NameImages = arrayName
           },
+            deleteFoto2(editedItem, item) {
+              const array = editedItem.arrayImages2
+              const arrayName = editedItem.NameImages2
+
+              const index = array.indexOf(item);
+              if (index > -1) {
+                array.splice(index, 1);
+                arrayName.splice(index, 1);
+              }
+              editedItem.arrayImages2 = array
+              editedItem.NameImages2 = arrayName
+            },
+            FirstFoto2(editedItem, item) {
+              const array = editedItem.arrayImages2
+              const arrayName = editedItem.NameImages2
+
+              const index = array.indexOf(item);
+              if (index > -1) {
+                array.unshift(...array.splice(index,1));
+                arrayName.unshift(...arrayName.splice(index,1));
+              }
+              editedItem.arrayImages2 = array
+              editedItem.NameImages2 = arrayName
+            },
+            deleteFoto3(editedItem, item) {
+              const array = editedItem.arrayImages3
+              const arrayName = editedItem.NameImages3
+
+              const index = array.indexOf(item);
+              if (index > -1) {
+                array.splice(index, 1);
+                arrayName.splice(index, 1);
+              }
+              editedItem.arrayImages3 = array
+              editedItem.NameImages3 = arrayName
+            },
+            FirstFoto3(editedItem, item) {
+              const array = editedItem.arrayImages3
+              const arrayName = editedItem.NameImages3
+
+              const index = array.indexOf(item);
+              if (index > -1) {
+                array.unshift(...array.splice(index,1));
+                arrayName.unshift(...arrayName.splice(index,1));
+              }
+              editedItem.arrayImages3 = array
+              editedItem.NameImages3 = arrayName
+            },
+            deleteFoto4(editedItem, item) {
+              const array = editedItem.arrayImages4
+              const arrayName = editedItem.NameImages4
+
+              const index = array.indexOf(item);
+              if (index > -1) {
+                array.splice(index, 1);
+                arrayName.splice(index, 1);
+              }
+              editedItem.arrayImages4 = array
+              editedItem.NameImages4 = arrayName
+            },
+            FirstFoto4(editedItem, item) {
+            const array = editedItem.arrayImages4
+            const arrayName = editedItem.NameImages4
+
+            const index = array.indexOf(item);
+            if (index > -1) {
+              array.unshift(...array.splice(index,1));
+              arrayName.unshift(...arrayName.splice(index,1));
+            }
+            editedItem.arrayImages4 = array
+            editedItem.NameImages4 = arrayName
+          },
             initialize() {
                 this.products = this.PRODUCTS
             },
@@ -908,8 +1368,14 @@
             },
             async editThisProduct(editProduct) {
               console.log('editProduct', editProduct)
+
                 this.isLoading = true
+
                 const File = editProduct.File
+                const File2 = editProduct.File2
+                const File3 = editProduct.File3
+                const File4 = editProduct.File4
+
                 const promises = []
                 if (File) {
                     for (let i = 0; i < File.length; i++) {
@@ -921,9 +1387,10 @@
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        let nameTime = +new Date() + name
+                        let nameTime = await +new Date() + i + name + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child('assets/images/' + nameTime + name + '.png').put(File[i], metadata);
+                        const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
+
 
                         promises.push(
                             uploadTask
@@ -936,6 +1403,92 @@
                 const URLs = await Promise.all(promises)
                 const ArrayOld = editProduct.arrayImages
                 const ArrayFile = [...URLs, ...ArrayOld]
+
+                const promises2 = []
+                if (File2) {
+                  for (let i = 0; i < File2.length; i++) {
+
+                    const storageRef = firebase.storage().ref();
+                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                    // Создайте метаданные файла
+                    let metadata = {
+                      contentType: 'image/png',
+                    };
+                    let nameTime = await +new Date() + i + name + '.png'
+                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
+
+
+                    promises2.push(
+                        uploadTask
+                            .then(snapshot =>
+                                snapshot.ref.getDownloadURL()
+                            )
+                    )
+                  }
+                }
+                const URLs2 = await Promise.all(promises2)
+                const ArrayOld2 = editProduct.arrayImages2
+                const ArrayFile2 = [...URLs2, ...ArrayOld2]
+
+                const promises3 = []
+                if (File3) {
+                  for (let i = 0; i < File3.length; i++) {
+
+                    const storageRef = firebase.storage().ref();
+                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                    // Создайте метаданные файла
+                    let metadata = {
+                      contentType: 'image/png',
+                    };
+                    let nameTime = await +new Date() + i + name + '.png'
+                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
+
+
+                    promises3.push(
+                        uploadTask
+                            .then(snapshot =>
+                                snapshot.ref.getDownloadURL()
+                            )
+                    )
+                  }
+                }
+                const URLs3 = await Promise.all(promises3)
+                const ArrayOld3 = editProduct.arrayImages3
+                const ArrayFile3 = [...URLs3, ...ArrayOld3]
+
+                const promises4 = []
+                if (File4) {
+                  for (let i = 0; i < File4.length; i++) {
+
+                    const storageRef = firebase.storage().ref();
+                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                    // Создайте метаданные файла
+                    let metadata = {
+                      contentType: 'image/png',
+                    };
+                    let nameTime = await +new Date() + i + name + '.png'
+                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
+
+
+                    promises4.push(
+                        uploadTask
+                            .then(snapshot =>
+                                snapshot.ref.getDownloadURL()
+                            )
+                    )
+                  }
+                }
+                const URLs4 = await Promise.all(promises4)
+                const ArrayOld4 = editProduct.arrayImages4
+                const ArrayFile4 = [...URLs4, ...ArrayOld4]
+
+
                 let id = editProduct.id
 
                 db.collection('products2')
@@ -943,8 +1496,14 @@
                     .update({
                         seen: editProduct.seen,
                         arrayImages: ArrayFile,
+                        arrayImages2: ArrayFile2,
+                        arrayImages3: ArrayFile3,
+                        arrayImages4: ArrayFile4,
                         arrayModel: editProduct.arrayModel,
                         arrayColor: editProduct.arrayColor,
+                        arrayColor2: editProduct.arrayColor2,
+                        arrayColor3: editProduct.arrayColor3,
+                        arrayColor4: editProduct.arrayColor4,
                         category: editProduct.category,
                         createdAt: editProduct.createdAt,
                         BrandName: editProduct.BrandName,
@@ -966,11 +1525,16 @@
             },
             async addLocation(addProduct) {
 
+              console.log('addProduct', addProduct)
+
               this.isLoading = true
 
               const createdAt = Date.now()
               const seen = false
               const File = addProduct.File
+              const File2 = addProduct.File2
+              const File3 = addProduct.File3
+              const File4 = addProduct.File4
               const BrandName = addProduct.BrandName
               const article = addProduct.article
               const available = addProduct.available
@@ -983,9 +1547,12 @@
               const newProduct = addProduct.newProduct
               const description = addProduct.description
               const arrayColor = addProduct.arrayColor
+              const arrayColor2 = addProduct.arrayColor2
+              const arrayColor3 = addProduct.arrayColor3
+              const arrayColor4 = addProduct.arrayColor4
               const arrayModel = addProduct.arrayModel
 
-// ЗАГРУЗКА ФОТО
+// ЗАГРУЗКА ФОТО1
                 const promises = []
                 const promisesName = []
 
@@ -1003,7 +1570,7 @@
                         const nameTime = await +new Date() + i + name + '.png'
                       console.log(nameTime)
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child('assets/images/' + nameTime).put(File[i], metadata);
+                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
 
                         await promises.push(
                             uploadTask
@@ -1020,33 +1587,147 @@
                 const URLs = await Promise.all(promises)
                 const NameImages = await Promise.all(promisesName)
 
-                let docRef = await db.collection('products2').add({
-                    NameImages: NameImages,
-                    arrayColor: arrayColor,
-                    arrayModel: arrayModel,
-                    presence,
-                    seen,
-                    article,
-                    available,
-                    BrandName,
-                    newProduct,
-                    promotionalPrice,
-                    createdAt,
-                    category,
-                    arrayImages: URLs,
-                    name,
-                    price,
-                    price2,
-                    description,
-                });
-                try {
-                  const docAdded = await docRef;
-                  await db.collection('products2').doc(docAdded.id).update({id: `${docAdded.id}`});
-                } catch (err) {
-                  return err;
-                }
 
-                this.isLoading = false
+              // ЗАГРУЗКА ФОТО2
+              const promises2 = []
+              const promisesName2 = []
+
+              if (File2) {
+                console.log('File2', File2)
+                for (let i = 0; i < File2.length; i++) {
+
+                  const storageRef = await firebase.storage().ref();
+                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                  // Создайте метаданные файла
+                  let metadata = {
+                    contentType: 'image/png',
+                  };
+                  const nameTime = await +new Date() + i + name + '.png'
+                  console.log(nameTime)
+                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
+
+                  await promises2.push(
+                      uploadTask
+                          .then(snapshot =>
+                              snapshot.ref.getDownloadURL()
+                          )
+                  )
+                  await promisesName2.push(
+                      nameTime
+                  )
+                }
+              }
+
+              const URLs2 = await Promise.all(promises2)
+              const NameImages2 = await Promise.all(promisesName2)
+
+              // ЗАГРУЗКА ФОТО3
+              const promises3 = []
+              const promisesName3 = []
+
+              if (File3) {
+                console.log('File3', File3)
+                for (let i = 0; i < File3.length; i++) {
+
+                  const storageRef = await firebase.storage().ref();
+                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                  // Создайте метаданные файла
+                  let metadata = {
+                    contentType: 'image/png',
+                  };
+                  const nameTime = await +new Date() + i + name + '.png'
+                  console.log(nameTime)
+                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
+
+                  await promises3.push(
+                      uploadTask
+                          .then(snapshot =>
+                              snapshot.ref.getDownloadURL()
+                          )
+                  )
+                  await promisesName3.push(
+                      nameTime
+                  )
+                }
+              }
+
+              const URLs3 = await Promise.all(promises3)
+              const NameImages3 = await Promise.all(promisesName3)
+
+              // ЗАГРУЗКА ФОТО4
+              const promises4 = []
+              const promisesName4 = []
+
+              if (File4) {
+                console.log('File4', File4)
+                for (let i = 0; i < File4.length; i++) {
+
+                  const storageRef = await firebase.storage().ref();
+                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+
+                  // Создайте метаданные файла
+                  let metadata = {
+                    contentType: 'image/png',
+                  };
+                  const nameTime = await +new Date() + i + name + '.png'
+                  console.log(nameTime)
+                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
+
+                  await promises4.push(
+                      uploadTask
+                          .then(snapshot =>
+                              snapshot.ref.getDownloadURL()
+                          )
+                  )
+                  await promisesName4.push(
+                      nameTime
+                  )
+                }
+              }
+
+              const URLs4 = await Promise.all(promises4)
+              const NameImages4 = await Promise.all(promisesName4)
+
+              const arrayColorAll = [arrayColor, arrayColor2, arrayColor3, arrayColor4]
+
+              let docRef = await db.collection('products2').add({
+                NameImages: NameImages,
+                NameImages2: NameImages2,
+                NameImages3: NameImages3,
+                NameImages4: NameImages4,
+                arrayColor: arrayColorAll,
+                arrayModel: arrayModel,
+                presence,
+                seen,
+                article,
+                available,
+                BrandName,
+                newProduct,
+                promotionalPrice,
+                createdAt,
+                category,
+                arrayImages: URLs,
+                arrayImages2: URLs2,
+                arrayImages3: URLs3,
+                arrayImages4: URLs4,
+                name,
+                price,
+                price2,
+                description,
+              });
+              try {
+                const docAdded = await docRef;
+                await db.collection('products2').doc(docAdded.id).update({id: `${docAdded.id}`});
+              } catch (err) {
+                return err;
+              }
+
+              this.isLoading = false
 
                 Swal.fire({
                     position: 'top-end',
@@ -1056,6 +1737,8 @@
                     timer: 2000
                 })
                 this.dialog = false
+              this.isLoading = false
+
             },
             getColor(price) {
                 if (price < 500) return 'red'
@@ -1063,14 +1746,6 @@
                 else if (price > 1000) return 'cyan'
                 else if (price > 2000) return 'yellow'
                 else if (price > 3000) return 'grey'
-                else return 'green'
-            },
-            getColor2(clothingSize) {
-                if (clothingSize < 36) return 'red'
-                else if (clothingSize > 36 - 40) return 'orange'
-                else if (clothingSize > 42 - 44) return 'cyan'
-                else if (clothingSize > 45 - 46) return 'yellow'
-                else if (clothingSize > 47 - 50) return 'grey'
                 else return 'green'
             },
             async deleteLocation(item) {
@@ -1087,18 +1762,58 @@
                         if (result.value) {
                             this.isLoading = true
                             const File = item.arrayImages
+                            const File2 = item.arrayImages2
+                            const File3 = item.arrayImages3
+                            const File4 = item.arrayImages4
 
                             if (File) {
                                 for (let i = 0; i < File.length; i++) {
                                     let storageRef = firebase.storage().ref()
                                     let nameTime = item.NameImages[i]
-                                    const Ref = storageRef.child('assets/images/' + nameTime)
+                                    const Ref = storageRef.child(`assets/images/${item.name}/` + nameTime)
                                     Ref.delete().then(function () {
                                     }).catch(function (error) {
                                         console.log('удаление фото с всем объявлением' + error)
                                     })
                                 }
                             }
+
+                          if (File2) {
+                            for (let i = 0; i < File2.length; i++) {
+                              let storageRef = firebase.storage().ref()
+                              let nameTime = item.NameImages2[i]
+                              const Ref = storageRef.child(`assets/images/${item.name}/` + nameTime)
+                              Ref.delete().then(function () {
+                              }).catch(function (error) {
+                                console.log('удаление фото с всем объявлением' + error)
+                              })
+                            }
+                          }
+
+                          if (File3) {
+                            for (let i = 0; i < File3.length; i++) {
+                              let storageRef = firebase.storage().ref()
+                              let nameTime = item.NameImages3[i]
+                              const Ref = storageRef.child(`assets/images/${item.name}/` + nameTime)
+                              Ref.delete().then(function () {
+                              }).catch(function (error) {
+                                console.log('удаление фото с всем объявлением' + error)
+                              })
+                            }
+                          }
+
+                          if (File4) {
+                            for (let i = 0; i < File4.length; i++) {
+                              let storageRef = firebase.storage().ref()
+                              let nameTime = item.NameImages4[i]
+                              const Ref = storageRef.child(`assets/images/${item.name}/` + nameTime)
+                              Ref.delete().then(function () {
+                              }).catch(function (error) {
+                                console.log('удаление фото с всем объявлением' + error)
+                              })
+                            }
+                          }
+
                             let id = item.id
                             db.collection('products2').doc(id).delete()
                             this.isLoading = false
