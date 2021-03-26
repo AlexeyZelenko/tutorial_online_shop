@@ -452,7 +452,7 @@
 
 
                   <!--                  Цвет1-->
-                  <container
+                  <v-container
                       class="py-2"
                       style="background-color: #dedddd"
                   >
@@ -476,7 +476,7 @@
                             cols="12"
                         >
                           <v-text-field
-                              v-model="nameColor"
+                              v-model="editedItem.nameColor"
                               label="НАЗВАНИЕ ЦВЕТА #1"
                               placeholder="Введите название цвета #1"
                               outlined
@@ -579,12 +579,12 @@
                       </v-file-input>
                     </v-col>
 
-                  </container>
+                  </v-container>
 
                   <v-divider class="mx-2"></v-divider>
 
                   <!--                  Цвет2-->
-                  <container
+                  <v-container
                       class="py-2"
                       style="background-color: #C8E6C9FF"
                   >
@@ -610,6 +610,7 @@
                               cols="12"
                           >
                             <v-text-field
+                                v-model="editedItem.nameColor2"
                                 label="НАЗВАНИЕ ЦВЕТА #2"
                                 placeholder="Введите название цвета #2"
                                 outlined
@@ -712,12 +713,12 @@
 
                       </v-file-input>
                     </v-col>
-                  </container>
+                  </v-container>
 
                   <v-divider class="mx-4"></v-divider>
 
                   <!--                  Цвет3-->
-                  <container
+                  <v-container
                       class="py-2"
                       style="background-color: #E3F2FDFF"
                   >
@@ -743,6 +744,7 @@
                               cols="12"
                           >
                             <v-text-field
+                                v-model="editedItem.nameColor3"
                                 label="НАЗВАНИЕ ЦВЕТА #3"
                                 placeholder="Введите название цвета #3"
                                 outlined
@@ -844,12 +846,12 @@
 
                       </v-file-input>
                     </v-col>
-                  </container>
+                  </v-container>
 
                   <v-divider class="mx-4"></v-divider>
 
                   <!--                  Цвет4-->
-                  <container
+                  <v-container
                       class="py-2"
                       style="background-color: #FFCCBCFF"
                   >
@@ -875,6 +877,7 @@
                               cols="12"
                           >
                             <v-text-field
+                                v-model="editedItem.nameColor4"
                                 label="НАЗВАНИЕ ЦВЕТА #4"
                                 placeholder="Введите название цвета #4"
                                 outlined
@@ -976,7 +979,7 @@
 
                       </v-file-input>
                     </v-col>
-                  </container>
+                  </v-container>
 
                   <v-divider class="mx-4"></v-divider>
 
@@ -1171,10 +1174,10 @@
                 arrayColor2: [],
                 arrayColor3: [],
                 arrayColor4: [],
-                nameColor: '',
-                nameColor2: '',
-                nameColor3: '',
-                nameColor4: '',
+                nameColor: null,
+                nameColor2: null,
+                nameColor3: null,
+                nameColor4: null,
                 arrayModel: [],
                 NameImages: [],
                 File: [],
