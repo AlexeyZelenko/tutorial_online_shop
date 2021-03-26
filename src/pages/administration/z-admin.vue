@@ -466,11 +466,6 @@
                             show-swatches
                             :mode.sync="mode"
                         ></v-color-picker>
-                        <v-select
-                            v-model="mode"
-                            style="max-width: 300px"
-                        ></v-select>
-
                       </v-row>
                     </v-row>
 
@@ -481,6 +476,7 @@
                             cols="12"
                         >
                           <v-text-field
+                              v-model="nameColor"
                               label="НАЗВАНИЕ ЦВЕТА #1"
                               placeholder="Введите название цвета #1"
                               outlined
@@ -602,10 +598,6 @@
                             show-swatches
                             :mode.sync="mode"
                         ></v-color-picker>
-                        <v-select
-                            v-model="mode"
-                            style="max-width: 300px"
-                        ></v-select>
 
                       </v-row>
                     </v-row>
@@ -613,6 +605,17 @@
                     <template>
                       <v-container fluid>
                         <v-row>
+                          <v-col
+                              class="py-6"
+                              cols="12"
+                          >
+                            <v-text-field
+                                label="НАЗВАНИЕ ЦВЕТА #2"
+                                placeholder="Введите название цвета #2"
+                                outlined
+                                dense
+                            ></v-text-field>
+                          </v-col>
                           <v-col cols="12">
                             <v-combobox
                                 v-model="editedItem.arrayColor2"
@@ -711,7 +714,6 @@
                     </v-col>
                   </container>
 
-
                   <v-divider class="mx-4"></v-divider>
 
                   <!--                  Цвет3-->
@@ -729,10 +731,6 @@
                             show-swatches
                             :mode.sync="mode"
                         ></v-color-picker>
-                        <v-select
-                            v-model="mode"
-                            style="max-width: 300px"
-                        ></v-select>
 
                       </v-row>
                     </v-row>
@@ -740,6 +738,17 @@
                     <template>
                       <v-container fluid>
                         <v-row>
+                          <v-col
+                              class="py-6"
+                              cols="12"
+                          >
+                            <v-text-field
+                                label="НАЗВАНИЕ ЦВЕТА #3"
+                                placeholder="Введите название цвета #3"
+                                outlined
+                                dense
+                            ></v-text-field>
+                          </v-col>
                           <v-col cols="12">
                             <v-combobox
                                 v-model="editedItem.arrayColor3"
@@ -854,10 +863,6 @@
                             show-swatches
                             :mode.sync="mode"
                         ></v-color-picker>
-                        <v-select
-                            v-model="mode"
-                            style="max-width: 300px"
-                        ></v-select>
 
                       </v-row>
                     </v-row>
@@ -865,6 +870,17 @@
                     <template>
                       <v-container fluid>
                         <v-row>
+                          <v-col
+                              class="py-6"
+                              cols="12"
+                          >
+                            <v-text-field
+                                label="НАЗВАНИЕ ЦВЕТА #4"
+                                placeholder="Введите название цвета #4"
+                                outlined
+                                dense
+                            ></v-text-field>
+                          </v-col>
                           <v-col cols="12">
                             <v-combobox
                                 v-model="editedItem.arrayColor4"
@@ -1115,6 +1131,10 @@
             editedItem: {
                 arrayModel: [],
                 selectedFruits: [],
+                nameColor: '',
+                nameColor2: '',
+                nameColor3: '',
+                nameColor4: '',
                 arrayColor: [],
                 arrayColor2: [],
                 arrayColor3: [],
@@ -1151,6 +1171,10 @@
                 arrayColor2: [],
                 arrayColor3: [],
                 arrayColor4: [],
+                nameColor: '',
+                nameColor2: '',
+                nameColor3: '',
+                nameColor4: '',
                 arrayModel: [],
                 NameImages: [],
                 File: [],
@@ -1519,6 +1543,8 @@
                 const ArrayOld4 = editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
 
+              const nameColorAll = [editProduct.nameColor, editProduct.nameColor2, editProduct.nameColor3, editProduct.nameColor4]
+
 
                 let id = editProduct.id
 
@@ -1530,6 +1556,7 @@
                         arrayImages2: ArrayFile2,
                         arrayImages3: ArrayFile3,
                         arrayImages4: ArrayFile4,
+                        nameColor: nameColorAll,
                         arrayModel: editProduct.arrayModel,
                         arrayColor: editProduct.arrayColor,
                         arrayColor2: editProduct.arrayColor2,
@@ -1581,6 +1608,10 @@
               const arrayColor2 = addProduct.arrayColor2
               const arrayColor3 = addProduct.arrayColor3
               const arrayColor4 = addProduct.arrayColor4
+              const nameColor = addProduct.nameColor
+              const nameColor2 = addProduct.nameColor2
+              const nameColor3 = addProduct.nameColor3
+              const nameColor4 = addProduct.nameColor4
               const arrayModel = addProduct.arrayModel
 
 // ЗАГРУЗКА ФОТО1
@@ -1725,12 +1756,14 @@
               const NameImages4 = await Promise.all(promisesName4)
 
               const arrayColorAll = [arrayColor, arrayColor2, arrayColor3, arrayColor4]
+              const nameColorAll = [nameColor, nameColor2, nameColor3, nameColor4]
 
               let docRef = await db.collection('products2').add({
                 NameImages: NameImages,
                 NameImages2: NameImages2,
                 NameImages3: NameImages3,
                 NameImages4: NameImages4,
+                nameColor: nameColorAll,
                 arrayColor: arrayColorAll,
                 arrayModel: arrayModel,
                 presence,

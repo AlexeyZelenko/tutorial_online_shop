@@ -103,6 +103,10 @@
                                         cols="6"
                                         md="2"
                                     >
+                                      <div
+                                      >
+                                        <p>{{product.nameColor}}</p>
+                                      </div>
                                       <v-item v-slot="{ active, toggle }">
                                         <v-card
                                             :color="n"
@@ -111,6 +115,7 @@
                                             width="30"
                                             @click="selectColor(index); toggle()"
                                         >
+
                                           <v-scroll-y-transition>
                                             <div
                                                 v-if="active"
