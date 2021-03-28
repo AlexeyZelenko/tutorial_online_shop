@@ -103,10 +103,6 @@
                                         cols="6"
                                         md="2"
                                     >
-                                      <div
-                                      >
-                                        <p>{{product.nameColor}}</p>
-                                      </div>
                                       <v-item v-slot="{ active, toggle }">
                                         <v-card
                                             :color="n"
@@ -231,6 +227,9 @@
 
 
                       <p>{{"Descriptions" | localize}}:</p>
+
+                      <p>Цвет: {{nameColorChange}}</p>
+
                       <p v-html="product.description"></p>
 
                       <p>Артикль товара: {{product.article}}</p>
@@ -362,6 +361,7 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          nameColorChange: '',
           arrayImagesViews: [],
           fab: false,
           hidden: false,
@@ -398,17 +398,22 @@
             async selectColor(index) {
 
               if (index === 0) {
+                this.nameColorChange = this.product.nameColor[0]
                 this.arrayImagesViews = this.product.arrayImages;
               }
               else if (index === 1) {
+                this.nameColorChange = this.product.nameColor[1]
                 this.arrayImagesViews = this.product.arrayImages2;
               }
               else if (index === 2) {
+                this.nameColorChange = this.product.nameColor[2]
                 this.arrayImagesViews = this.product.arrayImages3;
               }
               else if (index === 3) {
-                this.arrayImagesViews = this.product.arrayImages4;
+                this.nameColorChange = this.product.nameColor[3]
+                this.arrayImagesViews = this.product.arrayImages4
               } else {
+                this.nameColorChange = this.product.nameColor[0]
                this.arrayImagesViews = await this.product.arrayImages;
               }
                 this.selectcolor = index

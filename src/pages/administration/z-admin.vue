@@ -1796,6 +1796,8 @@
 
               this.isLoading = false
 
+              console.log('this.isLoading', this.isLoading)
+
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -1804,7 +1806,6 @@
                     timer: 2000
                 })
                 this.dialog = false
-              this.isLoading = false
 
             },
             getColor(price) {
