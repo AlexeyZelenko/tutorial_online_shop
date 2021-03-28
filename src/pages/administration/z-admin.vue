@@ -326,14 +326,17 @@
                       cols="12"
                   >
                     <v-select
-                        :items="BrandName"
+                        :items="itemsCategories"
                         label="Выберите бренд"
                         placeholder="Бренд"
                         prepend-icon="create"
+                        item-text="name"
+                        return-object
                         v-model="editedItem.BrandName"
                     ></v-select>
+
                     <v-select
-                        :items="itemsCategories"
+                        :items="editedItem.BrandName.arrayCategory"
                         :rules="[v => !!v || 'Пункт требуется']"
                         label="Выберите категорию"
                         placeholder="категория"
@@ -476,7 +479,7 @@
                             cols="12"
                         >
                           <v-text-field
-                              v-model="editedItem.nameColor"
+                              v-model="editedItem.nameColor[0]"
                               label="НАЗВАНИЕ ЦВЕТА #1"
                               placeholder="Введите название цвета #1"
                               outlined
@@ -485,7 +488,7 @@
                         </v-col>
                         <v-col cols="12">
                           <v-combobox
-                              v-model="editedItem.arrayColor"
+                              v-model="editedItem.arrayColor[0]"
                               :items="fruitsColors"
                               label="ЦВЕТ #1"
                               chips
@@ -514,7 +517,9 @@
 
 
                     <!--ФОТО1-->
-                    <template v-if="editedItem.arrayImages.length > 0">
+                    <template
+                        v-if="editedItem.arrayImages && editedItem.arrayImages.length > 0"
+                    >
                       <v-carousel>
                         <v-carousel-item
                             :key="article"
@@ -610,7 +615,7 @@
                               cols="12"
                           >
                             <v-text-field
-                                v-model="editedItem.nameColor2"
+                                v-model="editedItem.nameColor[1]"
                                 label="НАЗВАНИЕ ЦВЕТА #2"
                                 placeholder="Введите название цвета #2"
                                 outlined
@@ -624,7 +629,7 @@
                                 label="Выберите цвета"
                                 chips
                             >
-                              <template v-slot:selection="data">
+                              <template #selection="data">
                                 <v-chip
                                     class="accent white--text"
                                     :key="JSON.stringify(data.item)"
@@ -649,7 +654,7 @@
 
 
                     <!--ФОТО2-->
-                    <template v-if="editedItem.arrayImages2.length > 0">
+                    <template v-if="editedItem.arrayImages2 && editedItem.arrayImages2.length > 0">
                       <v-carousel>
                         <v-carousel-item
                             :key="article"
@@ -744,7 +749,7 @@
                               cols="12"
                           >
                             <v-text-field
-                                v-model="editedItem.nameColor3"
+                                v-model="editedItem.nameColor[2]"
                                 label="НАЗВАНИЕ ЦВЕТА #3"
                                 placeholder="Введите название цвета #3"
                                 outlined
@@ -782,7 +787,7 @@
                     </template>
 
                     <!--ФОТО3-->
-                    <template v-if="editedItem.arrayImages3.length > 0">
+                    <template v-if="editedItem.arrayImages3 && editedItem.arrayImages3.length > 0">
                       <v-carousel>
                         <v-carousel-item
                             :key="article"
@@ -877,7 +882,7 @@
                               cols="12"
                           >
                             <v-text-field
-                                v-model="editedItem.nameColor4"
+                                v-model="editedItem.nameColor[3]"
                                 label="НАЗВАНИЕ ЦВЕТА #4"
                                 placeholder="Введите название цвета #4"
                                 outlined
@@ -915,7 +920,7 @@
                     </template>
 
                     <!--ФОТО4-->
-                    <template v-if="editedItem.arrayImages4.length > 0">
+                    <template v-if="editedItem.arrayImages4 && editedItem.arrayImages4.length > 0">
                       <v-carousel>
                         <v-carousel-item
                             :key="article"
@@ -1134,10 +1139,10 @@
             editedItem: {
                 arrayModel: [],
                 selectedFruits: [],
-                nameColor: '',
-                nameColor2: '',
-                nameColor3: '',
-                nameColor4: '',
+                nameColor: [],
+                // nameColor2: '',
+                // nameColor3: '',
+                // nameColor4: '',
                 arrayColor: [],
                 arrayColor2: [],
                 arrayColor3: [],
@@ -1174,7 +1179,7 @@
                 arrayColor2: [],
                 arrayColor3: [],
                 arrayColor4: [],
-                nameColor: null,
+                nameColor: [],
                 nameColor2: null,
                 nameColor3: null,
                 nameColor4: null,
@@ -1203,23 +1208,23 @@
                 arrayImages4: []
             },
             itemsCategories: [
-              'Iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
-              // {
-              //   name: 'Apple',
-              //   arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
-              // },
-              // {
-              //   name: 'Google',
-              //   arrayCategory: ['google pixel']
-              // },
-              // {
-              //   name: 'Xiaomi',
-              //   arrayCategory: ['airdots', 'smartband', 'аксессуары']
-              // },
-              // {
-              //   name: 'Samsung',
-              //   arrayCategory: ['phone', 'наушники', 'watch', 'аксессуары']
-              // },
+              // 'Iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
+              {
+                name: 'Apple',
+                arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
+              },
+              {
+                name: 'Google',
+                arrayCategory: ['google pixel']
+              },
+              {
+                name: 'Xiaomi',
+                arrayCategory: ['airdots', 'smartband', 'аксессуары']
+              },
+              {
+                name: 'Samsung',
+                arrayCategory: ['phone', 'наушники', 'watch', 'аксессуары']
+              },
 
             ],
             fruits: [
@@ -1434,8 +1439,13 @@
                 const File3 = editProduct.File3
                 const File4 = editProduct.File4
 
+              console.log('1')
+              console.log(File)
+
+
                 const promises = []
                 if (File) {
+                  console.log(File.length)
                     for (let i = 0; i < File.length; i++) {
 
                         const storageRef = firebase.storage().ref();
@@ -1445,9 +1455,9 @@
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        let nameTime = await +new Date() + i + name + '.png'
+                        let nameTime = +new Date() + i + name + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
+                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
 
 
                         promises.push(
@@ -1460,10 +1470,14 @@
                 }
                 const URLs = await Promise.all(promises)
                 const ArrayOld = editProduct.arrayImages
+
+              console.log('editProduct.arrayImages', editProduct.arrayImages)
+
                 const ArrayFile = [...URLs, ...ArrayOld]
 
                 const promises2 = []
                 if (File2) {
+                  console.log(File2.length)
                   for (let i = 0; i < File2.length; i++) {
 
                     const storageRef = firebase.storage().ref();
@@ -1475,7 +1489,7 @@
                     };
                     let nameTime = await +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
+                    const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
 
 
                     promises2.push(
@@ -1492,6 +1506,7 @@
 
                 const promises3 = []
                 if (File3) {
+                  console.log(File3.length)
                   for (let i = 0; i < File3.length; i++) {
 
                     const storageRef = firebase.storage().ref();
@@ -1503,7 +1518,7 @@
                     };
                     let nameTime = await +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
+                    const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
 
 
                     promises3.push(
@@ -1520,9 +1535,10 @@
 
                 const promises4 = []
                 if (File4) {
+                  console.log(File4.length)
                   for (let i = 0; i < File4.length; i++) {
 
-                    const storageRef = firebase.storage().ref();
+                    const storageRef = await firebase.storage().ref();
                     // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
                     // Создайте метаданные файла
@@ -1531,7 +1547,7 @@
                     };
                     let nameTime = await +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                    const uploadTask = await storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
+                    const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
 
 
                     promises4.push(
@@ -1546,35 +1562,43 @@
                 const ArrayOld4 = editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
 
-              const nameColorAll = [editProduct.nameColor, editProduct.nameColor2, editProduct.nameColor3, editProduct.nameColor4]
+              const nameColorAll = editProduct.nameColor // [editProduct.nameColor, editProduct.nameColor2, editProduct.nameColor3, editProduct.nameColor4]
 
 
                 let id = editProduct.id
 
-                db.collection('products2')
+              console.log('Запуск');
+
+                const updateData = {
+                  seen: editProduct.seen,
+                  arrayImages: ArrayFile,
+                  arrayImages2: ArrayFile2,
+                  arrayImages3: ArrayFile3,
+                  arrayImages4: ArrayFile4,
+                  nameColor: nameColorAll,
+                  arrayModel: editProduct.arrayModel,
+                  arrayColor: editProduct.arrayColor,
+                  // arrayColor2: editProduct.arrayColor2,
+                  // arrayColor3: editProduct.arrayColor3,
+                  // arrayColor4: editProduct.arrayColor4,
+                  category: editProduct.category,
+                  createdAt: editProduct.createdAt,
+                  BrandName: editProduct.BrandName,
+                  article: editProduct.article,
+                  price: editProduct.price,
+                  newProduct: editProduct.newProduct,
+                  description: editProduct.description,
+                }
+
+              console.log('updateData', updateData);
+
+              await db.collection('products2')
                     .doc(id)
-                    .update({
-                        seen: editProduct.seen,
-                        arrayImages: ArrayFile,
-                        arrayImages2: ArrayFile2,
-                        arrayImages3: ArrayFile3,
-                        arrayImages4: ArrayFile4,
-                        nameColor: nameColorAll,
-                        arrayModel: editProduct.arrayModel,
-                        arrayColor: editProduct.arrayColor,
-                        arrayColor2: editProduct.arrayColor2,
-                        arrayColor3: editProduct.arrayColor3,
-                        arrayColor4: editProduct.arrayColor4,
-                        category: editProduct.category,
-                        createdAt: editProduct.createdAt,
-                        BrandName: editProduct.BrandName,
-                        article: editProduct.article,
-                        price: editProduct.price,
-                        newProduct: editProduct.newProduct,
-                        description: editProduct.description,
-                    })
+                    .update(updateData)
                     .then(() => {
-                        this.isLoading = false
+                      console.log('Я не отобразилось, зря только пишите меня');
+
+                      this.isLoading = false
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
