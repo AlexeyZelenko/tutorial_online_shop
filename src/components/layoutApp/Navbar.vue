@@ -137,7 +137,7 @@
         <v-tab href="#tab-6">
           <v-speed-dial
               v-model="fab"
-              right='true'
+              :right="right"
               direction=left
               transition="scale-transition"
           >
@@ -293,6 +293,7 @@
 
   export default {
     data: () => ({
+      right: true,
       fab: false,
       fling: false,
       tabs: null,

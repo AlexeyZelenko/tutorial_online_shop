@@ -64,7 +64,11 @@ export default {
     ]),
     RANDOM_PRODUCTS() {
       const a = this.GET_PRODUCTS
-      return a.sort(() => Math.random() - 0.5)
+      const b = a.sort(() => Math.random() - 0.5)
+
+      return b.filter((obj, idx, arr) => (
+          arr.findIndex((o) => o.name === obj.name) === idx
+      ))
     }
   }
 }
