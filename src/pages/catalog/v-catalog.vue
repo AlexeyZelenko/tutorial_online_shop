@@ -118,7 +118,6 @@
                 await this.$store.dispatch('logout')
             },
             productClick(article) {
-              console.log('article', article)
                 this.$router.push({name: 'product', query: {'product': article}})
             },
             // sortByCategories(category) {

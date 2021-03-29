@@ -5,7 +5,7 @@
       <v-row>
         <v-col
             v-for="item in RANDOM_PRODUCTS"
-            :key="item.article"
+            :key="item.id"
             cols="12"
             md="2"
         >
@@ -36,18 +36,13 @@ export default {
   name: "RandomProducts",
   methods: {
     ...mapActions([]),
-    async productClick(article) {
-
+    productClick(article) {
       window.scrollTo({ top: 150, behavior: 'smooth' })
-      await this.$router.push({name: 'product', query: {'product': article}})
-          .catch(()=>{
-            location.reload()
-          })
+      this.$router.push({name: 'product', query: {'product': article}}).catch(()=>{})
     }
   },
   computed: {
     ...mapGetters([
-      'GET_RANDOM_PRODUCTS',
       'GET_PRODUCTS'
     ]),
     RANDOM_PRODUCTS() {
