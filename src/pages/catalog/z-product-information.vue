@@ -10,7 +10,7 @@
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
-      <span >{{product.BrandName.name}} > {{product.category}} > {{product.name}} > {{this.nameColorChange}} > {{this.selectmodel}}</span>
+      <span >{{product.BrandName.name}} > {{product.category}} > {{product.name}} > {{this.nameColorChange}} > {{this.model}}</span>
 		</template>
 
     <template>
@@ -141,8 +141,8 @@
                                 <v-container>
                                   <v-row>
                                     <v-col
-                                        v-for="n in product.arrayModel"
-                                        :key="n"
+                                        v-for="(n, index) in product.arrayModel"
+                                        :key="index"
                                         cols="6"
                                         md="4"
                                     >
@@ -152,7 +152,7 @@
                                             class="d-flex text-center"
                                             height="30"
                                             width="50"
-                                            @click="selectModel(n); toggle()"
+                                            @click="selectModel(index, n); toggle()"
                                         >
                                           <v-scroll-y-transition>
                                             <div
@@ -176,11 +176,12 @@
                       </v-list>
 
                       <h4
+                          v-if="price2"
                           style="text-decoration: line-through; color: orangered"
                       >
-                        {{product.price2}} грн
+                        {{price2}} грн
                       </h4>
-                      <h3>{{product.price}} грн</h3>
+                      <h3>{{price}} грн</h3>
 
                       <img
                           style="height: 50px"
@@ -236,7 +237,7 @@
                       <div class="text-center">
                         <v-chip
                             class="ma-2"
-                            style="background-color: goldenrod; color:white"
+                            style="background-color: goldenrod; color:white; max-width: 100px"
                             text-color="white"
                             v-if="product.newProduct"
                         >
@@ -275,7 +276,7 @@
                 {{product.name}}
               </v-card-title>
               <v-carousel
-                  :carousel_data="product.arrayImages"
+                  :carousel_data="arrayImagesViews"
               />
             </v-card>
           </v-tab-item>
@@ -361,6 +362,10 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          price: 0,
+          price2: 0,
+          model: '',
+          arrayPriceViews: [],
           nameColorChange: '',
           arrayImagesViews: [],
           fab: false,
@@ -418,10 +423,32 @@
               }
                 this.selectcolor = index
             },
-            selectModel(n) {
-              console.log(n)
-              this.selectmodel = n
-            },
+
+            async selectModel(index, n) {
+              this.model = n
+
+            if (index === 0) {
+              this.price = this.product.price[0]
+              this.price2 = this.product.price2[0]
+            }
+            else if (index === 1) {
+              this.price = this.product.price[1]
+              this.price2 = this.product.price2[1]
+            }
+            else if (index === 2) {
+              this.price = this.product.price[2]
+              this.price2 = this.product.price2[2]
+            }
+            else if (index === 3) {
+              this.price = this.product.price[3]
+              this.price2 = this.product.price2[3]
+            } else {
+              this.price = this.product.price[0]
+              this.price2 = this.product.price2[0]
+            }
+            this.selectcolor = index
+          },
+
             addToCart() {
                 this.ADD_TO_CART(this.product)
             },
@@ -453,6 +480,7 @@
         mounted() {
           const index = 0;
           this.selectColor(index)
+          this.selectModel(index)
         }
     }
 </script>

@@ -285,41 +285,189 @@
 										/>
 									</v-col>
 
-									<!--						АРТИКЛЬ-->
-<!--									<v-col cols="12">-->
-<!--										<v-text-field-->
-<!--												placeholder="article"-->
-<!--												prepend-icon="local_offer"-->
-<!--												required-->
-<!--												v-model="editedItem.article"-->
-<!--										></v-text-field>-->
-<!--									</v-col>-->
+                  <!--                  Модель1-->
+                  <v-container
+                      class="my-2"
+                      style="background-color: #dedddd"
+                  >
+                    <p>Модель №1 + цена</p>
 
-									<!--						ЦЕНА-->
-									<v-col cols="12">
-										<v-text-field
-												:rules="[v => (v !== Number.NaN) || 'Введите число!']"
-												label="Цена товара"
-												placeholder="ОБЯЗАТЕЛЬНО"
-												prepend-icon="monetization_on"
-												required
-												type="Number"
-												v-model="editedItem.price"
-										></v-text-field>
-									</v-col>
+                    <v-col cols="12">
+                      <v-select
+                          v-model="editedItem.arrayModel[0]"
+                          :items="fruits"
+                          label="Выберите модель"
+                      >
+                      </v-select>
+                    </v-col>
 
-                  <!--						ЦЕНА Завышенная-->
-                  <v-col cols="12">
-                    <v-text-field
-                        :rules="[v => (v !== Number.NaN) || 'Введите число!']"
-                        label="Предыдущая цена товара"
-                        placeholder="ОБЯЗАТЕЛЬНО"
-                        prepend-icon="monetization_on"
-                        required
-                        type="Number"
-                        v-model="editedItem.price2"
-                    ></v-text-field>
-                  </v-col>
+                    <!--						ЦЕНА Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price[0]"
+                      ></v-text-field>
+                    </v-col>
+
+                    <!--						ЦЕНА Завышенная Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Предыдущая цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price2[0]"
+                      ></v-text-field>
+                    </v-col>
+
+                  </v-container>
+
+
+                  <!--                  Модель2-->
+                  <v-container
+                      class="my-2"
+                      style="background-color: #c6c695"
+                  >
+                    <p>Модель №2 + цена</p>
+
+                    <v-col cols="12">
+                      <v-select
+                          v-model="editedItem.arrayModel[1]"
+                          :items="fruits"
+                          label="Выберите модель"
+                      >
+                      </v-select>
+                    </v-col>
+
+                    <!--						ЦЕНА Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price[1]"
+                      ></v-text-field>
+                    </v-col>
+
+                    <!--						ЦЕНА Завышенная Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Предыдущая цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price2[1]"
+                      ></v-text-field>
+                    </v-col>
+
+                  </v-container>
+
+
+                  <!--                  Модель3-->
+                  <v-container
+                      class="my-2"
+                      style="background-color: #c2fbfb"
+                  >
+                    <p>Модель №3 + цена</p>
+
+                    <template>
+                      <v-container fluid>
+                        <v-select
+                            v-model="editedItem.arrayModel[2]"
+                            :items="fruits"
+                            label="Выберите модель"
+                        >
+                        </v-select>
+                      </v-container>
+                    </template>
+
+                    <!--						ЦЕНА Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price[2]"
+                      ></v-text-field>
+                    </v-col>
+
+                    <!--						ЦЕНА Завышенная Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Предыдущая цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price2[2]"
+                      ></v-text-field>
+                    </v-col>
+
+                  </v-container>
+
+                  <!--                  Модель4-->
+                  <v-container
+                      class="my-2"
+                      style="background-color: #eab8ea"
+                  >
+                    <p>Модель №4 + цена</p>
+
+                    <template>
+                      <v-container fluid>
+                        <v-select
+                            v-model="editedItem.arrayModel[3]"
+                            :items="fruits"
+                            label="Выберите модель"
+                        >
+                        </v-select>
+                      </v-container>
+                    </template>
+
+                    <!--						ЦЕНА Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price[3]"
+                      ></v-text-field>
+                    </v-col>
+
+                    <!--						ЦЕНА Завышенная Модели №1-->
+                    <v-col cols="12">
+                      <v-text-field
+                          :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                          label="Предыдущая цена товара"
+                          placeholder="ОБЯЗАТЕЛЬНО"
+                          prepend-icon="monetization_on"
+                          required
+                          type="Number"
+                          v-model="editedItem.price2[3]"
+                      ></v-text-field>
+                    </v-col>
+
+                  </v-container>
+
+
 
                   <!--							БРЭНД-->
                   <v-col
@@ -346,83 +494,6 @@
                     ></v-select>
 
                   </v-col>
-
-									<!--						КАТЕГОРИИ-->
-<!--									<v-col cols="12">-->
-<!--										<v-select-->
-<!--												:items="itemsCategories[item]"-->
-<!--												:rules="[v => !!v || 'Пункт требуется']"-->
-<!--												label="Выберите категорию"-->
-<!--												placeholder="категория"-->
-<!--												prepend-icon="create"-->
-<!--												v-model="editedItem.category"-->
-<!--										></v-select>-->
-<!--									</v-col>-->
-
-<!--                  Модель-->
-                  <template>
-                    <v-container fluid>
-                      <v-select
-                          v-model="editedItem.arrayModel"
-                          :items="fruits"
-                          label="Выберите модели"
-                          multiple
-                      >
-                        <template v-slot:prepend-item>
-                          <v-list-item
-                              ripple
-                              @click="toggle"
-                          >
-                            <v-list-item-action>
-                              <v-icon :color="editedItem.arrayModel.length > 0 ? 'indigo darken-4' : ''">
-                                {{ icon }}
-                              </v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                              <v-list-item-title>
-                                Выбрать все
-                              </v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                          <v-divider class="mt-2"></v-divider>
-                        </template>
-                        <template v-slot:append-item>
-                          <v-divider class="mb-2"></v-divider>
-                          <v-list-item disabled>
-                            <v-list-item-avatar color="grey lighten-3">
-                              <v-icon>
-                                mdi-food-apple
-                              </v-icon>
-                            </v-list-item-avatar>
-
-                            <v-list-item-content v-if="likesAllFruit">
-                              <v-list-item-title>
-                                Вы выбрали все модели!
-                              </v-list-item-title>
-                            </v-list-item-content>
-
-                            <v-list-item-content v-else-if="likesSomeFruit">
-                              <v-list-item-title>
-                                Кол-во моделей
-                              </v-list-item-title>
-                              <v-list-item-subtitle>
-                                {{ editedItem.arrayModel.length }}
-                              </v-list-item-subtitle>
-                            </v-list-item-content>
-
-                            <v-list-item-content v-else>
-                              <v-list-item-title>
-                                Выберите модели для телефона
-                              </v-list-item-title>
-                              <v-list-item-subtitle>
-                                Давай, сделай выбор выше!
-                              </v-list-item-subtitle>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </template>
-                      </v-select>
-                    </v-container>
-                  </template>
 
 <!--															ОТОБРАЖЕНИЕ-->
 									<div class="check_box">
@@ -1153,8 +1224,8 @@
                 available: true,
                 presence: true,
                 category: '',
-                price: null,
-                price2: null,
+                price: [],
+                price2: [],
                 promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
@@ -1187,8 +1258,8 @@
                 available: true,
                 presence: true,
                 category: '',
-                price: null,
-                price2: null,
+                price: [],
+                price2: [],
                 promotionalPrice: false,
                 clothingManufacturer: '',
                 VideoClothings: false,
@@ -1219,6 +1290,7 @@
 
             ],
             fruits: [
+                '',
                 '64',
                 '128',
                 '256',
@@ -1231,7 +1303,8 @@
                 'green',
                 'white',
                 'red',
-                'grey'
+                'grey',
+                ''
             ],
             arrayModel: null,
             headers: [
@@ -1250,7 +1323,7 @@
                 {text: '', value: '4'},
                 {text: 'Описание', value: 'description'},
                 {text: '', value: '5'},
-                {text: 'Цена', value: 'price'},
+                // {text: 'Цена', value: 'price'},
                 {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
                 {text: '===========================', value: ''},
             ],
@@ -1559,6 +1632,7 @@
                   BrandName: editProduct.BrandName,
                   article: editProduct.article,
                   price: editProduct.price,
+                  price2: editProduct.price2,
                   newProduct: editProduct.newProduct,
                   description: editProduct.description,
                 }
