@@ -450,7 +450,15 @@
           },
 
             addToCart() {
-                this.ADD_TO_CART(this.product)
+              const payload = {
+                name: this.product.name,
+                nameColorChange: this.nameColorChange,
+                model: this.model,
+                article: this.product.article,
+                price: this.price,
+                arrayImagesViews: this.arrayImagesViews[0]
+              }
+                this.ADD_TO_CART(payload)
             },
         },
         computed: {

@@ -1,58 +1,67 @@
 <template>
-	<div class="v-cart-item">
-		<img
-				:src="(cart_item_data.arrayImages[0])"
-				alt=""
-				class="v-cart-item__image">
-		<div class="v-cart-item__info">
-			<p>{{cart_item_data.name}}</p>
-			<p>{{'Цена'}} : {{cart_item_data.price}}</p>
-			<p>{{'Модель'}} :{{cart_item_data.clothingSize}}</p>
-			<p>{{'Артикль'}}: {{cart_item_data.article}}</p>
-			<p>{{'тел.: +380636910177'}}</p>
-		</div>
+  <v-card class="mx-auto my-12"
+          max-width="900">
+    <div class="v-cart-item">
+      <img
+          v-if="cart_item_data.arrayImagesViews"
+          :src="(cart_item_data.arrayImagesViews)"
+          alt=""
+          class="v-cart-item__image"
+      >
+      <div class="v-cart-item__info">
 
-		<!--		КОЛИЧЕСТВО-->
-		<div class="v-cart-item__quantity">
-			<p>{{'Qty:' | localize}}</p>
-			<div class="text-center">
-				<v-btn
-						@click.stop="decrementItem"
-						:loading="loading5"
-						:disabled="loading5"
-						class="mx-2"
-						fab
-						small
-						style="color: black; background-color: palegreen"
-				>
-					<v-icon dark>mdi-minus</v-icon>
-				</v-btn>
-				<div>{{quantity}}</div>
-				<v-btn
-						@click.prevent="incrementItem"
-						:loading="loading4"
-						:disabled="loading4"
-						class="mx-2"
-						fab
-						small
-						style="color: black; background-color: palegreen"
-				>
-					<v-icon dark>mdi-plus</v-icon>
-				</v-btn>
-			</div>
+        <p>{{cart_item_data.name}}</p>
+        <p>{{'Модель'}} : {{cart_item_data.model}} GB</p>
+        <p>{{'Цвет'}} : {{cart_item_data.nameColorChange}}</p>
+        <p>{{'Цена'}} : {{cart_item_data.price}} грн.</p>
+
+        <p>{{'тел.: +380636910177'}}</p>
+
+        <p>{{'Артикль'}}: {{cart_item_data.article}}</p>
+      </div>
+
+      <!--		КОЛИЧЕСТВО-->
+      <div class="v-cart-item__quantity">
+        <p>{{'Qty:' | localize}}</p>
+        <div class="text-center">
+          <v-btn
+              @click.stop="decrementItem"
+              :loading="loading5"
+              :disabled="loading5"
+              class="mx-2"
+              fab
+              small
+              style="color: black; background-color: palegreen"
+          >
+            <v-icon dark>mdi-minus</v-icon>
+          </v-btn>
+          <div>{{quantity}}</div>
+          <v-btn
+              @click.prevent="incrementItem"
+              :loading="loading4"
+              :disabled="loading4"
+              class="mx-2"
+              fab
+              small
+              style="color: black; background-color: palegreen"
+          >
+            <v-icon dark>mdi-plus</v-icon>
+          </v-btn>
+        </div>
 
 
-		</div>
-		<v-btn
-				depressed
-				@click="deleteFromCart"
-				:loading="loading"
-				:disabled="loading"
-				style="color: mediumvioletred;"
-		>
-			<v-icon dark>mdi mdi-delete-forever</v-icon>
-		</v-btn>
-	</div>
+      </div>
+      <v-btn
+          depressed
+          @click="deleteFromCart"
+          :loading="loading"
+          :disabled="loading"
+          style="color: mediumvioletred;"
+      >
+        <v-icon dark>mdi mdi-delete-forever</v-icon>
+      </v-btn>
+    </div>
+  </v-card>
 
 </template>
 <script>

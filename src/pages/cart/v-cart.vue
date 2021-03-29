@@ -50,7 +50,8 @@
                 'GET_CART_USER'
             ]),
             newGetCartUser() {
-                return [...new Set(this.GET_CART_USER)]
+              return this.GET_CART_USER
+                // return [...new Set(this.GET_CART_USER)]
             },
             cartTotalCost() {
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)

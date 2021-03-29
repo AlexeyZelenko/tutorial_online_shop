@@ -6,8 +6,10 @@ import 'firebase/auth'
 
 export default {
     actions: {
-        async ADD_TO_CART({dispatch}, product) {
-            const uid = await dispatch('getUid')
+        async ADD_TO_CART({dispatch}, payload) {
+          console.log('payload', payload)
+          console.log('Пуск добавления в корзину');
+          const uid = await dispatch('getUid')
             if(uid) {
                 const user = await db.collection('users')
                     .doc(`${uid}`)
@@ -17,11 +19,22 @@ export default {
                         // do something with document
                         return document
                     })
-                await db.collection('users')
+
+              console.log('Этап2');
+
+              await db.collection('users')
                     .doc(`${uid}`)
                     .set({
                         ...user,
-                        cartInfo: [...user.cartInfo, product.article]
+                        cartInfo: [...user.cartInfo, {
+                          article: payload.article,
+                          nameColorChange: payload.nameColorChange,
+                          model: payload.model,
+                          price: payload.price,
+                          name: payload.name,
+                          arrayImagesViews: payload.arrayImagesViews
+
+                        }]
                     })
                     .then(() => {
                         Swal.fire({
@@ -90,14 +103,19 @@ export default {
                         // do something with documents
                         return product
                     })
+
+              console.log('products', products)
+              console.log('cartUser', cartUser)
+
                 const promises = []
                 for(let i = 0; i < cartUser.length; i++) {
-                    let result = products.filter(item => item.article === cartUser[i])
+                    let result = products.filter(item => item.article === cartUser[i].article)
                     promises.push(result[0])
                 }
-                const result2 = await Promise.all(promises)
+                // const result2 = await Promise.all(promises)
 
-                commit('CART_USER', result2)
+                // commit('CART_USER', result2)
+                commit('CART_USER', cartUser)
             }
 
         },
