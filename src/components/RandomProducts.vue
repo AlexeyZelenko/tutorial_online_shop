@@ -36,12 +36,13 @@ export default {
   name: "RandomProducts",
   methods: {
     ...mapActions([]),
-    productClick(article) {
-      // location.reload()
+    async productClick(article) {
+
       window.scrollTo({ top: 150, behavior: 'smooth' })
-      this.$router.push({name: 'product', query: {'product': article}})
-
-
+      await this.$router.push({name: 'product', query: {'product': article}})
+          .catch(()=>{
+            location.reload()
+          })
     }
   },
   computed: {
