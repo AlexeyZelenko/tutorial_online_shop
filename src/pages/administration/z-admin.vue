@@ -341,6 +341,7 @@
                         label="Выберите категорию"
                         placeholder="категория"
                         prepend-icon="create"
+                        item-text="name"
                         v-model="editedItem.category"
                     ></v-select>
 
@@ -624,7 +625,7 @@
                           </v-col>
                           <v-col cols="12">
                             <v-combobox
-                                v-model="editedItem.arrayColor2"
+                                v-model="editedItem.arrayColor[1]"
                                 :items="fruitsColors"
                                 label="Выберите цвета"
                                 chips
@@ -758,7 +759,7 @@
                           </v-col>
                           <v-col cols="12">
                             <v-combobox
-                                v-model="editedItem.arrayColor3"
+                                v-model="editedItem.arrayColor[2]"
                                 :items="fruitsColors"
                                 label="Выберите цвета"
                                 chips
@@ -891,7 +892,7 @@
                           </v-col>
                           <v-col cols="12">
                             <v-combobox
-                                v-model="editedItem.arrayColor4"
+                                v-model="editedItem.arrayColor[3]"
                                 :items="fruitsColors"
                                 label="Выберите цвета"
                                 chips
@@ -1140,13 +1141,7 @@
                 arrayModel: [],
                 selectedFruits: [],
                 nameColor: [],
-                // nameColor2: '',
-                // nameColor3: '',
-                // nameColor4: '',
                 arrayColor: [],
-                arrayColor2: [],
-                arrayColor3: [],
-                arrayColor4: [],
                 NameImages: [],
                 File: [],
                 File2: [],
@@ -1176,9 +1171,6 @@
                 seen: false,
                 selectedFruits: [],
                 arrayColor: [],
-                arrayColor2: [],
-                arrayColor3: [],
-                arrayColor4: [],
                 nameColor: [],
                 nameColor2: null,
                 nameColor3: null,
@@ -1208,7 +1200,6 @@
                 arrayImages4: []
             },
             itemsCategories: [
-              // 'Iphone', 'airpods', 'ipad', 'watch', 'macbook', 'google pixel', 'airdots', 'smartband','phone', 'наушники', 'watch', 'аксессуары',
               {
                 name: 'Apple',
                 arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
@@ -1243,12 +1234,6 @@
                 'grey'
             ],
             arrayModel: null,
-            BrandName: [
-                'Apple',
-                'Google',
-                'Xiaomi',
-                'Samsung',
-            ],
             headers: [
                 {
                     text: 'Название',
@@ -1260,7 +1245,7 @@
                 {text: 'Фото', value: 'arrayImages'},
                 {text: '', value: '2'},
                 {text: '', value: '3'},
-                {text: 'Бренд', value: 'BrandName'},
+                {text: 'Бренд', value: 'BrandName.name'},
                 {text: 'Категория', value: 'category'},
                 {text: '', value: '4'},
                 {text: 'Описание', value: 'description'},
@@ -1430,7 +1415,6 @@
                 this.dialog = true
             },
             async editThisProduct(editProduct) {
-              console.log('editProduct', editProduct)
 
                 this.isLoading = true
 
@@ -1438,9 +1422,6 @@
                 const File2 = editProduct.File2
                 const File3 = editProduct.File3
                 const File4 = editProduct.File4
-
-              console.log('1')
-              console.log(File)
 
 
                 const promises = []
@@ -1470,8 +1451,6 @@
                 }
                 const URLs = await Promise.all(promises)
                 const ArrayOld = editProduct.arrayImages
-
-              console.log('editProduct.arrayImages', editProduct.arrayImages)
 
                 const ArrayFile = [...URLs, ...ArrayOld]
 
@@ -1562,9 +1541,6 @@
                 const ArrayOld4 = editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
 
-              const nameColorAll = editProduct.nameColor // [editProduct.nameColor, editProduct.nameColor2, editProduct.nameColor3, editProduct.nameColor4]
-
-
                 let id = editProduct.id
 
               console.log('Запуск');
@@ -1575,12 +1551,9 @@
                   arrayImages2: ArrayFile2,
                   arrayImages3: ArrayFile3,
                   arrayImages4: ArrayFile4,
-                  nameColor: nameColorAll,
+                  nameColor: editProduct.nameColor,
                   arrayModel: editProduct.arrayModel,
                   arrayColor: editProduct.arrayColor,
-                  // arrayColor2: editProduct.arrayColor2,
-                  // arrayColor3: editProduct.arrayColor3,
-                  // arrayColor4: editProduct.arrayColor4,
                   category: editProduct.category,
                   createdAt: editProduct.createdAt,
                   BrandName: editProduct.BrandName,
@@ -1596,7 +1569,6 @@
                     .doc(id)
                     .update(updateData)
                     .then(() => {
-                      console.log('Я не отобразилось, зря только пишите меня');
 
                       this.isLoading = false
                         Swal.fire({
@@ -1632,13 +1604,7 @@
               const newProduct = addProduct.newProduct
               const description = addProduct.description
               const arrayColor = addProduct.arrayColor
-              const arrayColor2 = addProduct.arrayColor2
-              const arrayColor3 = addProduct.arrayColor3
-              const arrayColor4 = addProduct.arrayColor4
               const nameColor = addProduct.nameColor
-              const nameColor2 = addProduct.nameColor2
-              const nameColor3 = addProduct.nameColor3
-              const nameColor4 = addProduct.nameColor4
               const arrayModel = addProduct.arrayModel
 
 // ЗАГРУЗКА ФОТО1
@@ -1782,16 +1748,15 @@
               const URLs4 = await Promise.all(promises4)
               const NameImages4 = await Promise.all(promisesName4)
 
-              const arrayColorAll = [arrayColor, arrayColor2, arrayColor3, arrayColor4]
-              const nameColorAll = [nameColor, nameColor2, nameColor3, nameColor4]
+              console.log('category', category)
 
               let docRef = await db.collection('products2').add({
                 NameImages: NameImages,
                 NameImages2: NameImages2,
                 NameImages3: NameImages3,
                 NameImages4: NameImages4,
-                nameColor: nameColorAll,
-                arrayColor: arrayColorAll,
+                nameColor,
+                arrayColor,
                 arrayModel: arrayModel,
                 presence,
                 seen,
@@ -1801,7 +1766,7 @@
                 newProduct,
                 promotionalPrice,
                 createdAt,
-                category,
+                category: category,
                 arrayImages: URLs,
                 arrayImages2: URLs2,
                 arrayImages3: URLs3,
@@ -1819,8 +1784,6 @@
               }
 
               this.isLoading = false
-
-              console.log('this.isLoading', this.isLoading)
 
                 Swal.fire({
                     position: 'top-end',

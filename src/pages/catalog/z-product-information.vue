@@ -10,7 +10,7 @@
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
-      <span >{{product.category}} > {{product.name}} > {{this.selectcolor}} > {{this.selectmodel}}</span>
+      <span >{{product.BrandName.name}} > {{product.category}} > {{product.name}} > {{this.nameColorChange}} > {{this.selectmodel}}</span>
 		</template>
 
     <template>
