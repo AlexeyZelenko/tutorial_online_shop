@@ -57,9 +57,15 @@
               // return [...new Set(this.GET_CART_USER)]
 
               // Удаляем одинаковые объекты из массива
-              return this.GET_CART_USER.reduce((acc, cur) => [
-                ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
-              ], []);
+              // Вариант1
+              // return this.GET_CART_USER.reduce((acc, cur) => [
+              //   ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
+              // ], []);
+
+              // Вариант2
+              return this.GET_CART_USER.filter((obj, idx, arr) => (
+                  arr.findIndex((o) => o.arrayImagesViews === obj.arrayImagesViews) === idx
+              ))
 
 
             },

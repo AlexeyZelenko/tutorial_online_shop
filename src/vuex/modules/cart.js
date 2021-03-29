@@ -137,7 +137,6 @@ export default {
                 })
         },
         async DECREMENT_CART_ITEM({dispatch}, item) {
-          console.log('item', item)
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')
                 .doc(`${uid}`)
@@ -146,15 +145,13 @@ export default {
                     const document = snapshot.data()
 
                     // do something with document
-                  const i = document.cartInfo.indexOf(item);
-                  console.log('i', i)
-                    if(i >= 0) {
-                        document.cartInfo.splice(i, 1);
-                    }
+                  const index = document.cartInfo.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
+                  if (index !== -1) {
+                    document.cartInfo.splice(index, 1);
+                  }
                     return document.cartInfo
                 })
 
-          console.log('cartUser', cartUser)
             const user = { ...this.user }
             user.cartInfo = cartUser
 
