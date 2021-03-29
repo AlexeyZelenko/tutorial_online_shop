@@ -93,7 +93,7 @@
             quantity() {
                 let promises = 0
                 for(let i = 0; i < this.GET_CART_USER.length; i++) {
-                    if(this.cart_item_data.article === this.GET_CART_USER[i].article) {
+                    if(this.cart_item_data.arrayImagesViews === this.GET_CART_USER[i].arrayImagesViews) {
                         promises++
 										}
                 }

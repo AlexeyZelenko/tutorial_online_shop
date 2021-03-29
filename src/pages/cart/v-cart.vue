@@ -25,9 +25,9 @@
 				:cart_item_data="item"
 				v-for="item in newGetCartUser"
 				:key="item.article"
-				@decrement="decrement(item.article)"
-				@deleteFromCart="deleteFromCart(item.article)"
-				@increment="increment(item.article)"
+				@decrement="decrement(item)"
+				@deleteFromCart="deleteFromCart(item)"
+				@increment="increment(item)"
 		/>
 		<div class="v-cart__total">
 			<p class="total__name">{{'Total:' | localize }} {{cartTotalCost}} грн</p>
@@ -50,8 +50,18 @@
                 'GET_CART_USER'
             ]),
             newGetCartUser() {
-              return this.GET_CART_USER
-                // return [...new Set(this.GET_CART_USER)]
+              // Удаляем одинаковые значения из массива
+              // Вариант 1
+              // return Array.from(new Set(this.GET_CART_USER))
+              // Вариант2
+              // return [...new Set(this.GET_CART_USER)]
+
+              // Удаляем одинаковые объекты из массива
+              return this.GET_CART_USER.reduce((acc, cur) => [
+                ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
+              ], []);
+
+
             },
             cartTotalCost() {
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
@@ -136,20 +146,20 @@
                     }
                 })
             },
-            increment(article) {
-                this.INCREMENT_CART_ITEM(article)
+            increment(item) {
+                this.INCREMENT_CART_ITEM(item)
                     .then(() => {
                         this.VIEW_CART_USER()
                     })
             },
-            decrement(article) {
-                this.DECREMENT_CART_ITEM(article)
+            decrement(item) {
+                this.DECREMENT_CART_ITEM(item)
                     .then(() => {
                         this.VIEW_CART_USER()
                     })
             },
-            deleteFromCart(article) {
-                this.DELETE_FROM_CART(article)
+            deleteFromCart(item) {
+                this.DELETE_FROM_CART(item)
                     .then(() => {
                         this.VIEW_CART_USER()
                     })

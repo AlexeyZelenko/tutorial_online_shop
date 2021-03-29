@@ -20,8 +20,6 @@ export default {
                         return document
                     })
 
-              console.log('Этап2');
-
               await db.collection('users')
                     .doc(`${uid}`)
                     .set({
@@ -33,7 +31,6 @@ export default {
                           price: payload.price,
                           name: payload.name,
                           arrayImagesViews: payload.arrayImagesViews
-
                         }]
                     })
                     .then(() => {
@@ -63,8 +60,10 @@ export default {
                 })
             }
         },
-        async DELETE_FROM_CART({dispatch, commit}, article) {
+        async DELETE_FROM_CART({dispatch, commit}, itemDelete) {
+          console.log('itemDelete', itemDelete)
             const uid = await dispatch('getUid')
+
             const cartUser = await db.collection('users')
                 .doc(uid)
                 .get()
@@ -74,7 +73,7 @@ export default {
                     return document.cartInfo
                 })
 
-            const newcartInfo = cartUser.filter(item => item.article !== article)
+            const newcartInfo = cartUser.filter(item => item.arrayImagesViews !== itemDelete.arrayImagesViews)
             const user = { ...this.user }
 
             user.cartInfo = newcartInfo
@@ -105,9 +104,6 @@ export default {
                         return product
                     })
 
-              console.log('products', products)
-              console.log('cartUser', cartUser)
-
                 const promises = []
                 for(let i = 0; i < cartUser.length; i++) {
                     let result = products.filter(item => item.article === cartUser[i].article)
@@ -120,7 +116,7 @@ export default {
             }
 
         },
-        async INCREMENT_CART_ITEM({dispatch}, article) {
+        async INCREMENT_CART_ITEM({dispatch}, item) {
             const uid = await dispatch('getUid')
             const user = await db.collection('users')
                 .doc(`${uid}`)
@@ -134,27 +130,31 @@ export default {
                 .doc(uid)
                 .set({
                     ...user,
-                    cartInfo: [...user.cartInfo, article]
+                    cartInfo: [...user.cartInfo, item]
                 })
                 .then(() => {
                     console.log('cart updated!')
                 })
         },
-        async DECREMENT_CART_ITEM({dispatch}, article) {
+        async DECREMENT_CART_ITEM({dispatch}, item) {
+          console.log('item', item)
             const uid = await dispatch('getUid')
             const cartUser = await db.collection('users')
                 .doc(`${uid}`)
                 .get()
                 .then(snapshot => {
                     const document = snapshot.data()
+
                     // do something with document
-                    const i = document.cartInfo.indexOf(article);
+                  const i = document.cartInfo.indexOf(item);
+                  console.log('i', i)
                     if(i >= 0) {
                         document.cartInfo.splice(i, 1);
                     }
                     return document.cartInfo
                 })
 
+          console.log('cartUser', cartUser)
             const user = { ...this.user }
             user.cartInfo = cartUser
 
