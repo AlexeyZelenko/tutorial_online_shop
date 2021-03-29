@@ -74,8 +74,9 @@ export default {
                     return document.cartInfo
                 })
 
-            const newcartInfo = cartUser.filter(item => item !== article)
+            const newcartInfo = cartUser.filter(item => item.article !== article)
             const user = { ...this.user }
+
             user.cartInfo = newcartInfo
 
             db.collection('users')

@@ -50,8 +50,10 @@ export default {
   methods: {
     ...mapActions([]),
     productClick(article) {
+      // location.reload()
       window.scrollTo({ top: 150, behavior: 'smooth' })
       this.$router.push({name: 'product', query: {'product': article}})
+
 
     }
   },

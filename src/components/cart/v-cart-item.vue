@@ -1,6 +1,7 @@
 <template>
   <v-card class="mx-auto my-12"
-          max-width="900">
+          max-width="900"
+  >
     <div class="v-cart-item">
       <img
           v-if="cart_item_data.arrayImagesViews"
