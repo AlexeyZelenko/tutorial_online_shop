@@ -23,8 +23,8 @@
       </v-btn>
     </template>
     <v-carousel-item
-        v-for="(item, i) in RANDOM_PRODUCTS"
-        :key="i"
+        v-for="item in RANDOM_PRODUCTS"
+        :key="item.id"
     >
       <v-sheet
           :color="colors[10]"
@@ -41,7 +41,7 @@
             <span style="color: black">{{ item.name }}</span>
             <div class="text-center">
               <v-btn
-                  @click="productClick(item.article)"
+                  @click="productClick(item.id)"
                   color="primary"
                   text
               >
@@ -94,9 +94,8 @@ export default {
   methods: {
     ...mapActions([
     ]),
-    productClick(article) {
-      console.log('article', article)
-      this.$router.push({name: 'product', query: {'product': article}})
+    productClick(id) {
+      this.$router.push({name: 'product', query: {'product': id}})
     }
   },
   computed: {

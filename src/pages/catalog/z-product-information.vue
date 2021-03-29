@@ -478,7 +478,7 @@
             product() {
                 let result = {}
                 this.GET_PRODUCT_FROM_DB.map((item) =>  {
-                    if (+item.article === +this.$route.query.product) {
+                    if (item.id === this.$route.query.product) {
                         result = item;
                     }
                 })

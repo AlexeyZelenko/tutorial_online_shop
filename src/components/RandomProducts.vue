@@ -12,7 +12,7 @@
           <p style="color: darkcyan">{{item.name}}</p>
           <div class="text-center">
             <v-btn
-                @click="productClick(item.article)"
+                @click="productClick(item.id)"
                 color="primary"
                 text
             >
@@ -36,9 +36,9 @@ export default {
   name: "RandomProducts",
   methods: {
     ...mapActions([]),
-    productClick(article) {
-      window.scrollTo({ top: 150, behavior: 'smooth' })
-      this.$router.push({name: 'product', query: {'product': article}}).catch(()=>{})
+    productClick(id) {
+      window.scrollTo({ top: 50, behavior: 'smooth' })
+      this.$router.push({name: 'product', query: {'product': id}}).catch(()=>{})
     }
   },
   computed: {

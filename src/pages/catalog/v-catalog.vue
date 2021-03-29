@@ -18,13 +18,13 @@
         class="v-catalog__list"
     >
 			<vCatalogItem
-					:index="i"
-					:key="product.article"
+					:index="index"
+          v-for="(product, index) in filteredProducts"
+					:key="product.id"
 					:observer="observer"
 					:product_data="product"
 					@addToCart="addToCart"
 					@productClick="productClick"
-					v-for="(product, i) in filteredProducts"
 			/>
 		</div>
 	</div>
@@ -117,8 +117,8 @@
             async logout() {
                 await this.$store.dispatch('logout')
             },
-            productClick(article) {
-                this.$router.push({name: 'product', query: {'product': article}})
+            productClick(id) {
+                this.$router.push({name: 'product', query: {'product': id}})
             },
             // sortByCategories(category) {
             //     this.sortedProducts = [];
