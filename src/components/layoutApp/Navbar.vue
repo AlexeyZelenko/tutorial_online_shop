@@ -260,108 +260,10 @@
                       </v-scale-transition>
                     </v-slide-item>
                   </v-slide-group>
-
-                  <!--                  Выпадающее меню-->
-                  <!--                  <v-expand-transition>-->
-                  <!--                    <v-sheet-->
-                  <!--                        v-if="model != null"-->
-                  <!--                        height="200"-->
-                  <!--                        tile-->
-                  <!--                    >-->
-                  <!--                      <v-row-->
-                  <!--                          class="fill-height"-->
-                  <!--                          align="center"-->
-                  <!--                          justify="center"-->
-                  <!--                      >-->
-                  <!--                        <h3 class="title">-->
-                  <!--                          Selected {{ model }}-->
-                  <!--                        </h3>-->
-                  <!--                      </v-row>-->
-                  <!--                    </v-sheet>-->
-                  <!--                  </v-expand-transition>-->
                 </v-sheet>
               </template>
             </v-card>
           </v-tab-item>
-          <!--        <v-tab-items-->
-          <!--            v-model="tab"-->
-          <!--            v-if="User_Entrance"-->
-          <!--        >-->
-          <!--Кабинет пользователя и корзина-->
-          <!--          <div-->
-          <!--              style="justify-content: center;"-->
-          <!--              v-if="User_Entrance"-->
-          <!--          >-->
-          <!--            <template>-->
-          <!--              <div-->
-          <!--                  style="justify-content: center;"-->
-          <!--              >-->
-          <!--                <v-card-->
-          <!--                    flat-->
-          <!--                >-->
-          <!--                  <v-btn-->
-          <!--                      @click="adminPlusLogin"-->
-          <!--                      class="ma-2"-->
-          <!--                      fab-->
-          <!--                      outlined-->
-          <!--                      small-->
-          <!--                      v-if="GET_ADMIN_ENTRANCE">-->
-          <!--                    <v-icon>mdi-format-list-bulleted-square</v-icon>-->
-          <!--                  </v-btn>-->
-          <!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
-          <!--&lt;!&ndash;                      :to="{name: 'cabinetUser'}"&ndash;&gt;-->
-          <!--&lt;!&ndash;                      class="my-2"&ndash;&gt;-->
-          <!--&lt;!&ndash;                      tile&ndash;&gt;-->
-          <!--&lt;!&ndash;                  >&ndash;&gt;-->
-          <!--&lt;!&ndash;                    <v-icon&ndash;&gt;-->
-          <!--&lt;!&ndash;                        :to="{name: 'cabinetUser'}"&ndash;&gt;-->
-          <!--&lt;!&ndash;                        left&ndash;&gt;-->
-          <!--&lt;!&ndash;                    >&ndash;&gt;-->
-          <!--&lt;!&ndash;                      mdi-account-circle&ndash;&gt;-->
-          <!--&lt;!&ndash;                    </v-icon>&ndash;&gt;-->
-          <!--&lt;!&ndash;                    Кабинет&ndash;&gt;-->
-          <!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
-          <!--&lt;!&ndash;                  <v-btn&ndash;&gt;-->
-          <!--&lt;!&ndash;                      :to="{name: 'cart'}"&ndash;&gt;-->
-          <!--&lt;!&ndash;                      class="ma-2"&ndash;&gt;-->
-          <!--&lt;!&ndash;                      tile&ndash;&gt;-->
-          <!--&lt;!&ndash;                  >&ndash;&gt;-->
-          <!--&lt;!&ndash;                    <v-chip&ndash;&gt;-->
-          <!--&lt;!&ndash;                        close-icon="mdi-heart"&ndash;&gt;-->
-          <!--&lt;!&ndash;                    >&ndash;&gt;-->
-          <!--&lt;!&ndash;                      <v-avatar&ndash;&gt;-->
-          <!--&lt;!&ndash;                          class="darken-4"&ndash;&gt;-->
-          <!--&lt;!&ndash;                          left&ndash;&gt;-->
-          <!--&lt;!&ndash;                          style="background-color: #0a4506;"&ndash;&gt;-->
-          <!--&lt;!&ndash;                      >&ndash;&gt;-->
-          <!--&lt;!&ndash;                        {{GET_CART_USER.length}}&ndash;&gt;-->
-          <!--&lt;!&ndash;                      </v-avatar>&ndash;&gt;-->
-          <!--&lt;!&ndash;                      {{'Cart'|localize}}&ndash;&gt;-->
-          <!--&lt;!&ndash;                    </v-chip>&ndash;&gt;-->
-          <!--&lt;!&ndash;                  </v-btn>&ndash;&gt;-->
-          <!--                </v-card>-->
-          <!--              </div>-->
-          <!--            </template>-->
-
-          <!--            <v-spacer></v-spacer>-->
-          <!--            &lt;!&ndash;          <div&ndash;&gt;-->
-          <!--            &lt;!&ndash;              class="v-carousel-item"&ndash;&gt;-->
-          <!--            &lt;!&ndash;              v-if="this.User_Entrance">&ndash;&gt;-->
-          <!--            &lt;!&ndash;            <slot>&ndash;&gt;-->
-          <!--            &lt;!&ndash;              <img&ndash;&gt;-->
-          <!--            &lt;!&ndash;                  :src="(getProfilePicUrl)"&ndash;&gt;-->
-          <!--            &lt;!&ndash;                  alt=""&ndash;&gt;-->
-          <!--            &lt;!&ndash;                  id="user-pic"&ndash;&gt;-->
-          <!--            &lt;!&ndash;              >&ndash;&gt;-->
-          <!--            &lt;!&ndash;            </slot>&ndash;&gt;-->
-          <!--            &lt;!&ndash;          </div>&ndash;&gt;-->
-          <!--            &lt;!&ndash;          <div&ndash;&gt;-->
-          <!--            &lt;!&ndash;              id="user-name"&ndash;&gt;-->
-          <!--            &lt;!&ndash;              v-if="this.User_Entrance"&ndash;&gt;-->
-          <!--            &lt;!&ndash;          >{{getUserName}}&ndash;&gt;-->
-          <!--            &lt;!&ndash;          </div>&ndash;&gt;-->
-          <!--          </div>-->
-          <!--        </v-tab-items>-->
         </v-tabs-items>
       </div>
 

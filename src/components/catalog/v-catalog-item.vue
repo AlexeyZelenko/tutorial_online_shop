@@ -6,15 +6,7 @@
 	>
     <p>{{product_data.name}}</p>
 
-<!--		НОВИНКА-->
-		<v-chip
-				v-if="product_data.newProduct"
-				class="v_catalog_item_new"
-				style="background-color: goldenrod; color:white"
-				text-color="white"
-		>
-			{{ "NEW" | localize}}!
-		</v-chip>
+
 
 <!--		СКИДКА-->
 		<v-chip
@@ -48,12 +40,26 @@
 			/>
 		</p>
 <!--		<p class="v_catalog_item_name">{{product_data.article}}</p>-->
-		<p
-				class="v_catalog_item_price"
-				v-show="product_data.seen"
-		>
-			{{'Price' | localize }}: {{product_data.price}} грн
-		</p>
+    <p>
+      <!--		НОВИНКА-->
+      <v-chip
+          v-if="product_data.newProduct"
+          class="v-catalog-item_new"
+          style="background-color: goldenrod; color:white; max-width: 150px"
+          text-color="white"
+      >
+        {{ "NEW" | localize}}!
+      </v-chip>
+    </p>
+
+
+<!--		<p-->
+<!--				class="v_catalog_item_price"-->
+<!--				v-show="product_data.seen"-->
+<!--		>-->
+<!--			{{'Price' | localize }}: {{product_data.price}} грн-->
+<!--		</p>-->
+
 		<div class="v-catalog-item_button" style="margin-bottom: 1%;">
 			<button
 					v-show="product_data.seen"
@@ -128,6 +134,7 @@
 		margin-bottom: $margin*2;
 		z-index: 1;
 		margin-left: 1px;
+    color: #00BFA5;
 
 		&_image {
 			justify-content: center;
@@ -158,7 +165,7 @@
 		&_show-info {
 			z-index: 5;
 			padding: 8px 16px;
-			margin-bottom: 5px;
+      margin: 0 auto 5px auto;
 			background: $green-bg-hover;
 			color: whitesmoke;
 			border: 0;
@@ -170,17 +177,8 @@
 		&_button {
 			margin-bottom: 10px;
 		}
-
-		.v_catalog_item_new {
-			margin-top: -35px;
-			position: relative;
-			text-align: center;
-			z-index: 12;
-			top: 45%;
-			width: 95%;
-			display: flex;
-			justify-content: space-between;
-			align-items: end;
-		}
+    &_new {
+      margin-bottom: 10px;
+    }
 	}
 </style>

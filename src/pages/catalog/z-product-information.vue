@@ -237,7 +237,7 @@
                       <div class="text-center">
                         <v-chip
                             class="ma-2"
-                            style="background-color: goldenrod; color:white; max-width: 100px"
+                            style="background-color: goldenrod; color:white; max-width: 150px"
                             text-color="white"
                             v-if="product.newProduct"
                         >

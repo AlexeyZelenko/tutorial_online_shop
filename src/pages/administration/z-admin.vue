@@ -327,6 +327,7 @@
                       ></v-text-field>
                     </v-col>
 
+
                   </v-container>
 
 
@@ -1273,24 +1274,25 @@
             itemsCategories: [
               {
                 name: 'Apple',
-                arrayCategory: ['iphone', 'airpods', 'ipad', 'watch', 'macbook']
+                arrayCategory: ['Iphone', 'AirPods', 'IPad', 'Watch', 'MacBook']
               },
               {
                 name: 'Google',
-                arrayCategory: ['google pixel']
+                arrayCategory: ['Google Pixel']
               },
               {
                 name: 'Xiaomi',
-                arrayCategory: ['airdots', 'smartband', 'аксессуары']
+                arrayCategory: ['AirDots', 'SmartBand', 'Аксессуары']
               },
               {
                 name: 'Samsung',
-                arrayCategory: ['phone', 'наушники', 'watch', 'аксессуары']
+                arrayCategory: ['Phone', 'Наушники', 'Watch', 'Аксессуары']
               },
 
             ],
             fruits: [
                 '',
+                '32',
                 '64',
                 '128',
                 '256',
