@@ -33,13 +33,18 @@ state: {
     ordersUSERS: [],
     adminEntrance: false,
     InfoUser: [],
-    sortedProducts: []
+    sortedProducts: [],
+    Orders: []
 },
 
 getters,
 
 mutations: {
     ...vuexfireMutations,
+   SET_CART: (state, product ) => {
+     state.cartUser.push(product)
+     console.log('state.cartUser', state.cartUser)
+   },
     CHANGE_LOCALE: (state, loc) => {
         state.locale = loc;
     },
@@ -86,8 +91,11 @@ actions: {
         // resolve once data is ready
         return context.bindFirestoreRef('Products', db.collection('products2'))
     }),
+    // userbindLocationsRef: firestoreAction(context => {
+    //     return context.bindFirestoreRef('Users', db.collection('users'))
+    // }),
     userbindLocationsRef: firestoreAction(context => {
-        return context.bindFirestoreRef('Users', db.collection('users'))
+      return context.bindFirestoreRef('Orders', db.collection('orders'))
     }),
    async createNewReview (commit, payload) {
     const newText = payload

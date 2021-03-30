@@ -12,7 +12,7 @@
           <p style="color: darkcyan">{{item.name}}</p>
           <div class="text-center">
             <v-btn
-                @click="productClick(item.id)"
+                :to="{name: 'product', query: {'product': id}, params: { product2: this.product }}"
                 color="primary"
                 text
             >
@@ -36,10 +36,10 @@ export default {
   name: "RandomProducts",
   methods: {
     ...mapActions([]),
-    productClick(id) {
-      window.scrollTo({ top: 50, behavior: 'smooth' })
-      this.$router.push({name: 'product', query: {'product': id}}).catch(()=>{})
-    }
+    // productClick(id) {
+    //   window.scrollTo({ top: 50, behavior: 'smooth' })
+    //   this.$router.push({name: 'product', query: {'product': id}}).catch(()=>{})
+    // }
   },
   computed: {
     ...mapGetters([

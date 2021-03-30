@@ -120,15 +120,6 @@
             productClick(id) {
                 this.$router.push({name: 'product', query: {'product': id}})
             },
-            // sortByCategories(category) {
-            //     this.sortedProducts = [];
-            //     this.PRODUCTS.map((item) => {
-            //         if (item.category === category.name) {
-            //             this.sortedProducts.push(item);
-            //         }
-            //     })
-            //     this.selected = category.name
-            // },
             addToCart(data) {
                 this.ADD_TO_CART(data)
                     .then(() => {

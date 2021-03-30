@@ -1,111 +1,128 @@
 <template>
-	<div class="v-cart-item">
-		<img
-				:src="(cart_order_data.arrayImages)" alt="" class="v-cart-item__image">
-		<div class="v-cart-item__info">
-			<p>{{cart_order_data.name}}</p>
-			<p>{{'Цена'}} : {{cart_order_data.price}}</p>
-			<p>{{'Размер'}} :{{cart_order_data.clothingSize}}</p>
-			<p>{{'Артикль'}}: {{cart_order_data.article}}</p>
-			<p>{{'тел.: 097 788 95 80'}}</p>
-			<div class="text-center">
-			</div>
-		</div>
+  <v-card
+      class="mx-auto my-12"
+      max-width="700"
+  >
+    <div class="v-cart-item">
+      <img
+          :src="(cart_order_data.arrayImagesViews)"
+          alt=""
+          class="v-cart-item__image"
+      >
+      <div class="v-cart-item__info">
+        <h5>{{cart_order_data.name}}</h5>
+        <p>{{'Цена'}} : {{cart_order_data.price}} грн</p>
+        <p>{{'Модель'}} : {{cart_order_data.model}}</p>
+        <p>{{'Цвет'}} : {{cart_order_data.nameColorChange}}</p>
+        <p>{{'Артикль'}}: {{cart_order_data.article}}</p>
+        <div class="text-center">
+        </div>
+      </div>
 
-		<!--		КОЛИЧЕСТВО-->
-		<div class="v-cart-item__quantity">
-			<p>{{'Qty:' | localize}}</p>
-			<div class="text-center">
-				<div>{{quantity}}</div>
-			</div>
-		</div>
+      <!--		КОЛИЧЕСТВО-->
+      <div class="v-cart-item__quantity">
+        <p>{{'Qty:' | localize}}</p>
+        <div class="text-center">
+          <div>{{quantity}}</div>
+        </div>
+      </div>
 
-<!--		МОДАЛЬНОЕ ОКНО-->
-		<div data-app>
-			<template>
-				<v-row justify="center">
-					<v-dialog
-							v-model="dialog"
-							fullscreen
-							hide-overlay
-							transition="dialog-bottom-transition"
-					>
-						<template v-slot:activator="{ on, attrs }">
+      <!--		МОДАЛЬНОЕ ОКНО-->
+      <div data-app>
+        <template>
+          <v-row justify="center">
+            <v-dialog
+                v-model="dialog"
+                fullscreen
+                hide-overlay
+                transition="dialog-bottom-transition"
+            >
+              <template v-slot:activator="{ on, attrs }">
 
-							<v-avatar color="indigo" size="48">
-								<v-icon
-										color="primary"
-										v-bind="attrs"
-										v-on="on"
-								>
-									mdi-format-list-bulleted
-								</v-icon>
-							</v-avatar>
-						</template>
-						<v-card>
-							<v-toolbar
-									@click="dialog = false"
-									style="background-color: #0a4506;"
-							>
-								<v-btn icon dark @click="dialog = false">
-									<v-icon>mdi-close</v-icon>
-								</v-btn>
+                <v-icon
+                    class="px-4"
+                    size="48"
+                    color="#00BFA5"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                  mdi-information
+                </v-icon>
+              </template>
+              <v-card>
+                <v-toolbar
+                    @click="dialog = false"
+                    style="background-color: #0a4506;"
+                >
+                  <v-btn icon dark @click="dialog = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
 
-								<v-spacer></v-spacer>
-								<v-toolbar-items >
-									<v-btn
-											style="color: whitesmoke"
-											text
-											@click="dialog = false"
-									>
-										Закрыть
-									</v-btn>
-								</v-toolbar-items>
-							</v-toolbar>
-							<v-list three-line subheader>
-								<v-list-item>
-									<v-list-item-content>
-										<v-carousel
-												:carousel_data="cart_order_data.arrayImages"
-										/>
-										<div class="v-cart-item__info">
-											<p>{{cart_order_data.name}}</p>
-											<p>{{'Цена'}} : {{cart_order_data.price}}</p>
-											<p>{{'Размер'}} :{{cart_order_data.clothingSize}}</p>
-											<p>{{'Артикль'}}: {{cart_order_data.article}}</p>
-											<div class="v-cart-item__quantity">
-												<p>{{'Qty:' | localize}} {{quantity}}</p>
-											</div>
-											<p>{{this.quantity}} * {{+this.cart_order_data.price}} грн = {{cartTotalCost}} грн</p>
-											<div class="text-center">
-												<v-btn
-														@click="dialog = false"
-														style="background-color: #31c375; color: whitesmoke"
-												>
-													Закрыть
-												</v-btn>
-											</div>
-										</div>
-									</v-list-item-content>
-								</v-list-item>
-							</v-list>
-							<v-divider></v-divider>
-						</v-card>
-					</v-dialog>
-				</v-row>
-			</template>
-		</div>
+                  <v-spacer></v-spacer>
+                  <v-toolbar-items >
+                    <v-btn
+                        style="color: whitesmoke"
+                        text
+                        @click="dialog = false"
+                    >
+                      Закрыть
+                    </v-btn>
+                  </v-toolbar-items>
+                </v-toolbar>
+                <v-list three-line subheader>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <card>
+                        <!--                      <v-carousel-->
+                        <!--                          :carousel_data="cart_order_data.arrayImages"-->
+                        <!--                      />-->
+                        <img
+                            :src="(cart_order_data.arrayImagesViews)"
+                            alt=""
+                            class="v-cart-item__image2"
+                        >
+                        <div class="v-cart-item__info">
+                          <p>{{cart_order_data.name}}</p>
+                          <p>{{'Цена'}} : {{cart_order_data.price}} грн</p>
+                          <p>{{'Модель'}} : {{cart_order_data.model}} GB</p>
+                          <p>{{'Цвет'}} : {{cart_order_data.nameColorChange}}</p>
+                          <p>{{'Артикль'}}: {{cart_order_data.article}}</p>
+                          <div class="v-cart-item__quantity">
+                            <p>{{'Qty:' | localize}} {{quantity}}</p>
+                          </div>
+                          <p>{{this.quantity}} * {{+this.cart_order_data.price}} грн = {{cartTotalCost}} грн</p>
+                          <div class="text-center">
+                            <v-btn
+                                @click="dialog = false"
+                                style="background-color: #31c375; color: whitesmoke"
+                            >
+                              Закрыть
+                            </v-btn>
+                          </div>
+                        </div>
+                      </card>
 
-	</div>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+                <v-divider></v-divider>
+              </v-card>
+            </v-dialog>
+          </v-row>
+        </template>
+      </div>
+
+    </div>
+  </v-card>
 </template>
 <script>
-    const vCarousel = () => import('@/components/v-carousel')
+    // const vCarousel = () => import('@/components/v-carousel')
 
     export default {
         name: "z-order-description-item",
-        components: {
-            vCarousel
-        },
+        // components: {
+        //     vCarousel
+        // },
         data () {
             return {
                 dialog: false,
@@ -171,8 +188,11 @@
 		margin-bottom: $margin*2;
 
 		&__image {
-			max-width: 50px;
+			max-width: 70px;
 		}
+    &__image2 {
+      max-width: 150px;
+    }
 	}
 	.custom-loader {
 		animation: loader 1s infinite;

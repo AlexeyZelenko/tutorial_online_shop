@@ -44,25 +44,51 @@ export default {
                         user: `${uid}`,
                         createdAt: date
                     })
+              await db.collection('orders')
+                  .add({
+                    orderInfo: promises,
+                    createdAt: date
+                  })
                     .then(() => {
                         console.log('Заказ добавлен в архив')
                     })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ой...',
-                    text: `Вы не можете сделать заказ. Зарегестртруйтесь через Google Аккаунт!`,
-                    footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Войти!',
-                    cancelButtonText: 'Отмена'
-                }).then((result) => {
-                    if (result.value) {
-                        dispatch('signInWithGoogle')
-                    }
-                })
+                  .then(() => {
+                    Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
+                  })
+            }
+            else {
+              console.log("Запуск создания заказа");
+              await db.collection('orders')
+                  .add({
+                    order: promises,
+                    createdAt: date
+                  })
+                  .then(() => {
+                    console.log('Заказ добавлен в архив')
+                  })
+                  .then(() => {
+                    Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
+                  })
+                  .catch((error) => {
+                    console.error("Error adding document: ", error);
+                  });
+
+
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Ой...',
+                //     text: `Вы не можете сделать заказ. Зарегестртруйтесь через Google Аккаунт!`,
+                //     footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
+                //     showCancelButton: true,
+                //     confirmButtonColor: '#3085d6',
+                //     cancelButtonColor: '#d33',
+                //     confirmButtonText: 'Войти!',
+                //     cancelButtonText: 'Отмена'
+                // }).then((result) => {
+                //     if (result.value) {
+                //         dispatch('signInWithGoogle')
+                //     }
+                // })
             }
         }
     }

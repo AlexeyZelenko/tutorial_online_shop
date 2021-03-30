@@ -6,8 +6,7 @@ import 'firebase/auth'
 
 export default {
     actions: {
-        async ADD_TO_CART({dispatch}, payload) {
-          console.log('payload', payload)
+        async ADD_TO_CART({dispatch, commit}, payload) {
           console.log('Пуск добавления в корзину');
           const uid = await dispatch('getUid')
             if(uid) {
@@ -24,7 +23,7 @@ export default {
                     .doc(`${uid}`)
                     .set({
                         ...user,
-                        cartInfo: [...user.cartInfo, {
+                          cartInfo: [...user.cartInfo, {
                           article: payload.article,
                           nameColorChange: payload.nameColorChange,
                           model: payload.model,
@@ -42,22 +41,27 @@ export default {
                             timer: 1500
                         })
                     })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ой...',
-                    text: `Вы не можете добавить товар в корзину. Для добавления товара в корзину войдите через Google Аккаунт!`,
-                    footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Войти!',
-                    cancelButtonText: 'Отмена'
-                }).then((result) => {
-                    if (result.value) {
-                        dispatch('signInWithGoogle')
-                    }
-                })
+            }
+            else {
+              const product = payload
+              console.log('product_cart', product)
+              commit('SET_CART', product)
+
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Ой...',
+                //     text: `Для сохранения добавленого товара и заказов войдите через Google Аккаунт!`,
+                //     footer: '<a href="https://accounts.google.com/signup/v2/webcreateaccount?service=orkut&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=ru&flowName=GlifWebSignIn&flowEntry=SignUp">Как создать аккаунт Google?</a>',
+                //     showCancelButton: true,
+                //     confirmButtonColor: '#3085d6',
+                //     cancelButtonColor: '#d33',
+                //     confirmButtonText: 'Войти!',
+                //     cancelButtonText: 'Отмена'
+                // }).then((result) => {
+                //     if (result.value) {
+                //         dispatch('signInWithGoogle')
+                //     }
+                // })
             }
         },
         async DELETE_FROM_CART({dispatch, commit}, itemDelete) {
