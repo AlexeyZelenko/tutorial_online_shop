@@ -351,6 +351,41 @@
 
     <RandomProducts/>
 
+    <v-snackbar
+        v-model="snackbar"
+        :multi-line="multiLine"
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            color="red"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+        >
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar
+        v-model="snackbar2"
+        :multi-line="multiLine"
+    >
+      {{ text2 }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            color="red"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+        >
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+
 	</div>
 </template>
 
@@ -362,6 +397,11 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          multiLine: true,
+          snackbar: false,
+          snackbar2: false,
+          text: `Выберите модель.`,
+          text2: `Выберите цвет.`,
           price: 0,
           price2: 0,
           model: '',
@@ -450,15 +490,23 @@
           },
 
             addToCart() {
-              const payload = {
-                name: this.product.name,
-                nameColorChange: this.nameColorChange,
-                model: this.model,
-                article: this.product.article,
-                price: this.price,
-                arrayImagesViews: this.arrayImagesViews[0]
+              if(!this.model) {
+                this.snackbar = true
               }
+              else if(!this.nameColorChange){
+                this.snackbar2 = true
+              }
+              else {
+                const payload = {
+                  name: this.product.name,
+                  nameColorChange: this.nameColorChange,
+                  model: this.model,
+                  article: this.product.article,
+                  price: this.price,
+                  arrayImagesViews: this.arrayImagesViews[0]
+                }
                 this.ADD_TO_CART(payload)
+              }
             },
         },
         computed: {
@@ -476,6 +524,9 @@
               }
             },
             product() {
+              console.log('Изменение продукта!')
+              console.log(this.$route.query.product)
+
                 let result = {}
                 this.GET_PRODUCT_FROM_DB.map((item) =>  {
                     if (item.id === this.$route.query.product) {
