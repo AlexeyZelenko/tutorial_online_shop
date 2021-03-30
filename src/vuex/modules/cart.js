@@ -44,8 +44,14 @@ export default {
             }
             else {
               const product = payload
-              console.log('product_cart', product)
               commit('SET_CART', product)
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Товар добавлен в корзину',
+                showConfirmButton: false,
+                timer: 1500
+              })
 
                 // Swal.fire({
                 //     icon: 'error',
@@ -65,16 +71,15 @@ export default {
             }
         },
         async DELETE_FROM_CART({dispatch, commit}, itemDelete) {
-          console.log('itemDelete', itemDelete)
             const uid = await dispatch('getUid')
-
+          if (uid) {
             const cartUser = await db.collection('users')
                 .doc(uid)
                 .get()
                 .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document.cartInfo
+                  const document = snapshot.data()
+                  // do something with document
+                  return document.cartInfo
                 })
 
             const newcartInfo = cartUser.filter(item => item.arrayImagesViews !== itemDelete.arrayImagesViews)
@@ -89,6 +94,12 @@ export default {
                 })
 
             commit('CART_USER', cartUser)
+          }
+          else {
+            commit('DELETE_CART', itemDelete)
+          }
+
+
         },
         async VIEW_CART_USER({dispatch, commit}) {
             const uid = await dispatch('getUid')
@@ -120,40 +131,47 @@ export default {
             }
 
         },
-        async INCREMENT_CART_ITEM({dispatch}, item) {
+        async INCREMENT_CART_ITEM({dispatch, commit}, item) {
             const uid = await dispatch('getUid')
+          if (uid) {
             const user = await db.collection('users')
                 .doc(`${uid}`)
                 .get()
                 .then(snapshot => {
-                    const document = snapshot.data()
-                    // do something with document
-                    return document
+                  const document = snapshot.data()
+                  // do something with document
+                  return document
                 })
             await db.collection('users')
                 .doc(uid)
                 .set({
-                    ...user,
-                    cartInfo: [...user.cartInfo, item]
+                  ...user,
+                  cartInfo: [...user.cartInfo, item]
                 })
                 .then(() => {
-                    console.log('cart updated!')
+                  console.log('cart updated!')
                 })
+          }
+          else {
+            commit('INCREMENT_CART', item)
+          }
         },
-        async DECREMENT_CART_ITEM({dispatch}, item) {
+        async DECREMENT_CART_ITEM({dispatch, commit}, item) {
             const uid = await dispatch('getUid')
+
+          if(uid) {
             const cartUser = await db.collection('users')
                 .doc(`${uid}`)
                 .get()
                 .then(snapshot => {
-                    const document = snapshot.data()
+                  const document = snapshot.data()
 
-                    // do something with document
+                  // do something with document
                   const index = document.cartInfo.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
                   if (index !== -1) {
                     document.cartInfo.splice(index, 1);
                   }
-                    return document.cartInfo
+                  return document.cartInfo
                 })
 
             const user = { ...this.user }
@@ -162,9 +180,13 @@ export default {
             await db.collection('users')
                 .doc(`${uid}`)
                 .update({
-                    ...user,
-                    cartInfo: [...user.cartInfo]
+                  ...user,
+                  cartInfo: [...user.cartInfo]
                 })
+          }
+            else{
+              commit('DECREMENT_CART', item)
+          }
         },
     }
 }

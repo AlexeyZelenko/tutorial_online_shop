@@ -41,10 +41,22 @@ getters,
 
 mutations: {
     ...vuexfireMutations,
-   SET_CART: (state, product ) => {
-     state.cartUser.push(product)
-     console.log('state.cartUser', state.cartUser)
-   },
+    DECREMENT_CART: (state, item ) => {
+      const index = state.cartUser.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
+      if (index !== -1) {
+        state.cartUser.splice(index, 1);
+      }
+    },
+    INCREMENT_CART: (state, item ) => {
+      state.cartUser = [...state.cartUser, item]
+    },
+     DELETE_CART: (state, itemDelete ) => {
+       const newcartInfo = state.cartUser.filter(item => item.arrayImagesViews !== itemDelete.arrayImagesViews)
+       state.cartUser = newcartInfo
+     },
+     SET_CART: (state, product ) => {
+       state.cartUser.push(product)
+     },
     CHANGE_LOCALE: (state, loc) => {
         state.locale = loc;
     },
@@ -84,6 +96,7 @@ mutations: {
 },
 
 actions: {
+  // Получение инфо о товарах
     bindLocationsRef: firestoreAction(context => {
         // context contains all original properties like commit, state, etc
         // and adds `bindFirestoreRef` and `unbindFirestoreRef`
@@ -91,10 +104,14 @@ actions: {
         // resolve once data is ready
         return context.bindFirestoreRef('Products', db.collection('products2'))
     }),
-    // userbindLocationsRef: firestoreAction(context => {
-    //     return context.bindFirestoreRef('Users', db.collection('users'))
-    // }),
+
+  // Получение инфо о зарегестрированых пользователях
     userbindLocationsRef: firestoreAction(context => {
+        return context.bindFirestoreRef('Users', db.collection('users'))
+    }),
+
+  // Получение инфо о заказах
+    ordersBindLocationsRef: firestoreAction(context => {
       return context.bindFirestoreRef('Orders', db.collection('orders'))
     }),
    async createNewReview (commit, payload) {

@@ -28,7 +28,6 @@ actions: {
         try {
             const uid = await dispatch('getUid')
             const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
-            console.log(info)
             commit('USER_INFO', info)
         } catch (e) {
             commit('setError', e)

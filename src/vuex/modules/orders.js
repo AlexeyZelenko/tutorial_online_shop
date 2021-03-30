@@ -5,7 +5,7 @@ import 'firebase/auth'
 export default {
     actions: {
         async LIST_ORDERS_USERS({commit, dispatch}) {
-            const result = await dispatch('userbindLocationsRef')
+            const result = await dispatch('ordersBindLocationsRef')
             const listOrderInfoUsers = result.filter(item => item.orderInfo)
             const listOrderInfoUsersMap = listOrderInfoUsers.map(item => item.orderInfo)
             let result3 = []
