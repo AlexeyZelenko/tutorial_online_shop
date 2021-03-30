@@ -161,7 +161,7 @@
         },
         methods: {
             productClick() {
-                this.$emit('productClick', this.cart_order_data.article)
+                this.$emit('productClick', this.cart_order_data.id)
             },
         },
     }

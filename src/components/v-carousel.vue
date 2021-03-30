@@ -1,5 +1,4 @@
 <template>
-
 	<div class="wrapper">
     <v-list class="transparent">
       <v-list-item>
@@ -11,7 +10,7 @@
           >
             <v-tab
                 v-for="(item, i) in carousel_data"
-                :key="item.article"
+                :key="i"
             >
               <img
                   style="width: 50px; padding: 10px"
@@ -65,13 +64,6 @@
     export default {
         name: "vCarousel",
         data: () => ({
-          labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
-          time: 0,
-          forecast: [
-            { day: 'Tuesday', icon: 'mdi-white-balance-sunny', temp: '24\xB0/12\xB0' },
-            { day: 'Wednesday', icon: 'mdi-white-balance-sunny', temp: '22\xB0/14\xB0' },
-            { day: 'Thursday', icon: 'mdi-cloud', temp: '25\xB0/15\xB0' },
-          ],
         currentSlideIndex: 0
         }),
         components: {

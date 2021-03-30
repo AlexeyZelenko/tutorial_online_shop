@@ -446,8 +446,8 @@
       async logout() {
         await this.$store.dispatch('logout')
       },
-      productClick(article) {
-        this.$router.push({name: 'product', query: {'product': article}})
+      productClick(id) {
+        this.$router.push({name: 'product', query: {'product': id}})
       },
       sortByCategories(category) {
         this.sortedProducts = [];

@@ -10,7 +10,9 @@
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
-      <span >{{product.BrandName.name}} > {{product.category}} > {{product.name}} > {{this.nameColorChange}} > {{this.model}}</span>
+      <span>
+        {{nameBrand}} > {{product.category}} > {{product.name}} > {{nameColorChange}} > {{model}}
+      </span>
 		</template>
 
     <template>
@@ -353,7 +355,6 @@
 
     <v-snackbar
         v-model="snackbar"
-        :multi-line="multiLine"
     >
       {{ text }}
 
@@ -370,7 +371,6 @@
     </v-snackbar>
     <v-snackbar
         v-model="snackbar2"
-        :multi-line="multiLine"
     >
       {{ text2 }}
 
@@ -397,17 +397,12 @@
     export default {
         name: "zProductInformation",
         data: () => ({
-          multiLine: true,
+          loading: false,
           snackbar: false,
           snackbar2: false,
           text: `Выберите модель.`,
           text2: `Выберите цвет.`,
-          price: 0,
-          price2: 0,
-          model: '',
           arrayPriceViews: [],
-          nameColorChange: '',
-          arrayImagesViews: [],
           fab: false,
           hidden: false,
           selectmodel: '',
@@ -427,6 +422,8 @@
             }
           ],
           tabs: null,
+          indexColor: 0,
+          indexModel: 0
         }),
         components: {
             vCarousel,
@@ -440,53 +437,15 @@
             goToCard () {
               this.$router.push({name: 'cart'})
             },
-            async selectColor(index) {
 
-              if (index === 0) {
-                this.nameColorChange = this.product.nameColor[0]
-                this.arrayImagesViews = this.product.arrayImages;
-              }
-              else if (index === 1) {
-                this.nameColorChange = this.product.nameColor[1]
-                this.arrayImagesViews = this.product.arrayImages2;
-              }
-              else if (index === 2) {
-                this.nameColorChange = this.product.nameColor[2]
-                this.arrayImagesViews = this.product.arrayImages3;
-              }
-              else if (index === 3) {
-                this.nameColorChange = this.product.nameColor[3]
-                this.arrayImagesViews = this.product.arrayImages4
-              } else {
-                this.nameColorChange = this.product.nameColor[0]
-               this.arrayImagesViews = await this.product.arrayImages;
-              }
-                this.selectcolor = index
+            async selectColor(index) {
+              this.indexColor = index
+              this.selectcolor = index
             },
 
-            async selectModel(index, n) {
-              this.model = n
-
-            if (index === 0) {
-              this.price = this.product.price[0]
-              this.price2 = this.product.price2[0]
-            }
-            else if (index === 1) {
-              this.price = this.product.price[1]
-              this.price2 = this.product.price2[1]
-            }
-            else if (index === 2) {
-              this.price = this.product.price[2]
-              this.price2 = this.product.price2[2]
-            }
-            else if (index === 3) {
-              this.price = this.product.price[3]
-              this.price2 = this.product.price2[3]
-            } else {
-              this.price = this.product.price[0]
-              this.price2 = this.product.price2[0]
-            }
-            this.selectcolor = index
+            async selectModel(index) {
+              this.indexModel = index
+              this.selectmodel = index
           },
 
             addToCart() {
@@ -513,6 +472,89 @@
             ...mapGetters([
                 'GET_PRODUCT_FROM_DB'
             ]),
+            nameBrand() {
+                return this.product?.BrandName?.name
+            },
+            model() {
+              if (this.indexModel === 0) {
+                return this.product.arrayModel[0];
+              }
+              else if (this.indexModel === 1) {
+                return this.product.arrayModel[1]
+              }
+              else if (this.indexModel === 2) {
+                return this.product.arrayModel[2]
+              }
+              else if (this.indexModel === 3) {
+                return this.product.arrayModel[3]
+              } else {
+                return this.product.arrayModel[0];
+              }
+            },
+            price() {
+              if (this.indexModel === 0) {
+                return this.product.price[0];
+              }
+              else if (this.indexModel === 1) {
+                return this.product.price[1]
+              }
+              else if (this.indexModel === 2) {
+                return this.product.price[2]
+              }
+              else if (this.indexModel === 3) {
+                return this.product.price[3]
+              } else {
+                return this.product.price[0];
+              }
+            },
+            price2() {
+              if (this.indexModel === 0) {
+                return this.product.price2[0];
+              }
+              else if (this.indexModel === 1) {
+                return this.product.price2[1]
+              }
+              else if (this.indexModel === 2) {
+                return this.product.price2[2]
+              }
+              else if (this.indexModel === 3) {
+                return this.product.price2[3]
+              } else {
+                return this.product.price2[0];
+              }
+            },
+            nameColorChange () {
+              if (this.indexColor === 0) {
+                return this.product.nameColor[0];
+              }
+              else if (this.indexColor === 1) {
+                return this.product.nameColor[1]
+              }
+              else if (this.indexColor === 2) {
+                return this.product.nameColor[2]
+              }
+              else if (this.indexColor === 3) {
+                return this.product.nameColor[3]
+              } else {
+                return this.product.nameColor[0];
+              }
+            },
+            arrayImagesViews () {
+              if (this.indexColor === 0) {
+                return this.product.arrayImages;
+              }
+              else if (this.indexColor === 1) {
+                return this.product.arrayImages2
+              }
+              else if (this.indexColor === 2) {
+                return this.product.arrayImages3
+              }
+              else if (this.indexColor === 3) {
+                return this.product.arrayImages4
+              } else {
+                return this.product.arrayImages;
+              }
+            },
             activeFab () {
               switch (this.tabs) {
                 case 0: return { color: 'success', icon: 'mdi-cart' }
@@ -524,9 +566,6 @@
               }
             },
             product() {
-              console.log('Изменение продукта!')
-              console.log(this.$route.query.product)
-
                 let result = {}
                 this.GET_PRODUCT_FROM_DB.map((item) =>  {
                     if (item.id === this.$route.query.product) {
@@ -536,11 +575,6 @@
                 return result;
             },
         },
-        mounted() {
-          const index = 0;
-          this.selectColor(index)
-          this.selectModel(index)
-        }
     }
 </script>
 

@@ -24,7 +24,7 @@
 		<v-cart-item
 				:cart_item_data="item"
 				v-for="item in newGetCartUser"
-				:key="item.article"
+				:key="item.id"
 				@decrement="decrement(item)"
 				@deleteFromCart="deleteFromCart(item)"
 				@increment="increment(item)"
