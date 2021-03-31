@@ -238,7 +238,7 @@
 								dark
 								fab
 								fixed
-								left
+								right
 								v-bind="attrs"
 								v-on="on"
 						>
@@ -1542,12 +1542,10 @@
                 const File3 = editProduct.File3
                 const File4 = editProduct.File4
 
-
-                const promises = []
+                const promises1 = []
                 const promisesName1 = []
 
                 if (File1) {
-                  console.log(File1.length)
                     for (let i = 0; i < File1.length; i++) {
 
                         const storageRef = firebase.storage().ref();
@@ -1562,7 +1560,7 @@
                         const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
 
 
-                        await promises.push(
+                        await promises1.push(
                               uploadTask
                                   .then(snapshot =>
                                       snapshot.ref.getDownloadURL()
@@ -1573,14 +1571,16 @@
                         )
                     }
                 }
-                const URLs = await Promise.all(promises)
-                const ArrayOld = await editProduct.arrayImages1
+
+                const URLs = await Promise.all(promises1)
+                const ArrayOld = editProduct.arrayImages1
 
                 const NameImages1 = await Promise.all(promisesName1)
-                const NameArrayOld = editProduct.NameImages1
+                const NameArrayOld1 = editProduct.NameImages1
+
 
                 const ArrayFile1 = [...URLs, ...ArrayOld]
-                const ArrayName1 = [...NameImages1, ...NameArrayOld]
+                const ArrayName1 = [...NameImages1, ...NameArrayOld1]
 
                 const promises2 = []
                 const promisesName2 = []
@@ -1611,13 +1611,14 @@
                   }
                 }
 
-              const NameImages2 = Promise.all(promisesName2)
+              const NameImages2 = await Promise.all(promisesName2)
               const NameArrayOld2 = editProduct.NameImages2
               const ArrayName2 = [...NameImages2, ...NameArrayOld2]
 
-                const URLs2 = Promise.all(promises2)
+                const URLs2 = await Promise.all(promises2)
                 const ArrayOld2 = editProduct.arrayImages2
                 const ArrayFile2 = [...URLs2, ...ArrayOld2]
+
 
                 const promises3 = []
                 const promisesName3 = []
@@ -1649,13 +1650,14 @@
                   }
                 }
 
-              const NameImages3 = Promise.all(promisesName3)
+              const NameImages3 = await Promise.all(promisesName3)
               const NameArrayOld3 = editProduct.NameImages3
               const ArrayName3 = [...NameImages3, ...NameArrayOld3]
 
-                const URLs3 = Promise.all(promises3)
+                const URLs3 = await Promise.all(promises3)
                 const ArrayOld3 = editProduct.arrayImages3
                 const ArrayFile3 = [...URLs3, ...ArrayOld3]
+
 
                 const promises4 = []
                 const promisesName4 = []
@@ -1688,16 +1690,16 @@
                 }
 
               const NameImages4 = await Promise.all(promisesName4)
-              const NameArrayOld4 = await editProduct.NameImages4
+              const NameArrayOld4 = editProduct.NameImages4
               const ArrayName4 = [...NameImages4, ...NameArrayOld4]
 
                 const URLs4 = await Promise.all(promises4)
-                const ArrayOld4 = await editProduct.arrayImages4
+                const ArrayOld4 = editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
 
                 let id = editProduct.id
 
-              console.log('Запуск');
+              // console.log('Запуск');
 
                 const updateData = {
                   NameImages1: ArrayName1,
@@ -1720,9 +1722,10 @@
                   price2: editProduct.price2,
                   newProduct: editProduct.newProduct,
                   description: editProduct.description,
+                  name: editProduct.name
                 }
 
-              console.log('updateData', updateData);
+              // console.log('updateData', updateData);
 
               await db.collection('products2')
                     .doc(id)
@@ -2051,20 +2054,9 @@
                 'PRODUCTS',
                 'GET_LIST_USERS'
             ]),
-          likesAllFruit () {
-            return this.editedItem.arrayModel.length === this.fruits.length
-          },
-          likesSomeFruit () {
-            return this.editedItem.arrayModel.length > 0 && !this.likesAllFruit
-          },
-          icon () {
-            if (this.likesAllFruit) return 'mdi-close-box'
-            if (this.likesSomeFruit) return 'mdi-minus-box'
-            return 'mdi-checkbox-blank-outline'
-          },
-            formTitle() {
-                return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
-            },
+        formTitle() {
+            return this.editedIndex === -1 ? 'Создание товара' : 'Форма редактирования'
+        },
         },
         props: {
             source: String,

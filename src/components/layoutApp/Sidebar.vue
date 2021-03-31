@@ -4,7 +4,7 @@
       height="700"
       hide-delimiter-background
       show-arrows-on-hover
-      style="margin-top: 140px"
+      class="v-carousel"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn
@@ -48,15 +48,6 @@
                 Подробнее >>
               </v-btn>
             </div>
-<!--            <div class="text-center">-->
-<!--              <v-btn-->
-<!--                  color="primary"-->
-<!--                  dark-->
-<!--                  rounded-->
-<!--              >-->
-<!--                Купить-->
-<!--              </v-btn>-->
-<!--            </div>-->
 
             <img
                 alt=""
@@ -110,6 +101,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-carousel {
+  margin-top: 140px
+}
+@media (max-width: 570px) {
+  .v-carousel {margin-top: 40px}
+}
+
+</style>
 
 
 
