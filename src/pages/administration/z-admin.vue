@@ -776,7 +776,7 @@
                                       v-else
                                       key="1"
                                   >
-                                    {{ editedItem.nameColor[3] }}
+                                    {{ editedItem.nameColor[2] }}
                                   </span>
                                 </v-fade-transition>
                               </v-col>
@@ -1382,15 +1382,6 @@
             change (a) {
               console.log(a)
             },
-            toggle () {
-              this.$nextTick(() => {
-                if (this.likesAllFruit) {
-                  this.selectedFruits = []
-                } else {
-                  this.selectedFruits = this.fruits.slice()
-                }
-              })
-            },
             doAjax() {
                 this.isLoading = true;
                 // simulate AJAX
@@ -1545,17 +1536,20 @@
                 const promises1 = []
                 const promisesName1 = []
 
+                const name = editProduct.name
+
                 if (File1) {
                     for (let i = 0; i < File1.length; i++) {
 
-                        const storageRef = firebase.storage().ref();
+                        const storageRef = await firebase.storage().ref();
                         // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
                         // Создайте метаданные файла
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        let nameTime = +new Date() + i + name + '.png'
+                      console.log('name', name)
+                        let nameTime = await +new Date() + i + name + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                         const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
 
@@ -1722,7 +1716,6 @@
                   price2: editProduct.price2,
                   newProduct: editProduct.newProduct,
                   description: editProduct.description,
-                  name: editProduct.name
                 }
 
               // console.log('updateData', updateData);
