@@ -139,8 +139,8 @@
 									<v-row align="center">
 										<v-col cols="12">
 											<v-select
-													:items="categories"
-													label="Выбери категорию"
+													:items="Brand"
+													label="Выбери Бренд"
 													v-model="search"
 											></v-select>
 										</v-col>
@@ -156,7 +156,7 @@
 											class="elevation-1"
 											disable-sort
 											hide-default-footer
-											item-key="article"
+											item-key="id"
 									>
 										<template
 												style="height:190px;"
@@ -218,9 +218,6 @@
 					</template>
 					<template v-if="item === 'Заказы'">
 						<z-orders/>
-					</template>
-					<template v-if="item === 'Размеры'">
-						<z-size/>
 					</template>
 				</v-tab-item>
 			</v-tabs-items>
@@ -570,7 +567,7 @@
                                   multiple
                                   placeholder="Выберите фото"
                                   prepend-icon="mdi-camera"
-                                  v-model="editedItem.File"
+                                  v-model="editedItem.File1"
 
                               >
                                 <template>
@@ -1146,7 +1143,6 @@
 
     const zUsers = () => import('@/components/administration/z-users')
     const zOrders = () => import('@/components/administration/z-orders')
-    const zSize = () => import('@/components/administration/z-size')
     const Loading = () => import('vue-loading-overlay')
 
     export default {
@@ -1156,7 +1152,6 @@
             TiptapVuetify,
             zUsers,
             zOrders,
-            zSize
         },
         data: () => ({
           trip: {
@@ -1254,8 +1249,11 @@
                 selectedFruits: [],
                 nameColor: [],
                 arrayColor: [],
-                NameImages: [],
-                File: [],
+                NameImages1: [],
+                NameImages2: [],
+                NameImages3: [],
+                NameImages4: [],
+                File1: [],
                 File2: [],
                 File3: [],
                 File4: [],
@@ -1288,8 +1286,11 @@
                 nameColor3: null,
                 nameColor4: null,
                 arrayModel: [],
-                NameImages: [],
-                File: [],
+                NameImages1: [],
+                NameImages2: [],
+                NameImages3: [],
+                NameImages4: [],
+                File1: [],
                 File2: [],
                 File3: [],
                 File4: [],
@@ -1311,6 +1312,9 @@
                 arrayImages3: [],
                 arrayImages4: []
             },
+            Brand: [
+            'Apple', 'Google','Xiaomi', 'Samsung'
+          ],
             itemsCategories: [
               {
                 name: 'Apple',
@@ -1409,7 +1413,7 @@
             },
             deleteFoto(editedItem, item) {
                 const array = editedItem.arrayImages1
-                const arrayName = editedItem.NameImages
+                const arrayName = editedItem.NameImages1
 
                 const index = array.indexOf(item);
                 if (index > -1) {
@@ -1417,11 +1421,11 @@
                     arrayName.splice(index, 1);
                 }
                 editedItem.arrayImages1 = array
-                editedItem.NameImages = arrayName
+                editedItem.NameImages1 = arrayName
             },
             FirstFoto(editedItem, item) {
             const array = editedItem.arrayImages1
-            const arrayName = editedItem.NameImages
+            const arrayName = editedItem.NameImages1
 
             const index = array.indexOf(item);
             if (index > -1) {
@@ -1429,7 +1433,7 @@
               arrayName.unshift(...arrayName.splice(index,1));
             }
             editedItem.arrayImages1 = array
-            editedItem.NameImages = arrayName
+            editedItem.NameImages1 = arrayName
           },
             deleteFoto2(editedItem, item) {
               const array = editedItem.arrayImages2
@@ -1533,16 +1537,18 @@
 
                 this.isLoading = true
 
-                const File = editProduct.File
+                const File1 = editProduct.File1
                 const File2 = editProduct.File2
                 const File3 = editProduct.File3
                 const File4 = editProduct.File4
 
 
                 const promises = []
-                if (File) {
-                  console.log(File.length)
-                    for (let i = 0; i < File.length; i++) {
+                const promisesName1 = []
+
+                if (File1) {
+                  console.log(File1.length)
+                    for (let i = 0; i < File1.length; i++) {
 
                         const storageRef = firebase.storage().ref();
                         // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
@@ -1553,25 +1559,32 @@
                         };
                         let nameTime = +new Date() + i + name + '.png'
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
+                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
 
 
-                        promises.push(
-                            uploadTask
-                                .then(snapshot =>
-                                    snapshot.ref.getDownloadURL()
-                                )
+                        await promises.push(
+                              uploadTask
+                                  .then(snapshot =>
+                                      snapshot.ref.getDownloadURL()
+                                  )
+                          )
+                        await promisesName1.push(
+                            nameTime
                         )
                     }
                 }
                 const URLs = await Promise.all(promises)
                 const ArrayOld = await editProduct.arrayImages1
 
-                const ArrayFile = [...URLs, ...ArrayOld]
+                const NameImages1 = await Promise.all(promisesName1)
+                const NameArrayOld = editProduct.NameImages1
+
+                const ArrayFile1 = [...URLs, ...ArrayOld]
+                const ArrayName1 = [...NameImages1, ...NameArrayOld]
 
                 const promises2 = []
+                const promisesName2 = []
                 if (File2) {
-                  console.log(File2.length)
                   for (let i = 0; i < File2.length; i++) {
 
                     const storageRef = firebase.storage().ref();
@@ -1592,13 +1605,22 @@
                                 snapshot.ref.getDownloadURL()
                             )
                     )
+                    promisesName2.push(
+                        nameTime
+                    )
                   }
                 }
-                const URLs2 = await Promise.all(promises2)
-                const ArrayOld2 = await editProduct.arrayImages2
+
+              const NameImages2 = Promise.all(promisesName2)
+              const NameArrayOld2 = editProduct.NameImages2
+              const ArrayName2 = [...NameImages2, ...NameArrayOld2]
+
+                const URLs2 = Promise.all(promises2)
+                const ArrayOld2 = editProduct.arrayImages2
                 const ArrayFile2 = [...URLs2, ...ArrayOld2]
 
                 const promises3 = []
+                const promisesName3 = []
                 if (File3) {
                   console.log(File3.length)
                   for (let i = 0; i < File3.length; i++) {
@@ -1621,13 +1643,22 @@
                                 snapshot.ref.getDownloadURL()
                             )
                     )
+                    promisesName3.push(
+                        nameTime
+                    )
                   }
                 }
-                const URLs3 = await Promise.all(promises3)
-                const ArrayOld3 = await editProduct.arrayImages3
+
+              const NameImages3 = Promise.all(promisesName3)
+              const NameArrayOld3 = editProduct.NameImages3
+              const ArrayName3 = [...NameImages3, ...NameArrayOld3]
+
+                const URLs3 = Promise.all(promises3)
+                const ArrayOld3 = editProduct.arrayImages3
                 const ArrayFile3 = [...URLs3, ...ArrayOld3]
 
                 const promises4 = []
+                const promisesName4 = []
                 if (File4) {
                   console.log(File4.length)
                   for (let i = 0; i < File4.length; i++) {
@@ -1650,8 +1681,16 @@
                                 snapshot.ref.getDownloadURL()
                             )
                     )
+                    await promisesName4.push(
+                        nameTime
+                    )
                   }
                 }
+
+              const NameImages4 = await Promise.all(promisesName4)
+              const NameArrayOld4 = await editProduct.NameImages4
+              const ArrayName4 = [...NameImages4, ...NameArrayOld4]
+
                 const URLs4 = await Promise.all(promises4)
                 const ArrayOld4 = await editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
@@ -1661,8 +1700,12 @@
               console.log('Запуск');
 
                 const updateData = {
+                  NameImages1: ArrayName1,
+                  NameImages2: ArrayName2,
+                  NameImages3: ArrayName3,
+                  NameImages4: ArrayName4,
                   seen: editProduct.seen,
-                  arrayImages1: ArrayFile,
+                  arrayImages1: ArrayFile1,
                   arrayImages2: ArrayFile2,
                   arrayImages3: ArrayFile3,
                   arrayImages4: ArrayFile4,
@@ -1704,7 +1747,7 @@
 
               const createdAt = Date.now()
               const seen = false
-              const File = addProduct.File
+              const File1 = addProduct.File1
               const File2 = addProduct.File2
               const File3 = addProduct.File3
               const File4 = addProduct.File4
@@ -1727,9 +1770,9 @@
                 const promises = []
                 const promisesName = []
 
-                if (File) {
-                  console.log('File', File)
-                    for (let i = 0; i < File.length; i++) {
+                if (File1) {
+                  console.log('File1', File1)
+                    for (let i = 0; i < File1.length; i++) {
 
                         const storageRef = await firebase.storage().ref();
                         // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
@@ -1738,10 +1781,10 @@
                         let metadata = {
                             contentType: 'image/png',
                         };
-                        const nameTime = await +new Date() + i + name + '.png'
+                        const nameTime = +new Date() + i + name + '.png'
                       console.log(nameTime)
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File[i], metadata);
+                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
 
                         await promises.push(
                             uploadTask
@@ -1756,7 +1799,7 @@
                 }
 
                 const URLs = await Promise.all(promises)
-                const NameImages = await Promise.all(promisesName)
+                const NameImages1 = await Promise.all(promisesName)
 
 
               // ЗАГРУЗКА ФОТО2
@@ -1774,7 +1817,7 @@
                   let metadata = {
                     contentType: 'image/png',
                   };
-                  const nameTime = await +new Date() + i + name + '.png'
+                  const nameTime = +new Date() + i + name + '.png'
                   console.log(nameTime)
                   // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                   const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
@@ -1809,7 +1852,7 @@
                   let metadata = {
                     contentType: 'image/png',
                   };
-                  const nameTime = await +new Date() + i + name + '.png'
+                  const nameTime = +new Date() + i + name + '.png'
                   console.log(nameTime)
                   // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                   const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
@@ -1844,7 +1887,7 @@
                   let metadata = {
                     contentType: 'image/png',
                   };
-                  const nameTime = await +new Date() + i + name + '.png'
+                  const nameTime = +new Date() + i + name + '.png'
                   console.log(nameTime)
                   // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                   const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
@@ -1867,7 +1910,7 @@
               console.log('category', category)
 
               let docRef = await db.collection('products2').add({
-                NameImages: NameImages,
+                NameImages1: NameImages1,
                 NameImages2: NameImages2,
                 NameImages3: NameImages3,
                 NameImages4: NameImages4,
@@ -1932,15 +1975,15 @@
                     .then((result) => {
                         if (result.value) {
                             this.isLoading = true
-                            const File = item.arrayImages1
+                            const File1 = item.arrayImages1
                             const File2 = item.arrayImages2
                             const File3 = item.arrayImages3
                             const File4 = item.arrayImages4
 
-                            if (File) {
-                                for (let i = 0; i < File.length; i++) {
+                            if (File1) {
+                                for (let i = 0; i < File1.length; i++) {
                                     let storageRef = firebase.storage().ref()
-                                    let nameTime = item.NameImages[i]
+                                    let nameTime = item.NameImages1[i]
                                     const Ref = storageRef.child(`assets/images/${item.name}/` + nameTime)
                                     Ref.delete().then(function () {
                                     }).catch(function (error) {
