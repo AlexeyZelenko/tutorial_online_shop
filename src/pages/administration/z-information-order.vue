@@ -12,7 +12,7 @@
 			</v-btn>
 		</template>
 		<v-carousel
-				:carousel_data="product.arrayImages"
+				:carousel_data="product.arrayImages1"
 		/>
 
 		<p>{{"Price" | localize}}: {{product.price}} грн</p>

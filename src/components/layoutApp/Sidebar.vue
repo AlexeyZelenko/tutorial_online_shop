@@ -60,7 +60,7 @@
 
             <img
                 alt=""
-                :src="item.arrayImages[0]"
+                :src="item.arrayImages1[0]"
                 style="max-height: 400px"
             >
           </div>

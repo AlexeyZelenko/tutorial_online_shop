@@ -20,7 +20,7 @@
             </v-btn>
           </div>
           <v-img
-              :src="item.arrayImages[0]"
+              :src="item.arrayImages1[0]"
               aspect-ratio="1"
           ></v-img>
         </v-col>

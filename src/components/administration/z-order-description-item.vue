@@ -74,7 +74,7 @@
                     <v-list-item-content>
                       <card>
                         <!--                      <v-carousel-->
-                        <!--                          :carousel_data="cart_order_data.arrayImages"-->
+                        <!--                          :carousel_data="cart_order_data.arrayImages1"-->
                         <!--                      />-->
                         <img
                             :src="(cart_order_data.arrayImagesViews)"

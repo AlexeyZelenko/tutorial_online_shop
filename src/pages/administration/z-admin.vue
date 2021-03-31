@@ -160,14 +160,14 @@
 									>
 										<template
 												style="height:190px;"
-												v-slot:item.arrayImages="{ item }">
+												v-slot:item.arrayImages1="{ item }">
 
 											<img
-													:src="(item.arrayImages[0])"
+													:src="(item.arrayImages1[0])"
 													alt=""
 													loading="lazy"
 													style="max-width: 100px; max-height: 100px; margin: 5px"
-													v-if="item.arrayImages"
+													v-if="item.arrayImages1"
 											>
 										</template>
 
@@ -402,12 +402,6 @@
 												label="Новинка"
 												v-model="editedItem.newProduct"
 										></v-checkbox>
-<!--										<v-checkbox-->
-<!--												color="indigo darken-3"-->
-<!--												hide-details-->
-<!--												label="Товар со скидкой"-->
-<!--												v-model="editedItem.promotionalPrice"-->
-<!--										></v-checkbox>-->
                     <v-checkbox
                         color="success"
                         hide-details
@@ -418,7 +412,7 @@
 
 									</div>
 
-<!--ВЫБОР ЦВЕТА_АККАРДЕОН-->
+<!--ВЫБОР ЦВЕТА_АККАРДЕОН + ФОТО-->
                   <v-card>
                     <v-app-bar
                         dark
@@ -525,16 +519,16 @@
 
                             <!--ФОТО1-->
                             <template
-                                v-if="editedItem.arrayImages && editedItem.arrayImages.length > 0"
+                                v-if="editedItem.arrayImages1 && editedItem.arrayImages1.length > 0"
                             >
                               <v-carousel>
                                 <v-carousel-item
-                                    :key="article"
+                                    :key="index"
                                     :src="(item)"
                                     reverse-transition="fade-transition"
                                     style="max-width: 400px; max-height: 600px"
                                     transition="fade-transition"
-                                    v-for="(item,article) in editedItem.arrayImages"
+                                    v-for="(item, index) in editedItem.arrayImages1"
                                 >
                                   <v-btn
                                       @click="deleteFoto(editedItem, item)"
@@ -1155,28 +1149,6 @@
     const zSize = () => import('@/components/administration/z-size')
     const Loading = () => import('vue-loading-overlay')
 
-    const formDefault = {
-        arrayModel: [],
-        NameImages: [],
-        selectedFruits: [],
-        File: [],
-        name: '',
-        article: +new Date(),
-        description: '',
-        available: null,
-        presence: true,
-        category: '',
-        price: '',
-        price2: '',
-        clothingSize: 42,
-        promotionalPrice: false,
-        clothingManufacturer: '',
-        VideoClothings: false,
-        BrandName: '',
-        FotoClothes: '',
-        newProduct: true,
-    }
-
     export default {
         name: "zAdmin",
         components: {
@@ -1258,7 +1230,6 @@
                 Paragraph,
                 HardBreak
             ],
-            ...formDefault, // ...formTest или ...formDefault
             rules: {
                 required: value => !!value || 'Обязательно.',
                 counter: value => value.length >= 5 || 'Min 5 знаков',
@@ -1273,7 +1244,7 @@
             products: [],
             dialog: false,
             drawer: null,
-            arrayImages: [],
+            arrayImages1: [],
             arrayImages2: [],
             arrayImages3: [],
             arrayImages4: [],
@@ -1302,7 +1273,7 @@
                 BrandName: '',
                 FotoClothes: '',
                 newProduct: true,
-                arrayImages: [],
+                arrayImages1: [],
                 arrayImages2: [],
                 arrayImages3: [],
                 arrayImages4: [],
@@ -1386,7 +1357,7 @@
                     sortable: false,
                 },
                 {text: '', value: '1'},
-                {text: 'Фото', value: 'arrayImages'},
+                {text: 'Фото', value: 'arrayImages1'},
                 {text: '', value: '2'},
                 {text: '', value: '3'},
                 {text: 'Бренд', value: 'BrandName.name'},
@@ -1437,7 +1408,7 @@
                 })
             },
             deleteFoto(editedItem, item) {
-                const array = editedItem.arrayImages
+                const array = editedItem.arrayImages1
                 const arrayName = editedItem.NameImages
 
                 const index = array.indexOf(item);
@@ -1445,11 +1416,11 @@
                     array.splice(index, 1);
                     arrayName.splice(index, 1);
                 }
-                editedItem.arrayImages = array
+                editedItem.arrayImages1 = array
                 editedItem.NameImages = arrayName
             },
             FirstFoto(editedItem, item) {
-            const array = editedItem.arrayImages
+            const array = editedItem.arrayImages1
             const arrayName = editedItem.NameImages
 
             const index = array.indexOf(item);
@@ -1457,7 +1428,7 @@
               array.unshift(...array.splice(index,1));
               arrayName.unshift(...arrayName.splice(index,1));
             }
-            editedItem.arrayImages = array
+            editedItem.arrayImages1 = array
             editedItem.NameImages = arrayName
           },
             deleteFoto2(editedItem, item) {
@@ -1594,7 +1565,7 @@
                     }
                 }
                 const URLs = await Promise.all(promises)
-                const ArrayOld = editProduct.arrayImages
+                const ArrayOld = await editProduct.arrayImages1
 
                 const ArrayFile = [...URLs, ...ArrayOld]
 
@@ -1610,7 +1581,7 @@
                     let metadata = {
                       contentType: 'image/png',
                     };
-                    let nameTime = await +new Date() + i + name + '.png'
+                    let nameTime = +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                     const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
 
@@ -1624,7 +1595,7 @@
                   }
                 }
                 const URLs2 = await Promise.all(promises2)
-                const ArrayOld2 = editProduct.arrayImages2
+                const ArrayOld2 = await editProduct.arrayImages2
                 const ArrayFile2 = [...URLs2, ...ArrayOld2]
 
                 const promises3 = []
@@ -1639,7 +1610,7 @@
                     let metadata = {
                       contentType: 'image/png',
                     };
-                    let nameTime = await +new Date() + i + name + '.png'
+                    let nameTime = +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                     const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
 
@@ -1653,7 +1624,7 @@
                   }
                 }
                 const URLs3 = await Promise.all(promises3)
-                const ArrayOld3 = editProduct.arrayImages3
+                const ArrayOld3 = await editProduct.arrayImages3
                 const ArrayFile3 = [...URLs3, ...ArrayOld3]
 
                 const promises4 = []
@@ -1668,7 +1639,7 @@
                     let metadata = {
                       contentType: 'image/png',
                     };
-                    let nameTime = await +new Date() + i + name + '.png'
+                    let nameTime = +new Date() + i + name + '.png'
                     // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                     const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
 
@@ -1682,7 +1653,7 @@
                   }
                 }
                 const URLs4 = await Promise.all(promises4)
-                const ArrayOld4 = editProduct.arrayImages4
+                const ArrayOld4 = await editProduct.arrayImages4
                 const ArrayFile4 = [...URLs4, ...ArrayOld4]
 
                 let id = editProduct.id
@@ -1691,7 +1662,7 @@
 
                 const updateData = {
                   seen: editProduct.seen,
-                  arrayImages: ArrayFile,
+                  arrayImages1: ArrayFile,
                   arrayImages2: ArrayFile2,
                   arrayImages3: ArrayFile3,
                   arrayImages4: ArrayFile4,
@@ -1912,7 +1883,7 @@
                 promotionalPrice,
                 createdAt,
                 category: category,
-                arrayImages: URLs,
+                arrayImages1: URLs,
                 arrayImages2: URLs2,
                 arrayImages3: URLs3,
                 arrayImages4: URLs4,
@@ -1961,7 +1932,7 @@
                     .then((result) => {
                         if (result.value) {
                             this.isLoading = true
-                            const File = item.arrayImages
+                            const File = item.arrayImages1
                             const File2 = item.arrayImages2
                             const File3 = item.arrayImages3
                             const File4 = item.arrayImages4

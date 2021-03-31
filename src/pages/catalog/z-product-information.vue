@@ -16,7 +16,6 @@
 		</template>
 
     <template>
-
       <v-card>
         <v-fab-transition>
           <v-btn
@@ -273,7 +272,9 @@
 
 <!--          Фото-->
           <v-tab-item>
-            <v-card flat>
+            <v-card
+                flat
+            >
               <v-card-title class="headline">
                 {{product.name}}
               </v-card-title>
@@ -541,7 +542,7 @@
             },
             arrayImagesViews () {
               if (this.indexColor === 0) {
-                return this.product.arrayImages;
+                return this.product.arrayImages1;
               }
               else if (this.indexColor === 1) {
                 return this.product.arrayImages2
@@ -552,7 +553,7 @@
               else if (this.indexColor === 3) {
                 return this.product.arrayImages4
               } else {
-                return this.product.arrayImages;
+                return this.product.arrayImages1;
               }
             },
             activeFab () {
@@ -578,7 +579,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #lateral .v-btn--example {
   bottom: 0;
   position: absolute;

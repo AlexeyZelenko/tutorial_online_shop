@@ -2,6 +2,7 @@
 	<div class="v-carousel-item">
 		<slot>
 			<img
+          class="brighten"
 					loading="lazy"
 					style="width: 300px;"
 					:src="(item_data)" alt=""
@@ -24,3 +25,13 @@
     },
   }
 </script>
+
+<style>
+.brighten {
+  opacity: 1;
+}
+
+.brighten:hover {
+  opacity: 0.9;
+}
+</style>

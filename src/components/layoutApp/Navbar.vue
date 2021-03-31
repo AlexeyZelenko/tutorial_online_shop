@@ -420,7 +420,7 @@
           setTimeout(() => {
             const i = target.getAttribute("data-index");
             this.filteredProducts[i].seen = true;
-            target.src = this.filteredProducts[i].arrayImages[0]
+            target.src = this.filteredProducts[i].arrayImages1[0]
 
             target.onload = () => {
               target.parentNode.classList.remove('loading');

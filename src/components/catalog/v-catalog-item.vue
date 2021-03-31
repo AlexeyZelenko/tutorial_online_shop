@@ -2,79 +2,71 @@
 	<div
 			:data-index="index"
 			class="v-catalog-item"
-			@click="productClick"
 	>
-    <p>{{product_data.name}}</p>
+    <v-card
+        class="v-catalog-item mx-auto"
+        max-width="400"
+        dark
+    >
+      <!--      <v-card-title class="pb-0">-->
+      <!--        Top 10 Australian beaches-->
+      <!--      </v-card-title>-->
+      <v-card-subtitle class="py-4">
+        {{product_data.name}}
+      </v-card-subtitle>
+      <transition name="fade">
+        <v-img
+            v-if="product_data.arrayImages1"
+            v-show="product_data.seen"
+            class="white--text align-end brighten"
+            :src="product_data.arrayImages1[0]"
+            alt=""
+        >
+          <div>
+            <p>
+              <!--		НОВИНКА-->
+              <v-chip
+                  v-if="product_data.newProduct"
+                  class="v-catalog-item_new"
+                  style="background-color: goldenrod; color:white; max-width: 150px"
+                  text-color="white"
+              >
+                {{ "NEW" | localize}}!
+              </v-chip>
+            </p>
+          </div>
+        </v-img>
+        <div v-else>
+          <p
 
+              class="emptyImage"
+          >
+            <span
+                v-show="product_data.seen"
+                v-html="product_data.description"
+            />
+          </p>
+        </div>
 
+      </transition>
+      <v-card-subtitle class="pb-0">
+        {{product_data.name}}
+      </v-card-subtitle>
 
-<!--		СКИДКА-->
-		<v-chip
-				v-if="product_data.promotionalPrice" class="v_catalog_item_new"
-				style="background-color: #da207d; color:white"
-				text-color="white"
-		>
-			{{"Promotional Price" | localize}}!
-		</v-chip>
-		<div
-				v-if="product_data.arrayImages"
-				class="v-catalog-item_image2 loading"
-		>
-			<transition name="fade">
-				<img
-						style="z-index: 7"
-						v-show="product_data.seen"
-						class="v-catalog-item_image"
-						:src="product_data.arrayImages[0]"
-						alt="">
-			</transition>
-
-		</div>
-		<p
-				v-else
-				class="emptyImage"
-		>
-			<span
-					v-show="product_data.seen"
-					v-html="product_data.description"
-			/>
-		</p>
-<!--		<p class="v_catalog_item_name">{{product_data.article}}</p>-->
-    <p>
-      <!--		НОВИНКА-->
-      <v-chip
-          v-if="product_data.newProduct"
-          class="v-catalog-item_new"
-          style="background-color: goldenrod; color:white; max-width: 150px"
-          text-color="white"
-      >
-        {{ "NEW" | localize}}!
-      </v-chip>
-    </p>
-
-
-<!--		<p-->
-<!--				class="v_catalog_item_price"-->
-<!--				v-show="product_data.seen"-->
-<!--		>-->
-<!--			{{'Price' | localize }}: {{product_data.price}} грн-->
-<!--		</p>-->
-
-		<div class="v-catalog-item_button" style="margin-bottom: 1%;">
-			<button
-					v-show="product_data.seen"
-					class="v-catalog-item_show-info"
-			>
-				{{'Show info' | localize}}
-			</button>
-<!--			<button-->
-<!--					v-show="product_data.seen"-->
-<!--					class="v-catalog_item_add_cart_btn btn"-->
-<!--					@click.stop="addToCart"-->
-<!--			>-->
-<!--				{{'Add to cart' | localize}}-->
-<!--			</button>-->
-		</div>
+      <v-card-actions class="mx-auto">
+        <v-btn
+            class="mx-auto"
+            bottom
+            small
+            outlined
+            color="indigo"
+            v-show="product_data.seen"
+            @click="productClick"
+        >
+          {{'Show info' | localize}}
+        </v-btn>
+      </v-card-actions>
+    </v-card>
 	</div>
 </template>
 
@@ -111,9 +103,6 @@
             productClick() {
                 this.$emit('productClick', this.product_data.id)
             },
-            addToCart() {
-                this.$emit('addToCart', this.product_data);
-            }
         },
 				mounted() {
             this.observer.observe(this.$el);
@@ -122,6 +111,13 @@
 </script>
 
 <style lang="scss">
+.brighten {
+  opacity: 0.9;
+}
+
+.brighten:hover {
+  opacity: 1;
+}
 	.emptyImage {
 		width: 100px;
 		height: 300px;
