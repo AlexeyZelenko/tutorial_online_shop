@@ -68,6 +68,21 @@
           >
           ☰
         </span>
+          <v-card
+              v-if="!openNavIcon"
+              class="flex text-center"
+              flat
+              color="black"
+              dark
+          >
+            <v-card-text class="py-2 white--text text-center">
+              <img
+                  src="@/assets/icons/ос-mac-60.png"
+                  alt=""
+                  style="height: 36px"
+              >
+            </v-card-text>
+          </v-card>
         </v-toolbar>
       </div>
 
@@ -278,6 +293,7 @@
 
   export default {
     data: () => ({
+      openNavIcon: false,
       right: true,
       fab: false,
       fling: false,
@@ -390,9 +406,11 @@
         'sortByCategories'
       ]),
       openNav () {
+        this.openNavIcon = true
         document.getElementById('mySidenavMain').style.width = '250px'
       },
       closeNav () {
+        this.openNavIcon = false
         document.getElementById('mySidenavMain').style.width = '0'
       },
       goToReviews () {
