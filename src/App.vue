@@ -10,11 +10,90 @@
         class="callback-bt"
     >
       <div class="text-call">
-        <v-icon color="white">
-          mdi-cart
-        </v-icon>
-        <p style="color: white">{{GET_CART_USER.length}}</p>
+        <v-badge
+            class="badge"
+            :content="GET_CART_USER.length"
+            :value="GET_CART_USER.length"
+            color="grey darken-3"
+            overlap
+            large
+        >
+          <v-icon
+              class="icon_badge"
+              large
+              color="white"
+          >
+            mdi-cart
+          </v-icon>
+        </v-badge>
+        <p>Перейти в корзину</p>
       </div>
+    </div>
+
+    <!--  Кнопка обратной связи-->
+    <div
+        type="button"
+        class="callback-bt2"
+    >
+      <v-speed-dial
+          v-model="fab"
+          :top="top"
+          :bottom="bottom"
+          :right="right"
+          :left="left"
+          :direction="direction"
+          :open-on-hover="hover"
+          :transition="transition"
+      >
+        <template v-slot:activator>
+          <v-btn
+              v-model="fab"
+              color="blue darken-2"
+              dark
+              fab
+          >
+            <v-icon v-if="fab">
+              mdi-close
+            </v-icon>
+            <v-icon v-else>
+              mdi-phone
+            </v-icon>
+
+          </v-btn>
+        </template>
+        <v-btn
+            fab
+            dark
+            small
+            color="green"
+        >
+          <v-icon>mdi-phone</v-icon>
+        </v-btn>
+        <v-btn
+            fab
+            dark
+            small
+            color="indigo"
+        >
+          <v-icon>mdi-email-outline</v-icon>
+        </v-btn>
+        <v-btn
+            fab
+            dark
+            small
+            color="red"
+        >
+          <v-icon>mdi-telegram</v-icon>
+        </v-btn>
+        <v-btn
+            fab
+            dark
+            small
+            color="red"
+        >
+          <v-icon>mdi-instagram</v-icon>
+        </v-btn>
+      </v-speed-dial>
     </div>
   </v-app>
 </template>
@@ -31,10 +110,18 @@
           EmptyLayout
         },
         computed: {
-            ...mapGetters([
+          ...mapGetters([
                 'LOCALE_CHANGE',
                 'GET_CART_USER'
             ]),
+          activeFab () {
+            switch (this.tabs) {
+              case 'one': return { class: 'purple', icon: 'account_circle' }
+              case 'two': return { class: 'red', icon: 'edit' }
+              case 'three': return { class: 'green', icon: 'keyboard_arrow_up' }
+              default: return {}
+            }
+          },
           layout() {
             return (this.$route.meta.layout || 'empty') + '-layout'
           }
@@ -44,7 +131,8 @@
                 'LOCALIZE',
                 'bindLocationsRef',
 								'userbindLocationsRef',
-                'ordersBindLocationsRef'
+                'ordersBindLocationsRef',
+                'VIEW_CART_USER'
             ]),
             goToCard () {
               this.$router.push({name: 'cart'})
@@ -53,7 +141,22 @@
                 this.LOCALIZE(loc)
             },
         },
+      watch: {
+        top (val) {
+          this.bottom = !val
+        },
+        right (val) {
+          this.left = !val
+        },
+        bottom (val) {
+          this.top = !val
+        },
+        left (val) {
+          this.right = !val
+        },
+      },
         created() {
+          this.VIEW_CART_USER()
             this.bindLocationsRef()
             this.userbindLocationsRef()
             this.ordersBindLocationsRef()
@@ -73,6 +176,19 @@
 
 
   /*кнопка корзины*/
+  .callback-bt2 {
+    border-radius:50%;
+    box-shadow:0 8px 10px rgba(56,163,253,0.3);
+    cursor:pointer;
+    height:55px;
+    text-align:center;
+    width:55px;
+    position: fixed;
+    right: 2%;
+    bottom: 10%;
+    z-index:999;
+    transition:.5s;
+  }
 
   .callback-bt {
     background:#38a3fd;
@@ -100,32 +216,44 @@
     overflow:hidden;
   }
 
-  .callback-bt .text-call span {
-    text-align: center;
-    color:#38a3fd;
+  .callback-bt .text-call .badge {
+    opacity: 1;
+    top: 20px;
+    right: 4px;
+  }
+  .callback-bt .text-call .badge .icon_badge{
+    opacity: 1;
+  }
+
+
+  .callback-bt .text-call p {
     opacity: 0;
-    font-size: 0;
+  }
+  .callback-bt .text-call:hover p{
+    opacity: 1;
+    font-size: 10px;
+    text-align: center;
+    color: #000000;
     position:absolute;
     right: 4px;
-    top: 22px;
+    top: 20px;
     line-height: 14px;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
     transition: opacity .3s linear;
     font-family: 'montserrat', Arial, Helvetica, sans-serif;
   }
 
-  .callback-bt .text-call:hover span {
-    opacity: 1;
-    font-size: 11px;
+  .callback-bt .text-call:hover .badge {
+    opacity: 0;
   }
 
-  .callback-bt:hover {
-    z-index:1;
-    background: #1d7575;
-    color:transparent;
-    transition:.3s;
-  }
+  //.callback-bt:hover {
+  //  z-index:1;
+  //  background: #43cdda;
+  //  color:transparent;
+  //  transition:.3s;
+  //}
 
 
   @-webkit-keyframes hoverWave {

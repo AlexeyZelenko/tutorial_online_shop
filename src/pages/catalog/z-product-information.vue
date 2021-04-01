@@ -420,7 +420,8 @@
         methods: {
             ...mapActions([
                 'ADD_TO_CART',
-                'bindLocationsRef'
+                'bindLocationsRef',
+                'VIEW_CART_USER'
             ]),
             goToCard () {
               this.$router.push({name: 'cart'})
@@ -454,6 +455,7 @@
                 }
                 this.ADD_TO_CART(payload)
               }
+              this.VIEW_CART_USER()
             },
         },
         computed: {
