@@ -67,7 +67,7 @@
                     cols="12"
                     md="6"
                 >
-                  <v-content
+                  <v-container
                       class="mx-auto"
                       tile
                   >
@@ -82,17 +82,17 @@
                           <v-item-group mandatory>
                             <v-container>
                               <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
-                              <v-row class="py-2">
+                              <v-row class="py-3">
                                 <v-col
                                     v-for="(n, index) in product.arrayColor"
                                     :key="index"
-                                    cols="4"
+                                    cols="2"
                                 >
                                   <v-item v-slot="{ active, toggle }">
                                     <v-btn
                                         @click="selectColor(index, n); toggle()"
                                         :color="n"
-                                        class="mx-4"
+                                        class="mx-6"
                                         dark
                                         icon
                                     >
@@ -108,7 +108,10 @@
                                           </v-icon>
                                         </div>
                                       </v-scroll-y-transition>
-                                      <v-icon size="36px">
+                                      <v-icon
+                                          style="text-shadow: 1px 2px 10px #373434"
+                                          size="36px"
+                                      >
                                         mdi-apple
                                       </v-icon>
                                     </v-btn>
@@ -288,7 +291,7 @@
                     >
                       {{'Add to cart' | localize}}
                     </button>
-                  </v-content>
+                  </v-container>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -555,7 +558,8 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                return this.product.nameColor[0];
+                console.log(this.product?.nameColor[0])
+                return  this.product?.nameColor[0]
               }
               else if (this.indexColor === 1) {
                 return this.product.nameColor[1]
@@ -566,7 +570,7 @@
               else if (this.indexColor === 3) {
                 return this.product.nameColor[3]
               } else {
-                return this.product.nameColor[0];
+                return this.product?.nameColor[0]
               }
             },
             arrayImagesViews () {
