@@ -86,29 +86,32 @@
                                 <v-col
                                     v-for="(n, index) in product.arrayColor"
                                     :key="index"
-                                    cols="6"
-                                    md="6"
+                                    cols="4"
                                 >
                                   <v-item v-slot="{ active, toggle }">
-                                    <v-card
-                                        :color="n"
-                                        class="d-flex align-center"
-                                        height="30"
-                                        width="30"
+                                    <v-btn
                                         @click="selectColor(index, n); toggle()"
+                                        :color="n"
+                                        class="mx-4"
+                                        dark
+                                        icon
                                     >
-
                                       <v-scroll-y-transition>
                                         <div
                                             v-if="active"
-                                            class="display-3 flex-grow-1 text-center"
+                                            class="display-1 flex-grow-1 text-center"
                                         >
-                                          <v-icon style="color: darkgreen">
-                                            {{ active ? 'mdi-check' : '' }}
+                                          <v-icon
+                                              style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
+                                          >
+                                            {{ active ? 'mdi-leaf' : '' }}
                                           </v-icon>
                                         </div>
                                       </v-scroll-y-transition>
-                                    </v-card>
+                                      <v-icon size="36px">
+                                        mdi-apple
+                                      </v-icon>
+                                    </v-btn>
                                   </v-item>
                                 </v-col>
                               </v-row >
