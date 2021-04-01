@@ -37,10 +37,6 @@
     >
       <v-speed-dial
           v-model="fab"
-          :top="top"
-          :bottom="bottom"
-          :right="right"
-          :left="left"
           :direction="direction"
           :open-on-hover="hover"
           :transition="transition"
@@ -51,13 +47,15 @@
               color="blue darken-2"
               dark
               fab
+              x-large
           >
             <v-icon v-if="fab">
               mdi-close
             </v-icon>
-            <v-icon v-else>
-              mdi-phone
-            </v-icon>
+            <span class="caption"  v-else>Контакты</span>
+<!--            <v-icon v-else>-->
+<!--              mdi-phone-->
+<!--            </v-icon>-->
 
           </v-btn>
         </template>
@@ -66,6 +64,7 @@
             dark
             small
             color="green"
+            @click.stop="dialog2 = true"
         >
           <v-icon>mdi-phone</v-icon>
         </v-btn>
@@ -74,6 +73,7 @@
             dark
             small
             color="indigo"
+            @click.stop="dialog = true"
         >
           <v-icon>mdi-email-outline</v-icon>
         </v-btn>
@@ -82,6 +82,7 @@
             dark
             small
             color="red"
+            @click.stop="dialog3 = true"
         >
           <v-icon>mdi-telegram</v-icon>
         </v-btn>
@@ -95,7 +96,139 @@
         </v-btn>
       </v-speed-dial>
     </div>
+
+<!--    Диалог-->
+    <v-dialog
+        v-model="dialog"
+        max-width="300"
+    >
+      <v-card>
+
+        <v-list two-line>
+
+          <v-divider inset></v-divider>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="indigo">
+                mdi-email
+              </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>aliconnors@example.com</v-list-item-title>
+              <v-list-item-subtitle>Администратор</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider inset></v-divider>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="indigo">
+                mdi-email
+              </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>zelenkooleksii75@gmail.com</v-list-item-title>
+              <v-list-item-subtitle>Тех.поддержка сайта</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider inset></v-divider>
+
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+              color="green darken-1"
+              text
+              @click="dialog = false"
+          >
+            Закрыть
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+        v-model="dialog2"
+        max-width="300"
+    >
+      <v-card>
+
+        <v-list two-line>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="indigo">
+                mdi-phone
+              </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>+38 063 69 10 177</v-list-item-title>
+              <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-icon>
+              <v-icon>mdi-message-text</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+
+          <v-divider inset></v-divider>
+
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+              color="green darken-1"
+              text
+              @click="dialog2 = false"
+          >
+            Закрыть
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+        v-model="dialog3"
+        max-width="300"
+    >
+      <v-card>
+
+        <v-list two-line>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="indigo">
+                mdi-telegram
+              </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Timoxa</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+              color="green darken-1"
+              text
+              @click="dialog3 = false"
+          >
+            Закрыть
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
+
 </template>
 
 <script>
@@ -108,6 +241,18 @@
         components: {
           MainLayout,
           EmptyLayout
+        },
+        data () {
+          return {
+            transition: 'slide-y-reverse-transition',
+            direction: 'top',
+            fab: false,
+            fling: false,
+            hover: false,
+            dialog: false,
+            dialog2: false,
+            dialog3: false,
+          }
         },
         computed: {
           ...mapGetters([
@@ -184,10 +329,13 @@
     text-align:center;
     width:55px;
     position: fixed;
-    right: 2%;
+    right: 25px;
     bottom: 10%;
     z-index:999;
     transition:.5s;
+  }
+ .caption span {
+    font-size: 10px;
   }
 
   .callback-bt {
