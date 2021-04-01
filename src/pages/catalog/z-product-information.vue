@@ -13,23 +13,26 @@
 		</template>
 
     <v-card>
+      <v-card-subtitle style="color: #26C6DA">
+        {{nameBrand}} > {{product.category}} > {{product.name}} > {{nameColorChange}} > {{model}}
+      </v-card-subtitle>
       <v-toolbar
           max-height="100"
-          color="black"
-          dark
           flat
+          class="mdl-color--blue-grey-50"
       >
-        <v-card-subtitle style="color: #26C6DA">
-          {{nameBrand}} > {{product.category}} > {{product.name}} > {{nameColorChange}} > {{model}}
-        </v-card-subtitle>
-        <v-spacer></v-spacer>
-        <v-card-title right>{{product.name}}</v-card-title>
+
+
+        <v-card-title left>
+          <h3>{{product.name}}</h3>
+        </v-card-title>
+
         <template
             v-slot:extension
         >
           <v-tabs
+              left
               v-model="tabs"
-              centered
           >
             <v-tab
                 v-for="n in arrayTabs"
@@ -39,6 +42,7 @@
             </v-tab>
           </v-tabs>
         </template>
+
       </v-toolbar>
 
       <v-tabs-items v-model="tabs">
@@ -70,15 +74,15 @@
                     <v-list
                         class="transparent"
                     >
+                      <!--Цвета-->
                       <v-list-item>
-                        <!--Цвета-->
                         <v-container
                             class="d-flex align-stretch mb-3"
                         >
                           <v-item-group mandatory>
                             <v-container>
-                              <p>Цвет: {{nameColorChange}}</p>
-                              <v-row>
+                              <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
+                              <v-row class="py-2">
                                 <v-col
                                     v-for="(n, index) in product.arrayColor"
                                     :key="index"
@@ -91,7 +95,7 @@
                                         class="d-flex align-center"
                                         height="30"
                                         width="30"
-                                        @click="selectColor(index); toggle()"
+                                        @click="selectColor(index, n); toggle()"
                                     >
 
                                       <v-scroll-y-transition>
@@ -107,21 +111,21 @@
                                     </v-card>
                                   </v-item>
                                 </v-col>
-                              </v-row>
+                              </v-row >
                             </v-container>
                           </v-item-group>
                         </v-container>
                       </v-list-item>
 
+                      <!--Модель-->
                       <v-list-item>
-                        <!--Модель-->
                         <v-container
                             class="d-flex align-stretch mb-3"
                         >
                           <v-item-group mandatory>
                             <v-container>
-                              <p>Модель:</p>
-                              <v-row>
+                              <span>Встроенная память : </span><span style="color: grey">{{model}} GB</span>
+                              <v-row class="py-2">
                                 <v-col
                                     v-for="(n, index) in product.arrayModel"
                                     :key="index"
@@ -155,24 +159,65 @@
                         </v-container>
                       </v-list-item>
 
+                      <!--                      Наличие товара-->
+                      <v-list-item>
+                        <v-container
+                            class="d-flex align-stretch mb-3"
+                        >
+                          <v-btn
+                              v-if="product.presence"
+                              class="ma-2"
+                              small
+                              color="teal"
+                              rounded
+                              dark
+                          >
+                            В наличии
+                            <v-icon
+                                dark
+                                right
+                            >
+                              mdi-checkbox-marked-circle
+                            </v-icon>
+                          </v-btn>
+                          <v-btn
+                              v-if="!product.presence"
+                              class="ma-2"
+                              color="red"
+                              small
+                              rounded
+                              dark
+                          >
+                            Отсутствует
+                            <v-icon
+                                dark
+                                right
+                            >
+                              mdi-cancel
+                            </v-icon>
+                          </v-btn>
+                        </v-container>
+                      </v-list-item>
 
                     </v-list>
 
-                    <v-divider></v-divider>
-
                     <v-list-item>
                       <v-list-item-content>
-                        <h4
-                            v-if="price2"
-                            style="text-decoration: line-through; color: orangered"
+                        <v-card
+                            outlined
+                            style="background-color: whitesmoke"
                         >
-                          {{price2}} грн
-                        </h4>
-                        <h3>{{price}} грн</h3>
+                          <h4
+                              v-if="price2"
+                              style="text-decoration: line-through; color: orangered"
+                          >
+                            {{price2}} грн
+                          </h4>
+                          <h3>{{price}} грн</h3>
+                        </v-card>
+
                       </v-list-item-content>
                     </v-list-item>
-
-
 
                     <img
                         style="height: 50px"
@@ -180,70 +225,58 @@
                         alt=""
                     >
 
-                    <!--                      Наличие товара-->
-                    <div>
-                      <v-btn
-                          v-if="product.presence"
-                          class="ma-2"
-                          x-small
-                          color="teal"
-                          rounded
-                          dark
-                      >
-                        В наличии
-                        <v-icon
-                            dark
-                            right
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-card
+                            outlined
+                            style="background-color: whitesmoke"
+                            class="py-2"
                         >
-                          mdi-checkbox-marked-circle
-                        </v-icon>
-                      </v-btn>
+<!--                          <p>{{"Descriptions" | localize}}:</p>-->
 
-                      <v-btn
-                          v-if="!product.presence"
-                          class="ma-2"
-                          color="red"
-                          x-small
-                          rounded
-                          dark
-                      >
-                        Отсутствует
-                        <v-icon
-                            dark
-                            right
-                        >
-                          mdi-cancel
-                        </v-icon>
-                      </v-btn>
-                    </div>
+                          <span>Цвет : </span>
+                          <v-btn
+                              v-if="selectcolor2"
+                              class="mx-2"
+                              fab
+                              x-small
+                              :color="selectcolor2"
+                          ></v-btn>
+                          <span
+                              :color="selectcolor2"
+                          >
+                              {{nameColorChange}}
+                            </span>
 
 
-                    <p>{{"Descriptions" | localize}}:</p>
+                          <p v-html="product.description"></p>
 
-                    <p>Цвет: {{nameColorChange}}</p>
+                          <p>Артикль товара: {{product.article}}</p>
 
-                    <p v-html="product.description"></p>
+                          <div class="text-center">
+                            <!--                      Новинка-->
+                            <v-chip
+                                class="ma-2"
+                                style="background-color: goldenrod; color:white; max-width: 150px"
+                                text-color="white"
+                                v-if="product.newProduct"
+                            >
+                              НОВИНКА!
+                              <v-icon right style="color: white">mdi-star</v-icon>
+                            </v-chip>
+                            <!--					СКИДКА-->
+                            <v-chip
+                                class="v_catalog_item_new" style="background-color: #da207d; color:white"
+                                text-color="white"
+                                v-if="product.promotionalPrice"
+                            >
+                              {{"Promotional Price" | localize}} !!!
+                            </v-chip>
+                          </div>
+                        </v-card>
 
-                    <p>Артикль товара: {{product.article}}</p>
-                    <div class="text-center">
-                      <v-chip
-                          class="ma-2"
-                          style="background-color: goldenrod; color:white; max-width: 150px"
-                          text-color="white"
-                          v-if="product.newProduct"
-                      >
-                        НОВИНКА!
-                        <v-icon right style="color: white">mdi-star</v-icon>
-                      </v-chip>
-                      <!--					СКИДКА-->
-                      <v-chip
-                          class="v_catalog_item_new" style="background-color: #da207d; color:white"
-                          text-color="white"
-                          v-if="product.promotionalPrice"
-                      >
-                        {{"Promotional Price" | localize}} !!!
-                      </v-chip>
-                    </div>
+                      </v-list-item-content>
+                    </v-list-item>
 
                     <button
                         @click="addToCart"
@@ -276,10 +309,10 @@
 
 
         <!--          Задать вопрос-->
-        <v-tab-item>
+        <v-tab-item class="py-4">
           <v-card
+              class="mdl-color--blue-grey-50 mx-auto"
               max-width="375"
-              class="mx-auto"
           >
             <v-card-title>
               <div class="display-1 pl-12 pt-12">
@@ -397,6 +430,7 @@
           hidden: false,
           selectmodel: '',
           selectcolor: '',
+          selectcolor2: '',
           arrayTabs: [
             {
               id: 1,
@@ -429,9 +463,10 @@
               this.$router.push({name: 'cart'})
             },
 
-            async selectColor(index) {
+            async selectColor(index, n) {
               this.indexColor = index
               this.selectcolor = index
+              this.selectcolor2 = n
             },
 
             async selectModel(index) {
