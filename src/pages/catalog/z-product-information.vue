@@ -41,10 +41,6 @@
         </template>
       </v-toolbar>
 
-      <v-card>
-
-      </v-card>
-
       <v-tabs-items v-model="tabs">
         <!--          Все про товар-->
         <v-tab-item>
@@ -62,115 +58,121 @@
                   <v-carousel
                       :carousel_data="arrayImagesViews"
                   />
-                  <!--                    <v-carousel-->
-                  <!--                        v-if="product.arrayImages2"-->
-                  <!--                        :carousel_data="product.arrayImages2"-->
-                  <!--                    />-->
                 </v-col>
                 <v-col
                     cols="12"
                     md="6"
                 >
-                  <div>
-
+                  <v-content
+                      class="mx-auto"
+                      tile
+                  >
                     <v-list
                         class="transparent"
                     >
                       <v-list-item>
-                        <v-list-item-title>
-                          <!--Цвета-->
-                          <v-card
-                              style="background-color: whitesmoke; margin: 10px"
-                          >
-                            <p>Доступные цвета:</p>
-                            <v-item-group mandatory>
-                              <v-container>
-                                <v-row>
-                                  <v-col
-                                      v-for="(n, index) in product.arrayColor"
-                                      :key="index"
-                                      cols="6"
-                                      md="2"
-                                  >
-                                    <v-item v-slot="{ active, toggle }">
-                                      <v-card
-                                          :color="n"
-                                          class="d-flex align-center"
-                                          height="30"
-                                          width="30"
-                                          @click="selectColor(index); toggle()"
-                                      >
+                        <!--Цвета-->
+                        <v-container
+                            class="d-flex align-stretch mb-3"
+                        >
+                          <v-item-group mandatory>
+                            <v-container>
+                              <p>Цвет: {{nameColorChange}}</p>
+                              <v-row>
+                                <v-col
+                                    v-for="(n, index) in product.arrayColor"
+                                    :key="index"
+                                    cols="6"
+                                    md="6"
+                                >
+                                  <v-item v-slot="{ active, toggle }">
+                                    <v-card
+                                        :color="n"
+                                        class="d-flex align-center"
+                                        height="30"
+                                        width="30"
+                                        @click="selectColor(index); toggle()"
+                                    >
 
-                                        <v-scroll-y-transition>
-                                          <div
-                                              v-if="active"
-                                              class="display-3 flex-grow-1 text-center"
-                                          >
-                                            <v-icon style="color: darkgreen">
-                                              {{ active ? 'mdi-check' : '' }}
-                                            </v-icon>
-                                          </div>
-                                        </v-scroll-y-transition>
-                                      </v-card>
-                                    </v-item>
-                                  </v-col>
-                                </v-row>
-                              </v-container>
-                            </v-item-group>
-                          </v-card>
-                        </v-list-item-title>
-
-                        <v-list-item-subtitle>
-                          <!--Модель-->
-                          <v-card
-                              style="background-color: whitesmoke; margin: 10px"
-                          >
-                            <p>Модель:</p>
-                            <v-item-group mandatory>
-                              <v-container>
-                                <v-row>
-                                  <v-col
-                                      v-for="(n, index) in product.arrayModel"
-                                      :key="index"
-                                      cols="6"
-                                      md="4"
-                                  >
-                                    <v-item v-slot="{ active, toggle }">
-                                      <v-card
-                                          :color="active ? 'primary' : ''"
-                                          class="d-flex text-center"
-                                          height="30"
-                                          width="50"
-                                          @click="selectModel(index, n); toggle()"
-                                      >
-                                        <v-scroll-y-transition>
-                                          <div
-                                              class="display-1 flex-grow-1 text-center ma-2"
-                                          >
-                                            <p
-                                                style="font-size: 14px"
-                                            >{{n}}</p>
-                                          </div>
-
-                                        </v-scroll-y-transition>
-                                      </v-card>
-                                    </v-item>
-                                  </v-col>
-                                </v-row>
-                              </v-container>
-                            </v-item-group>
-                          </v-card>
-                        </v-list-item-subtitle>
+                                      <v-scroll-y-transition>
+                                        <div
+                                            v-if="active"
+                                            class="display-3 flex-grow-1 text-center"
+                                        >
+                                          <v-icon style="color: darkgreen">
+                                            {{ active ? 'mdi-check' : '' }}
+                                          </v-icon>
+                                        </div>
+                                      </v-scroll-y-transition>
+                                    </v-card>
+                                  </v-item>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-item-group>
+                        </v-container>
                       </v-list-item>
+
+                      <v-list-item>
+                        <!--Модель-->
+                        <v-container
+                            class="d-flex align-stretch mb-3"
+                        >
+                          <v-item-group mandatory>
+                            <v-container>
+                              <p>Модель:</p>
+                              <v-row>
+                                <v-col
+                                    v-for="(n, index) in product.arrayModel"
+                                    :key="index"
+                                    cols="6"
+                                    md="6"
+                                >
+                                  <v-item v-slot="{ active, toggle }">
+                                    <v-card
+                                        :color="active ? 'primary' : ''"
+                                        class="d-flex text-center"
+                                        height="30"
+                                        width="50"
+                                        @click="selectModel(index, n); toggle()"
+                                    >
+                                      <v-scroll-y-transition>
+                                        <div
+                                            class="display-1 flex-grow-1 text-center ma-2"
+                                        >
+                                          <p
+                                              style="font-size: 14px"
+                                          >{{n}}</p>
+                                        </div>
+
+                                      </v-scroll-y-transition>
+                                    </v-card>
+                                  </v-item>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-item-group>
+                        </v-container>
+                      </v-list-item>
+
+
                     </v-list>
 
-                    <h4
-                        v-if="price2"
-                        style="text-decoration: line-through; color: orangered"
-                    >
-                      {{price2}} грн
-                    </h4>
-                    <h3>{{price}} грн</h3>
+                    <v-divider></v-divider>
+
+                    <v-list-item>
+                      <v-list-item-content>
+                        <h4
+                            v-if="price2"
+                            style="text-decoration: line-through; color: orangered"
+                        >
+                          {{price2}} грн
+                        </h4>
+                        <h3>{{price}} грн</h3>
+                      </v-list-item-content>
+                    </v-list-item>
+
+
 
                     <img
                         style="height: 50px"
@@ -250,7 +252,7 @@
                     >
                       {{'Add to cart' | localize}}
                     </button>
-                  </div>
+                  </v-content>
                 </v-col>
               </v-row>
             </v-card-text>
