@@ -8,9 +8,6 @@
         max-width="400"
         dark
     >
-      <!--      <v-card-title class="pb-0">-->
-      <!--        Top 10 Australian beaches-->
-      <!--      </v-card-title>-->
       <v-card-subtitle class="py-4">
         {{product_data.name}}
       </v-card-subtitle>
@@ -112,7 +109,7 @@
 
 <style lang="scss">
 .brighten {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .brighten:hover {
@@ -131,6 +128,7 @@
 		z-index: 1;
 		margin-left: 1px;
     color: #00BFA5;
+    opacity: 0.9;
 
 		&_image {
 			justify-content: center;

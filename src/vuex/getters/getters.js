@@ -39,6 +39,9 @@ export default  {
     GET_InfoUser(state) {
         return state.InfoUser;
     },
+    GET_NAME_Brand_Product(state) {
+        return state.nameBrandProduct;
+    },
     locale: s => s.locale,
     error: s => s.error
 }

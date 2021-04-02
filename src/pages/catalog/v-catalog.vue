@@ -1,19 +1,5 @@
 <template>
-	<div class="v-catalog">
-<!--		<img-->
-<!--				:src="require('@/assets/images/logo2.png')"-->
-<!--				alt=""-->
-<!--				style="max-width: 300px; max-height: 30%; padding-bottom: 10px">-->
-
-<!--		<v-row>-->
-<!--			<v-select-->
-<!--					:options="categories"-->
-<!--					:selected="selected"-->
-<!--					@select="sortByCategories"-->
-<!--					style="z-index: 3; margin: 7px 0 7px"-->
-<!--			/>-->
-<!--		</v-row>-->
-
+	<div class="v-catalog" :class="GET_NAME_Brand_Product">
 		<div
         class="v-catalog__list"
     >
@@ -31,13 +17,8 @@
 </template>
 
 <script>
-    // const vSelect = () => import('../v-select')
     const vCatalogItem = () => ({
         component: import("../../components/catalog/v-catalog-item"),
-        // loading: AwesomeSpinner,//после задержки по умолчанию в 200 мс будет показан компонент AwesomeSpinner
-        // delay: 500 //настроить задержку AwesomeSpinner
-        // error: SadFaceComponent // компонент ошибки
-        // timeout: 5000 //если через 5000 миллисекунд компонент не загрузился, будет показан компонент ошибки.
     })
     import {mapActions, mapGetters} from 'vuex'
     import firebase from 'firebase/app'
@@ -46,28 +27,11 @@
         name: "v-catalog",
         components: {
             vCatalogItem,
-            // vSelect: () => import('../../components/v-select'),
         },
         data() {
             return {
-                placeholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+                bgColour: 'black',
                 observer: null,
-                categories: [
-                    {name: 'Все', value: 'All'},
-                    {name: 'Ветровки', value: 'Windbreaker'},
-                    {name: 'Пальто', value: 'Coat'},
-                    {name: 'Плащи', value: 'Raincoats'},
-                    {name: 'Джинсы', value: 'Jeans'},
-                    {name: 'Брюки', value: 'Pants'},
-                    {name: 'Кофты', value: 'Sweatshirts'},
-                    {name: 'Футболки', value: 'T-shirts'},
-                    {name: 'Рубашки', value: 'Shirts'},
-                    {name: 'Блузки', value: 'Blouses'},
-                    {name: 'Платья', value: 'Dresses'},
-                    {name: 'Костюмы', value: 'Costumes'},
-                    {name: 'Куртки', value: 'Jackets'},
-                ],
-                selected: 'Категории',
                 sortedProducts: [],
                 minPrice: 0,
                 maxPrice: 1000,
@@ -146,7 +110,8 @@
                 'GET_CART_USER',
                 'User_Entrance',
                 'USER_ID',
-                'GET_ADMIN_ENTRANCE'
+                'GET_ADMIN_ENTRANCE',
+                'GET_NAME_Brand_Product'
             ]),
             getUserName() {
                 return firebase.auth().currentUser.displayName;
@@ -158,6 +123,11 @@
               return this.GET_SORTED_PRODUCTS
             }
         },
+        watch: {    // отслеживание свойства автоматически реагирует на любое его изменение
+        colorBg(newValue) {
+            this.document.body.style.backgroundColor = newValue;
+          }
+        },
         mounted() {
             this.VIEW_CART_USER()
             this.USER_ID_ACTIONS()
@@ -166,13 +136,34 @@
 </script>
 
 <style lang="scss">
+.Samsung {
+  background-color: blue;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2Fouterspace-58.gif?alt=media&token=a84f98ef-0b93-4547-831c-d4e3fd7ec3b8');
+  background-size: cover;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+.Google {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2F96fcf270f6dd86f1ab74174488c9a927.gif?alt=media&token=7fe91c5c-f18e-446f-9a1f-278ffec9dfb7');
+  background-size: cover;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+.Xiaomi {
+  background-color: green;
+}
+.Apple {
+  background-color: black;
+}
 	.v-catalog {
 		&__list {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-evenly;
-      background-color: #0e0e0e;
-      padding-top: 10px;
+      //background-color: #0e0e0e;
+
 		}
 
 		&__link_to_cart {

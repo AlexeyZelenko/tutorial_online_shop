@@ -36,7 +36,7 @@
         >
         <span
             v-if="item.dropdown"
-            @click="sortProduct(item2.text)"
+            @click="sortProduct(item2)"
         >
           {{item2.text}}
         </span>
@@ -252,7 +252,7 @@
                       <v-scale-transition >
                         <div
                             class="mx-7 my-1"
-                            @click="toggle(); sortProduct(item2.text)"
+                            @click="toggle(); sortProduct(item2)"
                         >
                           <figure>
                             <p>
@@ -294,6 +294,7 @@
 
   export default {
     data: () => ({
+      backgroundCategory: '',
       openNavIcon: false,
       right: true,
       fab: false,
@@ -314,23 +315,28 @@
           arrayArray: [
             {
               text: 'Iphone',
-              figure: 'iphone'
+              figure: 'iphone',
+              nameBrand: 'Apple'
             },
             {
               text: 'AirPods',
-              figure: 'airpods'
+              figure: 'airpods',
+              nameBrand: 'Apple'
             },
             {
               text: 'IPad',
-              figure: 'ipad'
+              figure: 'ipad',
+              nameBrand: 'Apple'
             },
             {
               text: 'Watch',
-              figure: 'watch'
+              figure: 'watch',
+              nameBrand: 'Apple'
             },
             {
               text: 'MacBook',
-              figure: 'mac'
+              figure: 'mac',
+              nameBrand: 'Apple'
             }
           ]
         },
@@ -344,7 +350,8 @@
           arrayArray: [
             {
               text: 'Google Pixel',
-              figure: 'google_pixel'
+              figure: 'google_pixel',
+              nameBrand: 'Google'
             }
           ]
         },
@@ -358,15 +365,18 @@
           arrayArray: [
             {
               text: 'AirDots',
-              figure: 'AirDots'
+              figure: 'AirDots',
+              nameBrand: 'Xiaomi'
             },
             {
               text: 'SmartBand',
-              figure: 'smartBand'
+              figure: 'smartBand',
+              nameBrand: 'Xiaomi'
             },
             {
               text: 'Аксессуары',
-              figure: 'accessories'
+              figure: 'accessories',
+              nameBrand: 'Xiaomi'
             }
           ]
         },
@@ -380,19 +390,23 @@
           arrayArray: [
             {
               text: 'Phone',
-              figure: 'phone_samsung'
+              figure: 'phone_samsung',
+              nameBrand: 'Samsung'
             },
             {
               text: 'Наушники',
-              figure: 'airpods_samsung'
+              figure: 'airpods_samsung',
+              nameBrand: 'Samsung'
             },
             {
               text: 'Watch',
-              figure: 'watch_samsung'
+              figure: 'watch_samsung',
+              nameBrand: 'Samsung'
             },
             {
               text: 'Аксессуары',
-              figure: 'music_accessories'
+              figure: 'music_accessories',
+              nameBrand: 'Samsung'
             },
           ]
         },
@@ -424,7 +438,7 @@
         // this.sortByCategories(product)
         try {
           await this.$store.dispatch('sortByCategories', product)
-          window.scrollTo(0, 1000)
+          window.scrollTo(0, 1400)
         } catch (e) {
           console.log('Ошибка сортировки')
         }
@@ -469,6 +483,7 @@
         this.$router.push({name: 'product', query: {'product': id}})
       },
       sortByCategories(category) {
+        this.backgroundCategory = category.name
         this.sortedProducts = [];
         this.PRODUCTS.map((item) => {
           if (item.category === category.name) {

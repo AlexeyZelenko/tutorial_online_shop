@@ -1,31 +1,47 @@
 <template>
   <v-card class="my-2">
     <h5 class="py-2">Вам может понравиться:</h5>
-    <v-container fluid>
-      <v-row>
-        <v-col
+    <v-sheet
+        class="mx-auto"
+        elevation="8"
+    >
+      <v-slide-group
+          v-model="model"
+          class="pa-4"
+          center-active
+          show-arrows
+      >
+        <v-slide-item
             v-for="item in RANDOM_PRODUCTS"
             :key="item.id"
-            cols="12"
-            md="2"
+            v-slot="{ active, toggle }"
         >
-          <p style="color: darkcyan">{{item.name}}</p>
-          <div class="text-center">
-            <v-btn
-                @click="productClick(item.id)"
-                color="primary"
-                text
-            >
-              Подробнее >>
-            </v-btn>
-          </div>
-          <v-img
-              :src="item.arrayImages1[0]"
-              aspect-ratio="1"
-          ></v-img>
-        </v-col>
-      </v-row>
-    </v-container>
+          <v-card
+              :color="active ? 'grey lighten-1' : 'white'"
+              class="ma-4"
+              height="250"
+              width="150"
+              @click="toggle"
+          >
+            <p style="color: darkcyan">{{item.name}}</p>
+            <div class="text-center">
+              <v-btn
+                  @click="productClick(item.id)"
+                  color="primary"
+                  text
+                  small
+              >
+                Подробнее >>
+              </v-btn>
+            </div>
+            <v-img
+                :src="item.arrayImages1[0]"
+                aspect-ratio="1"
+            ></v-img>
+          </v-card>
+        </v-slide-item>
+      </v-slide-group>
+    </v-sheet>
   </v-card>
 </template>
 
@@ -34,6 +50,9 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: "RandomProducts",
+  data: () => ({
+    model: null,
+  }),
   methods: {
     ...mapActions([]),
     productClick(id) {
@@ -43,14 +62,20 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_PRODUCTS'
+      'GET_PRODUCTS',
+      'GET_NAME_Brand_Product'
     ]),
     RANDOM_PRODUCTS() {
       const a = this.GET_PRODUCTS.filter((obj, idx, arr) => (
           arr.findIndex((o) => o.name === obj.name) === idx
       ))
-
-      return a.sort(() => Math.random() - 0.5)
+      if(this.GET_NAME_Brand_Product) {
+        const b = a.filter(item => item.BrandName.name === this.GET_NAME_Brand_Product)
+        return b.sort(() => Math.random() - 0.5)
+      }
+      else {
+        return a.sort(() => Math.random() - 0.5)
+      }
     }
   }
 }

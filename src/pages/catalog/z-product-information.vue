@@ -13,8 +13,10 @@
 		</template>
 
     <v-card>
-      <v-card-subtitle style="color: #26C6DA">
-        {{nameBrand}} > {{product.category}} > {{product.name}} > {{nameColorChange}} > {{model}}
+      <v-card-subtitle
+          style="color: #26C6DA"
+      >
+        {{nameBrand}} > {{product.category}} > {{product.name}}
       </v-card-subtitle>
       <v-toolbar
           max-height="100"
@@ -24,7 +26,7 @@
 
 
         <v-card-title left>
-          <h3>{{product.name}}</h3>
+          <p class="name_card_title">{{product.name}} {{nameColorChange}} {{model}}</p>
         </v-card-title>
 
         <template
@@ -38,7 +40,7 @@
                 v-for="n in arrayTabs"
                 :key="n.id"
             >
-              {{ n.name }}
+              <p class="nameTab">{{ n.name }}</p>
             </v-tab>
           </v-tabs>
         </template>
@@ -52,7 +54,7 @@
               flat
           >
             <v-card-text>
-              <v-row align="center">
+              <v-row align-start>
                 <v-col
                     cols="12"
                     md="6"
@@ -76,7 +78,7 @@
                       <!--Цвета-->
                       <v-list-item>
                         <v-container
-                            class="d-flex align-stretch mb-3"
+                            class="d-flex justify-start"
                         >
                           <v-item-group mandatory>
                             <v-container>
@@ -87,33 +89,39 @@
                                     :key="index"
                                     cols="2"
                                 >
-                                  <v-item v-slot="{ active, toggle }">
-                                    <v-btn
-                                        @click="selectColor(index, n); toggle()"
-                                        :color="n"
-                                        class="mx-6"
-                                        dark
-                                        icon
-                                    >
-                                      <v-scroll-y-transition>
-                                        <div
-                                            v-if="active"
-                                            class="display-1 flex-grow-1 text-center"
-                                        >
-                                          <v-icon
-                                              style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
-                                          >
-                                            {{ active ? 'mdi-leaf' : '' }}
-                                          </v-icon>
-                                        </div>
-                                      </v-scroll-y-transition>
-                                      <v-icon
-                                          style="text-shadow: 1px 2px 10px #373434"
-                                          size="36px"
+                                  <v-item
+                                      class="mx-1"
+                                      v-slot="{ active, toggle }"
+                                  >
+                                    <v-container left>
+                                      <v-btn
+                                          @click="selectColor(index, n); toggle()"
+                                          :color="n"
+                                          class="mx-12"
+                                          dark
+                                          icon
                                       >
-                                        mdi-apple
-                                      </v-icon>
-                                    </v-btn>
+                                        <v-scroll-y-transition>
+                                          <div
+                                              v-if="active"
+                                              class="display-1 flex-grow-1 text-center"
+                                          >
+                                            <v-icon
+                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
+                                            >
+                                              {{ active ? 'mdi-leaf' : '' }}
+                                            </v-icon>
+                                          </div>
+                                        </v-scroll-y-transition>
+                                        <v-icon
+                                            style="text-shadow: 1px 2px 10px #373434"
+                                            size="36px"
+                                        >
+                                          mdi-apple
+                                        </v-icon>
+                                      </v-btn>
+                                    </v-container>
+
                                   </v-item>
                                 </v-col>
                               </v-row >
@@ -233,7 +241,6 @@
                     <v-list-item>
                       <v-list-item-content>
                         <v-card
-                            outlined
                             style="background-color: whitesmoke"
                             class="py-2"
                         >
@@ -256,7 +263,6 @@
 
                           <p v-html="product.description"></p>
 
-                          <p>Артикль товара: {{product.article}}</p>
 
                           <div class="text-center">
                             <!--                      Новинка-->
@@ -614,10 +620,21 @@
   position: absolute;
   margin: 0 0 16px 16px;
 }
+.name_card_title {
+  font-size: 36px
+}
 .z-product-information {
   flex-basis: 25%;
   box-shadow: 0 0 8px 0 #e0e0e0;
   padding: $padding*2;
   margin-bottom: $margin*2;
+}
+@media(max-width: 700px) {
+  .nameTab {
+    font-size: 10px
+  }
+  .name_card_title {
+    font-size: 18px
+  }
 }
 </style>

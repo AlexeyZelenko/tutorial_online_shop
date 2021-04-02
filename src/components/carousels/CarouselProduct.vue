@@ -23,6 +23,7 @@
 
       <v-container
           class="mx-auto"
+          style="padding-right: 30px"
           tile
       >
         <v-carousel

@@ -34,22 +34,26 @@ state: {
     adminEntrance: false,
     InfoUser: [],
     sortedProducts: [],
-    Orders: []
+    Orders: [],
+    nameBrandProduct: ''
 },
 
 getters,
 
 mutations: {
-    ...vuexfireMutations,
-    DECREMENT_CART: (state, item ) => {
-      const index = state.cartUser.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
-      if (index !== -1) {
-        state.cartUser.splice(index, 1);
-      }
-    },
-    INCREMENT_CART: (state, item ) => {
-      state.cartUser = [...state.cartUser, item]
-    },
+      ...vuexfireMutations,
+      DECREMENT_CART: (state, item ) => {
+        const index = state.cartUser.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
+        if (index !== -1) {
+          state.cartUser.splice(index, 1);
+        }
+      },
+      INCREMENT_CART: (state, item ) => {
+        state.cartUser = [...state.cartUser, item]
+      },
+     BRAND_PRODUCT: (state, nameBrand) => {
+          state.nameBrandProduct = nameBrand
+      },
      DELETE_CART: (state, itemDelete ) => {
        const newcartInfo = state.cartUser.filter(item => item.arrayImagesViews !== itemDelete.arrayImagesViews)
        state.cartUser = newcartInfo
@@ -136,13 +140,16 @@ actions: {
         commit('FIREBASE_MUTATIONS', message)
     },
     async sortByCategories({commit, state}, product) {
+      console.log('product', product)
       const sortedProducts = [];
       state.Products.map((item) => {
-        if (item.category === product) {
+        if (item.category === product.text) {
           sortedProducts.push(item)
         }
       })
+      const nameBrand = product.nameBrand
       commit('SORT_PRODUCTS', sortedProducts)
+      commit('BRAND_PRODUCT', nameBrand)
     },
 },
 modules: {
