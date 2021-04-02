@@ -50,18 +50,17 @@
         <v-tab-item>
           <v-card
               flat
-              class="my-4"
           >
             <v-card-text>
               <v-row align="center">
                 <v-col
-                    class="display-3"
                     cols="12"
                     md="6"
                 >
-                  <v-carousel
-                      :carousel_data="arrayImagesViews"
+                  <CarouselProduct
+                      :arrayImagesViews="arrayImagesViews"
                   />
+
                 </v-col>
                 <v-col
                     cols="12"
@@ -301,16 +300,9 @@
 
         <!--          Фото-->
         <v-tab-item>
-          <v-card
-              flat
-          >
-            <v-card-title class="headline">
-              {{product.name}}
-            </v-card-title>
-            <v-carousel
-                :carousel_data="arrayImagesViews"
-            />
-          </v-card>
+          <CarouselProductDetails
+              :arrayImagesViews="arrayImagesViews"
+          />
         </v-tab-item>
 
 
@@ -420,7 +412,9 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    const vCarousel = () => import('@/components/v-carousel')
+    // const vCarousel = () => import('@/components/v-carousel')
+    const CarouselProduct = () => import('@/components/carousels/CarouselProduct')
+    const CarouselProductDetails = () => import('@/components/carousels/CarouselProductDetails')
     const RandomProducts = () => import('@/components/RandomProducts')
 
     export default {
@@ -456,8 +450,10 @@
           indexModel: 0
         }),
         components: {
-            vCarousel,
-            RandomProducts
+            // vCarousel,
+            RandomProducts,
+            CarouselProduct,
+            CarouselProductDetails
         },
         methods: {
             ...mapActions([

@@ -36,9 +36,13 @@
             justify="center"
         >
           <div
-              class="display-3 "
+              class="display-3"
           >
-            <span style="color: black">{{ item.name }}</span>
+            <span
+                class="name_item_sidebar"
+            >
+              {{ item.name }}
+            </span>
             <div class="text-center">
               <v-btn
                   @click="productClick(item.id)"
@@ -102,12 +106,18 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .v-carousel {
   margin-top: 140px
 }
+.name_item_sidebar {
+  color: black
+}
 @media (max-width: 570px) {
   .v-carousel {margin-top: 40px}
+  .name_item_sidebar {
+    font-size: 36px;
+  }
 }
 
 </style>

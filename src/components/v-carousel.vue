@@ -24,7 +24,10 @@
 
         <v-list-item-subtitle>
           <div>
-            <div class="v-carouselImage" :style="{ 'margin-left': '-' + (115 * currentSlideIndex) + '%' }">
+            <div
+                class="v-carouselImage"
+                :style="{ 'margin-left': '-' + (115 * currentSlideIndex) + '%' }"
+            >
               <v-carousel-item
                   v-for="item in carousel_data"
                   :key="item.article"
