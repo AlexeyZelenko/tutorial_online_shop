@@ -283,78 +283,375 @@
 									</v-col>
 
 <!--МОДЕЛЬ + ЦЕНА-->
-                  <v-card
-                      class="mx-auto"
-                      max-width="500"
-                  >
-                    <v-list>
-                      <v-list-group
-                          v-for="item in items2"
-                          :key="item.title"
-                          v-model="item.active"
-                          :prepend-icon="item.action"
-                          :color="item.color"
-                          no-action
-                      >
-                        <template v-slot:activator>
-                          <v-list-item-content>
-                            <v-list-item-title v-text="item.title"></v-list-item-title>
-                          </v-list-item-content>
-                        </template>
+                  <v-card>
+                    <v-app-bar
+                        dark
+                        color="#385F73"
+                    >
+                      <v-toolbar-title>Модель  + цена</v-toolbar-title>
 
-                        <v-list-item
-                            v-for="child in item.items"
-                            :key="child.title"
-                            :style="`background-color: ${child.background}`"
-                            class="my-2"
-                        >
-                          <v-list-item-content>
-                            <v-list-item-title
-                                v-text="child.title"
-                            ></v-list-item-title>
-                            <!--                  Модель-->
-                            <v-container>
-                              <v-col cols="12">
+                      <v-spacer></v-spacer>
+
+                    </v-app-bar>
+                    <v-expansion-panels>
+
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          <template v-slot:default="{ open }">
+                            <v-row no-gutters>
+                              <v-col cols="4">
+                                Блок 1
+                              </v-col>
+                              <v-col
+                                  cols="8"
+                                  class="text--secondary"
+                              >
+                                <v-fade-transition leave-absolute>
+                                  <span
+                                      v-if="open"
+                                      key="0"
+                                  >
+                                    Выберите  модель
+                                  </span>
+                                  <span
+                                      v-else
+                                      key="1"
+                                  >
+                                    {{ editedItem.arrayModel[0] }}
+                                  </span>
+                                </v-fade-transition>
+                              </v-col>
+                            </v-row>
+                          </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <!--                  Модель1-->
+                          <v-container
+                              class="py-2"
+                              style="background-color: #dedddd"
+                          >
+                            <p>Блок 1</p>
+                            <v-row
+                                class="ma-2"
+                                style="flex: 0 0 auto"
+                            >
+                              <v-row justify="space-around">
                                 <v-select
-                                    :v-model="`editedItem.arrayModel[${child.id}]`"
+                                    v-model="editedItem.arrayModel[0]"
                                     :items="fruits"
                                     label="Выберите модель"
                                 >
                                 </v-select>
-                              </v-col>
+                              </v-row>
+                            </v-row>
 
-                              <!--						ЦЕНА Модели-->
-                              <v-col cols="12">
-                                <v-text-field
-                                    :rules="[v => (v !== Number.NaN) || 'Введите число!']"
-                                    label="Цена товара"
-                                    placeholder="ОБЯЗАТЕЛЬНО"
-                                    prepend-icon="monetization_on"
-                                    required
-                                    type="Number"
-                                    :v-model="`editedItem.price[${child.id}]`"
-                                ></v-text-field>
-                              </v-col>
-
-                              <!--						ЦЕНА Завышенная Модели №1-->
-                              <v-col cols="12">
-                                <v-text-field
-                                    :rules="[v => (v !== Number.NaN) || 'Введите число!']"
-                                    label="Предыдущая цена товара"
-                                    placeholder=""
-                                    prepend-icon="monetization_on"
-                                    required
-                                    type="Number"
-                                    :v-model="`editedItem.price2[${child.id}]`"
-                                ></v-text-field>
-                              </v-col>
-
-
+                            <v-container fluid>
+                              <v-row>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price[0]"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price2[0]"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
                             </v-container>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list-group>
-                    </v-list>
+
+                          </v-container>
+
+                          <v-divider class="mx-2"></v-divider>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          <template v-slot:default="{ open }">
+                            <v-row no-gutters>
+                              <v-col cols="4">
+                                Блок 2
+                              </v-col>
+                              <v-col
+                                  cols="8"
+                                  class="text--secondary"
+                              >
+                                <v-fade-transition leave-absolute>
+                                  <span
+                                      v-if="open"
+                                      key="0"
+                                  >
+                                    Выберите  модель
+                                  </span>
+                                  <span
+                                      v-else
+                                      key="1"
+                                  >
+                                    {{ editedItem.arrayModel[1] }}
+                                  </span>
+                                </v-fade-transition>
+                              </v-col>
+                            </v-row>
+                          </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <!--                  Модель2-->
+                          <v-container
+                              class="py-2"
+                              style="background-color: #dedddd"
+                          >
+                            <p>Блок 2</p>
+                            <v-row
+                                class="ma-2"
+                                style="flex: 0 0 auto"
+                            >
+                              <v-row justify="space-around">
+                                <v-select
+                                    v-model="editedItem.arrayModel[1]"
+                                    :items="fruits"
+                                    label="Выберите модель"
+                                >
+                                </v-select>
+                              </v-row>
+                            </v-row>
+
+                            <v-container fluid>
+                              <v-row>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price[1]"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price2[1]"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+
+                          </v-container>
+
+                          <v-divider class="mx-2"></v-divider>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          <template v-slot:default="{ open }">
+                            <v-row no-gutters>
+                              <v-col cols="4">
+                                Блок 3
+                              </v-col>
+                              <v-col
+                                  cols="8"
+                                  class="text--secondary"
+                              >
+                                <v-fade-transition leave-absolute>
+                                  <span
+                                      v-if="open"
+                                      key="0"
+                                  >
+                                    Выберите  модель
+                                  </span>
+                                  <span
+                                      v-else
+                                      key="1"
+                                  >
+                                    {{ editedItem.arrayModel[2] }}
+                                  </span>
+                                </v-fade-transition>
+                              </v-col>
+                            </v-row>
+                          </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <!--                  Модель3-->
+                          <v-container
+                              class="py-2"
+                              style="background-color: #dedddd"
+                          >
+                            <p>Блок 3</p>
+                            <v-row
+                                class="ma-2"
+                                style="flex: 0 0 auto"
+                            >
+                              <v-row justify="space-around">
+                                <v-select
+                                    v-model="editedItem.arrayModel[2]"
+                                    :items="fruits"
+                                    label="Выберите модель"
+                                >
+                                </v-select>
+                              </v-row>
+                            </v-row>
+
+                            <v-container fluid>
+                              <v-row>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price[2]"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price2[2]"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+
+                          </v-container>
+
+                          <v-divider class="mx-2"></v-divider>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          <template v-slot:default="{ open }">
+                            <v-row no-gutters>
+                              <v-col cols="4">
+                                Блок 4
+                              </v-col>
+                              <v-col
+                                  cols="8"
+                                  class="text--secondary"
+                              >
+                                <v-fade-transition leave-absolute>
+                                  <span
+                                      v-if="open"
+                                      key="0"
+                                  >
+                                    Выберите  модель
+                                  </span>
+                                  <span
+                                      v-else
+                                      key="1"
+                                  >
+                                    {{ editedItem.arrayModel[3] }}
+                                  </span>
+                                </v-fade-transition>
+                              </v-col>
+                            </v-row>
+                          </template>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <!--                  Модель4-->
+                          <v-container
+                              class="py-2"
+                              style="background-color: #dedddd"
+                          >
+                            <p>Блок 4</p>
+                            <v-row
+                                class="ma-2"
+                                style="flex: 0 0 auto"
+                            >
+                              <v-row justify="space-around">
+                                <v-select
+                                    v-model="editedItem.arrayModel[3]"
+                                    :items="fruits"
+                                    label="Выберите модель"
+                                >
+                                </v-select>
+                              </v-row>
+                            </v-row>
+
+                            <v-container fluid>
+                              <v-row>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price[3]"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    class="py-6"
+                                    cols="12"
+                                >
+                                  <v-text-field
+                                      :rules="[v => (v !== Number.NaN) || 'Введите число!']"
+                                      label="Цена товара"
+                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      prepend-icon="monetization_on"
+                                      required
+                                      type="Number"
+                                      v-model="editedItem.price2[3]"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+
+                          </v-container>
+
+                          <v-divider class="mx-2"></v-divider>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+
+                    </v-expansion-panels>
                   </v-card>
 
                   <!--							БРЭНД-->
@@ -1352,7 +1649,6 @@
                 'grey',
                 ''
             ],
-            arrayModel: null,
             headers: [
                 {
                     text: 'Название',

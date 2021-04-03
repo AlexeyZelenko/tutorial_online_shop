@@ -79,6 +79,7 @@
                       <v-list-item>
                         <v-container
                             class="d-flex justify-start"
+                            v-if="product.arrayColor && product.arrayColor.length > 0"
                         >
                           <v-item-group mandatory>
                             <v-container>
@@ -133,11 +134,17 @@
                       <!--Модель-->
                       <v-list-item>
                         <v-container
+                            v-if="product.arrayModel && product.arrayModel.length > 0"
                             class="d-flex align-stretch mb-3"
                         >
                           <v-item-group mandatory>
                             <v-container>
-                              <span>Встроенная память : </span><span style="color: grey">{{model}} GB</span>
+                              <span>
+                                Встроенная память :
+                              </span>
+                              <span style="color: grey">
+                                {{model}} GB
+                              </span>
                               <v-row class="py-2">
                                 <v-col
                                     v-for="(n, index) in product.arrayModel"
@@ -244,7 +251,6 @@
                             style="background-color: whitesmoke"
                             class="py-2"
                         >
-<!--                          <p>{{"Descriptions" | localize}}:</p>-->
 
                           <span>Цвет : </span>
                           <v-btn
