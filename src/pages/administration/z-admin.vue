@@ -219,6 +219,9 @@
 					<template v-if="item === 'Заказы'">
 						<z-orders/>
 					</template>
+          <template v-if="item === 'Аналитика'">
+            <z-size/>
+          </template>
 				</v-tab-item>
 			</v-tabs-items>
 
@@ -1439,6 +1442,7 @@
     } from 'tiptap-vuetify'
 
     const zUsers = () => import('@/components/administration/z-users')
+    const zSize = () => import('@/components/administration/z-size')
     const zOrders = () => import('@/components/administration/z-orders')
     const Loading = () => import('vue-loading-overlay')
 
@@ -1449,6 +1453,7 @@
             TiptapVuetify,
             zUsers,
             zOrders,
+            zSize
         },
         data: () => ({
           trip: {

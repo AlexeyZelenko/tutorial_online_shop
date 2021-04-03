@@ -42,7 +42,7 @@ export const db = firebase.initializeApp({
 export const storage = firebase.storage();
 
 
-const analytics = firebase.analytics();
+export const analytics = firebase.analytics();
 
 
 
