@@ -9,6 +9,7 @@ import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/messaging'
 import 'firebase/performance'
+import 'firebase/analytics'
 import vuetify from '@/plugins/vuetify'
 import { firestorePlugin } from 'vuefire'
 import { rtdbPlugin } from 'vuefire'
@@ -39,6 +40,9 @@ export const db = firebase.initializeApp({
 }).firestore()
 
 export const storage = firebase.storage();
+
+
+const analytics = firebase.analytics();
 
 
 
