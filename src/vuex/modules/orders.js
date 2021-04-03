@@ -8,7 +8,6 @@ export default {
         async sendEmail({state}, templateParams) {
           const a = state.cartUser
           console.log(a)
-          console.log('templateParams', templateParams)
 
           await emailjs.send('service_15t08y8', 'template_s8jvt4n', templateParams, 'user_gHITX6UwAIhnOqpimFA58')
               .then(function(response) {
@@ -60,9 +59,6 @@ export default {
                     orderInfo: promises,
                     createdAt: date
                   })
-                    .then(() => {
-                        console.log('Заказ добавлен в архив')
-                    })
                   .then(() => {
                     Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
                   })
@@ -83,7 +79,6 @@ export default {
 
             }
             else {
-              console.log("Запуск создания заказа");
               await db.collection('messages')
                   .add({
                     order: promises,
@@ -93,9 +88,6 @@ export default {
                   .add({
                     order: promises,
                     createdAt: date
-                  })
-                  .then(() => {
-                    console.log('Заказ добавлен в архив')
                   })
                   .then(() => {
                     Swal.fire('В ближайшее время Вам перезвонит менеджер, чтоб уточнить способ оплаты')
