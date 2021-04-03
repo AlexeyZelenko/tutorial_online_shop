@@ -1,69 +1,63 @@
 <template>
 	<div
 			:data-index="index"
-			class="v-catalog-item"
+			class="v-catalog-item my-4"
 	>
-    <v-card
-        class="v-catalog-item mx-auto"
-        max-width="400"
-        dark
-    >
-      <v-card-subtitle class="py-4">
-        {{product_data.name}}
-      </v-card-subtitle>
-      <transition name="fade">
-        <v-img
-            v-if="product_data.arrayImages1"
-            v-show="product_data.seen"
-            class="white--text align-end brighten"
-            :src="product_data.arrayImages1[0]"
-            alt=""
-        >
-          <div>
-            <p>
-              <!--		НОВИНКА-->
-              <v-chip
-                  v-if="product_data.newProduct"
-                  class="v-catalog-item_new"
-                  style="background-color: goldenrod; color:white; max-width: 150px"
-                  text-color="white"
-              >
-                {{ "NEW" | localize}}!
-              </v-chip>
-            </p>
-          </div>
-        </v-img>
-        <div v-else>
-          <p
+    <v-card-subtitle class="py-4">
+      {{product_data.name}}
+    </v-card-subtitle>
+    <transition name="fade">
+      <v-img
+          v-if="product_data.arrayImages1"
+          v-show="product_data.seen"
+          class="white--text align-end brighten"
+          :src="product_data.arrayImages1[0]"
+          alt=""
+      >
+        <div>
+          <p>
+            <!--		НОВИНКА-->
+            <v-chip
+                v-if="product_data.newProduct"
+                class="v-catalog-item_new"
+                style="background-color: goldenrod; color:white; max-width: 150px"
+                text-color="white"
+            >
+              {{ "NEW" | localize}}!
+            </v-chip>
+          </p>
+        </div>
+      </v-img>
+      <div v-else>
+        <p
 
-              class="emptyImage"
-          >
+            class="emptyImage"
+        >
             <span
                 v-show="product_data.seen"
                 v-html="product_data.description"
             />
-          </p>
-        </div>
+        </p>
+      </div>
 
-      </transition>
-      <v-card-subtitle class="pb-0">
-        {{product_data.name}}
-      </v-card-subtitle>
+    </transition>
+    <v-card-subtitle class="pb-0">
+      {{product_data.name}}
+    </v-card-subtitle>
 
-      <v-card-actions class="mx-auto">
-        <v-btn
-            class="mx-auto"
-            bottom
-            small
-            outlined
-            color="indigo"
-            v-show="product_data.seen"
-            @click="productClick"
-        >
-          {{'Show info' | localize}}
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+    <v-card-actions class="mx-auto">
+      <v-btn
+          class="mx-auto ma-2"
+          bottom
+          small
+          outlined
+          color="indigo"
+          v-show="product_data.seen"
+          @click="productClick"
+      >
+        {{'Show info' | localize}}
+      </v-btn>
+    </v-card-actions>
 	</div>
 </template>
 
@@ -128,10 +122,12 @@
 		z-index: 1;
 		margin-left: 1px;
     color: #00BFA5;
-    opacity: 0.9;
+    background: rgba(0, 0, 0, 0.8);
+    max-width: 300px;
 
 		&_image {
 			justify-content: center;
+      opacity: 1;
 		}
 
 		&_image2 img {

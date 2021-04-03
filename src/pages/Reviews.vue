@@ -101,7 +101,7 @@
               <v-checkbox
                   v-model="checkbox"
                   :error-messages="checkboxErrors"
-                  label="Do you agree?"
+                  label="Вы уверенны?"
                   required
                   @change="$v.checkbox.$touch()"
                   @blur="$v.checkbox.$touch()"
