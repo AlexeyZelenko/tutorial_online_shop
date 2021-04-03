@@ -140,7 +140,7 @@
                           <v-item-group mandatory>
                             <v-container>
                               <span>
-                                Встроенная память :
+                                Модель :
                               </span>
                               <span style="color: grey">
                                 {{model}} GB
@@ -155,9 +155,9 @@
                                   <v-item v-slot="{ active, toggle }">
                                     <v-card
                                         :color="active ? 'primary' : ''"
-                                        class="d-flex text-center"
-                                        height="30"
-                                        width="50"
+                                        class="d-flex text-center py-1"
+                                        min-height="30"
+                                        min-width="50"
                                         @click="selectModel(index, n); toggle()"
                                     >
                                       <v-scroll-y-transition>

@@ -336,12 +336,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-select
+                                <v-combobox
                                     v-model="editedItem.arrayModel[0]"
                                     :items="fruits"
-                                    label="Выберите модель"
-                                >
-                                </v-select>
+                                    label="МОДЕЛЬ #1"
+                                    chips
+                                ></v-combobox>
                               </v-row>
                             </v-row>
 
@@ -425,12 +425,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-select
+                                <v-combobox
                                     v-model="editedItem.arrayModel[1]"
                                     :items="fruits"
-                                    label="Выберите модель"
-                                >
-                                </v-select>
+                                    label="МОДЕЛЬ #1"
+                                    chips
+                                ></v-combobox>
                               </v-row>
                             </v-row>
 
@@ -514,12 +514,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-select
+                                <v-combobox
                                     v-model="editedItem.arrayModel[2]"
                                     :items="fruits"
-                                    label="Выберите модель"
-                                >
-                                </v-select>
+                                    label="МОДЕЛЬ #1"
+                                    chips
+                                ></v-combobox>
                               </v-row>
                             </v-row>
 
@@ -603,12 +603,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-select
+                                <v-combobox
                                     v-model="editedItem.arrayModel[3]"
                                     :items="fruits"
-                                    label="Выберите модель"
-                                >
-                                </v-select>
+                                    label="МОДЕЛЬ #1"
+                                    chips
+                                ></v-combobox>
                               </v-row>
                             </v-row>
 
