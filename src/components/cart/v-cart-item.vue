@@ -12,11 +12,10 @@
       <div class="v-cart-item__info">
 
         <p>{{cart_item_data.name}}</p>
-        <p>{{'Модель'}} : {{cart_item_data.model}} GB</p>
+        <p>{{'Модель'}} : {{cart_item_data.model}}</p>
         <p>{{'Цвет'}} : {{cart_item_data.nameColorChange}}</p>
         <p>{{'Цена'}} : {{cart_item_data.price}} грн.</p>
 
-        <p>{{'тел.: +380636910177'}}</p>
 
         <p>{{'Артикль'}}: {{cart_item_data.article}}</p>
       </div>

@@ -135,7 +135,7 @@
                       <v-list-item>
                         <v-container
                             v-if="product.arrayModel && product.arrayModel.length > 0"
-                            class="d-flex align-stretch mb-3"
+                            class="d-flex justify-start mb-1"
                         >
                           <v-item-group mandatory>
                             <v-container>
@@ -143,7 +143,7 @@
                                 Модель :
                               </span>
                               <span style="color: grey">
-                                {{model}} GB
+                                {{model}}
                               </span>
                               <v-row class="py-2">
                                 <v-col
@@ -153,24 +153,25 @@
                                     md="6"
                                 >
                                   <v-item v-slot="{ active, toggle }">
-                                    <v-card
-                                        :color="active ? 'primary' : ''"
-                                        class="d-flex text-center py-1"
-                                        min-height="30"
-                                        min-width="50"
+                                    <v-container
+                                        light
+                                        class="d-flex text-center"
                                         @click="selectModel(index, n); toggle()"
                                     >
                                       <v-scroll-y-transition>
                                         <div
-                                            class="display-1 flex-grow-1 text-center ma-2"
+                                            class="display-1 flex-grow-1 text-center"
                                         >
-                                          <p
-                                              style="font-size: 14px"
-                                          >{{n}}</p>
+                                          <v-btn
+                                              :color="active ? 'primary' : ''"
+                                              style="font-size: 12px"
+                                          >
+                                            {{n}}
+                                          </v-btn>
                                         </div>
 
                                       </v-scroll-y-transition>
-                                    </v-card>
+                                    </v-container>
                                   </v-item>
                                 </v-col>
                               </v-row>
