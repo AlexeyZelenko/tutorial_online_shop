@@ -8,7 +8,6 @@
     />
     <img
       class="image__item"
-      style="height: 200px; width: 300px"
       :data-url="source"
       alt="random image"
     >
@@ -40,7 +39,7 @@
 <style scoped lang="scss">
   .image {
     &__wrapper {
-      width: 100px;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,6 +52,8 @@
             visibility: visible;
             opacity: 1;
             border: 0;
+            height: 100%;
+            width: 300px
           }
 
           &__spinner {
@@ -63,6 +64,7 @@
       }
     }
     &__item {
+      min-height: 150px;
       width: 100%;
       border-radius: 4px;
       transition: all 0.4s ease-in-out;
