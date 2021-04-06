@@ -213,9 +213,9 @@
 							</div>
 						</v-card-text>
 					</v-card>
-					<template v-if="item === 'Клиенты'">
-						<z-users/>
-					</template>
+<!--					<template v-if="item === 'Клиенты'">-->
+<!--						<z-users/>-->
+<!--					</template>-->
 					<template v-if="item === 'Заказы'">
 						<z-orders/>
 					</template>
@@ -1441,7 +1441,7 @@
         Underline
     } from 'tiptap-vuetify'
 
-    const zUsers = () => import('@/components/administration/z-users')
+    // const zUsers = () => import('@/components/administration/z-users')
     const zSize = () => import('@/components/administration/z-size')
     const zOrders = () => import('@/components/administration/z-orders')
     const Loading = () => import('vue-loading-overlay')
@@ -1451,7 +1451,7 @@
         components: {
             Loading,
             TiptapVuetify,
-            zUsers,
+            // zUsers,
             zOrders,
             zSize
         },
@@ -1501,7 +1501,8 @@
                 'Товары', 'Заказы'
             ],
             more: [
-                'Клиенты', 'Аналитика',
+                // 'Клиенты',
+              'Аналитика',
             ],
             page: 1,
             pageCount: 0,

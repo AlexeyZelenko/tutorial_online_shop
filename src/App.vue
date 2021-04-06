@@ -139,7 +139,7 @@
 
         </v-list>
 
-        <v-card-actions>
+        <v-card-actions class="pt-0">
           <v-spacer></v-spacer>
 
           <v-btn
@@ -149,6 +149,7 @@
           >
             Закрыть
           </v-btn>
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -190,6 +191,7 @@
           >
             Закрыть
           </v-btn>
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -224,6 +226,7 @@
           >
             Закрыть
           </v-btn>
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
