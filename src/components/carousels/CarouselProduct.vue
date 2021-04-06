@@ -76,15 +76,6 @@
             </v-sheet>
           </v-carousel-item>
         </v-carousel>
-<!--        <v-row justify="space-around">-->
-<!--          <v-icon @click="model&#45;&#45;">-->
-<!--            mdi-minus-->
-<!--          </v-icon>-->
-<!--          {{ model }}-->
-<!--          <v-icon @click="model++">-->
-<!--            mdi-plus-->
-<!--          </v-icon>-->
-<!--        </v-row>-->
       </v-container>
     </v-list-item>
   </v-list>

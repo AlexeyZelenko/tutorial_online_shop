@@ -6,41 +6,40 @@
     <v-card-subtitle class="py-4">
       {{product_data.name}}
     </v-card-subtitle>
-    <transition name="fade">
-      <v-img
+    <v-img>
+      <imageItem
           v-if="product_data.arrayImages1"
           v-show="product_data.seen"
-          class="white--text align-end brighten"
-          :src="product_data.arrayImages1[0]"
-          alt=""
-      >
-        <div>
-          <p>
-            <!--		НОВИНКА-->
-            <v-chip
-                v-if="product_data.newProduct"
-                class="v-catalog-item_new"
-                style="background-color: goldenrod; color:white; max-width: 150px"
-                text-color="white"
-            >
-              {{ "NEW" | localize}}!
-            </v-chip>
-          </p>
-        </div>
-      </v-img>
-      <div v-else>
-        <p
-
-            class="emptyImage"
-        >
-            <span
-                v-show="product_data.seen"
-                v-html="product_data.description"
-            />
+          style="margin: 0 auto"
+          :source="product_data.arrayImages1[0]"
+          :newProduct="product_data.newProduct"
+      />
+      <div>
+        <p>
+          <!--		НОВИНКА-->
+          <v-chip
+              v-if="product_data.newProduct"
+              class="v-catalog-item_new"
+              style="background-color: goldenrod; color:white; max-width: 150px"
+              text-color="white"
+          >
+            {{ "NEW" | localize}}!
+          </v-chip>
         </p>
       </div>
+    </v-img>
 
-    </transition>
+
+<!--    <div v-else>-->
+<!--      <p-->
+<!--          class="emptyImage"-->
+<!--      >-->
+<!--        <span-->
+<!--            v-show="product_data.seen"-->
+<!--            v-html="product_data.description"-->
+<!--        />-->
+<!--      </p>-->
+<!--    </div>-->
     <v-card-subtitle class="pb-0">
       {{product_data.name}}
     </v-card-subtitle>
@@ -62,43 +61,49 @@
 </template>
 
 <script>
-    export default {
-        name: "v-catalog-item",
-        data() {
-            return {
-                isInfoPopupVisible: false,
-                placeholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+const imageItem = () => ({
+  component: import("../../components/imageItem.vue"),
+})
+export default {
+    name: "v-catalog-item",
+    components: {
+      imageItem
+    },
+    data() {
+        return {
+            isInfoPopupVisible: false,
+            placeholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        }
+    },
+    props: {
+        product_data: {
+            type: Object,
+            default() {
+                return {}
             }
         },
-        props: {
-            product_data: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            },
-            observer: {
-                type: IntersectionObserver,
-                default() {
-                    return {}
-                }
-						},
-            index: {
-                type: Number,
-                default() {
-                    return null
-                }
-            },
+        observer: {
+            type: IntersectionObserver,
+            default() {
+                return {}
+            }
         },
-        methods: {
-            productClick() {
-                this.$emit('productClick', this.product_data.id)
-            },
+        index: {
+            type: Number,
+            default() {
+                return null
+            }
         },
-				mounted() {
-            this.observer.observe(this.$el);
-        }
+    },
+    methods: {
+        productClick() {
+            this.$emit('productClick', this.product_data.id)
+        },
+    },
+    mounted() {
+        this.observer.observe(this.$el);
     }
+}
 </script>
 
 <style lang="scss">
