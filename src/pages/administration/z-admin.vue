@@ -1572,7 +1572,7 @@
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                newProduct: true,
+                newProduct: false,
                 arrayImages1: [],
                 arrayImages2: [],
                 arrayImages3: [],
@@ -1609,7 +1609,7 @@
                 VideoClothings: false,
                 BrandName: '',
                 FotoClothes: '',
-                newProduct: true,
+                newProduct: false,
                 arrayImages2: [],
                 arrayImages3: [],
                 arrayImages4: []
@@ -2040,7 +2040,7 @@
             },
             async addLocation(addProduct) {
 
-              console.log('addProduct', addProduct)
+              // console.log('addProduct', addProduct)
 
               this.isLoading = true
 
@@ -2070,7 +2070,6 @@
                 const promisesName = []
 
                 if (File1) {
-                  console.log('File1', File1)
                     for (let i = 0; i < File1.length; i++) {
 
                         const storageRef = await firebase.storage().ref();
@@ -2106,7 +2105,6 @@
               const promisesName2 = []
 
               if (File2) {
-                console.log('File2', File2)
                 for (let i = 0; i < File2.length; i++) {
 
                   const storageRef = await firebase.storage().ref();
@@ -2141,7 +2139,6 @@
               const promisesName3 = []
 
               if (File3) {
-                console.log('File3', File3)
                 for (let i = 0; i < File3.length; i++) {
 
                   const storageRef = await firebase.storage().ref();
@@ -2176,7 +2173,6 @@
               const promisesName4 = []
 
               if (File4) {
-                console.log('File4', File4)
                 for (let i = 0; i < File4.length; i++) {
 
                   const storageRef = await firebase.storage().ref();
@@ -2206,7 +2202,6 @@
               const URLs4 = await Promise.all(promises4)
               const NameImages4 = await Promise.all(promisesName4)
 
-              console.log('category', category)
 
               let docRef = await db.collection('products2').add({
                 NameImages1: NameImages1,

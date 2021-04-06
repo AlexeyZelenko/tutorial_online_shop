@@ -567,7 +567,6 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                console.log(this.product?.nameColor[0])
                 return  this.product?.nameColor[0]
               }
               else if (this.indexColor === 1) {
