@@ -371,7 +371,7 @@
                                   <v-text-field
                                       :rules="[v => (v !== Number.NaN) || 'Введите число!']"
                                       label="Цена товара"
-                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      placeholder=""
                                       prepend-icon="monetization_on"
                                       required
                                       type="Number"
@@ -460,7 +460,7 @@
                                   <v-text-field
                                       :rules="[v => (v !== Number.NaN) || 'Введите число!']"
                                       label="Цена товара"
-                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      placeholder=""
                                       prepend-icon="monetization_on"
                                       required
                                       type="Number"
@@ -549,7 +549,7 @@
                                   <v-text-field
                                       :rules="[v => (v !== Number.NaN) || 'Введите число!']"
                                       label="Цена товара"
-                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      placeholder=""
                                       prepend-icon="monetization_on"
                                       required
                                       type="Number"
@@ -638,7 +638,7 @@
                                   <v-text-field
                                       :rules="[v => (v !== Number.NaN) || 'Введите число!']"
                                       label="Цена товара"
-                                      placeholder="ОБЯЗАТЕЛЬНО"
+                                      placeholder=""
                                       prepend-icon="monetization_on"
                                       required
                                       type="Number"
@@ -2035,6 +2035,8 @@
                             timer: 1500
                         })
                     })
+
+                    this.close()
             },
             async addLocation(addProduct) {
 
@@ -2248,7 +2250,10 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                this.dialog = false
+
+// Очистка полей
+                // this.dialog = false
+                  this.close()
 
             },
             getColor(price) {
