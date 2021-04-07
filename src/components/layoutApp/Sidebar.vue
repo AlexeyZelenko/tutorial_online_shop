@@ -47,9 +47,10 @@
               <v-btn
                   @click="productClick(item.id)"
                   color="primary"
-                  text
+                  rounded
+                  dark
               >
-                Подробнее >>
+                Подробнее
               </v-btn>
             </div>
 
@@ -58,7 +59,16 @@
                 :src="item.arrayImages1[0]"
                 style="max-height: 400px"
             >
+
+            <div class="text-center">
+              <span
+                  class="name_item_price"
+              >
+              {{ item.price[0] }} грн
+            </span>
+            </div>
           </div>
+
         </v-row>
       </v-sheet>
     </v-carousel-item>
@@ -113,10 +123,17 @@ export default {
 .name_item_sidebar {
   color: black
 }
+.name_item_price {
+  color: grey;
+  font-size: 36px;
+}
 @media (max-width: 570px) {
   .v-carousel {margin-top: 40px}
   .name_item_sidebar {
     font-size: 36px;
+  }
+  .name_item_price {
+    font-size: 24px;
   }
 }
 

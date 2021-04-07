@@ -40,8 +40,6 @@ export const db = firebase.initializeApp({
 }).firestore()
 
 export const storage = firebase.storage();
-
-
 export const analytics = firebase.analytics();
 
 
