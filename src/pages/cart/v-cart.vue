@@ -4,7 +4,7 @@
 			<v-btn
 					:to="{name: 'catalog'}"
 					block
-					style="background-color: green; color: whitesmoke"
+					style="background-color: black; color: whitesmoke"
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
@@ -15,7 +15,7 @@
 					@click="userOrder"
 					dark
 					rounded
-					style="background-color: #31c375; margin-bottom: 10px"
+					style="background-color: darkslategrey; margin-bottom: 10px"
 			>
 				Заказать
 			</v-btn>
@@ -186,7 +186,7 @@
 			padding: $padding*2 $padding*3;
 			display: flex;
 			justify-content: center;
-			background: $green-bg;
+			background: black;
 			color: #ffffff;
 			font-size: 20px;
 		}

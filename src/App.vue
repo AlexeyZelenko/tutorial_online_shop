@@ -47,12 +47,26 @@
               color="blue darken-2"
               dark
               fab
-              x-large
+              class="mx-4"
           >
             <v-icon v-if="fab">
               mdi-close
             </v-icon>
-            <span class="caption"  v-else>Контакты</span>
+            <div
+                v-else
+                style="font-size: 10px"
+            >
+              <div
+
+              >
+              Кнопка
+            </div>
+              <div
+              >
+              связи
+            </div>
+            </div>
+
 <!--            <v-icon v-else>-->
 <!--              mdi-phone-->
 <!--            </v-icon>-->
@@ -325,17 +339,12 @@
 
   /*кнопка корзины*/
   .callback-bt2 {
-    border-radius:50%;
-    box-shadow:0 8px 10px rgba(56,163,253,0.3);
     cursor:pointer;
-    height:55px;
     text-align:center;
-    width:55px;
     position: fixed;
-    right: 25px;
+    right: 5%;
     bottom: 10%;
     z-index:999;
-    transition:.5s;
   }
  .caption span {
     font-size: 10px;

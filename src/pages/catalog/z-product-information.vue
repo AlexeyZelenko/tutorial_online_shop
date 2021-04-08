@@ -6,18 +6,18 @@
           class="main-color-btn"
 					:to="{name: 'catalog'}"
 					block
-					style="background-color: black; color: #ecfcf0; margin-bottom: 19px"
+					style="background-color: black; color: #ecfcf0"
 			>
 				<v-icon dark left>mdi-arrow-left</v-icon>Каталог товаров
 			</v-btn>
 		</template>
 
     <v-card>
-      <v-card-subtitle
-          style="color: #26C6DA"
-      >
-        {{nameBrand}} > {{product.category}} > {{product.name}}
-      </v-card-subtitle>
+<!--      <v-card-subtitle-->
+<!--          style="color: #26C6DA"-->
+<!--      >-->
+<!--        {{nameBrand}} > {{product.category}} > {{product.name}}-->
+<!--      </v-card-subtitle>-->
       <v-toolbar
           max-height="100"
           flat
@@ -263,6 +263,7 @@
                     </v-list-item>
 
                     <img
+                        v-if="nameBrand === 'Apple'"
                         style="height: 50px"
                         src="@/assets/images/authorised.png"
                         alt=""
@@ -348,9 +349,7 @@
               max-width="375"
           >
             <v-card-title>
-              <div class="display-1 pl-12 pt-12">
-                Наши контакты:
-              </div>
+              <div class="display-1 pl-12 pt-12" v-text="Our_contacts"></div>
             </v-card-title>
 
             <v-list two-line>
@@ -435,7 +434,7 @@
             color="red"
             text
             v-bind="attrs"
-            @click="snackbar = false"
+            @click="snackbar2 = false"
         >
           Закрыть
         </v-btn>
@@ -455,6 +454,7 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          Our_contacts: 'Контакты:',
           loading: false,
           snackbar: false,
           snackbar2: false,
@@ -649,20 +649,28 @@
   margin: 0 0 16px 16px;
 }
 .name_card_title {
+  margin: $padding*2;
   font-size: 36px
 }
 .z-product-information {
   flex-basis: 25%;
   box-shadow: 0 0 8px 0 #e0e0e0;
-  padding: $padding*2;
-  margin-bottom: $margin*2;
+  padding: 0 $padding*2 0 $padding*2;
+  //margin-bottom: $margin*2;
 }
-@media(max-width: 700px) {
+@media(max-width: 720px) {
   .nameTab {
     font-size: 10px
   }
   .name_card_title {
+    margin: $padding*2;
     font-size: 18px
+  }
+  .z-product-information {
+    flex-basis: 25%;
+    box-shadow: 0 0 8px 0 #e0e0e0;
+    padding: 0;
+    //margin-bottom: $margin*2;
   }
 }
 </style>

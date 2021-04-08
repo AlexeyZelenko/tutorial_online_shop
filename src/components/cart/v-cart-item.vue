@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-12"
+  <v-card class="mx-auto"
           max-width="900"
   >
     <div class="v-cart-item">
@@ -11,47 +11,79 @@
       >
       <div class="v-cart-item__info">
 
-        <p>{{cart_item_data.name}}</p>
-        <p>{{'Модель'}} : {{cart_item_data.model}}</p>
-        <p>{{'Цвет'}} : {{cart_item_data.nameColorChange}}</p>
-        <p>{{'Цена'}} : {{cart_item_data.price}} грн.</p>
+        <p style="color: #6d1cb9"><strong>{{cart_item_data.name}} - {{cart_item_data.model}}</strong></p>
 
+        <p>{{'Цвет'}} : {{cart_item_data.nameColorChange}}</p>
 
         <p>{{'Артикль'}}: {{cart_item_data.article}}</p>
+
+        <div class="v-cart-item__quantity2">
+          <!--        <p>{{'Qty:' | localize}}</p>-->
+          <div
+              class="text-center"
+          >
+          <span><v-btn
+              @click.stop="decrementItem"
+              :loading="loading5"
+              :disabled="loading5"
+              fab
+              x-small
+          >
+            <v-icon dark>mdi-minus</v-icon>
+          </v-btn></span>
+            <span class="px-4">{{quantity}}</span>
+            <span><v-btn
+                @click.prevent="incrementItem"
+                :loading="loading4"
+                :disabled="loading4"
+                fab
+                x-small
+            >
+            <v-icon dark>mdi-plus</v-icon>
+          </v-btn></span>
+
+          </div>
+
+
+        </div>
       </div>
 
       <!--		КОЛИЧЕСТВО-->
       <div class="v-cart-item__quantity">
-        <p>{{'Qty:' | localize}}</p>
-        <div class="text-center">
-          <v-btn
+<!--        <p>{{'Qty:' | localize}}</p>-->
+        <div
+            class="text-center"
+        >
+          <span><v-btn
               @click.stop="decrementItem"
               :loading="loading5"
               :disabled="loading5"
-              class="mx-2"
               fab
-              small
-              style="color: black; background-color: palegreen"
+              x-small
           >
             <v-icon dark>mdi-minus</v-icon>
-          </v-btn>
-          <div>{{quantity}}</div>
-          <v-btn
+          </v-btn></span>
+          <span class="px-4">{{quantity}}</span>
+          <span><v-btn
               @click.prevent="incrementItem"
               :loading="loading4"
               :disabled="loading4"
-              class="mx-2"
               fab
-              small
-              style="color: black; background-color: palegreen"
+              x-small
           >
             <v-icon dark>mdi-plus</v-icon>
-          </v-btn>
+          </v-btn></span>
+
         </div>
 
 
       </div>
+
+      <h5>{{cart_item_data.price}} грн.</h5>
+
       <v-btn
+          fab
+          small
           depressed
           @click="deleteFromCart"
           :loading="loading"
@@ -143,13 +175,37 @@
 		margin-bottom: $margin*2;
 
 		&__image {
-			max-width: 50px;
+			max-width: 100px;
 		}
+    &__quantity {
+      position: relative;
+      text-align: center;
+      border: .0625rem solid rgb(238 238 238);
+      border-radius: 1.875rem;
+      margin: 5px;
+      display: block;
+    }
+    &__quantity2 {
+      position: relative;
+      text-align: center;
+      margin: 5px;
+      display: none;
+    }
 	}
 	.custom-loader {
 		animation: loader 1s infinite;
 		display: flex;
 	}
+
+  @media (max-width: 560px) {
+    .v-cart-item__quantity{
+      display: none
+    }
+    .v-cart-item__quantity2{
+      display: block
+    }
+  }
+
 	@-moz-keyframes loader {
 		from {
 			transform: rotate(0);
