@@ -65,7 +65,6 @@
                 >
                   <v-container
                       class="mx-auto"
-                      tile
                   >
                     <v-list
                         class="transparent"
@@ -153,7 +152,7 @@
                       <v-list-item>
                         <v-container
                             v-if="product.arrayModel && product.arrayModel.length > 0"
-                            class="d-flex justify-start mb-1"
+                            class="d-flex justify-start"
                         >
                           <v-item-group mandatory>
                             <v-container>
@@ -201,7 +200,7 @@
                       <!--                      Наличие товара-->
                       <v-list-item>
                         <v-container
-                            class="d-flex align-stretch mb-3"
+                            class="d-flex align-stretch"
                         >
                           <v-btn
                               v-if="product.presence"
@@ -606,7 +605,7 @@
             },
             arrayImagesViews () {
               if (this.indexColor === 0) {
-                return this.product.arrayImages1;
+                return  this.product.arrayImages1 && this.product.arrayImages1.length > 0 ? this.product.arrayImages1 : []
               }
               else if (this.indexColor === 1) {
                 return this.product.arrayImages2
