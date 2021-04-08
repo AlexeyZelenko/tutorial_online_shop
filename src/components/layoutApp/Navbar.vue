@@ -399,7 +399,7 @@
               nameBrand: 'Samsung'
             },
             {
-              text: 'Watch',
+              text: 'watch',
               figure: 'watch_samsung',
               nameBrand: 'Samsung'
             },

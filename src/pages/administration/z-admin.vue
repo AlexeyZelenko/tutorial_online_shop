@@ -1633,7 +1633,7 @@
               },
               {
                 name: 'Samsung',
-                arrayCategory: ['Phone', 'Наушники', 'Watch', 'Аксессуары']
+                arrayCategory: ['Phone', 'Наушники', 'watch', 'Аксессуары']
               },
 
             ],

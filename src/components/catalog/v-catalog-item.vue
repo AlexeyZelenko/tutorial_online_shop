@@ -41,6 +41,12 @@
 <!--        />-->
 <!--      </p>-->
 <!--    </div>-->
+    <v-card-subtitle
+        style="color: white"
+        class="pb-0"
+    >
+      {{product_data.price[0]}} грн
+    </v-card-subtitle>
     <v-card-subtitle class="pb-0">
       {{product_data.name}}
     </v-card-subtitle>
