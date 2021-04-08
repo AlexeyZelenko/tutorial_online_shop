@@ -66,90 +66,95 @@
                   <v-container
                       class="mx-auto"
                   >
-                    <v-list
-                        class="transparent"
-                    >
-                      <!--Цвета-->
-                      <v-list-item>
-                        <v-container
-                            class="d-flex justify-start"
-                            v-if="product.arrayColor && product.arrayColor.length > 0"
-                        >
-                          <v-item-group>
-                            <v-container>
-                              <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
-                              <v-row class="py-3">
-                                <v-col
-                                    v-for="(n, index) in product.arrayColor"
-                                    :key="index"
-                                    cols="3"
-                                    class="px-2"
-                                >
-                                  <v-item
-                                      class="mr-3"
-                                      v-slot="{ active, toggle }"
+                    <v-row align-start>
+                      <v-col
+                          cols="12"
+                          md="6"
+                      >
+                        <!--Цвета-->
+                        <v-list-item>
+                          <v-container
+                              class="d-flex justify-start"
+                              v-if="product.arrayColor && product.arrayColor.length > 0"
+                          >
+                            <v-item-group>
+                              <v-container>
+                                <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
+                                <v-row class="py-3">
+                                  <v-col
+                                      v-for="(n, index) in product.arrayColor"
+                                      :key="index"
+                                      cols="3"
+                                      class="px-2"
                                   >
-                                    <v-container left>
-                                      <v-btn
-                                          @click="selectColor(index, n); toggle()"
-                                          :color="n"
-                                          class="mx-12"
-                                          dark
-                                          icon
-                                      >
-                                        <v-scroll-y-transition>
-                                          <div
-                                              v-if="active"
-                                              class="display-1 flex-grow-1 text-center"
+                                    <v-item
+                                        class="mr-3"
+                                        v-slot="{ active, toggle }"
+                                    >
+                                      <v-container left>
+                                        <v-btn
+                                            @click="selectColor(index, n); toggle()"
+                                            :color="n"
+                                            class="mx-12"
+                                            dark
+                                            icon
+                                        >
+                                          <v-scroll-y-transition>
+                                            <div
+                                                v-if="active"
+                                                class="display-1 flex-grow-1 text-center"
+                                            >
+                                              <v-icon
+                                                  v-if="nameBrand === 'Apple'"
+                                                  style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
+                                              >
+                                                {{ active ? 'mdi-leaf' : '' }}
+                                              </v-icon>
+                                              <v-icon
+                                                  v-else
+                                                  style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
+                                              >
+                                                {{ active ? 'mdi-check' : '' }}
+                                              </v-icon>
+                                            </div>
+                                          </v-scroll-y-transition>
+                                          <v-icon
+                                              v-if="nameBrand === 'Apple'"
+                                              style="text-shadow: 1px 2px 10px #373434"
+                                              size="36px"
                                           >
-                                            <v-icon
-                                                v-if="nameBrand === 'Apple'"
-                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
-                                            >
-                                              {{ active ? 'mdi-leaf' : '' }}
-                                            </v-icon>
-                                            <v-icon
-                                                v-else
-                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
-                                            >
-                                              {{ active ? 'mdi-check' : '' }}
-                                            </v-icon>
-                                          </div>
-                                        </v-scroll-y-transition>
-                                        <v-icon
-                                            v-if="nameBrand === 'Apple'"
-                                            style="text-shadow: 1px 2px 10px #373434"
-                                            size="36px"
-                                        >
-                                          mdi-apple
-                                        </v-icon>
-                                        <v-icon
-                                            v-else-if="nameBrand === 'Google'"
-                                            style="text-shadow: 1px 2px 10px #373434"
-                                            size="36px"
-                                        >
-                                          mdi-google
-                                        </v-icon>
-                                        <v-icon
-                                            v-else
-                                            style="text-shadow: 1px 2px 10px #373434"
-                                            size="36px"
-                                        >
-                                          mdi-opacity
-                                        </v-icon>
-                                      </v-btn>
-                                    </v-container>
+                                            mdi-apple
+                                          </v-icon>
+                                          <v-icon
+                                              v-else-if="nameBrand === 'Google'"
+                                              style="text-shadow: 1px 2px 10px #373434"
+                                              size="36px"
+                                          >
+                                            mdi-google
+                                          </v-icon>
+                                          <v-icon
+                                              v-else
+                                              style="text-shadow: 1px 2px 10px #373434"
+                                              size="36px"
+                                          >
+                                            mdi-opacity
+                                          </v-icon>
+                                        </v-btn>
+                                      </v-container>
 
-                                  </v-item>
-                                </v-col>
-                              </v-row >
-                            </v-container>
-                          </v-item-group>
-                        </v-container>
-                      </v-list-item>
-
-                      <!--Модель-->
-                      <v-list-item>
+                                    </v-item>
+                                  </v-col>
+                                </v-row >
+                              </v-container>
+                            </v-item-group>
+                          </v-container>
+                        </v-list-item>
+                    </v-col>
+                      <v-col
+                          cols="12"
+                          md="6"
+                      >
+                        <!--Модель-->
                         <v-container
                             v-if="product.arrayModel && product.arrayModel.length > 0"
                             class="d-flex justify-start"
@@ -195,7 +200,11 @@
                             </v-container>
                           </v-item-group>
                         </v-container>
-                      </v-list-item>
+                      </v-col>
+                    </v-row>
+                    <v-list
+                        class="transparent" >
+
 
                       <!--                      Наличие товара-->
                       <v-list-item>
