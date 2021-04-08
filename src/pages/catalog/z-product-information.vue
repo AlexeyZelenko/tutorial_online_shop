@@ -13,11 +13,6 @@
 		</template>
 
     <v-card>
-<!--      <v-card-subtitle-->
-<!--          style="color: #26C6DA"-->
-<!--      >-->
-<!--        {{nameBrand}} > {{product.category}} > {{product.name}}-->
-<!--      </v-card-subtitle>-->
       <v-toolbar
           max-height="100"
           flat
@@ -327,6 +322,11 @@
                     >
                       {{'Add to cart' | localize}}
                     </button>
+<!--                    <div class="btn-wrapper">-->
+<!--                      <button class="btn btn1">В корзину</button>-->
+<!--                      <button class="btn btn2">В корзину</button>-->
+<!--                      <button class="btn btn3">В корзину</button>-->
+<!--                    </div>-->
                   </v-container>
                 </v-col>
               </v-row>
@@ -644,6 +644,7 @@
 </script>
 
 <style lang="scss" scoped>
+
 #lateral .v-btn--example {
   bottom: 0;
   position: absolute;
@@ -659,6 +660,71 @@
   padding: 0 $padding*2 0 $padding*2;
   //margin-bottom: $margin*2;
 }
+
+//Кнопка
+.btn-wrapper {
+  display: flex;
+  margin: 50px 0;
+}
+
+.btn {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 30px 0 40px;
+  margin: 0 20px;
+  background: linear-gradient(-135deg, #066d52, #040404);
+  box-shadow: 0 15px 35px #22265b;
+  border-width: 0;
+  border-radius: 50px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 14px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn:before {
+  content: url("https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2Fplus-thick%20(1).png?alt=media&token=a3abda39-b5f5-483b-b495-1cb623099d00");
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: white;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  background: transparent;
+  transition: .3s ease-in-out;
+}
+
+.btn:hover:before {
+  background: white;
+  color: #24D8F7;
+  content: url("https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2Fcart-outline%20(1).png?alt=media&token=828ae469-0924-4403-a29b-df9f43650e1b");
+
+}
+
+@media (max-width: 767px) {
+  .btn-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    margin-bottom: 30px;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-wrapper {
+    justify-content: center;
+  }
+}
+
+
 @media(max-width: 720px) {
   .nameTab {
     font-size: 10px
