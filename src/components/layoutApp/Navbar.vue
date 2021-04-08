@@ -442,6 +442,7 @@
         } catch (e) {
           console.log('Ошибка сортировки')
         }
+        this.closeNav()
       },
       onElementObserved(entries) {
         entries.forEach(({target, isIntersecting}) => {

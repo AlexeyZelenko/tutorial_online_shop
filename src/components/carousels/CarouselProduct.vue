@@ -2,6 +2,7 @@
   <v-list class="transparent">
     <v-list-item>
       <div
+          class="carousel_vertical"
           style="width: 70px"
       >
         <v-tabs
@@ -31,6 +32,7 @@
             height="400"
             hide-delimiter-background
             show-arrows-on-hover
+            hide-delimiters
         >
           <!--                    <template v-slot:prev="{ on, attrs }">-->
           <!--                      <v-btn-->
@@ -77,7 +79,32 @@
           </v-carousel-item>
         </v-carousel>
       </v-container>
+
     </v-list-item>
+
+    <v-list-item>
+      <v-container
+          class="carousel_horizontal"
+      >
+        <v-tabs
+            show-arrows
+        >
+          <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
+          <v-tab
+              v-for="(item, i) in arrayImagesViews"
+              :key="i"
+          >
+            <img
+                style="width: 40px"
+                :src=item
+                alt=""
+                @click="selectSlide(i)"
+            >
+          </v-tab>
+        </v-tabs>
+      </v-container>
+    </v-list-item>
+
   </v-list>
 
 </template>
@@ -117,3 +144,21 @@ export default {
   }
 }
 </script>
+
+<style>
+ .carousel_vertical {
+   display: block;
+ }
+ .carousel_horizontal {
+   display: none;
+ }
+
+ @media (max-width: 570px) {
+   .carousel_vertical {
+     display: none;
+   }
+   .carousel_horizontal {
+     display: block;
+   }
+ }
+</style>

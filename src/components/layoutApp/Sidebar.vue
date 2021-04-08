@@ -3,6 +3,7 @@
       cycle
       height="700"
       hide-delimiter-background
+      hide-delimiters
       show-arrows-on-hover
       class="v-carousel"
   >
@@ -121,6 +122,7 @@ export default {
   margin-top: 140px
 }
 .name_item_sidebar {
+  padding: 10px;
   color: black
 }
 .name_item_price {
