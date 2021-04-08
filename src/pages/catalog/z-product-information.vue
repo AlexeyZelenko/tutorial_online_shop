@@ -81,17 +81,18 @@
                             class="d-flex justify-start"
                             v-if="product.arrayColor && product.arrayColor.length > 0"
                         >
-                          <v-item-group mandatory>
+                          <v-item-group>
                             <v-container>
                               <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
                               <v-row class="py-3">
                                 <v-col
                                     v-for="(n, index) in product.arrayColor"
                                     :key="index"
-                                    cols="2"
+                                    cols="3"
+                                    class="px-2"
                                 >
                                   <v-item
-                                      class="mx-1"
+                                      class="mr-3"
                                       v-slot="{ active, toggle }"
                                   >
                                     <v-container left>
@@ -541,7 +542,7 @@
             },
             model() {
               if (this.indexModel === 0) {
-                return this.product.arrayModel[0];
+                return  this.product?.arrayModel && this.product?.arrayModel.length > 0 ? this.product?.arrayModel[0] : ''
               }
               else if (this.indexModel === 1) {
                 return this.product.arrayModel[1]
@@ -557,7 +558,7 @@
             },
             price() {
               if (this.indexModel === 0) {
-                return this.product.price[0];
+                return  this.product.price && this.product.price.length > 0 ? this.product?.price[0] : ''
               }
               else if (this.indexModel === 1) {
                 return this.product.price[1]
@@ -573,7 +574,7 @@
             },
             price2() {
               if (this.indexModel === 0) {
-                return this.product.price2[0];
+                return  this.product.price && this.product.price.length > 0 ? this.product?.price2[0] : ''
               }
               else if (this.indexModel === 1) {
                 return this.product.price2[1]
@@ -589,7 +590,7 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                return  this.indexColor && this.indexColor.length > 0 ? this.product?.nameColor[0] : ''
+                return  this.product && this.product.length > 0 ? this.product?.nameColor[0] : ''
               }
               else if (this.indexColor === 1) {
                 return this.product.nameColor[1]

@@ -30,17 +30,6 @@
       </div>
     </v-img>
 
-
-<!--    <div v-else>-->
-<!--      <p-->
-<!--          class="emptyImage"-->
-<!--      >-->
-<!--        <span-->
-<!--            v-show="product_data.seen"-->
-<!--            v-html="product_data.description"-->
-<!--        />-->
-<!--      </p>-->
-<!--    </div>-->
     <v-card-subtitle
         style="color: white"
         class="pb-0"

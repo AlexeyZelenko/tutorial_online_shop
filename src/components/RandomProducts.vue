@@ -1,7 +1,15 @@
 <template>
-  <v-card class="my-2">
-    <h5 class="py-2">Вам может понравиться:</h5>
+  <v-card
+      dark
+      class="my-2"
+  >
+    <h5
+        class="py-2"
+    >
+      Вам может понравиться:
+    </h5>
     <v-sheet
+        dark
         class="mx-auto"
         elevation="8"
     >
@@ -17,7 +25,7 @@
             v-slot="{ active, toggle }"
         >
           <v-card
-              :color="active ? 'grey lighten-1' : 'white'"
+              :color="active ? 'darkcyan' : 'black'"
               class="ma-4"
               height="250"
               width="150"

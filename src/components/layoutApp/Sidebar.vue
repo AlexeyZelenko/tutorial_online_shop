@@ -55,11 +55,11 @@
               </v-btn>
             </div>
 
-            <img
-                alt=""
-                :src="item.arrayImages1[0]"
-                style="max-height: 400px"
-            >
+            <imageItem
+                v-if="item.arrayImages1"
+                style="margin: 0 auto; max-height: 400px"
+                :source="item.arrayImages1[0]"
+            />
 
             <div class="text-center">
               <span
@@ -78,6 +78,9 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+const imageItem = () => ({
+  component: import("../../components/imageItem.vue"),
+})
 
 export default {
   data() {
@@ -96,6 +99,9 @@ export default {
           '#ecfcf0'
       ]
     }
+  },
+  components: {
+    imageItem
   },
   methods: {
     ...mapActions([
