@@ -108,17 +108,39 @@
                                               class="display-1 flex-grow-1 text-center"
                                           >
                                             <v-icon
+                                                v-if="nameBrand === 'Apple'"
                                                 style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
                                             >
                                               {{ active ? 'mdi-leaf' : '' }}
                                             </v-icon>
+                                            <v-icon
+                                                v-else
+                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
+                                            >
+                                              {{ active ? 'mdi-check' : '' }}
+                                            </v-icon>
                                           </div>
                                         </v-scroll-y-transition>
                                         <v-icon
+                                            v-if="nameBrand === 'Apple'"
                                             style="text-shadow: 1px 2px 10px #373434"
                                             size="36px"
                                         >
                                           mdi-apple
+                                        </v-icon>
+                                        <v-icon
+                                            v-else-if="nameBrand === 'Google'"
+                                            style="text-shadow: 1px 2px 10px #373434"
+                                            size="36px"
+                                        >
+                                          mdi-google
+                                        </v-icon>
+                                        <v-icon
+                                            v-else
+                                            style="text-shadow: 1px 2px 10px #373434"
+                                            size="36px"
+                                        >
+                                          mdi-opacity
                                         </v-icon>
                                       </v-btn>
                                     </v-container>
@@ -512,7 +534,7 @@
         },
         computed: {
             ...mapGetters([
-                'GET_PRODUCT_FROM_DB'
+                'GET_PRODUCT_FROM_DB',
             ]),
             nameBrand() {
                 return this.product?.BrandName?.name
@@ -567,7 +589,7 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                return  this.product?.nameColor[0]
+                return  this.indexColor && this.indexColor.length > 0 ? this.product?.nameColor[0] : ''
               }
               else if (this.indexColor === 1) {
                 return this.product.nameColor[1]
