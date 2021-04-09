@@ -29,7 +29,7 @@
                 <img
                     alt=""
                     :src="item"
-                    style="max-height: 600px"
+                    style="max-height: 500px"
                 >
               </div>
             </v-row>

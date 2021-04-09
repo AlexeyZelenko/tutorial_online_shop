@@ -315,11 +315,6 @@
                     >
                       {{'Add to cart' | localize}}
                     </button>
-<!--                    <div class="btn-wrapper">-->
-<!--                      <button class="btn btn1">В корзину</button>-->
-<!--                      <button class="btn btn2">В корзину</button>-->
-<!--                      <button class="btn btn3">В корзину</button>-->
-<!--                    </div>-->
                   </v-container>
                 </v-col>
               </v-row>
@@ -643,7 +638,7 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                return  this.product.nameColor && this.product.nameColor.length > 0 ? this.product?.nameColor[0] : ''
+                return  this.product.nameColor && this.product.nameColor.length > 0 ? this.product.nameColor[0] : ''
               }
               else if (this.indexColor === 1) {
                 return this.product.nameColor[1]
