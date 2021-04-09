@@ -28,7 +28,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
-              Оставить коментарий
+              Оставить отзыв
             </v-btn>
           </template>
           <template v-slot:default="dialog">
@@ -36,7 +36,7 @@
               <v-toolbar
                   color="primary"
                   dark
-              >Ваш коментарий</v-toolbar>
+              >Ваш отзыв</v-toolbar>
 
               <v-card
                   style="padding: 20px;"
