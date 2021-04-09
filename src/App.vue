@@ -9,7 +9,7 @@
         type="button"
         class="callback-bt"
     >
-      <div class="text-call">
+      <div class="icon">
         <v-badge
             class="badge"
             :content="GET_CART_USER.length"
@@ -343,7 +343,7 @@
     text-align:center;
     position: fixed;
     right: 5%;
-    bottom: 10%;
+    bottom: 5%;
     z-index:999;
   }
  .caption span {
@@ -368,28 +368,29 @@
     animation:hoverWave linear 1s infinite;
   }
 
-  .callback-bt .text-call{
+  .callback-bt .icon{
     height:68px;
     width:68px;
+    text-align:center;
     border-radius:50%;
     position:relative;
     overflow:hidden;
   }
 
-  .callback-bt .text-call .badge {
+  .callback-bt .icon .badge {
     opacity: 1;
     top: 20px;
     right: 4px;
   }
-  .callback-bt .text-call .badge .icon_badge{
+  .callback-bt .icon .badge .icon_badge{
     opacity: 1;
   }
 
 
-  .callback-bt .text-call p {
+  .callback-bt .icon p {
     opacity: 0;
   }
-  .callback-bt .text-call:hover p{
+  .callback-bt .icon:hover p{
     opacity: 1;
     font-size: 10px;
     text-align: center;
@@ -404,7 +405,7 @@
     font-family: 'montserrat', Arial, Helvetica, sans-serif;
   }
 
-  .callback-bt .text-call:hover .badge {
+  .callback-bt .icon:hover .badge {
     opacity: 0;
   }
 
