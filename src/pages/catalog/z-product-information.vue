@@ -598,7 +598,7 @@
             },
             nameColorChange () {
               if (this.indexColor === 0) {
-                return  this.product && this.product.length > 0 ? this.product?.nameColor[0] : ''
+                return  this.product.nameColor && this.product.nameColor.length > 0 ? this.product?.nameColor[0] : ''
               }
               else if (this.indexColor === 1) {
                 return this.product.nameColor[1]

@@ -3,7 +3,10 @@
 			:data-index="index"
 			class="v-catalog-item my-4 mx-2"
 	>
-    <v-card-subtitle class="py-4">
+    <v-card-subtitle
+        style="color: #00BFA5"
+        class="py-4"
+    >
       {{product_data.name}}
     </v-card-subtitle>
     <v-img v-if="product_data.arrayImages1">
@@ -47,7 +50,6 @@
         class="mx-auto"
     >
       <div
-          v-if="GET_NAME_Brand_Product === 'Samsung'"
           style="color: white"
           class="button2"
           @click="productClick"
@@ -55,18 +57,6 @@
       >
         <span>{{'Show info' | localize}}</span>
       </div>
-      <v-btn
-          v-else
-          class="mx-auto ma-2"
-          bottom
-          small
-          outlined
-          color="indigo"
-          v-show="product_data.seen"
-          @click="productClick"
-      >
-        {{'Show info' | localize}}
-      </v-btn>
 
     </v-card-actions>
 	</div>
