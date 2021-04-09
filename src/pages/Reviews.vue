@@ -12,11 +12,109 @@
       <v-icon dark left>mdi-arrow-left</v-icon>
       Каталог товаров
     </v-btn>
+
     <v-row justify="center">
       <v-col
           cols="12"
           md="6"
       >
+        <v-dialog
+            transition="dialog-bottom-transition"
+            max-width="600"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+            >
+              Оставить коментарий
+            </v-btn>
+          </template>
+          <template v-slot:default="dialog">
+            <v-card>
+              <v-toolbar
+                  color="primary"
+                  dark
+              >Ваш коментарий</v-toolbar>
+
+              <v-card
+                  style="padding: 20px;"
+              >
+                <template>
+                  <div class="text-center">
+                    <v-rating
+                        v-model="rating"
+                        background-color="yellow accent-4"
+                        color="yellow accent-4"
+                        dense
+                        hover
+                        size="20"
+                        icon-label="custom icon label text {0} of {1}"
+                    ></v-rating>
+                  </div>
+                  <form>
+                    <v-text-field
+                        v-model="name"
+                        :error-messages="nameErrors"
+                        :counter="10"
+                        label="Имя"
+                        required
+                        @input="$v.name.$touch()"
+                        @blur="$v.name.$touch()"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="email"
+                        :error-messages="emailErrors"
+                        label="E-mail"
+                        required
+                        @input="$v.email.$touch()"
+                        @blur="$v.email.$touch()"
+                    ></v-text-field>
+                    <v-divider></v-divider>
+                    <v-textarea
+                        v-model="text"
+                        label="Ваш отзыв"
+                        counter
+                        maxlength="120"
+                        full-width
+                        single-line
+                    ></v-textarea>
+                    <v-checkbox
+                        v-model="checkbox"
+                        :error-messages="checkboxErrors"
+                        label="Вы уверенны?"
+                        required
+                        @change="$v.checkbox.$touch()"
+                        @blur="$v.checkbox.$touch()"
+                    ></v-checkbox>
+                  </form>
+                </template>
+              </v-card>
+
+              <v-card-actions class="justify-end">
+                <v-btn
+                    color="success"
+                    class="mr-4"
+                    @click.prevent="submit"
+                >
+                  Оставить отзыв
+                </v-btn>
+                <v-btn
+                    class="ma-2"
+                    color="primary"
+                    @click="clear"
+                >
+                  очистить
+                </v-btn>
+                <v-btn
+                    text
+                    @click="dialog.value = false"
+                >Закрыть</v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
         <div>
           <v-timeline
               :dense="$vuetify.breakpoint.smAndDown"
@@ -235,7 +333,15 @@ export default {
 
       try {
         this.get_reviews()
-        Swal.fire('Коментарий добавлен!!!')
+
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Коментарий добавлен!!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
         this.clear()
       } catch (error) {
         Swal.fire({
