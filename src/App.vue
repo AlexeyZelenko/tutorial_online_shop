@@ -6,7 +6,6 @@
     <!--  Кнопка корзина-->
     <div
         @click="goToCard"
-        type="button"
         class="callback-bt"
     >
       <div class="icon">
@@ -32,7 +31,6 @@
 
     <!--  Кнопка обратной связи-->
     <div
-        type="button"
         class="callback-bt2"
     >
       <v-speed-dial
@@ -333,7 +331,8 @@
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
 		color: #2c3e50;
-    background: $main-color;
+    background: black;
+    //background: $main-color;
 	}
 
 
@@ -344,7 +343,6 @@
     position: fixed;
     right: 5%;
     bottom: 5%;
-    z-index:999;
   }
  .caption span {
     font-size: 10px;
@@ -365,6 +363,7 @@
     z-index:999;
     transition:.5s;
     -webkit-animation:hoverWave linear 1s infinite;
+    -moz-animation: hoverWave linear 1s infinite;
     animation:hoverWave linear 1s infinite;
   }
 
