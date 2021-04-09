@@ -243,9 +243,9 @@
                               v-if="price2"
                               style="text-decoration: line-through; color: orangered"
                           >
-                            {{price2}} грн
+                            {{price2.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')}} грн
                           </h4>
-                          <h3>{{price}} грн</h3>
+                          <h3>{{price.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')}} грн</h3>
                         </v-card>
 
                       </v-list-item-content>

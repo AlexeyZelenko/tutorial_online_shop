@@ -39,12 +39,15 @@
           <div
               class="display-3"
           >
-            <span
-                class="name_item_sidebar"
-            >
+            <div class="mx-6 px-4">
+              <span
+                  class="name_item_sidebar"
+              >
               {{ item.name }}
             </span>
-            <div class="text-center">
+            </div>
+
+            <div class="text-center mt-6">
 
               <div id="container">
                 <button class="learn-more">
@@ -72,7 +75,7 @@
               <span
                   class="name_item_price"
               >
-              {{ item.price[0] }} грн
+              {{ item.price[0].replace(/(\d)(?=(\d{3})+$)/g, '$1 ') }} грн
             </span>
             </div>
           </div>
@@ -135,14 +138,13 @@ export default {
   margin-top: 140px
 }
 .name_item_sidebar {
-  padding: 10px;
   color: black
 }
 .name_item_price {
   color: grey;
   font-size: 36px;
 }
-@media (max-width: 570px) {
+@media (max-width: 750px) {
   .v-carousel {margin-top: 40px}
   .name_item_sidebar {
     font-size: 36px;

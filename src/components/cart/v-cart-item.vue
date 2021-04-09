@@ -79,7 +79,7 @@
 
       </div>
 
-      <h5>{{cart_item_data.price}} грн.</h5>
+      <h5>{{cart_item_data.price.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')}} грн.</h5>
 
       <v-btn
           fab

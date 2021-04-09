@@ -15,9 +15,8 @@
     >
       <v-slide-group
           v-model="model"
-          class="pa-4"
+          class="pa-2"
           center-active
-          show-arrows
       >
         <v-slide-item
             v-for="item in RANDOM_PRODUCTS"
@@ -26,7 +25,7 @@
         >
           <v-card
               :color="active ? 'darkcyan' : 'black'"
-              class="ma-4"
+              class="ma-2"
               height="250"
               width="150"
               @click="toggle"
@@ -91,5 +90,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

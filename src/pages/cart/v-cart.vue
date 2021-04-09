@@ -70,7 +70,7 @@
 
         },
         cartTotalCost() {
-                return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
+              return  this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
         },
         created() {
