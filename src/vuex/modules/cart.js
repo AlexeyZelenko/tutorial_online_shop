@@ -24,6 +24,7 @@ export default {
                     .set({
                         ...user,
                           cartInfo: [...user.cartInfo, {
+                          id: payload.id,
                           article: payload.article,
                           nameColorChange: payload.nameColorChange,
                           model: payload.model,
@@ -183,9 +184,10 @@ export default {
                   ...user,
                   cartInfo: [...user.cartInfo]
                 })
+            await commit('DECREMENT_CART', item)
           }
-            else{
-              commit('DECREMENT_CART', item)
+          else{
+              await commit('DECREMENT_CART', item)
           }
         },
     }

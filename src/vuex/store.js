@@ -42,10 +42,11 @@ getters,
 
 mutations: {
       ...vuexfireMutations,
-      DECREMENT_CART: (state, item ) => {
-        const index = state.cartUser.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
+      DECREMENT_CART: async (state, item ) => {
+        console.log('-1')
+        const index = await state.cartUser.findIndex(n => n.arrayImagesViews === item.arrayImagesViews);
         if (index !== -1) {
-          state.cartUser.splice(index, 1);
+          await state.cartUser.splice(index, 1);
         }
       },
       INCREMENT_CART: (state, item ) => {

@@ -161,42 +161,27 @@
                         >
                           <v-item-group mandatory>
                             <v-container>
-                              <span>
-                                Модель :
-                              </span>
-                              <span style="color: grey">
-                                {{model}}
-                              </span>
-                              <v-row class="py-2">
-                                <v-col
-                                    v-for="(n, index) in product.arrayModel"
-                                    :key="index"
-                                    cols="6"
-                                    md="6"
+                              <v-list dense>
+                                <v-subheader><strong>МОДЕЛЬ :</strong></v-subheader>
+                                <v-list-item-group
+                                    v-model="selectedItem"
+                                    color="primary"
                                 >
-                                  <v-item v-slot="{ active, toggle }">
-                                    <v-container
-                                        light
-                                        class="d-flex text-center"
-                                        @click="selectModel(index, n); toggle()"
-                                    >
-                                      <v-scroll-y-transition>
-                                        <div
-                                            class="display-1 flex-grow-1 text-center"
-                                        >
-                                          <v-btn
-                                              :color="active ? 'primary' : ''"
-                                              style="font-size: 12px"
-                                          >
-                                            {{n}}
-                                          </v-btn>
-                                        </div>
-
-                                      </v-scroll-y-transition>
-                                    </v-container>
-                                  </v-item>
-                                </v-col>
-                              </v-row>
+                                  <v-list-item
+                                      v-for="(n, index) in product.arrayModel"
+                                      :key="index"
+                                  >
+                                    <v-list-item-icon v-if="selectedItem === index">
+                                      <v-icon color="green">mdi-check</v-icon>
+                                    </v-list-item-icon>
+                                    <v-list-item-content @click="selectModel(index, n)">
+                                      <v-list-item-title>
+                                        {{n}}
+                                      </v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </v-list-item-group>
+                              </v-list>
                             </v-container>
                           </v-item-group>
                         </v-container>
@@ -450,6 +435,57 @@
       </template>
     </v-snackbar>
 
+
+<!--    Диалог-вы добавили в корзину-->
+    <template>
+      <v-row justify="center">
+<!--        <v-btn-->
+<!--            color="primary"-->
+<!--            dark-->
+<!--            @click.stop="dialog = true"-->
+<!--        >-->
+<!--          Open Dialog-->
+<!--        </v-btn>-->
+
+        <v-dialog
+            v-model="dialog"
+            max-width="350"
+        >
+          <v-card>
+            <v-card-title class="headline">
+              Вы добавили  в корзину:
+            </v-card-title>
+
+            <ProductModal
+                :product_data="product"
+                :key="product.id"
+                :observer="true"
+            />
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                  outlined
+                  color="indigo"
+                  @click="dialog = false"
+              >
+                продолжить покупки
+              </v-btn>
+
+              <v-btn
+                  outlined
+                  color="teal"
+                  @click="goToCard()"
+              >
+                корзина
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </template>
+
 	</div>
 </template>
 
@@ -459,10 +495,15 @@
     const CarouselProduct = () => import('@/components/carousels/CarouselProduct')
     const CarouselProductDetails = () => import('@/components/carousels/CarouselProductDetails')
     const RandomProducts = () => import('@/components/RandomProducts')
+    const ProductModal = () => ({
+      component: import("../../components/catalog/product-modal-cart"),
+    })
 
     export default {
         name: "zProductInformation",
         data: () => ({
+          selectedItem: 0,
+          dialog: false,
           Our_contacts: 'Контакты:',
           loading: false,
           snackbar: false,
@@ -497,7 +538,8 @@
             // vCarousel,
             RandomProducts,
             CarouselProduct,
-            CarouselProductDetails
+            CarouselProductDetails,
+            ProductModal
         },
         methods: {
             ...mapActions([
@@ -506,6 +548,7 @@
                 'VIEW_CART_USER'
             ]),
             goToCard () {
+              this.dialog = false
               this.$router.push({name: 'cart'})
             },
 
@@ -520,7 +563,7 @@
               this.selectmodel = index
           },
 
-            addToCart() {
+          async addToCart() {
               if(!this.model) {
                 this.snackbar = true
               }
@@ -529,6 +572,7 @@
               }
               else {
                 const payload = {
+                  id: this.product.id,
                   name: this.product.name,
                   nameColorChange: this.nameColorChange,
                   model: this.model,
@@ -536,9 +580,10 @@
                   price: this.price,
                   arrayImagesViews: this.arrayImagesViews[0]
                 }
-                this.ADD_TO_CART(payload)
+                await this.ADD_TO_CART(payload)
               }
-              this.VIEW_CART_USER()
+              await this.VIEW_CART_USER()
+              // this.dialog = true
             },
         },
         computed: {

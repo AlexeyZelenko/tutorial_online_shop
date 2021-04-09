@@ -49,27 +49,27 @@
             ...mapGetters([
                 'GET_CART_USER'
             ]),
-            newGetCartUser() {
-              // Удаляем одинаковые значения из массива
-              // Вариант 1
-              // return Array.from(new Set(this.GET_CART_USER))
-              // Вариант2
-              // return [...new Set(this.GET_CART_USER)]
+        newGetCartUser() {
+          // Удаляем одинаковые значения из массива
+          // Вариант 1
+          // return Array.from(new Set(this.GET_CART_USER))
+          // Вариант2
+          // return [...new Set(this.GET_CART_USER)]
 
-              // Удаляем одинаковые объекты из массива
-              // Вариант1
-              // return this.GET_CART_USER.reduce((acc, cur) => [
-              //   ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
-              // ], []);
+          // Удаляем одинаковые объекты из массива
+          // Вариант1
+          // return this.GET_CART_USER.reduce((acc, cur) => [
+          //   ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
+          // ], []);
 
-              // Вариант2
-              return this.GET_CART_USER.filter((obj, idx, arr) => (
-                  arr.findIndex((o) => o.arrayImagesViews === obj.arrayImagesViews) === idx
-              ))
+          // Вариант2
+          return this.GET_CART_USER.filter((obj, idx, arr) => (
+              arr.findIndex((o) => o.arrayImagesViews === obj.arrayImagesViews) === idx
+          ))
 
 
-            },
-            cartTotalCost() {
+        },
+        cartTotalCost() {
                 return this.GET_CART_USER.reduce((res, item) => res + +item.price, 0)
             },
         },
