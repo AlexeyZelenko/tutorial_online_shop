@@ -44,7 +44,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 4px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
 
       &.loaded {
         .image {

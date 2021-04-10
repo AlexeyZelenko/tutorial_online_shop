@@ -343,6 +343,7 @@
     position: fixed;
     right: 5%;
     bottom: 5%;
+    z-index:999;
   }
  .caption span {
     font-size: 10px;

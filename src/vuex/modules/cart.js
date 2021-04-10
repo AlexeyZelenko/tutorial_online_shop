@@ -33,15 +33,15 @@ export default {
                           arrayImagesViews: payload.arrayImagesViews
                         }]
                     })
-                    .then(() => {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Товар добавлен в корзину',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    })
+                    // .then(() => {
+                    //     Swal.fire({
+                    //         position: 'top-end',
+                    //         icon: 'success',
+                    //         title: 'Товар добавлен в корзину',
+                    //         showConfirmButton: false,
+                    //         timer: 1500
+                    //     })
+                    // })
             }
             else {
               const product = payload

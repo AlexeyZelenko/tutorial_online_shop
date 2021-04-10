@@ -1,49 +1,52 @@
 <template>
   <div>
-    <div
-        class="v-catalog-item my-4 mx-2"
+    <v-card
+        dark
+        class="ma-2"
+        max-width="400"
     >
-      <v-card-subtitle
-          style="color: #00BFA5"
-          class="py-4"
-      >
-        {{product_data.name}}
-      </v-card-subtitle>
+      <v-list-item two-line>
+        <v-list-item-content>
+          <v-list-item-title
+              style="color: #00BFA5"
+              class="headline"
+          >
+            {{product_data.name}}
+          </v-list-item-title>
+          <v-list-item-subtitle>{{product_data.nameColorChange}}   {{product_data.model}}</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
 
-      <v-img v-if="product_data.arrayImages1">
-        <imageItem
-            v-if="product_data.arrayImages1"
-            style="margin: 0 auto"
-            :source="product_data.arrayImages1[0]"
-            :newProduct="product_data.newProduct"
-        />
-      </v-img>
-
-      <v-card-subtitle
-          style="color: white"
-          class="pb-0"
-      >
-        {{product_data.price[0]}} грн
-      </v-card-subtitle>
-      <v-card-subtitle
-          style="color: #00BFA5"
-          class="pb-0"
-      >
-        {{product_data.name}}
-      </v-card-subtitle>
+      <v-card-text>
+        <v-row align="center">
+          <v-col
+              class="display-1"
+              cols="6"
+          >
+            {{price}} грн
+          </v-col>
+          <v-col cols="6">
+            <v-img
+                :src="product_data.arrayImagesViews"
+                alt=""
+                width="150"
+            ></v-img>
+          </v-col>
+        </v-row>
+      </v-card-text>
 
       <div class="quantity2">
         <div
-            class="text-center"
+            class="text-center mx-2 px-2"
         >
           <span>
             <v-btn
-              @click.stop="decrement"
-              :loading="loading5"
-              :disabled="loading5"
-              fab
-              x-small
-          >
+                @click.stop="decrement"
+                :loading="loading5"
+                :disabled="loading5"
+                fab
+                x-small
+            >
             <v-icon dark>mdi-minus</v-icon>
           </v-btn>
           </span>
@@ -55,12 +58,12 @@
           </span>
           <span>
             <v-btn
-              @click.prevent="increment"
-              :loading="loading4"
-              :disabled="loading4"
-              fab
-              x-small
-          >
+                @click.prevent="increment"
+                :loading="loading4"
+                :disabled="loading4"
+                fab
+                x-small
+            >
             <v-icon dark>mdi-plus</v-icon>
           </v-btn>
           </span>
@@ -68,9 +71,29 @@
 
       </div>
 
-    </div>
+      <v-divider></v-divider>
+
+      <v-card-actions >
+        <v-btn
+            class="mx-auto"
+            small
+            depressed
+            @click="deleteFromCart"
+            :loading="loading"
+            :disabled="loading"
+            style="color: mediumvioletred;"
+        >
+          <v-icon  left dark>
+            mdi mdi-delete-forever
+          </v-icon>
+          Удалить
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+
     <p>Продуктов в корзине: {{GET_CART_USER.length}}</p>
     <p>К оплате: {{cartTotalCost}} грн</p>
+
   </div>
 
 </template>
@@ -79,14 +102,10 @@
 import {mapActions, mapGetters} from "vuex";
 import Swal from "sweetalert2";
 
-const imageItem = () => ({
-  component: import("../../components/imageItem.vue"),
-})
 
 export default {
   name: "product-modal-cart",
   components: {
-    imageItem
   },
   data() {
     return {
@@ -109,34 +128,26 @@ export default {
     ...mapGetters([
       'GET_CART_USER'
     ]),
+    price () {
+      if (this.product_data.price) {
+        return this.product_data.price.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+      } else {
+        return 0
+      }
+    },
     quantity() {
-
       let promises = 0
       for(let i = 0; i < this.GET_CART_USER.length; i++) {
-        if(this.product_data.id === this.GET_CART_USER[i].id) {
+        if(this.product_data.id === this.GET_CART_USER[i].id && this.product_data.nameColorChange === this.GET_CART_USER[i].nameColorChange && this.product_data.model === this.GET_CART_USER[i].model) {
           promises++
         }
       }
       return  promises
     },
     newGetCartUser() {
-      // Удаляем одинаковые значения из массива
-      // Вариант 1
-      // return Array.from(new Set(this.GET_CART_USER))
-      // Вариант2
-      // return [...new Set(this.GET_CART_USER)]
-
-      // Удаляем одинаковые объекты из массива
-      // Вариант1
-      // return this.GET_CART_USER.reduce((acc, cur) => [
-      //   ...acc.filter((obj) => obj.arrayImagesViews !== cur.arrayImagesViews), cur
-      // ], []);
-
-      // Вариант2
       return this.GET_CART_USER.filter((obj, idx, arr) => (
           arr.findIndex((o) => o.arrayImagesViews === obj.arrayImagesViews) === idx
       ))
-
 
     },
     cartTotalCost() {
@@ -228,8 +239,8 @@ export default {
             this.VIEW_CART_USER()
           })
     },
-    deleteFromCart(item) {
-      this.DELETE_FROM_CART(item)
+    deleteFromCart() {
+      this.DELETE_FROM_CART(this.product_data)
           .then(() => {
             this.VIEW_CART_USER()
           })

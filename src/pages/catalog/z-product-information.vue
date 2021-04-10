@@ -395,6 +395,50 @@
 
     </v-card>
 
+    <!--    Диалог-вы добавили в корзину-->
+    <template>
+      <v-row justify="center">
+
+        <v-dialog
+            v-model="dialog"
+            max-width="350"
+            persistent
+        >
+          <v-card>
+            <v-card-title class="headline">
+              Вы добавили  в корзину:
+            </v-card-title>
+
+            <ProductModal
+                :product_data="product_modal"
+                :key="product_modal.id"
+                :observer="true"
+            />
+
+            <v-card-actions>
+              <v-btn
+                  small
+                  outlined
+                  color="indigo"
+                  @click="dialogFalse"
+              >
+                продолжить покупки
+              </v-btn>
+
+              <v-btn
+                  small
+                  outlined
+                  color="teal"
+                  @click="goToCard()"
+              >
+                корзина
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </template>
+
     <RandomProducts/>
 
     <v-snackbar
@@ -431,56 +475,6 @@
     </v-snackbar>
 
 
-<!--    Диалог-вы добавили в корзину-->
-    <template>
-      <v-row justify="center">
-<!--        <v-btn-->
-<!--            color="primary"-->
-<!--            dark-->
-<!--            @click.stop="dialog = true"-->
-<!--        >-->
-<!--          Open Dialog-->
-<!--        </v-btn>-->
-
-        <v-dialog
-            v-model="dialog"
-            max-width="350"
-        >
-          <v-card>
-            <v-card-title class="headline">
-              Вы добавили  в корзину:
-            </v-card-title>
-
-            <ProductModal
-                :product_data="product"
-                :key="product.id"
-                :observer="true"
-            />
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn
-                  outlined
-                  color="indigo"
-                  @click="dialog = false"
-              >
-                продолжить покупки
-              </v-btn>
-
-              <v-btn
-                  outlined
-                  color="teal"
-                  @click="goToCard()"
-              >
-                корзина
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-row>
-    </template>
-
 	</div>
 </template>
 
@@ -497,6 +491,7 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          product_modal: {},
           selectedItem: 0,
           dialog: false,
           Our_contacts: 'Контакты:',
@@ -542,6 +537,10 @@
                 'bindLocationsRef',
                 'VIEW_CART_USER'
             ]),
+            dialogFalse () {
+                this.product_modal = {}
+                this.dialog = false
+            },
             goToCard () {
               this.dialog = false
               this.$router.push({name: 'cart'})
@@ -567,7 +566,7 @@
               }
               else {
                 const payload = {
-                  id: this.product.id,
+                  id: await this.product.id,
                   name: this.product.name,
                   nameColorChange: this.nameColorChange,
                   model: this.model,
@@ -575,10 +574,12 @@
                   price: this.price,
                   arrayImagesViews: this.arrayImagesViews[0]
                 }
+                  this.product_modal = payload
+                // this.product_modal = payload
                 await this.ADD_TO_CART(payload)
               }
               await this.VIEW_CART_USER()
-              // this.dialog = true
+              this.dialog = true
             },
         },
         computed: {
