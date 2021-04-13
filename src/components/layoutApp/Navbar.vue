@@ -364,6 +364,11 @@
           dropdown: false,
           arrayArray: [
             {
+              text: 'phone',
+              figure: 'phone_samsung',
+              nameBrand: 'Xiaomi'
+            },
+            {
               text: 'AirDots',
               figure: 'AirDots',
               nameBrand: 'Xiaomi'

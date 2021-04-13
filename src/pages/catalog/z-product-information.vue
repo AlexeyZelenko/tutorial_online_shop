@@ -258,6 +258,32 @@
                         alt=""
                     >
 
+<!--                    Иконки-->
+                    <v-row>
+                      <v-col
+                          align-center
+                          cols="6"
+                          sm="3"
+                          md="3"
+                          xs="3"
+                          v-for="item in arrayIcon"
+                          :key="item.id"
+                      >
+                        <v-list-item>
+                          <v-list-item-content justify-center>
+                            <v-img
+                                class="mx-auto"
+                                style="max-width: 150px"
+                                :src="require(`@/assets/icons/group1/${item.id}.png`)"
+                                alt=""
+                            ></v-img>
+                          </v-list-item-content>
+
+                        </v-list-item>
+                      </v-col>
+                    </v-row>
+
+
                     <v-list-item>
                       <v-list-item-content>
                         <v-card
@@ -506,6 +532,24 @@
           selectmodel: '',
           selectcolor: '',
           selectcolor2: '',
+          arrayIcon: [
+              {
+                id: 1,
+                title: 'Только оригинальные модели из США'
+              },
+              {
+                id: 2,
+                title: ''
+              },
+              {
+                id: 3,
+                title: ''
+              },
+              {
+                id: 4,
+                title: ''
+              },
+          ],
           arrayTabs: [
             {
               id: 1,

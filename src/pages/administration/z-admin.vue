@@ -1629,7 +1629,7 @@
               },
               {
                 name: 'Xiaomi',
-                arrayCategory: ['AirDots', 'SmartBand', 'Аксессуары']
+                arrayCategory: ['phone', 'AirDots', 'SmartBand', 'Аксессуары']
               },
               {
                 name: 'Samsung',

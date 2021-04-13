@@ -75,7 +75,7 @@
               <span
                   class="name_item_price"
               >
-              {{ item.price[0].replace(/(\d)(?=(\d{3})+$)/g, '$1 ') }} грн
+              {{ item.price[0] | capitalize }} грн
             </span>
             </div>
           </div>
@@ -129,7 +129,14 @@ export default {
       const a = this.GET_PRODUCTS
       return a.sort(() => Math.random() - 0.5)
     }
-  }
+  },
+  // filters: {
+  //   capitalize (value) {
+  //     if (!value) return ''
+  //     value = value.toString()
+  //     return value.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+  //   }
+  // }
 }
 </script>
 

@@ -50,6 +50,11 @@ Vue.use(AsyncComputed)
 
 
 Vue.filter('localize', localizeFilter)
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+})
 Vue.use(Vuelidate)
 
 

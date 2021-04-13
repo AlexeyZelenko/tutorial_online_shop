@@ -30,7 +30,7 @@
 				@increment="increment(item)"
 		/>
 		<div class="v-cart__total">
-			<p class="total__name">{{'Total:' | localize }} {{cartTotalCost}} грн</p>
+			<p class="total__name">{{'Total:' | localize }} {{ cartTotalCost | capitalize }} грн</p>
 		</div>
 	</div>
 </template>
