@@ -2041,8 +2041,6 @@
             },
             async addLocation(addProduct) {
 
-              // console.log('addProduct', addProduct)
-
               this.isLoading = true
 
               const createdAt = Date.now()
@@ -2066,146 +2064,60 @@
               const nameColor = addProduct.nameColor
               const arrayModel = addProduct.arrayModel
 
-// ЗАГРУЗКА ФОТО1
+              const FileArray = [File1, File2, File3, File4]
+              const ArrayURLs = []
+              const ArrayNameImages = []
+
+              for(let e = 0; e < FileArray.length; e++) {
+                // ЗАГРУЗКА ФОТО1
                 const promises = []
                 const promisesName = []
 
-                if (File1) {
-                    for (let i = 0; i < File1.length; i++) {
+                if (FileArray[e]) {
+                  for (let i = 0; i < FileArray[e].length; i++) {
 
-                        const storageRef = await firebase.storage().ref();
-                        // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
+                    const storageRef = await firebase.storage().ref();
+                    // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
 
-                        // Создайте метаданные файла
-                        let metadata = {
-                            contentType: 'image/png',
-                        };
-                        const nameTime = +new Date() + i + name + '.png'
-                        // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                        const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
+                    // Создайте метаданные файла
+                    let metadata = {
+                      contentType: 'image/png',
+                    };
+                    const nameTime = +new Date() + i + name + '.png'
+                    // ПРОВЕРКА ЗАГРУЗКИ ФОТО
+                    const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(FileArray[e][i], metadata);
 
-                        await promises.push(
-                            uploadTask
-                                .then(snapshot =>
-                                    snapshot.ref.getDownloadURL()
-                                )
-                        )
-                        await promisesName.push(
-                            nameTime
-                        )
-                    }
+                    await promises.push(
+                        uploadTask
+                            .then(snapshot =>
+                                snapshot.ref.getDownloadURL()
+                            )
+                    )
+                    await promisesName.push(
+                        nameTime
+                    )
+                  }
                 }
 
                 const URLs = await Promise.all(promises)
-                const NameImages1 = await Promise.all(promisesName)
+                const NameImages = await Promise.all(promisesName)
 
-
-              // ЗАГРУЗКА ФОТО2
-              const promises2 = []
-              const promisesName2 = []
-
-              if (File2) {
-                for (let i = 0; i < File2.length; i++) {
-
-                  const storageRef = await firebase.storage().ref();
-                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
-
-                  // Создайте метаданные файла
-                  let metadata = {
-                    contentType: 'image/png',
-                  };
-                  const nameTime = +new Date() + i + name + '.png'
-                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
-
-                  await promises2.push(
-                      uploadTask
-                          .then(snapshot =>
-                              snapshot.ref.getDownloadURL()
-                          )
-                  )
-                  await promisesName2.push(
-                      nameTime
-                  )
-                }
+                await ArrayURLs.push(
+                    URLs
+                )
+                await ArrayNameImages.push(
+                    NameImages
+                )
               }
-
-              const URLs2 = await Promise.all(promises2)
-              const NameImages2 = await Promise.all(promisesName2)
-
-              // ЗАГРУЗКА ФОТО3
-              const promises3 = []
-              const promisesName3 = []
-
-              if (File3) {
-                for (let i = 0; i < File3.length; i++) {
-
-                  const storageRef = await firebase.storage().ref();
-                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
-
-                  // Создайте метаданные файла
-                  let metadata = {
-                    contentType: 'image/png',
-                  };
-                  const nameTime = +new Date() + i + name + '.png'
-                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
-
-                  await promises3.push(
-                      uploadTask
-                          .then(snapshot =>
-                              snapshot.ref.getDownloadURL()
-                          )
-                  )
-                  await promisesName3.push(
-                      nameTime
-                  )
-                }
-              }
-
-              const URLs3 = await Promise.all(promises3)
-              const NameImages3 = await Promise.all(promisesName3)
-
-              // ЗАГРУЗКА ФОТО4
-              const promises4 = []
-              const promisesName4 = []
-
-              if (File4) {
-                for (let i = 0; i < File4.length; i++) {
-
-                  const storageRef = await firebase.storage().ref();
-                  // Загрузить файл и метаданные в объект 'assets/images/***.jpg'
-
-                  // Создайте метаданные файла
-                  let metadata = {
-                    contentType: 'image/png',
-                  };
-                  const nameTime = +new Date() + i + name + '.png'
-                  console.log(nameTime)
-                  // ПРОВЕРКА ЗАГРУЗКИ ФОТО
-                  const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File4[i], metadata);
-
-                  await promises4.push(
-                      uploadTask
-                          .then(snapshot =>
-                              snapshot.ref.getDownloadURL()
-                          )
-                  )
-                  await promisesName4.push(
-                      nameTime
-                  )
-                }
-              }
-
-              const URLs4 = await Promise.all(promises4)
-              const NameImages4 = await Promise.all(promisesName4)
+              const ArrayURLsValue = await Promise.all(ArrayURLs)
+              const ArrayNameImagesValue = await Promise.all(ArrayNameImages)
 
 
               let docRef = await db.collection('products2').add({
-                NameImages1: NameImages1,
-                NameImages2: NameImages2,
-                NameImages3: NameImages3,
-                NameImages4: NameImages4,
+                NameImages1: await ArrayNameImagesValue[0],
+                NameImages2: await ArrayNameImagesValue[1],
+                NameImages3: await ArrayNameImagesValue[2],
+                NameImages4: await ArrayNameImagesValue[3],
                 nameColor,
                 arrayColor,
                 arrayModel: arrayModel,
@@ -2218,10 +2130,10 @@
                 promotionalPrice,
                 createdAt,
                 category: category,
-                arrayImages1: URLs,
-                arrayImages2: URLs2,
-                arrayImages3: URLs3,
-                arrayImages4: URLs4,
+                arrayImages1: await ArrayURLsValue[0],
+                arrayImages2: await ArrayURLsValue[1],
+                arrayImages3: await ArrayURLsValue[2],
+                arrayImages4: await ArrayURLsValue[3],
                 name,
                 price,
                 price2,
@@ -2236,7 +2148,7 @@
 
               this.isLoading = false
 
-                Swal.fire({
+              Swal.fire({
                     position: 'top-end',
                     icon: 'success',
                     title: 'Ваша работа была сохранена',
