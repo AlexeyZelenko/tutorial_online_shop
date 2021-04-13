@@ -1629,11 +1629,11 @@
               },
               {
                 name: 'Xiaomi',
-                arrayCategory: ['phone', 'AirDots', 'SmartBand', 'Аксессуары']
+                arrayCategory: ['phone', 'AirDots', 'SmartBand', 'Аксессуары_Xiaomi']
               },
               {
                 name: 'Samsung',
-                arrayCategory: ['Phone', 'Наушники', 'watch', 'Аксессуары']
+                arrayCategory: ['Phone', 'Наушники', 'watch', 'Аксессуары_Samsung']
               },
 
             ],
