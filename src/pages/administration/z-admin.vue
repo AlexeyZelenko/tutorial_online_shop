@@ -2081,7 +2081,6 @@
                             contentType: 'image/png',
                         };
                         const nameTime = +new Date() + i + name + '.png'
-                      console.log(nameTime)
                         // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                         const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File1[i], metadata);
 
@@ -2116,7 +2115,6 @@
                     contentType: 'image/png',
                   };
                   const nameTime = +new Date() + i + name + '.png'
-                  console.log(nameTime)
                   // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                   const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File2[i], metadata);
 
@@ -2150,7 +2148,6 @@
                     contentType: 'image/png',
                   };
                   const nameTime = +new Date() + i + name + '.png'
-                  console.log(nameTime)
                   // ПРОВЕРКА ЗАГРУЗКИ ФОТО
                   const uploadTask = storageRef.child(`assets/images/${name}/` + nameTime).put(File3[i], metadata);
 

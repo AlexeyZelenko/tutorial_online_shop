@@ -76,13 +76,11 @@ export default {
       const a = this.GET_PRODUCTS.filter((obj, idx, arr) => (
           arr.findIndex((o) => o.name === obj.name) === idx
       ))
-      if(this.GET_NAME_Brand_Product) {
+      if (this.GET_NAME_Brand_Product) {
         const b = a.filter(item => item.BrandName.name === this.GET_NAME_Brand_Product)
         return b.sort(() => Math.random() - 0.5)
       }
-      else {
-        return a.sort(() => Math.random() - 0.5)
-      }
+      return a.sort(() => Math.random() - 0.5)
     }
   }
 }

@@ -602,11 +602,11 @@
           },
 
           async addToCart() {
-              if(!this.model) {
-                this.snackbar = true
+              if (!this.model) {
+                return this.snackbar = true
               }
-              else if(!this.nameColorChange){
-                this.snackbar2 = true
+              if (!this.nameColorChange){
+                return this.snackbar2 = true
               }
               else {
                 const payload = {
@@ -618,7 +618,7 @@
                   price: this.price,
                   arrayImagesViews: this.arrayImagesViews[0]
                 }
-                  this.product_modal = payload
+                this.product_modal = payload
                 // this.product_modal = payload
                 await this.ADD_TO_CART(payload)
               }
