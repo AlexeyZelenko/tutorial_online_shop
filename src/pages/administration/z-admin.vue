@@ -230,7 +230,7 @@
 				<v-dialog
 						style="z-index: 100"
 						v-model="dialog"
-						width="400px"
+						width="450px"
 				>
 					<template v-slot:activator="{ on, attrs }">
 						<!--		КНОПКА +-->
@@ -860,7 +860,7 @@
                             <v-col cols="12">
                               <v-file-input
                                   :rules2="rules"
-                                  accept="image/png, image/jpeg, image/bmp"
+                                  accept="image/png"
                                   color="deep-purple accent-4"
                                   counter
                                   label="Загрузка фотографий #1"
@@ -868,17 +868,8 @@
                                   placeholder="Выберите фото"
                                   prepend-icon="mdi-camera"
                                   v-model="editedItem.File1"
-
+                                  show-size
                               >
-                                <template>
-                                  <v-file-input
-                                      counter
-                                      label="File input"
-                                      multiple
-                                      show-size
-                                  ></v-file-input>
-                                </template>
-
                               </v-file-input>
                             </v-col>
 
@@ -1027,7 +1018,7 @@
                             <v-col cols="12">
                               <v-file-input
                                   :rules2="rules"
-                                  accept="image/png, image/jpeg, image/bmp"
+                                  accept="image/png"
                                   color="deep-purple accent-4"
                                   counter
                                   label="Загрузка фотографий"
@@ -1035,17 +1026,8 @@
                                   placeholder="Выберите фото"
                                   prepend-icon="mdi-camera"
                                   v-model="editedItem.File2"
-
+                                  show-size
                               >
-                                <template>
-                                  <v-file-input
-                                      counter
-                                      label="File input"
-                                      multiple
-                                      show-size
-                                  ></v-file-input>
-                                </template>
-
                               </v-file-input>
                             </v-col>
                           </v-container>
@@ -1192,7 +1174,7 @@
                             <v-col cols="12">
                               <v-file-input
                                   :rules2="rules"
-                                  accept="image/png, image/jpeg, image/bmp"
+                                  accept="image/png"
                                   color="deep-purple accent-4"
                                   counter
                                   label="Загрузка фотографий"
@@ -1200,17 +1182,8 @@
                                   placeholder="Выберите фото"
                                   prepend-icon="mdi-camera"
                                   v-model="editedItem.File3"
-
+                                  show-size
                               >
-                                <template>
-                                  <v-file-input
-                                      counter
-                                      label="File input"
-                                      multiple
-                                      show-size
-                                  ></v-file-input>
-                                </template>
-
                               </v-file-input>
                             </v-col>
                           </v-container>
@@ -1357,7 +1330,7 @@
                             <v-col cols="12">
                               <v-file-input
                                   :rules2="rules"
-                                  accept="image/png, image/jpeg, image/bmp"
+                                  accept="image/png"
                                   color="deep-purple accent-4"
                                   counter
                                   label="Загрузка фотографий"
@@ -1365,17 +1338,8 @@
                                   placeholder="Выберите фото"
                                   prepend-icon="mdi-camera"
                                   v-model="editedItem.File4"
-
+                                  show-size
                               >
-                                <template>
-                                  <v-file-input
-                                      counter
-                                      label="File input"
-                                      multiple
-                                      show-size
-                                  ></v-file-input>
-                                </template>
-
                               </v-file-input>
                             </v-col>
                           </v-container>
@@ -1534,7 +1498,7 @@
                 counter2: value => value.length <= 400 || 'Max 400 знаков',
             },
             rules2: [
-                value => !value || value.size < 3000000 || 'Avatar size should be less than 5 MB!',
+                value => !value || value.size < 2000000 || 'Размер картинки должен быть меньше 2 MB!',
             ],
             categories: [],
             search: '',
