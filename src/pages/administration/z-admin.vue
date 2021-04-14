@@ -2061,12 +2061,27 @@
                 const URLs = await Promise.all(promises)
                 const NameImages = await Promise.all(promisesName)
 
-                await ArrayURLs.push(
-                    URLs
-                )
-                await ArrayNameImages.push(
-                    NameImages
-                )
+                if (URLs) {
+                  await ArrayURLs.push(
+                      URLs
+                  )
+                }
+                else {
+                  await ArrayURLs.push(
+                      []
+                  )
+                }
+
+                if (NameImages) {
+                  await ArrayNameImages.push(
+                      NameImages
+                  )
+                }
+                else {
+                  await ArrayNameImages.push(
+                      []
+                  )
+                }
               }
               const ArrayURLsValue = await Promise.all(ArrayURLs)
               const ArrayNameImagesValue = await Promise.all(ArrayNameImages)
