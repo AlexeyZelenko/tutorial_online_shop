@@ -1142,7 +1142,7 @@
                                     v-for="(item,article) in editedItem.arrayImages3"
                                 >
                                   <v-btn
-                                      @click="deleteFoto3(editedItem, item)"
+                                      @click="deleteFoto3(editedItem, item, 3)"
                                       class="mx-2"
                                       color="pink"
                                       dark
@@ -1716,17 +1716,12 @@
               editedItem.arrayImages2 = array
               editedItem.NameImages2 = arrayName
             },
-            deleteFoto3(editedItem, item) {
-              const array = editedItem.arrayImages3
-              const arrayName = editedItem.NameImages3
-
-              const index = array.indexOf(item);
+            async deleteFoto3(editedItem, item) {
+              const index = await editedItem.arrayImages3.indexOf(item);
               if (index > -1) {
-                array.splice(index, 1);
-                arrayName.splice(index, 1);
+                await editedItem.arrayImages3.splice(index, 1);
+                await editedItem.NameImages3.splice(index, 1);
               }
-              editedItem.arrayImages3 = array
-              editedItem.NameImages3 = arrayName
             },
             FirstFoto3(editedItem, item) {
               const array = editedItem.arrayImages3

@@ -19,6 +19,7 @@ import localizeFilter from '@/filters/localize.filter'
 import '@/plugins/tiptap-vuetify'
 import Vuelidate from 'vuelidate'
 import AsyncComputed from 'vue-async-computed'
+
 // const AsyncComputed = () => import('vue-async-computed')
 // import('@/filters/localize.filter').then(localizeFilter => {'@/main.js'});
 
@@ -41,6 +42,8 @@ export const db = firebase.initializeApp({
 
 export const storage = firebase.storage();
 export const analytics = firebase.analytics();
+
+
 
 
 
