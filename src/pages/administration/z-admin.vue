@@ -828,7 +828,7 @@
                                     v-for="(item, index) in editedItem.arrayImages1"
                                 >
                                   <v-btn
-                                      @click="deleteFoto(editedItem, item)"
+                                      @click="deleteFoto(b = 1, item)"
                                       class="mx-2"
                                       color="pink"
                                       dark
@@ -843,7 +843,7 @@
                                   <template>
                                     <div class="text-center">
                                       <v-btn
-                                          @click="FirstFoto(editedItem, item)"
+                                          @click="FirstFoto(a = 1, item)"
                                           style="float: right; top: 1em;"
                                           rounded
                                           color="teal"
@@ -986,7 +986,7 @@
                                     v-for="(item,article) in editedItem.arrayImages2"
                                 >
                                   <v-btn
-                                      @click="deleteFoto2(editedItem, item)"
+                                      @click="deleteFoto(b = 2, item)"
                                       class="mx-2"
                                       color="pink"
                                       dark
@@ -1001,7 +1001,7 @@
                                   <template>
                                     <div class="text-center">
                                       <v-btn
-                                          @click="FirstFoto2(editedItem, item)"
+                                          @click="FirstFoto(a = 2, item)"
                                           style="float: right; top: 1em;"
                                           rounded
                                           color="teal"
@@ -1142,7 +1142,7 @@
                                     v-for="(item,article) in editedItem.arrayImages3"
                                 >
                                   <v-btn
-                                      @click="deleteFoto3(editedItem, item, 3)"
+                                      @click="deleteFoto(b = 3, item)"
                                       class="mx-2"
                                       color="pink"
                                       dark
@@ -1157,7 +1157,7 @@
                                   <template>
                                     <div class="text-center">
                                       <v-btn
-                                          @click="FirstFoto3(editedItem, item)"
+                                          @click="FirstFoto(a = 3, item)"
                                           style="float: right; top: 1em;"
                                           rounded
                                           color="teal"
@@ -1290,15 +1290,15 @@
                             <template v-if="editedItem.arrayImages4 && editedItem.arrayImages4.length > 0">
                               <v-carousel>
                                 <v-carousel-item
-                                    :key="article"
                                     :src="(item)"
                                     reverse-transition="fade-transition"
                                     style="max-width: 400px; max-height: 600px"
                                     transition="fade-transition"
-                                    v-for="(item,article) in editedItem.arrayImages4"
+                                    v-for="(item, index) in editedItem.arrayImages4"
+                                    :key="index"
                                 >
                                   <v-btn
-                                      @click="deleteFoto4(editedItem, item)"
+                                      @click="deleteFoto(b = 4, item)"
                                       class="mx-2"
                                       color="pink"
                                       dark
@@ -1313,7 +1313,7 @@
                                   <template>
                                     <div class="text-center">
                                       <v-btn
-                                          @click="FirstFoto4(editedItem, item)"
+                                          @click="FirstFoto(a = 4, item)"
                                           style="float: right; top: 1em;"
                                           rounded
                                           color="teal"
@@ -1668,97 +1668,26 @@
                     this.currentItem = 'tab-' + item
                 })
             },
-            deleteFoto(editedItem, item) {
-                const array = editedItem.arrayImages1
-                const arrayName = editedItem.NameImages1
+            async deleteFoto(b, item) {
+                const idx = this.editedItem["arrayImages" + b].indexOf(item);
 
-                const index = array.indexOf(item);
-                if (index > -1) {
-                    array.splice(index, 1);
-                    arrayName.splice(index, 1);
+                if (idx > -1) {
+                  await this.editedItem["arrayImages" + b].splice(idx, 1);
+                  await this.editedItem[`NameImages${b}`].splice(idx, 1);
                 }
-                editedItem.arrayImages1 = array
-                editedItem.NameImages1 = arrayName
             },
-            FirstFoto(editedItem, item) {
-            const array = editedItem.arrayImages1
-            const arrayName = editedItem.NameImages1
+            FirstFoto(a, item) {
+            const array = this.editedItem["arrayImages" + a]
+            const arrayName = this.editedItem[`NameImages${a}`]
 
-            const index = array.indexOf(item);
+            const index = this.editedItem["arrayImages" + a].indexOf(item);
             if (index > -1) {
               array.unshift(...array.splice(index,1));
               arrayName.unshift(...arrayName.splice(index,1));
             }
-            editedItem.arrayImages1 = array
-            editedItem.NameImages1 = arrayName
-          },
-            deleteFoto2(editedItem, item) {
-              const array = editedItem.arrayImages2
-              const arrayName = editedItem.NameImages2
-
-              const index = array.indexOf(item);
-              if (index > -1) {
-                array.splice(index, 1);
-                arrayName.splice(index, 1);
-              }
-              editedItem.arrayImages2 = array
-              editedItem.NameImages2 = arrayName
+              this.editedItem["arrayImages" + a] = array
+              this.editedItem[`NameImages${a}`] = arrayName
             },
-            FirstFoto2(editedItem, item) {
-              const array = editedItem.arrayImages2
-              const arrayName = editedItem.NameImages2
-
-              const index = array.indexOf(item);
-              if (index > -1) {
-                array.unshift(...array.splice(index,1));
-                arrayName.unshift(...arrayName.splice(index,1));
-              }
-              editedItem.arrayImages2 = array
-              editedItem.NameImages2 = arrayName
-            },
-            async deleteFoto3(editedItem, item) {
-              const index = await editedItem.arrayImages3.indexOf(item);
-              if (index > -1) {
-                await editedItem.arrayImages3.splice(index, 1);
-                await editedItem.NameImages3.splice(index, 1);
-              }
-            },
-            FirstFoto3(editedItem, item) {
-              const array = editedItem.arrayImages3
-              const arrayName = editedItem.NameImages3
-
-              const index = array.indexOf(item);
-              if (index > -1) {
-                array.unshift(...array.splice(index,1));
-                arrayName.unshift(...arrayName.splice(index,1));
-              }
-              editedItem.arrayImages3 = array
-              editedItem.NameImages3 = arrayName
-            },
-            deleteFoto4(editedItem, item) {
-              const array = editedItem.arrayImages4
-              const arrayName = editedItem.NameImages4
-
-              const index = array.indexOf(item);
-              if (index > -1) {
-                array.splice(index, 1);
-                arrayName.splice(index, 1);
-              }
-              editedItem.arrayImages4 = array
-              editedItem.NameImages4 = arrayName
-            },
-            FirstFoto4(editedItem, item) {
-            const array = editedItem.arrayImages4
-            const arrayName = editedItem.NameImages4
-
-            const index = array.indexOf(item);
-            if (index > -1) {
-              array.unshift(...array.splice(index,1));
-              arrayName.unshift(...arrayName.splice(index,1));
-            }
-            editedItem.arrayImages4 = array
-            editedItem.NameImages4 = arrayName
-          },
             initialize() {
                 this.products = this.PRODUCTS
             },

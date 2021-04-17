@@ -55,7 +55,8 @@
           @click="productClick"
           v-show="product_data.seen"
       >
-        <span>{{'Show info' | localize}}</span>
+        <span
+        >{{'Show info' | localize}}</span>
       </div>
 
     </v-card-actions>
