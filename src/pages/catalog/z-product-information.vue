@@ -46,6 +46,7 @@
         <!--          Все про товар-->
         <v-tab-item>
           <v-card
+              class="main-color"
               flat
           >
             <v-card-text>
@@ -149,7 +150,7 @@
                             </v-item-group>
                           </v-container>
                         </v-list-item>
-                    </v-col>
+                      </v-col>
                       <v-col
                           cols="12"
                           md="6"
@@ -161,7 +162,10 @@
                         >
                           <v-item-group mandatory>
                             <v-container>
-                              <v-list dense>
+                              <v-list
+                                  class="main-color"
+                                  dense
+                              >
                                 <v-subheader><strong>МОДЕЛЬ :</strong></v-subheader>
                                 <v-list-item-group
                                     v-model="selectedItem"
@@ -237,7 +241,7 @@
                       <v-list-item-content>
                         <v-card
                             outlined
-                            style="background-color: whitesmoke"
+                            class="main-color"
                         >
                           <h4
                               v-if="price2"
@@ -259,36 +263,35 @@
                     >
 
 <!--                    Иконки-->
-                    <v-row>
-                      <v-col
-                          align-center
-                          cols="6"
-                          sm="3"
-                          md="3"
-                          xs="3"
-                          v-for="item in arrayIcon"
-                          :key="item.id"
-                      >
-                        <v-list-item>
-                          <v-list-item-content justify-center>
-                            <v-img
-                                class="mx-auto"
-                                style="max-width: 150px"
-                                :src="require(`@/assets/icons/group1/${item.id}.png`)"
-                                alt=""
-                            ></v-img>
-                          </v-list-item-content>
+<!--                    <v-row>-->
+<!--                      <v-col-->
+<!--                          align-center-->
+<!--                          cols="6"-->
+<!--                          sm="3"-->
+<!--                          md="3"-->
+<!--                          xs="3"-->
+<!--                          v-for="item in arrayIcon"-->
+<!--                          :key="item.id"-->
+<!--                      >-->
+<!--                        <v-list-item>-->
+<!--                          <v-list-item-content justify-center>-->
+<!--                            <v-img-->
+<!--                                class="mx-auto"-->
+<!--                                style="max-width: 150px"-->
+<!--                                :src="require(`@/assets/icons/group1/${item.id}.png`)"-->
+<!--                                alt=""-->
+<!--                            ></v-img>-->
+<!--                          </v-list-item-content>-->
 
-                        </v-list-item>
-                      </v-col>
-                    </v-row>
+<!--                        </v-list-item>-->
+<!--                      </v-col>-->
+<!--                    </v-row>-->
 
 
                     <v-list-item>
                       <v-list-item-content>
                         <v-card
-                            style="background-color: whitesmoke"
-                            class="py-2"
+                            class="py-2 main-color"
                         >
 
                           <span>Цвет : </span>
@@ -737,6 +740,9 @@
 </script>
 
 <style lang="scss" scoped>
+.main-color {
+  background-color: $main-color
+}
 
 #lateral .v-btn--example {
   bottom: 0;

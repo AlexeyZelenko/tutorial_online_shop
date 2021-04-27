@@ -1,7 +1,6 @@
 <template>
   <v-card
-      dark
-      class="my-2"
+      class="my-2 main-color"
   >
     <h5
         class="py-2"
@@ -15,7 +14,7 @@
     >
       <v-slide-group
           v-model="model"
-          class="pa-2"
+          class="pa-2 main-color"
           center-active
       >
         <v-slide-item
@@ -87,5 +86,8 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss">
+.main-color {
+  background-color: $main-color
+}
 </style>

@@ -137,8 +137,8 @@
 
 <style lang="scss">
 .Samsung {
-  background-color: blue;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2Fouterspace-58.gif?alt=media&token=a84f98ef-0b93-4547-831c-d4e3fd7ec3b8');
+  background-color: $main-color;
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2Fouterspace-58.gif?alt=media&token=a84f98ef-0b93-4547-831c-d4e3fd7ec3b8');
   background-size: cover;
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -152,10 +152,10 @@
 }
 
 .Xiaomi {
-  background-color: green;
+  background-color: $main-color;
 }
 .Apple {
-  background-color: black;
+  background-color: $main-color;
 }
 	.v-catalog {
 		&__list {
