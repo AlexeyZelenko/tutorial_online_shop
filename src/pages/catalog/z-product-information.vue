@@ -353,7 +353,9 @@
 
 
         <!--          Фото-->
-        <v-tab-item>
+        <v-tab-item
+            class="main-color"
+        >
           <CarouselProductDetails
               :arrayImagesViews="arrayImagesViews"
           />
@@ -361,7 +363,9 @@
 
 
         <!--          Задать вопрос-->
-        <v-tab-item class="py-4">
+        <v-tab-item
+            class="py-4 main-color"
+        >
           <v-card
               class="mdl-color--blue-grey-50 mx-auto"
               max-width="375"

@@ -1,7 +1,9 @@
 <template>
-  <v-list class="transparent">
+  <v-list
+      class="transparent"
+  >
     <v-container
-        class="mx-auto"
+        class="mx-auto main-color"
     >
       <v-carousel
           v-model="model"
@@ -15,7 +17,7 @@
             :key="item.id"
         >
           <v-sheet
-              :color="colors[11]"
+              :color="colors[10]"
               height="100%"
           >
             <v-row
@@ -78,6 +80,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.main-color {
+  background-color: $main-color
+}
 </style>
