@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
     console.log(email)
     console.log(uid)
 
-    const adminEntrance = ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2", "s0LUjzE0wPZ4LsYgr81A3YmyaQA3"].includes(uid)
+    const adminEntrance = ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23"].includes(uid)
     console.log(adminEntrance)
 
     if (requireAuth && !adminEntrance) {
