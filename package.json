@@ -29,7 +29,7 @@
     "nodemailer": "^6.4.11",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^9.17.1",
-    "swiper": "^6.1.1",
+    "swiper": "^6.5.1",
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.11",
     "vue-async-computed": "^3.9.0",
