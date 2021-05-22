@@ -17,7 +17,7 @@ export default {
     function handleIntersect(entries, observer) {
       entries.forEach(entry => {
         if (!entry.isIntersecting) {
-          console.log('1')
+          // console.log('1')
         } else {
           loadImage();
           observer.unobserve(el);

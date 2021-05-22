@@ -83,17 +83,10 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
   const requireAuth = to.matched.some(record => record.meta.auth)
 
-  console.log(currentUser)
-
   if (currentUser != null) {
-    const email = currentUser.email;
     const uid = currentUser.uid;
 
-    console.log(email)
-    console.log(uid)
-
     const adminEntrance = ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23"].includes(uid)
-    console.log(adminEntrance)
 
     if (requireAuth && !adminEntrance) {
       next('/')

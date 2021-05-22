@@ -27,7 +27,7 @@
             <v-card-text class="py-2 white--text text-center">
               <v-btn
                   v-for="icon in icons"
-                  :key="icon"
+                  :key="icon.id"
                   class="mx-4"
                   dark
                   icon
@@ -55,10 +55,12 @@ export default {
   data: () => ({
     icons: [
       {
+        id: 1,
         icon: 'mdi-instagram',
         link: 'https://instagram.com/damask.ishop?utm_medium=copy_link'
       },
       {
+        id: 2,
         icon: 'mdi-telegram',
         link: 'https://t.me/damaskofficial'
       }

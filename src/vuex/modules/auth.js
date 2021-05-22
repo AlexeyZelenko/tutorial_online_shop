@@ -57,16 +57,11 @@ actions: {
                     return document.cartInfo
                 })
                     // Проверка администратора
-                if(['q77OchyqmyavLxjnlMiQlcxLefw2', 'wH7hb4Zdh9Xqt2RZRMAnJa3Nko23', 'hng6vLzPtTYo5xgiuYyjYpOnijB2', 'HInmvosDanObSDnC2csXiV3iR0A2', 's0LUjzE0wPZ4LsYgr81A3YmyaQA3']
+                if(['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23"]
                     .some(elem => elem === `${uid}`)) {
 
                     // Получение ТОКЕНА администратора
-                    // await dispatch('saveMessagingDeviceToken')
 
-                    console.log('Администратор вошел!')
-                    // router.push('/admin')
-                }else{
-                    console.log('Пользователь вошел!')
                 }
         }
         catch (e) {
@@ -77,7 +72,7 @@ actions: {
         const userEntrance = !!firebase.auth().currentUser
         const USER_ID = await dispatch('getUid')
         if(userEntrance) {
-            const adminEntrance =  await ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2","HInmvosDanObSDnC2csXiV3iR0A2", "s0LUjzE0wPZ4LsYgr81A3YmyaQA3"].includes(USER_ID)
+            const adminEntrance =  await ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23"].includes(USER_ID)
             commit('ADMIN_ENTRANCE', adminEntrance)
         }
         commit('USER_ENTRANCE', userEntrance)
@@ -100,7 +95,6 @@ actions: {
             await db.collection('users').doc(`${uid}`).set({
                 cartInfo: []
             })
-            console.log('Пользователь создан!')
         } catch (e) {
             commit('setError', e)
             throw e
@@ -116,22 +110,20 @@ actions: {
     getProfilePicUrl() {
         return firebase.auth().currentUser.photoURL || '@/assets/images/profile-pic-placeholder.png';
     },
-    async userEntrance({commit, dispatch}) {
-        const USER_ID = await dispatch('getUid')
-        const userEntrance =  !!firebase.auth().currentUser
-        if(userEntrance) {
-            const adminEntrance =  await ['q77OchyqmyavLxjnlMiQlcxLefw2', "8VcWFEfj1KYYs06GiR7dR6XpTLS2", "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23", "hng6vLzPtTYo5xgiuYyjYpOnijB2", "HInmvosDanObSDnC2csXiV3iR0A2", "s0LUjzE0wPZ4LsYgr81A3YmyaQA3"].includes(USER_ID)
-            commit('ADMIN_ENTRANCE', adminEntrance)
-        }
-        commit('USER_ENTRANCE', userEntrance)
-    },
+  userEntrance: async function ({commit, dispatch}) {
+    const USER_ID = await dispatch('getUid')
+    const userEntrance = !!firebase.auth().currentUser
+    if (userEntrance) {
+      const adminEntrance = await ['q77OchyqmyavLxjnlMiQlcxLefw2', "wH7hb4Zdh9Xqt2RZRMAnJa3Nko23"].includes(USER_ID)
+      commit('ADMIN_ENTRANCE', adminEntrance)
+    }
+    commit('USER_ENTRANCE', userEntrance)
+  },
     async USER_ID_ACTIONS({commit}) {
         const user = firebase.auth().currentUser
         const userID = user ? user.uid : null
             if(userID) {
                 commit('USER_ID_ENTRANCE', userID)
-            } else {
-                console.log('Незарегестрированый пользователь')
             }
     },
     async logout({commit}) {

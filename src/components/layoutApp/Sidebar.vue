@@ -2,10 +2,8 @@
   <v-carousel
       cycle
       height="700"
-      hide-delimiter-background
       hide-delimiters
-      show-arrows-on-hover
-      class="v-carousel"
+      :show-arrows="false"
   >
     <template v-slot:prev="{ on, attrs }">
       <v-btn
@@ -151,7 +149,7 @@ export default {
   color: grey;
   font-size: 36px;
 }
-@media (max-width: 750px) {
+@media (max-width: 700px) {
   .v-carousel {margin-top: 40px}
   .name_item_sidebar {
     font-size: 36px;
