@@ -94,7 +94,8 @@
             dark
             small
             color="red"
-            @click.stop="dialog3 = true"
+            href="https://t.me/damaskofficial"
+            target="_blank"
         >
           <v-icon>mdi-telegram</v-icon>
         </v-btn>
@@ -103,8 +104,12 @@
             dark
             small
             color="red"
+            href="https://instagram.com/damask.ishop?utm_medium=copy_link"
+            target="_blank"
         >
-          <v-icon>mdi-instagram</v-icon>
+          <v-icon>
+            mdi-instagram
+          </v-icon>
         </v-btn>
       </v-speed-dial>
     </div>
