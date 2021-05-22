@@ -31,9 +31,11 @@
                   class="mx-4"
                   dark
                   icon
+                  :href="icon.link "
+                  target="_blank"
               >
                 <v-icon size="24px">
-                  {{ icon }}
+                  {{ icon.icon }}
                 </v-icon>
               </v-btn>
             </v-card-text>
@@ -52,7 +54,14 @@ export default {
   name: 'main-layout',
   data: () => ({
     icons: [
-      'mdi-instagram'
+      {
+        icon: 'mdi-instagram',
+        link: 'https://instagram.com/damask.ishop?utm_medium=copy_link'
+      },
+      {
+        icon: 'mdi-telegram',
+        link: 'https://t.me/damaskofficial'
+      }
     ],
     isOpen: true,
     loading: true
