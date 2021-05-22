@@ -12,7 +12,7 @@
   "dependencies": {
     "@grpc/proto-loader": "^0.5.5",
     "animate.css": "^4.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "concurrently": "^5.2.0",
     "core-js": "^3.6.5",
     "deepmerge": "^4.2.2",
