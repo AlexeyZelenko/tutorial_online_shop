@@ -145,7 +145,7 @@
 }
 
 .Google {
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2F2015_vselennaya.jpg?alt=media&token=302a3d6b-716f-43f8-a336-1b982d824ad5');
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/online-shop-34af2.appspot.com/o/assets%2Fimages%2F2015_vselennaya.jpg?alt=media&token=302a3d6b-716f-43f8-a336-1b982d824ad5');
   background-size: cover;
   background-position: 0 0;
   background-repeat: no-repeat;
