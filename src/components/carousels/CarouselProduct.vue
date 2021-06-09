@@ -85,9 +85,12 @@
           class="carousel_horizontal"
       >
         <v-tabs
+            class="v-slide-group__content"
             show-arrows
         >
-          <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
+          <v-tabs-slider
+              color="teal lighten-3"
+          ></v-tabs-slider>
           <v-tab
               class="main-color"
               v-for="(item, i) in arrayImagesViews"
@@ -131,7 +134,15 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.v-slide-group__content {
+  display: flex;
+  flex: 1 0 auto;
+  position: relative;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  white-space: nowrap;
+  background-color: #ecfcf0;
+}
 .main-color {
   background-color: $main-color
 }

@@ -1,5 +1,6 @@
 <template>
 	<div
+      v-if="product_data.available"
 			:data-index="index"
 			class="v-catalog-item my-4 mx-2"
 	>

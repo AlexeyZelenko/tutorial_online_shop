@@ -154,7 +154,6 @@
 											:search="search"
 											@page-count="pageCount = $event"
 											class="elevation-1"
-											disable-sort
 											hide-default-footer
 											item-key="id"
 									>
@@ -175,13 +174,12 @@
 											<v-chip :color="getColor(item.price)" dark>{{ item.price }}</v-chip>
 										</template>
 
-										<template v-slot:item.clothingSize="{ item }">
-											<v-chip :color="getColor2(item.clothingSize)" dark>{{ item.clothingSize }}</v-chip>
-										</template>
-
-										<template v-slot:item.description="{ item }">
-											<span v-html="item.description"/>
-										</template>
+                    <template v-slot:item.available="{ item }">
+                      <v-simple-checkbox
+                          v-model="item.available"
+                          disabled
+                      ></v-simple-checkbox>
+                    </template>
 
 										<template v-slot:item.actions="{ item }">
 											<v-row justify="space-around">
@@ -687,12 +685,12 @@
 									<div
                       class="check_box py-4"
                   >
-										<v-checkbox
-												color="success"
-												hide-details
-												label="Отображать в каталоге"
-												v-model="editedItem.available"
-										></v-checkbox>
+<!--										<v-checkbox-->
+<!--												color="success"-->
+<!--												hide-details-->
+<!--												label="Отображать в каталоге"-->
+<!--												v-model="editedItem.presence"-->
+<!--										></v-checkbox>-->
 										<v-checkbox
 												color="orange"
 												hide-details
@@ -703,7 +701,7 @@
                         color="success"
                         hide-details
                         label="Наличие на складе"
-                        v-model="editedItem.presence"
+                        v-model="editedItem.available"
                     ></v-checkbox>
 
 
@@ -1626,18 +1624,18 @@
                     align: 'start',
                     sortable: false,
                 },
-                {text: '', value: '1'},
-                {text: 'Фото', value: 'arrayImages1'},
-                {text: '', value: '2'},
-                {text: '', value: '3'},
-                {text: 'Бренд', value: 'BrandName.name'},
-                {text: 'Категория', value: 'category'},
-                {text: '', value: '4'},
-                {text: 'Описание', value: 'description'},
-                {text: '', value: '5'},
-                // {text: 'Цена', value: 'price'},
+                {text: '', value: '1', sortable: false},
+                {text: 'Фото', value: 'arrayImages1', sortable: false},
+                {text: '', value: '2', sortable: false},
+                {text: '', value: '3', sortable: false},
+                {text: 'Бренд', value: 'BrandName.name', sortable: true},
+                {text: 'Категория', value: 'category', sortable: false},
+                {text: '', value: '4', sortable: false},
+                {text: 'Описание', value: 'description', sortable: false},
+                {text: '', value: '5', sortable: false},
+                {text: 'Наличие', value: 'available', sortable: true},
                 {text: 'Редактировать/Удалить', value: 'actions', sortable: false},
-                {text: '===========================', value: ''},
+                {text: '========================', value: '', sortable: false},
             ],
             locations: []
         }),
@@ -1895,6 +1893,7 @@
                   arrayImages2: ArrayFile2,
                   arrayImages3: ArrayFile3,
                   arrayImages4: ArrayFile4,
+                  available: editProduct.available,
                   nameColor: editProduct.nameColor,
                   arrayModel: editProduct.arrayModel,
                   arrayColor: editProduct.arrayColor,

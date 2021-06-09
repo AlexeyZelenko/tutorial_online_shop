@@ -73,6 +73,7 @@
                           md="6"
                       >
                         <!--Цвета-->
+                        <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
                         <v-list-item>
                           <v-container
                               class="d-flex justify-start"
@@ -80,77 +81,117 @@
                           >
                             <v-item-group>
                               <v-container>
-                                <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>
-                                <v-row class="py-3">
-                                  <v-col
-                                      v-for="(n, index) in product.arrayColor"
-                                      :key="index"
-                                      cols="3"
-                                      class="px-2"
-                                  >
-                                    <v-item
-                                        class="mr-3"
-                                        v-slot="{ active, toggle }"
-                                    >
-                                      <v-container left>
-                                        <v-btn
-                                            @click="selectColor(index, n); toggle()"
-                                            :color="n"
-                                            class="mx-12"
-                                            dark
-                                            icon
-                                        >
-                                          <v-scroll-y-transition>
-                                            <div
-                                                v-if="active"
-                                                class="display-1 flex-grow-1 text-center"
-                                            >
-                                              <v-icon
-                                                  v-if="nameBrand === 'Apple'"
-                                                  style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
-                                              >
-                                                {{ active ? 'mdi-leaf' : '' }}
-                                              </v-icon>
-                                              <v-icon
-                                                  v-else
-                                                  style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"
-                                              >
-                                                {{ active ? 'mdi-check' : '' }}
-                                              </v-icon>
-                                            </div>
-                                          </v-scroll-y-transition>
-                                          <v-icon
-                                              v-if="nameBrand === 'Apple'"
-                                              style="text-shadow: 1px 2px 10px #373434"
-                                              size="36px"
-                                          >
-                                            mdi-apple
-                                          </v-icon>
-                                          <v-icon
-                                              v-else-if="nameBrand === 'Google'"
-                                              style="text-shadow: 1px 2px 10px #373434"
-                                              size="36px"
-                                          >
-                                            mdi-google
-                                          </v-icon>
-                                          <v-icon
-                                              v-else
-                                              style="text-shadow: 1px 2px 10px #373434"
-                                              size="36px"
-                                          >
-                                            mdi-opacity
-                                          </v-icon>
-                                        </v-btn>
-                                      </v-container>
 
-                                    </v-item>
-                                  </v-col>
-                                </v-row >
+                                <span
+                                    class="text-center"
+                                    v-for="(n, index) in product.arrayColor"
+                                    :key="index"
+                                >
+<!--                                  <v-chip-->
+<!--                                      class="ma-2"-->
+<!--                                      :color="n"-->
+<!--                                      :text-color="getColor(n)"-->
+<!--                                      @click="selectColor(index, n)"-->
+<!--                                  >-->
+<!--                                    <v-avatar-->
+<!--                                        center-->
+<!--                                    >-->
+<!--                                      <v-icon-->
+<!--                                          v-if="selectcolor2 === n"-->
+<!--                                      >-->
+<!--                                        mdi-check-->
+<!--&lt;!&ndash;                                        mdi-checkbox-marked-circle&ndash;&gt;-->
+<!--                                      </v-icon>-->
+<!--                                    </v-avatar>-->
+<!--&lt;!&ndash;                                    {{n}}&ndash;&gt;-->
+<!--                                  </v-chip>-->
+                                  <v-btn
+                                      class="ma-2"
+                                      :color="n"
+                                      @click="selectColor(index, n)"
+                                      fab
+                                      x-small
+                                  >
+                                  <v-icon
+                                      :color="getColor(n)"
+                                      v-if="selectcolor2 === n"
+                                  >
+                                    mdi-check
+                                  </v-icon>
+                                </v-btn>
+                                </span>
+
+<!--                                <span>Цвет : </span><span style="color: grey">{{nameColorChange}}</span>-->
+<!--                                <v-row class="py-3">-->
+<!--                                  <v-col-->
+<!--                                      v-for="(n, index) in product.arrayColor"-->
+<!--                                      :key="index"-->
+<!--                                      cols="3"-->
+<!--                                      class="px-2"-->
+<!--                                  >-->
+<!--                                    <v-item-->
+<!--                                        class="mr-3"-->
+<!--                                        v-slot="{ active, toggle }"-->
+<!--                                    >-->
+<!--                                      <v-container left>-->
+<!--                                        <v-btn-->
+<!--                                            @click="selectColor(index, n); toggle()"-->
+<!--                                            :color="n"-->
+<!--                                            class="mx-12"-->
+<!--                                            dark-->
+<!--                                            icon-->
+<!--                                        >-->
+<!--                                          <div-->
+<!--                                              v-if="active"-->
+<!--                                              class="display-1 flex-grow-1 text-center"-->
+<!--                                          >-->
+<!--                                            <v-icon-->
+<!--                                                v-if="nameBrand === 'Apple'"-->
+<!--                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"-->
+<!--                                            >-->
+<!--                                              {{ active ? 'mdi-leaf' : '' }}-->
+<!--                                            </v-icon>-->
+<!--                                            <v-icon-->
+<!--                                                v-else-->
+<!--                                                style="color: darkgreen; padding: 0 25px 40px 0px; transform: rotateY(180deg)"-->
+<!--                                            >-->
+<!--                                              {{ active ? 'mdi-check' : '' }}-->
+<!--                                            </v-icon>-->
+<!--                                          </div>-->
+<!--                                          <v-icon-->
+<!--                                              v-if="nameBrand === 'Apple'"-->
+<!--                                              style="text-shadow: 1px 2px 10px #373434"-->
+<!--                                              size="36px"-->
+<!--                                          >-->
+<!--                                            mdi-apple-->
+<!--                                          </v-icon>-->
+<!--                                          <v-icon-->
+<!--                                              v-else-if="nameBrand === 'Google'"-->
+<!--                                              style="text-shadow: 1px 2px 10px #373434"-->
+<!--                                              size="36px"-->
+<!--                                          >-->
+<!--                                            mdi-google-->
+<!--                                          </v-icon>-->
+<!--                                          <v-icon-->
+<!--                                              v-else-->
+<!--                                              style="text-shadow: 1px 2px 10px #373434"-->
+<!--                                              size="36px"-->
+<!--                                          >-->
+<!--                                            mdi-opacity-->
+<!--                                          </v-icon>-->
+<!--                                        </v-btn>-->
+<!--                                      </v-container>-->
+
+<!--                                    </v-item>-->
+<!--                                  </v-col>-->
+<!--                                </v-row >-->
                               </v-container>
                             </v-item-group>
                           </v-container>
                         </v-list-item>
                       </v-col>
+
+<!--                      Модель-->
                       <v-col
                           cols="12"
                           md="6"
@@ -255,12 +296,12 @@
                       </v-list-item-content>
                     </v-list-item>
 
-                    <img
-                        v-if="nameBrand === 'Apple'"
-                        style="height: 50px"
-                        src="@/assets/images/authorised.png"
-                        alt=""
-                    >
+<!--                    <img-->
+<!--                        v-if="nameBrand === 'Apple'"-->
+<!--                        style="height: 50px"-->
+<!--                        src="@/assets/images/authorised.png"-->
+<!--                        alt=""-->
+<!--                    >-->
 
 <!--                    Иконки-->
 <!--                    <v-row>-->
@@ -524,6 +565,9 @@
     export default {
         name: "zProductInformation",
         data: () => ({
+          close () {
+            alert('Chip close clicked')
+          },
           product_modal: {},
           selectedItem: 0,
           dialog: false,
@@ -588,6 +632,11 @@
                 'bindLocationsRef',
                 'VIEW_CART_USER'
             ]),
+          getColor (n) {
+            if (n === 'white') return 'black'
+            else if (n === 'black') return 'white'
+            else return 'black'
+          },
             dialogFalse () {
                 this.product_modal = {}
                 this.dialog = false
@@ -744,6 +793,7 @@
 </script>
 
 <style lang="scss" scoped>
+
 .main-color {
   background-color: $main-color
 }

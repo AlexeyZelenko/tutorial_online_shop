@@ -17,6 +17,24 @@
   }
 }
 
+.v-slide-group__next, .v-slide-group__prev {
+  align-items: center;
+  display: flex;
+  flex: 0 1 52px;
+  justify-content: center;
+  min-width: 52px;
+  background-color: #ecfcf0;
+}
+
+//.v-slide-group__content {
+//  display: flex;
+//  flex: 1 0 auto;
+//  position: relative;
+//  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+//  white-space: nowrap;
+//  background-color: #ecfcf0;
+//}
+
 
 
 $data-table-mobile-row-min-height: 100px !default;

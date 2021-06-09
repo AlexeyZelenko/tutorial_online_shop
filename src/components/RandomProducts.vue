@@ -29,7 +29,11 @@
               width="150"
               @click="toggle"
           >
-            <p style="color: darkcyan">{{item.name}}</p>
+            <p
+                style="color: darkcyan; min-height: 50px; padding: 5px"
+            >
+              {{item.name}}
+            </p>
             <div class="text-center">
               <v-btn
                   @click="productClick(item.id)"
