@@ -337,12 +337,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-combobox
+                                <v-text-field
                                     v-model="editedItem.arrayModel[0]"
-                                    :items="fruits"
                                     label="МОДЕЛЬ #1"
+                                    type="String"
                                     chips
-                                ></v-combobox>
+                                ></v-text-field>
                               </v-row>
                             </v-row>
 
@@ -426,12 +426,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-combobox
+                                <v-text-field
                                     v-model="editedItem.arrayModel[1]"
-                                    :items="fruits"
+                                    tupe="String"
                                     label="МОДЕЛЬ #1"
                                     chips
-                                ></v-combobox>
+                                ></v-text-field>
                               </v-row>
                             </v-row>
 
@@ -515,12 +515,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-combobox
+                                <v-text-field
                                     v-model="editedItem.arrayModel[2]"
-                                    :items="fruits"
+                                    type="String"
                                     label="МОДЕЛЬ #1"
                                     chips
-                                ></v-combobox>
+                                ></v-text-field>
                               </v-row>
                             </v-row>
 
@@ -604,12 +604,12 @@
                                 style="flex: 0 0 auto"
                             >
                               <v-row justify="space-around">
-                                <v-combobox
+                                <v-text-field
                                     v-model="editedItem.arrayModel[3]"
-                                    :items="fruits"
+                                    type="String"
                                     label="МОДЕЛЬ #1"
                                     chips
-                                ></v-combobox>
+                                ></v-text-field>
                               </v-row>
                             </v-row>
 
@@ -1881,6 +1881,8 @@
 
                 let id = editProduct.id
 
+                const A = await editProduct.arrayModel.filter(Boolean)
+
               // console.log('Запуск');
 
                 const updateData = {
@@ -1895,7 +1897,7 @@
                   arrayImages4: ArrayFile4,
                   available: editProduct.available,
                   nameColor: editProduct.nameColor,
-                  arrayModel: editProduct.arrayModel,
+                  arrayModel: A,
                   arrayColor: editProduct.arrayColor,
                   category: editProduct.category,
                   createdAt: editProduct.createdAt,
