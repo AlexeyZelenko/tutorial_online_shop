@@ -337,6 +337,11 @@
               text: 'MacBook',
               figure: 'mac',
               nameBrand: 'Apple'
+            },
+            {
+              text: 'Аксессуары',
+              figure: 'mac_accessories',
+              nameBrand: 'Apple'
             }
           ]
         },

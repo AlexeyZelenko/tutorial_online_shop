@@ -1583,7 +1583,7 @@
             itemsCategories: [
               {
                 name: 'Apple',
-                arrayCategory: ['Iphone', 'AirPods', 'IPad', 'Watch', 'MacBook']
+                arrayCategory: ['Iphone', 'AirPods', 'IPad', 'Watch', 'MacBook', 'Аксессуары_Apple']
               },
               {
                 name: 'Google',
